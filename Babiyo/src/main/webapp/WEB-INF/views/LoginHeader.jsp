@@ -28,7 +28,7 @@ header{
 <header>
 	<div id='logoDiv'>
 		<a href="./LoginHeader.jsp">
-			<img id='logo' alt="로그인 페이지로 이동" src="../../resources/img/logo.png">
+			<img id='logo' alt="로그인 페이지로 이동" src="resources/img/logo.png">
 		</a>
 	</div>
 	<div>
