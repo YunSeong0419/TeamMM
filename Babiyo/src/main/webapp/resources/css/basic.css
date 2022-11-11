@@ -1,0 +1,33 @@
+html, body{
+	padding: 0px;
+	margin: 0px;
+}
+
+body{
+	overflow: scroll;
+}
+
+#wrapDiv{
+	
+	
+	
+}
+
+header{
+	width: 1200px;
+	height: 200px;
+	margin: auto;
+}
+
+#middleDiv{
+	min-height: 650px;
+	width: 1200px;
+	margin: auto;
+}
+
+footer {
+	height: 85px;
+	font-size: 12px;
+	background-color: #E0E0E0;
+	padding: 5px 50px 10px 50px;
+}
