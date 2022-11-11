@@ -22,6 +22,7 @@ header{
 	padding-top: 30px;
 	text-align: center;
 }
+
 </style>
 
 <header>

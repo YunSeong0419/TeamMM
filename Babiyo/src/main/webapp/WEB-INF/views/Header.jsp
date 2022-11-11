@@ -69,7 +69,6 @@ header{
   border-left : 2px solid #A0A0A0;
   height: 30px;
 }
-
 </style>
 
 <header>

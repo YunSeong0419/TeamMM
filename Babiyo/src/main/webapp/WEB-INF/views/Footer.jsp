@@ -24,6 +24,7 @@ footer {
 	margin: 10px;
 	color: #A0A0A0;
 }
+
 </style>
 
 <footer>

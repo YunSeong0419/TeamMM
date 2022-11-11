@@ -73,7 +73,7 @@
 #recommendMealKitDiv{
 	width: 900px;
 	height: 300px;
-	margin: auto;
+	margin: 0px auto 30px auto;
 	border: 1px solid black;
 }
 
@@ -81,20 +81,21 @@
 	height: 50px;
 	font-size: 16px;
 	font-weight: bold;
+	border: 1px solid black;
+}
+
+.recommendMealKitContentDiv{
+	width: 900px;
+	height: 250px;
+	font-size: 16px;
+	float: left;
+	border: 1px solid black;
 }
 
 .recommendMealKitContent{
-	height: 50px;
-	font-size: 16px;
-	float: left;
-}
-
-.recommendMealKitContentImage{
-	width: 200px;
-	height: 200px;
-	text-align: center;
-	line-height: 200px;
-	float: left;
+	width: 225px;
+	float: left;	
+	border: 1px solid black;
 }
 
 .recommendMealKitContentImage > a{
@@ -102,7 +103,8 @@
 	height: 200px;
 	text-align: center;
 	line-height: 200px;
-	float: left;
+
+	border: 1px solid black;
 }
 
 .recommendMealKitContentName{
@@ -110,7 +112,7 @@
 	height: 20px;
 	font-weight: bold;
 	text-align: center;
-	float: left;
+
 }
 
 .recommendMealKitContentPrice{
@@ -147,37 +149,53 @@
 		<div class='recommendMealKitTitle'>
 			<span>추천 밀키트</span>
 		</div>
-		<div class='recommendMealKitContent'>
-			<div>
+		<div class='recommendMealKitContentDiv'>
+			<div class='recommendMealKitContent'>
 				<div class='recommendMealKitContentImage'>
 					<a href="#"><img alt="추천 밀키트 이미지 1" src=""></a>					
 				</div>
-				<div class='recommendMealKitContentName'>(상품명 1)</div>
-				<div class='recommendMealKitContentPrice'>(가격 1)</div>
+				<div class='recommendMealKitContentName'>
+					(상품명 1)
+				</div>
+				<div class='recommendMealKitContentPrice'>
+					(가격 1)
+				</div>
 			</div>
 
-			<div>
+			<div class='recommendMealKitContent'>
 				<div class='recommendMealKitContentImage'>
 					<a href="#"><img alt="추천 밀키트 이미지 2" src=""></a>					
 				</div>
-				<div class='recommendMealKitContentName'>(상품명 2)</div>
-				<div class='recommendMealKitContentPrice'>(가격 2)</div>
+				<div class='recommendMealKitContentName'>
+					(상품명 2)
+				</div>
+				<div class='recommendMealKitContentPrice'>
+					(가격 2)
+				</div>
 			</div>
 
-			<div>
+			<div class='recommendMealKitContent'>
 				<div class='recommendMealKitContentImage'>
 					<a href="#"><img alt="추천 밀키트 이미지 3" src=""></a>					
 				</div>
-				<div class='recommendMealKitContentName'>(상품명 3)</div>
-				<div class='recommendMealKitContentPrice'>(가격 3)</div>
+				<div class='recommendMealKitContentName'>
+					(상품명 3)
+				</div>
+				<div class='recommendMealKitContentPrice'>
+					(가격 3)
+				</div>
 			</div>
 
-			<div>
+			<div class='recommendMealKitContent'>
 				<div class='recommendMealKitContentImage'>
 					<a href="#"><img alt="추천 밀키트 이미지 4" src=""></a>					
 				</div>
-				<div class='recommendMealKitContentName'>(상품명 4)</div>
-				<div class='recommendMealKitContentPrice'>(가격 4)</div>
+				<div class='recommendMealKitContentName'>
+					(상품명 4)
+				</div>
+				<div class='recommendMealKitContentPrice'>
+					(가격 4)
+				</div>
 			</div>
 		</div>
 		
