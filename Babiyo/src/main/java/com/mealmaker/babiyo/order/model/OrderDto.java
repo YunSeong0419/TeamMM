@@ -2,6 +2,9 @@ package com.mealmaker.babiyo.order.model;
 
 import java.util.Date;
 
+import lombok.Data;
+
+@Data
 public class OrderDto {
 
 	private int no;

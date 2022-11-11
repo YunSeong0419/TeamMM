@@ -13,10 +13,10 @@ public class OrderDaoImpl implements OrderDao {
 	String namespace = "com.mealmaker.babiyo.order.";
 	
 	@Override
-	public void selectId() {
+	public String selectId() {
 		// TODO Auto-generated method stub
 		
-		sqlSession.selectOne(namespace + "selectMember");
+		return sqlSession.selectOne(namespace + "selectMember");
 	}
 
 	

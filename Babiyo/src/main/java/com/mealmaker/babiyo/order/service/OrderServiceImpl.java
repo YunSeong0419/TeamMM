@@ -14,15 +14,13 @@ public class OrderServiceImpl implements OrderService{
 		= LoggerFactory.getLogger(OrderServiceImpl.class);
 	
 	@Autowired
-	public OrderDao orderDao;
+	OrderDao orderDao;
 
 	@Override
-	public void selectId() {
+	public String selectId() {
 		// TODO Auto-generated method stub
 		
-		
-		orderDao.selectId();
-		
+		return orderDao.selectId();
 	}
 	
 

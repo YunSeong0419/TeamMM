@@ -1,4 +1,4 @@
-package com.mealmaker.babiyo.order.controller;
+package com.mealmaker.babiyo.admin.controller;
 
 import javax.servlet.http.HttpSession;
 
@@ -14,24 +14,22 @@ import com.mealmaker.babiyo.order.service.OrderService;
 
 // 어노테이션 드리븐
 @Controller
-public class OrderController {
+public class AdminController {
 
 	private static final Logger logger 
-		= LoggerFactory.getLogger(OrderController.class);
+		= LoggerFactory.getLogger(AdminController.class);
 	
-	@Autowired
-	OrderService orderService;
+//	@Autowired
+//	private OrderService orderService;
 	
-	@RequestMapping(value = "/order/select.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/admin.do", method = RequestMethod.GET)
 	public String login(HttpSession session, Model model) {
 		logger.info("Welcome OrderController login! ");
 		
-		String id = orderService.selectId();
-		
-		model.addAttribute("abcd", id);
-		
-		return "order/home";
+		return "inquiry/admin/adminInquiry";
 	}
+	
+	
 	
 	
 	
