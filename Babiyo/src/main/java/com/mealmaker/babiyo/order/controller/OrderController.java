@@ -22,13 +22,12 @@ public class OrderController {
 	@Autowired
 	OrderService orderService;
 	
-	@RequestMapping(value = "/order/select.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/order.do", method = RequestMethod.GET)
 	public String login(HttpSession session, Model model) {
 		logger.info("Welcome OrderController login! ");
 		
 		String id = orderService.selectId();
 		
-		model.addAttribute("abcd", id);
 		
 		return "order/home";
 	}
