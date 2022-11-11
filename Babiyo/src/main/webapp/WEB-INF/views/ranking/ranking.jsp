@@ -7,15 +7,54 @@
 <title>Insert title here</title>
 <style type="text/css">
 table {
-	border: 1px solid black;
 	height: 300px;
 	width: 400px;
+	border: 1px solid black;
 }
+
+#wrapDiv{
+	min-height: 600px;
+	margin: auto;
+	width: 1200px;
+}
+
+.boxCl{
+	margin-left: 200px;
+	
+}
+.topCl{
+	margin: auto;
+	
+}
+.toDayCl{
+	float: left;
+}
+
+.weeklyCl{
+
+}
+
+.underCl{
+	margin: auto;	
+}
+
+.ManCl{
+	float: left;
+}
+
+.woManCl{
+	clear: both;
+}
+
+
 </style>
 </head>
 <body>
-<div>
-<div>
+<jsp:include page="/WEB-INF/views/Header.jsp"/>
+<div id="wrapDiv">
+<div class="boxCl">
+<div class="topCl">
+<div class="toDayCl">
 <table>
 <tr>
 <th colspan="2">오늘 판매량 순위</th>
@@ -44,7 +83,7 @@ table {
 </table>
 </div>
 
-<div>
+<div class="weeklyCl">
 <table>
 <tr>
 <th colspan="2">주간 판매량 순위</th>
@@ -72,8 +111,9 @@ table {
 </tr>
 </table>
 </div>
-
-<div>
+</div>
+<div class="underCl">
+<div class="manCl">
 <table>
 <tr>
 <th colspan="2">남성 판매량 순위</th>
@@ -103,7 +143,7 @@ table {
 </div>
 
 <div>
-<table>
+<table class="woManCl">
 <tr>
 <th colspan="2">여성 판매량 순위</th>
 <td></td>
@@ -130,7 +170,10 @@ table {
 </tr>
 </table>
 </div>
-
 </div>
+</div>
+</div>
+
+<jsp:include page="/WEB-INF/views/Footer.jsp"/>
 </body>
 </html>

@@ -36,6 +36,11 @@
 	height: 180px;
 }
 
+#wrapDiv{
+	min-height: 600px;
+	margin: auto;
+	width: 1200px;
+}
 
 </style>
 <script type="text/javascript">
@@ -43,7 +48,8 @@
 </script>
 </head>
 <body>
-<div>
+<jsp:include page="/WEB-INF/views/Header.jsp"/>
+<div id="wrapDiv">
 
 <div>문의</div>
 
@@ -64,11 +70,11 @@
 	<input class="titleCl" type="text" value="">
 </div>
 
-<div>문의 내용
+<div>문의<br>
 	<input class="myContentsCl" type="text" value="">
 </div>
 
-<div>답변 내용
+<div>답변<br>
 	<input class="contentsCl" type="text" value="">
 </div>
 
@@ -84,5 +90,6 @@
 </form>
 
 </div>
+<jsp:include page="/WEB-INF/views/Footer.jsp"/>
 </body>
 </html>

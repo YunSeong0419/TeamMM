@@ -59,6 +59,10 @@ li{
 a{
 	text-decoration: none;
 }
+
+#wrapDiv{
+	min-height: 600px;
+}
 </style>
 <script type="text/javascript">
 onClick="window.open('http://www.daum.net/','','');"
@@ -67,7 +71,8 @@ onClick="window.open('https://www.google.com/','','');"
 </script>
 </head>
 <body>
-<div>
+<jsp:include page="/WEB-INF/views/Header.jsp"/>
+<div id="wrapDiv">
 <div class="inquiryCl">
  내 문의 목록
 </div>
@@ -168,7 +173,6 @@ onClick="window.open('https://www.google.com/','','');"
 </tr>
 </table>
 </div>
-</div>
 
 <div>
 	<input type="button" value="뒤로가기" onclick="">
@@ -204,7 +208,9 @@ onClick="window.open('https://www.google.com/','','');"
 </li>
 </ul>
 
+</div>
 
+<jsp:include page="/WEB-INF/views/Footer.jsp"/>
 
 </body>
 </html>

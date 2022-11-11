@@ -8,12 +8,16 @@
 <style type="text/css">
 .inquiryCl{
 	font-weight: bold;
+	font-size: 22px;
 }
 table {
 	border: 1px solid black;
 	border-collapse: collapse;
 	width: 900px;
 	height: 350px;
+}
+.tableDiv{
+	margin: 70px;
 }
 th, td{
 	height: 31px;
@@ -58,6 +62,50 @@ li{
 a{
 	text-decoration: none;
 }
+
+#wrapDiv{
+	min-height: 600px;
+	margin: auto;
+	width: 1200px;
+}
+.tableCl{
+	margin: auto;
+}
+
+.divisionCl{
+	width: 60px;
+	height: 30px;
+	font-weight: bold;
+	float: left;
+	text-align: center;
+	line-height: 40px;
+	margin-left: 130px;
+}
+.selectCl{
+	width: 100px;
+	height: 40px;
+	border-radius: 6px;
+	float: left;
+}
+.backCl{
+	margin: 35px 550px;
+}
+.backInput{
+	border:#EAEAEA;
+	background: #EAEAEA;
+	border-radius: 3px;
+	cursor: pointer;
+}
+.nameCl{
+	width: 90px;
+	height: 40px;
+	border-radius: 8px;
+}
+.formCl{
+	float: left;
+	margin-left: 10px;
+}
+
 </style>
 <script type="text/javascript">
 onClick="window.open('http://www.daum.net/','','');"
@@ -66,29 +114,32 @@ onClick="window.open('https://www.google.com/','','');"
 </script>
 </head>
 <body>
-<div>
+<jsp:include page="/WEB-INF/views/Header.jsp"/>
+<div id="wrapDiv">
 <div class="inquiryCl">
- 내 문의 목록
+문의
+</div>
+<div class="divisionCl">
+분류
 </div>
 <div>
-분류
-<select>
+<select class="selectCl">
 	<option selected>완료된 답변</option>
-	<option>처리중인 답변</option>
+	<option>대기중 답변</option>
 	<option>충전</option>
 	<option>주문</option>
 	<option>기타</option>
 </select>
 </div>
 <div>
-	<form action="">
-		<input type="text" value="" placeholder="">
-			
-		<input type="submit" value="검색">
+	<form action="" class="formCl">
+		<span>작성자</span>
+		<input class="nameCl" type="text" value="" placeholder="">
+		<input class="findCl" type="submit" value="검색">
 	</form>
 </div>
-<div>
-<table>
+<div class="tableDiv">
+<table class="tableCl">
 <tr>
 <th class="numTh">번호</th>
 <th class="classTh">분류</th>
@@ -168,16 +219,11 @@ onClick="window.open('https://www.google.com/','','');"
 </tr>
 </table>
 </div>
-</div>
 
-<div>
-	<input type="button" value="뒤로가기" onclick="">
-</div>
 
-<div>
-	<input type="button" value="문의작성" onclick="">
+<div class="backCl">
+	<input class="backInput" type="button" value="뒤로가기" onclick="">
 </div>
-
 
 <ul>
 <li>
@@ -203,8 +249,8 @@ onClick="window.open('https://www.google.com/','','');"
 </a>
 </li>
 </ul>
-
-
+</div>
+<jsp:include page="/WEB-INF/views/Footer.jsp"/>
 
 </body>
 </html>
