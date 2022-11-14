@@ -25,5 +25,12 @@ public class mainPagerController {
 		
 		return "member/mainPage";
 	}
-	
+
+	@RequestMapping(value = "/member/union.do", method = RequestMethod.GET)
+	public String union(HttpSession session, Model model) {
+		logger.info("Welcome Controller union! ");
+		
+		return "member/union";
+	}
 }
+

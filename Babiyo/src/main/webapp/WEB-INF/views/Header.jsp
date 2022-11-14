@@ -2,8 +2,6 @@
 	pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
 <style type="text/css">
 html, body{
 	padding: 0px;
@@ -13,7 +11,7 @@ html, body{
 header{
 	width: 1200px;
 	height: 200px;
-	margin: 0px auto;
+	margin: 0px auto 20px auto;
 }
 
 #logoDiv{
@@ -40,9 +38,10 @@ header{
 	width: 300px;
 	height: 30px;
 	float: right;
+	text-align: right;
 }
 
-#serviceAreaMenuBar > a{
+#serviceAreaMenuBar > div > a{
 	width: 60px;
 	height: 30px;
 	margin: 2px;
@@ -64,18 +63,19 @@ header{
 	font-size: 20px;
 	font-weight: bold;
 	text-decoration: none;
-	color: #666666;
+	color: #4A4A4A;
 	float: left;
 }
 
-.categoryVerticalLine {
+.categoryVerticalLine{
 	display: inline-block;
 	border-left : 1px solid #A0A0A0;
 	height: 47px;
 	float: left;
 }
 
-#headerClearBlock{
+#clearBlock{
+	display: none;
 	clear: both;
 }
 
@@ -89,11 +89,11 @@ header{
 		</div>
 		
 		<div id='serviceAreaMenuBar'>
-		<c:choose>
+			<c:choose>
 				<c:when test="${mname eq admin}">
 					<div id='serviceAreaManagerMenuBar'>
-						<a id='logout' href="#">로그아웃</a>
 						<a id='managerInfo' href="#">관리자</a>
+						<a id='logout' href="#">로그아웃</a>
 					</div>
 				</c:when>
 				
