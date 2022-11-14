@@ -28,12 +28,12 @@ hr{
 	float: left;
 }
 
-#verticalSideManagerMenuBar, #verticalSideMemberMenuBar > div{
+#verticalSideMenuBarArea > div > div{
 	height: 50px; 
 	text-align: center; 
 }
 
-#verticalSideManagerMenuBar, #verticalSideMemberMenuBar > div > a{
+#verticalSideMenuBarArea > div > div > a{
 	color: #4A4A4A;
 	font-size: 18px;
 	font-weight: bold;
