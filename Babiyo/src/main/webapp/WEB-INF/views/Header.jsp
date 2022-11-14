@@ -89,11 +89,14 @@ header{
 		</div>
 		
 		<div id='serviceAreaMenuBar'>
-			<c:if test="${mname eq 관리자}">
-				<div id='serviceAreaManagerMenuBar'>
-					<a id='logout' href="#">로그아웃</a>
-					<a id='managerInfo' href="#">관리자</a>
-				</div>
+		<c:choose>
+				<c:when test="${mname eq admin}">
+					<div id='serviceAreaManagerMenuBar'>
+						<a id='logout' href="#">로그아웃</a>
+						<a id='managerInfo' href="#">관리자</a>
+					</div>
+				</c:when>
+				
 				<c:otherwise>
 					<div id='serviceAreaMemberMenuBar'>
 						<a id='cash' href="#">충전</a>
@@ -103,7 +106,7 @@ header{
 						<a id='logout' href="#">로그아웃</a>
 					</div>
 				</c:otherwise>
-			</c:if>
+			</c:choose>
 		</div>
 	</div>
 	
