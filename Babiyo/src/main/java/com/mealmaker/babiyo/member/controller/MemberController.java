@@ -1,42 +1,43 @@
-//package com.mealmaker.babiyo.member.controller;
-//
-//import java.util.HashMap;
-//import java.util.List;
-//import java.util.Map;
-//
-//import javax.servlet.http.HttpSession;
-//
-//import org.slf4j.Logger;
-//import org.slf4j.LoggerFactory;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.stereotype.Controller;
-//import org.springframework.ui.Model;
-//import org.springframework.web.bind.annotation.RequestMapping;
-//import org.springframework.web.bind.annotation.RequestMethod;
-//import org.springframework.web.bind.annotation.RequestParam;
-//import org.springframework.web.multipart.MultipartHttpServletRequest;
-//
-//import com.edu.member.model.MemberDto;
-//import com.edu.member.service.MemberService;
-//import com.edu.util.Paging;
-//
-//// 어노테이션 드리븐
-//@Controller
-//public class MemberController {
-//
-//	private static final Logger logger 
-//		= LoggerFactory.getLogger(MemberController.class);
-//	
+package com.mealmaker.babiyo.member.controller;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpSession;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+
+import com.mealmaker.babiyo.member.model.MemberDto;
+import com.mealmaker.babiyo.member.service.MemberService;
+import com.mealmaker.babiyo.member.util.Paging;
+
+// 어노테이션 드리븐
+@Controller
+public class MemberController {
+
+	private static final Logger logger 
+		= LoggerFactory.getLogger(MemberController.class);
+	
 //	@Autowired
 //	private MemberService memberService;
-//	
-//	@RequestMapping(value = "/auth/login.do", method = RequestMethod.GET)
-//	public String login(HttpSession session, Model model) {
-//		logger.info("Welcome MemberController login! ");
-//		
-//		return "auth/LoginForm";
-//	}
-//	
+	
+	@RequestMapping(value = "/auth/login.do", method = RequestMethod.GET)
+	public String login(HttpSession session, Model model) {
+		logger.info("Welcome MemberController login! ");
+		
+		
+		return "auth/LoginForm";
+	}
+	
 //	@RequestMapping(value = "/auth/loginCtr.do", method = RequestMethod.POST)
 //	public String loginCtr(String email, String password
 //			, HttpSession session, Model model) {
@@ -72,44 +73,56 @@
 //	// 회원목록 화면으로
 //	@RequestMapping(value = "/member/list.do"
 //		, method = {RequestMethod.GET, RequestMethod.POST})
-//	public String memberList(@RequestParam(defaultValue = "1") int curPage,
-//			@RequestParam(defaultValue = "") String keyword,
-//			@RequestParam(defaultValue = "all") String searchOption, Model model) {
-//		logger.info("Welcome MemberController memberList! curPgae: {}, keyword: {}"
-//			, curPage, keyword);
+//	public String memberList(@RequestParam(defaultValue = "1") int curPage
+//		, @RequestParam(defaultValue = "all") String searchOption
+//		, @RequestParam(defaultValue = "") String keyword
+//		, Model model) {
+//		logger.info("Welcome MemberController memberList! curPgae: {}"
+//				+ ", searchOption: {}"
+//			, curPage, searchOption);
+//		logger.info("keyword: {}", keyword);
 //		
-//		logger.info("searchOption:" + searchOption);
+//		// 처음부터 DB컬럼명을 잘못 구성해서 이사단이 남 후에 서로 일치시키자
+//		if("name".equals(searchOption)) {
+//			searchOption = "mname";
+////			System.out.println(searchOption);
+//		}
 //		
-//		int totalCount = memberService.memberSelectTotalCount(keyword, searchOption);
+//		int totalCount = 
+//			memberService.memberSelectTotalCount(searchOption, keyword);
 //		
 //		Paging memberPaging = new Paging(totalCount, curPage);
 //		int start = memberPaging.getPageBegin();
 //		int end = memberPaging.getPageEnd();
 //		
-//		System.out.println("이거 확인해" + memberPaging.getCurPage());
-//
 //		List<MemberDto> memberList = 
-//			memberService.memberSelectList(start, end, keyword, searchOption);
+//			memberService.memberSelectList(searchOption, keyword, 
+//				start, end);
+//		
+//		// DB에서 잘 사용했으니 이젠 화면에 맞게 되돌리기
+//		if("mname".equals(searchOption)) {
+//			searchOption = "name";
+//		}
+//		
+//		Map<String, Object> searchMap = new HashMap<>();
+//		searchMap.put("searchOption", searchOption);
+//		searchMap.put("keyword", keyword);
 //		
 //		Map<String, Object> pagingMap = new HashMap<String, Object>();
 //		pagingMap.put("totalCount", totalCount);
 //		pagingMap.put("memberPaging", memberPaging);
 //		
-//		Map<String, Object> searchMap = new HashMap<String, Object>();
-//		searchMap.put("keyword", keyword);
-//		searchMap.put("searchOption", searchOption);
-//		
 //		model.addAttribute("memberList", memberList);
-//		model.addAttribute("pagingMap", pagingMap);
 //		model.addAttribute("searchMap", searchMap);
+//		model.addAttribute("pagingMap", pagingMap);
 //		
 //		return "member/MemberListView";
 //	}
 //	
 //	// 회원정보 상세 화면으로
-//	@RequestMapping(value = "/member/one.do", method = RequestMethod.GET)
-//	public String memberOne(int no, int curPage
-//			, String keyword, String searchOption, Model model) {
+//	@RequestMapping(value = "/member/one.do")
+//	public String memberOne(int no, int curPage, String searchOption
+//			, String keyword, Model model) {
 //		logger.info("Welcome memberOne enter! - {}", no);
 //		
 //		Map<String, Object> map = memberService.memberSelectOne(no);
@@ -118,15 +131,15 @@
 //		List<Map<String, Object>> fileList 
 //			= (List<Map<String, Object>>) map.get("fileList");
 //		
-//		Map<String, Object> searchMap = new HashMap<String, Object>();
-//		
-//		searchMap.put("curPage", curPage);
-//		searchMap.put("keyword", keyword);
-//		searchMap.put("searchOption", searchOption);
+//		Map<String, Object> prevMap = new HashMap<>();
+//		prevMap.put("curPage", curPage);
+//		prevMap.put("searchOption", searchOption);
+//		prevMap.put("keyword", keyword);
 //		
 //		model.addAttribute("memberDto", memberDto);
 //		model.addAttribute("fileList", fileList);
-//		model.addAttribute("searchMap", searchMap);
+//		model.addAttribute("prevMap", prevMap);
+//		
 //		
 //		return "member/MemberOneView";
 //	}
@@ -160,8 +173,7 @@
 //	
 //	// 회원수정 화면으로
 //	@RequestMapping(value = "/member/update.do", method = RequestMethod.GET)
-//	public String memberUpdate(int no, int curPage
-//			, String keyword, String searchOption, Model model) {
+//	public String memberUpdate(int no, Model model) {
 //		logger.debug("Welcome MemberController memberUpdate! " + no);
 //		
 //		Map<String, Object> map = memberService.memberSelectOne(no);
@@ -170,15 +182,8 @@
 //		List<Map<String, Object>> fileList 
 //			= (List<Map<String, Object>>) map.get("fileList");
 //		
-//		Map<String, Object> searchMap = new HashMap<String, Object>();
-//		
-//		searchMap.put("curPage", curPage);
-//		searchMap.put("keyword", keyword);
-//		searchMap.put("searchOption", searchOption);
-//		
 //		model.addAttribute("memberDto", memberDto);
 //		model.addAttribute("fileList", fileList);
-//		model.addAttribute("searchMap", searchMap);
 //		
 //		return "member/MemberUpdateForm";
 //	}
@@ -189,7 +194,6 @@
 //	public String memberUpdateCtr(HttpSession session,
 //		MemberDto memberDto
 //		, @RequestParam(value = "fileIdx", defaultValue = "-1") int fileIdx
-//		, int curPage, String keyword, String searchOption
 //		, MultipartHttpServletRequest multipartHttpServletRequest
 //		, Model model) {
 //		logger.info("Welcome MemberController memberUpdateCtr {} :: {}" 
@@ -210,10 +214,10 @@
 //			= (MemberDto)session.getAttribute("_memberDto_");
 //		
 //		if(sessionMemberDto != null) {
-//			if(sessionMemberDto.getNo() == memberDto.getNo()) {
+//			if(sessionMemberDto.getId() == memberDto.getId()) {
 //				MemberDto newMemberDto = new MemberDto();
 //				
-//				newMemberDto.setNo(memberDto.getNo());
+//				newMemberDto.setId(memberDto.getId());
 //				newMemberDto.setEmail(memberDto.getEmail());
 //				newMemberDto.setName(memberDto.getName());
 //				
@@ -223,14 +227,6 @@
 //			}
 //		}
 //		
-//		Map<String, Object> searchMap = new HashMap<String, Object>();
-//		
-//		searchMap.put("curPage", curPage);
-//		searchMap.put("keyword", keyword);
-//		searchMap.put("searchOption", searchOption);
-//		
-//		model.addAttribute("searchMap", searchMap);
-//		model.addAttribute("memberDto", memberDto);
 //		
 //		return "common/sucessPage";
 //	}
@@ -238,20 +234,11 @@
 //	// 회원탈퇴
 //	@RequestMapping(value = "/member/deleteCtr.do"
 //		, method = RequestMethod.GET)
-//	public String memberDelete(int no, int curPage
-//			, String keyword, String searchOption, Model model) {
+//	public String memberDelete(int no, Model model) {
 //		logger.info("Welcome MemberController memberDelete! " + no);
 //		
 //		memberService.memberDeleteOne(no);
 //		
-//		Map<String, Object> searchMap = new HashMap<String, Object>();
-//		
-//		searchMap.put("curPage", curPage);
-//		searchMap.put("keyword", keyword);
-//		searchMap.put("searchOption", searchOption);
-//		
-//		model.addAttribute("searchMap", searchMap);
-//		
-//		return "member/MemberDelete";
+//		return "redirect:/member/list.do";
 //	}
-//}
+}
