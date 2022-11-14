@@ -11,7 +11,7 @@ html, body{
 header{
 	width: 1200px;
 	height: 200px;
-	margin: 0px auto 20px auto;
+	margin: 0px auto;
 }
 
 #logoDiv{
@@ -134,6 +134,6 @@ header{
 		</div>
 	</div>
 	
-	<div id='headerClearBlock'></div>
+	<div id='clearBlock'></div>
 	
 </header>

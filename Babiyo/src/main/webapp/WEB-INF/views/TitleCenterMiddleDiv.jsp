@@ -4,7 +4,7 @@
 
 <style type="text/css">
 
-#middleDiv{
+#middleSideDiv{
 	padding: 0px;
 	margin: 0px auto;
 	width: 1200px;
@@ -37,7 +37,7 @@
 </style>
 
 <!-- 밑 div를 닫으면 컨텐츠가 몸통 밑으로 들어가게 됨. 푸터 시작에서 닫음. -->
-<div id='middleDiv'>
+<div id='middleSideDiv'>
 	<div id='contentTitle'></div>
 	
 	<div id='content'>

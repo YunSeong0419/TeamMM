@@ -40,7 +40,7 @@ nav > ul > li > a{
 }
 
 nav > ul > li > a:hover {
-	color: #000000;
+	color: #FF00DD;
 	background-color: #FF5E00;
 	font-size: 16px;
 	font-weight: bold;
