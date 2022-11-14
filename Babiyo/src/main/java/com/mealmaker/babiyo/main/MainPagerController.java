@@ -14,10 +14,10 @@ import com.mealmaker.babiyo.order.service.OrderService;
 
 // 어노테이션 드리븐
 @Controller
-public class mainPagerController {
+public class MainPagerController {
 
 	private static final Logger logger 
-		= LoggerFactory.getLogger(mainPagerController.class);
+		= LoggerFactory.getLogger(MainPagerController.class);
 	
 	@RequestMapping(value = "/member/main.do", method = RequestMethod.GET)
 	public String mainPage(HttpSession session, Model model) {
@@ -31,6 +31,13 @@ public class mainPagerController {
 		logger.info("Welcome Controller union! ");
 		
 		return "member/union";
+	}
+	
+	@RequestMapping(value = "/member/mealkitCategoryPage.do", method = RequestMethod.GET)
+	public String mealkitCategoryPage(HttpSession session, Model model) {
+		logger.info("Welcome Controller mealkitCategory! ");
+		
+		return "member/mealkitCategoryPage";
 	}
 }
 

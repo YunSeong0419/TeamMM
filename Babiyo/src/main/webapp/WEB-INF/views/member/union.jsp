@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 
-<title>페이지 이름이당ㅋ</title>
+<title>회원관리</title>
 
 <style type="text/css">
 #contents{
