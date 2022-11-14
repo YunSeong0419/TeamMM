@@ -1,8 +1,14 @@
 package com.mealmaker.babiyo.order.dao;
 
+import java.util.List;
+
+import com.mealmaker.babiyo.order.model.OrderDto;
+
 public interface OrderDao {
 
-	public String selectId();
+	public List<OrderDto> selectId();
+
+	public void order(OrderDto orderDto);
 	
 	
 }

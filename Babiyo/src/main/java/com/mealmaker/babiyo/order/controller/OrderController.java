@@ -1,5 +1,8 @@
 package com.mealmaker.babiyo.order.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -7,9 +10,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.mealmaker.babiyo.order.model.OrderDetailDto;
+import com.mealmaker.babiyo.order.model.OrderDetailList;
+import com.mealmaker.babiyo.order.model.OrderDto;
 import com.mealmaker.babiyo.order.service.OrderService;
 
 // 어노테이션 드리븐
@@ -22,15 +29,50 @@ public class OrderController {
 	@Autowired
 	OrderService orderService;
 	
-	@RequestMapping(value = "/order.do", method = RequestMethod.GET)
-	public String login(HttpSession session, Model model) {
-		logger.info("Welcome OrderController login! ");
+	@RequestMapping(value = "/order/order.do", method = RequestMethod.GET)
+	public String order(HttpSession session, Model model) {
+		logger.info("Welcome OrderController order! ");
 		
-		String id = orderService.selectId();
+		List<OrderDetailDto> orderDetailList = new ArrayList<>();
 		
+		OrderDetailDto orderDetailDto = new OrderDetailDto();
 		
+		orderDetailDto.setProductNo(1);;
+		orderDetailDto.setProductName("봉골레파스타");
+		orderDetailDto.setPrice(7000);
+		orderDetailDto.setAmount(3);
 		
-		return "order/home";
+		orderDetailList.add(orderDetailDto);
+		
+		orderDetailDto = new OrderDetailDto();
+		orderDetailDto.setProductNo(2);
+		orderDetailDto.setProductName("까르보나라");
+		orderDetailDto.setPrice(8000);
+		orderDetailDto.setAmount(1);
+		
+		orderDetailList.add(orderDetailDto);
+		
+		orderDetailDto = new OrderDetailDto();
+		orderDetailDto.setProductNo(3);
+		orderDetailDto.setProductName("로제파스타");
+		orderDetailDto.setPrice(6000);
+		orderDetailDto.setAmount(2);
+		
+		orderDetailList.add(orderDetailDto);
+		
+		model.addAttribute("orderDetailList", orderDetailList);
+		
+		return "order/orderForm";
+	}
+	
+	@RequestMapping(value = "/order/orderCtr.do", method = RequestMethod.POST)
+	public String orderCtr(OrderDto orderDto, @ModelAttribute(value="OrderDetailList") OrderDetailList orderDetailList
+			,HttpSession session, Model model) {
+		logger.info("Welcome OrderController orderCtr! ");
+		
+		orderService.order(orderDto);
+		
+		return "order/orderForm";
 	}
 	
 	
