@@ -4,12 +4,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>관리자 문의</title>
 <style type="text/css">
-.inquiryCl{
-	font-weight: bold;
-	font-size: 22px;
-}
+
 table {
 	border: 1px solid black;
 	border-collapse: collapse;
@@ -79,7 +76,7 @@ a{
 	float: left;
 	text-align: center;
 	line-height: 40px;
-	margin-left: 130px;
+	margin-left: 580px;
 }
 .selectCl{
 	width: 100px;
@@ -115,10 +112,8 @@ onClick="window.open('https://www.google.com/','','');"
 </head>
 <body>
 <jsp:include page="/WEB-INF/views/Header.jsp"/>
+<jsp:include page="/WEB-INF/views/CommonMiddleDiv.jsp" />
 <div id="wrapDiv">
-<div class="inquiryCl">
-문의
-</div>
 <div class="divisionCl">
 분류
 </div>
@@ -250,7 +245,7 @@ onClick="window.open('https://www.google.com/','','');"
 </li>
 </ul>
 </div>
-<jsp:include page="/WEB-INF/views/Footer.jsp"/>
+<jsp:include page="/WEB-INF/views/Footer.jsp"/> 
 
 </body>
 </html>

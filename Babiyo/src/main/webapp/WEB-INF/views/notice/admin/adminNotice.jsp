@@ -66,6 +66,8 @@ onClick="window.open('https://www.google.com/','','');"
 </script>
 </head>
 <body>
+<jsp:include page="/WEB-INF/views/Header.jsp"/>
+<jsp:include page="/WEB-INF/views/CommonMiddleDiv.jsp" />
 <div>
 <div class="noticeCl">
  공지사항
@@ -195,6 +197,6 @@ onClick="window.open('https://www.google.com/','','');"
 </ul>
 
 
-
+<jsp:include page="/WEB-INF/views/Footer.jsp"/>
 </body>
 </html>

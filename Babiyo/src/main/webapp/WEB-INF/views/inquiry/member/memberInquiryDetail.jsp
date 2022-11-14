@@ -1,98 +1,150 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>내가 한 문의</title>
 <style type="text/css">
-
-.sizeCl{
-	font-size: 1.3em;
-}
-
-
-.divisionCl{
-	width: 120px;
-	height: 30px;
+input {
 	border-radius: 6px;
 }
 
-.writerCl{
-	width: 120px;
-	height: 30px;
-	border-radius: 6px;
+#wrapDiv {
+	min-height: 650px;
+	margin: auto;
+	width: 1200px;
+	margin-left: 40px;
 }
 
-.dateCl{
+#fromDiv {
+ 	margin-top: 50px;
+	margin-left:150px;
+	height: 200px;
+}
+
+#leftDiv {
+	float: left;
+}
+
+.leftCl {
+	margin-left: 30px;
+}
+
+#writerInput {
+	width: 120px;
+	height: 30px;
+	margin-left: 20px;
+}
+
+#divisionInput {
+	width: 120px;
+	height: 30px;
+	margin-left: 20px;
+}
+
+#dateInput {
 	width: 150px;
 	height: 30px;
-	border-radius: 6px;
+	margin-left: 20px;
 }
 
-.titleCl{
+#titleInput {
 	width: 600px;
 	height: 30px;
-	border-radius: 6px;
+	margin-left: 35px;
+	margin-top: 20px;
 }
 
-.myContentsCl{
+#contentsDiv{
+	margin-top: 10px;
+}
+
+#contentsDiv{
+	margin-top: 10px;
+}
+
+#contentsDiv{
+	margin-top: 10px;
+	float: left;
+}
+
+#answerId{
+	margin-top: 10px;
+	float: left;
+}
+
+#ContentsInput {
 	width: 900px;
 	height: 180px;
-	border-radius: 6px;
+	margin-top: 10px;
 }
 
-.contentsCl{
+#contentsInput {
 	width: 900px;
 	height: 180px;
-	border-radius: 6px;
+	margin-top: 10px;
 }
 
+#backDiv {
+ 	margin: 15px auto 0px 410px; 
+	width: 100px;
+	float: left;
+	text-align: center;
+}
 
+#answerDiv {
+ 	margin: 15px auto 0px 300px; 
+	width: 100px;
+	float: left;
+	text-align: right;	
+}
 </style>
 <script type="text/javascript">
-
+	
 </script>
 </head>
 <body>
-<div>
+	<jsp:include page="/WEB-INF/views/Header.jsp" />
+	<jsp:include page="/WEB-INF/views/CommonMiddleDiv.jsp" />
+	<div id="wrapDiv">
+		<div id="fromDiv">
+			<form action="" method="get">
+				<div id="leftDiv">
+					작성자 <input id="writerInput" type="text" value="">
+				</div>
 
-<div><h2 class="sizeCl">내가 한 문의</h2></div>
+				<div id="leftDiv" class="leftCl">
+					분류 <input id="divisionInput" type="text" value="">
+				</div>
 
-<form action="" method="get">
-<div class="">분류
-	<input class="divisionCl" type="text" value="">
-</div>
+				<div id="leftDiv" class="leftCl">
+					작성일 <input id="dateInput" type="text" value="">
+				</div>
+				<div id="leftDiv">
+					제목 <input id="titleInput" type="text" value="">
+				</div>
 
-<div>작성자
-	<input class="writerCl" type="text" value="">
-</div>
+				<div id="contentsDiv">
+					내용<br> <input id="ContentsInput" type="text" value="">
+				</div>
 
-<div>작성일
-	<input class="dateCl" type="text" value="">
-</div>
+				<div id="answerId">
+					답변<br> <input id="contentsInput" type="text" value="">
+				</div>
 
-<div>문의 제목
-	<input class="titleCl" type="text" value="">
-</div>
+				<div id="backDiv">
+					<input type="button" value="뒤로가기">
+				</div>
 
-<div>문의 내용<br>
-	<input class="myContentsCl" type="text" value="">
-</div>
+				<div id="answerDiv">
+					<input type="submit" value="수정하기">
+				</div>
 
-<div>답변 내용<br>
-	<input class="contentsCl" type="text" value="">
-</div>
-
-<div>
-	<input type="submit" value="수정">
-</div>
-
-<div>
-	<input type="button" value="뒤로가기">
-</div>
-</form>
-
-</div>
+				<div id="clearBlock"></div><!--float 정리-->
+			</form>
+		</div>
+	</div>
+	<jsp:include page="/WEB-INF/views/Footer.jsp" />
 </body>
 </html>

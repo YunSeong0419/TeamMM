@@ -28,14 +28,7 @@ public class inquiryAdminController {
 		
 		return "inquiry/admin/adminInquiry";
 	}
-	
-	@RequestMapping(value = "/inquiry/admin/update.do", method = RequestMethod.GET)
-	public String adminUpdate(HttpSession session, Model model) {
-		logger.info("Welcome OrderController login! ");
 		
-		return "inquiry/admin/adminInquiryUpdate";
-	}
-	
 	@RequestMapping(value = "/inquiry/admin/write.do", method = RequestMethod.GET)
 	public String adminWrite(HttpSession session, Model model) {
 		logger.info("Welcome OrderController login! ");
@@ -43,6 +36,11 @@ public class inquiryAdminController {
 		return "inquiry/admin/adminInquiryWrite";
 	}
 	
-	
+	@RequestMapping(value = "/inquiry/admin/update.do", method = RequestMethod.GET)
+	public String adminUpdate(HttpSession session, Model model) {
+		logger.info("Welcome OrderController login! ");
+		
+		return "inquiry/admin/adminInquiryUpdate";
+	}
 	
 }

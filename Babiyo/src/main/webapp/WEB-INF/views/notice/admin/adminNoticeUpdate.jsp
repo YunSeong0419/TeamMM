@@ -13,6 +13,8 @@
 </script>
 </head>
 <body>
+<jsp:include page="/WEB-INF/views/Header.jsp"/>
+<jsp:include page="/WEB-INF/views/CommonMiddleDiv.jsp" />
 <div>
 <div>공지작성</div>
 <form action="" method="get">
@@ -38,6 +40,6 @@
 </div>
 
 
-
+<jsp:include page="/WEB-INF/views/Footer.jsp"/>
 </body>
 </html>

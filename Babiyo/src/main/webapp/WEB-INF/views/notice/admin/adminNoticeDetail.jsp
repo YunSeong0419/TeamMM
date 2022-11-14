@@ -13,6 +13,8 @@
 </script>
 </head>
 <body>
+<jsp:include page="/WEB-INF/views/Header.jsp"/>
+<jsp:include page="/WEB-INF/views/CommonMiddleDiv.jsp" />
 <div>
 <div>공지사항</div>
 
@@ -35,5 +37,6 @@
 <button>뒤로가기</button>
 
 </div>
+<jsp:include page="/WEB-INF/views/Footer.jsp"/>
 </body>
 </html>

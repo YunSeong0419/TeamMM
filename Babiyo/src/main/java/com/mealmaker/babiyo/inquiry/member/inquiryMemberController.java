@@ -29,11 +29,11 @@ public class inquiryMemberController {
 		return "inquiry/member/memberInquiry";
 	}
 	
-	@RequestMapping(value = "/inquiry/member/update.do", method = RequestMethod.GET)
-	public String memberUpdate(HttpSession session, Model model) {
+	@RequestMapping(value = "/inquiry/member/detail.do", method = RequestMethod.GET)
+	public String memberDetail(HttpSession session, Model model) {
 		logger.info("Welcome OrderController login! ");
 		
-		return "inquiry/member/memberInquiryUpdate";
+		return "inquiry/member/memberInquiryDetail";
 	}
 	
 	@RequestMapping(value = "/inquiry/member/write.do", method = RequestMethod.GET)
@@ -43,6 +43,11 @@ public class inquiryMemberController {
 		return "inquiry/member/memberInquiryWrite";
 	}
 	
-	
-	
+	@RequestMapping(value = "/inquiry/member/update.do", method = RequestMethod.GET)
+	public String memberUpdate(HttpSession session, Model model) {
+		logger.info("Welcome OrderController login! ");
+		
+		return "inquiry/member/memberInquiryUpdate";
+	}
+
 }
