@@ -1,10 +1,11 @@
 package com.mealmaker.babiyo.order.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
 import com.mealmaker.babiyo.order.model.OrderDetailDto;
@@ -36,14 +37,16 @@ public class OrderDaoImpl implements OrderDao {
 	public void orderDetail(List<OrderDetailDto> detailList) {
 		// TODO Auto-generated method stub
 		
-		sqlSession.insert(namespace + "orderDetail", detailList);
+		for (OrderDetailDto orderDetailDto : detailList) {
+			sqlSession.insert(namespace + "orderDetail", orderDetailDto);
+		}
 	
 	}
 
 	@Override
-	public OrderDto lastOrder() {
+	public OrderDto lastOrder(String memberId) {
 		// TODO Auto-generated method stub
-		return sqlSession.selectOne(namespace + "lastOrder");
+		return sqlSession.selectOne(namespace + "lastOrder", memberId);
 	}
 
 	

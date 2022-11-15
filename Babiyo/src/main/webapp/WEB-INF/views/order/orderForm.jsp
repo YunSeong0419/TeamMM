@@ -164,27 +164,27 @@ $(document).ready(function(){
 			<form action="./orderCtr.do" method="post" id="receiverForm">
 				<div class="receiverInfoDiv">
 					<span class="receiverInfo">받으시는 분 성함</span> <input type="text"
-						name="receiverName" class="receiverInput" value="">
+						name="receiverName" class="receiverInput" value="${_memberDto_.name}">
 				</div>
 				<div class="receiverInfoDiv">
 					<span class="receiverInfo">받으시는 분 연락처</span> <input type="text"
-						name="receiverPhone" class="receiverInput" value="">
+						name="receiverPhone" class="receiverInput" value="${_memberDto_.phone}">
 				</div>
 				<div class="receiverInfoDiv">
 					<span class="receiverInfo">배송지 입력</span> <input type="text"
-						name="address" class="receiverInput">
+						name="address" class="receiverInput" value="인천 서구 어느동 12번지">
 				</div>
 				<div class="receiverInfoDiv">
 					<span class="receiverInfo">우편번호</span> <input type="text"
-						name="post" class="receiverInput">
+						name="post" class="receiverInput" value="123-234">
 				</div>
 				<div class="receiverInfoDiv">
 					<span class="receiverInfo">상세주소</span> <input type="text"
-						name="addressDetail" class="receiverInput">
+						name="addressDetail" class="receiverInput" value="3동 704호">
 				</div>
 				<div class="receiverInfoDiv">
 					<span id="requestInfo" class="receiverInfo">배송 시 요청사항</span>
-					<textarea name="request" id="requestText" class="receiverInput"></textarea>
+					<textarea name="request" id="requestText" class="receiverInput">테스트 요청사항입니다</textarea>
 				</div>
 				
 				<div>
@@ -194,7 +194,7 @@ $(document).ready(function(){
 						<input type="hidden" class="price" name="orderDetailList[${status.index}].price" value="${mealkit.price}">
 					</c:forEach>
 					<input type="hidden" id="totalPrice" name="totalPrice" value="">
-					<input type="hidden" id="memberId" name="memberId" value="">
+					<input type="hidden" id="memberId" name="memberId" value="${_memberDto_.id}">
 				</div>
 				
 			</form>
@@ -217,7 +217,8 @@ $(document).ready(function(){
 			</div>
 			<div>
 				<p>
-					<span id="balanceName">보유금액</span> <span id="balanceMoney"></span>
+					<span id="balanceName">보유금액</span>
+					<span id="balanceMoney"><fmt:formatNumber pattern="#,###">${_memberDto_.cash}</fmt:formatNumber>원</span>
 				</p>
 				<p>
 					<span id="totalPriceName">총 결제금액</span> <span id="totalPriceMoney"></span>

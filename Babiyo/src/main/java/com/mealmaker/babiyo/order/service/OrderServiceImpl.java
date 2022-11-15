@@ -28,7 +28,7 @@ public class OrderServiceImpl implements OrderService{
 	}
 
 	@Override
-	public void order(OrderDto orderDto, List<OrderDetailDto> detailList) {
+	public int order(OrderDto orderDto, List<OrderDetailDto> detailList) {
 		// TODO Auto-generated method stub
 		orderDao.order(orderDto);
 		
@@ -36,15 +36,17 @@ public class OrderServiceImpl implements OrderService{
 		
 		for (OrderDetailDto orderDetailDto : detailList) {
 			orderDetailDto.setOrderNo(orderNo);;
+			
 		}
 		orderDao.orderDetail(detailList);
 		
+		return orderNo;
 	}
 
 	@Override
-	public OrderDto lastOrder() {
+	public OrderDto lastOrder(String memberId) {
 		// TODO Auto-generated method stub
-		return orderDao.lastOrder();
+		return orderDao.lastOrder(memberId);
 	}
 	
 

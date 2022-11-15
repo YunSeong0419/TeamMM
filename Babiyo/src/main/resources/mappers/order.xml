@@ -5,7 +5,6 @@
 
 <resultMap type="orderDto" id="orderResultMap">
 <id column="NO" property="no"/>
-<result column="NO" property="no"/>
 <result column="MEMBER_ID" property="memberId"/>
 <result column="ORDER_DATE" property="orderDate" javaType="java.util.Date"/>
 <result column="TOTAL_PRICE" property="totalPrice"/>
@@ -27,15 +26,15 @@
 <result column="CONTENT" property="content"/>
 </resultMap>
 
-
-<select id="orderList" resultMap="orderResultMap">
+<select id="lastOrder" resultMap="orderResultMap" parameterType="String">
 SELECT *
-FROM MEMBER_ORDER
+FROM (SELECT *
+		FROM MEMBER_ORDER
+		WHERE MEMBER_ID = #{memberId}
+		ORDER BY ORDER_DATE DESC) 
+WHERE <![CDATA[ ROWNUM <= 1 ]]>
 </select>
 
-<select id="cartList" resultMap="productResultMap">
-
-</select>
 
 <insert id="order" parameterType="orderDto"
 useGeneratedKeys="true" keyProperty="no">
@@ -47,26 +46,15 @@ INSERT INTO MEMBER_ORDER
 VALUE(NO, MEMBER_ID,ORDER_DATE,TOTAL_PRICE,RECEIVER_NAME,RECEIVER_PHONE,POST,ADDRESS
 	,ADDRESS_DETAIL,REQUEST,STATE_CODE)
 VALUES(#{no} ,#{memberId}, SYSDATE, #{totalPrice}, #{receiverName}, #{receiverPhone}, #{post}, #{address}
-, #{addressDetail}, #{request}, 1);
+, #{addressDetail}, #{request}, 1)
 </insert>
 
-<!-- <insert id="orderDetail" parameterType="java.util.List"> -->
-<!-- INSERT INTO ORDER_DETAIL -->
-<!-- VALUE(NO,ORDER_NO,PRODUCT_NO,AMOUNT,PRICE) -->
-<!-- VALUES -->
-<!-- <foreach collection="list" separator="," item="detail"> -->
-<!-- 	(SEQ_ORDER_DETAIL_NO.NEXTVAL, #{detail.orderNo}, #{detail.productNo}, #{detail.amount}, #{detail.price}) -->
-<!-- </foreach> -->
-<!-- </insert> -->
+<insert id="orderDetail" parameterType="orderDetailDto">
+INSERT INTO ORDER_DETAIL(NO, ORDER_NO, PRODUCT_NO, AMOUNT, PRICE)
+VALUES(SEQ_ORDER_DETAIL_NO.NEXTVAL, #{orderNo}, #{productNo}, #{amount}, #{price})
+</insert>
 
-<!-- <select id="lastOrder" resultType="orderDto"> -->
-<!-- SELECT * -->
-<!-- FROM (SELECT * -->
-<!-- 		FROM MEMBER_ORDER -->
-<!-- 		WHERE MEMBER_ID = #{memberId} -->
-<!-- 		ORDER BY ORDER_DATE DESC)  -->
-<!-- WHERE <![CDATA[ ROWNUM <= 1 ]]> -->
-<!-- </select> -->
+
 
 
 </mapper>

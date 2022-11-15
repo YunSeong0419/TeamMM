@@ -5,6 +5,7 @@
 <configuration>
    <typeAliases>
       <typeAlias type="com.mealmaker.babiyo.order.model.OrderDto"   alias="orderDto" />
+      <typeAlias type="com.mealmaker.babiyo.order.model.OrderDetailDto"   alias="orderDetailDto" />
       <typeAlias type="com.mealmaker.babiyo.member.model.MemberDto" alias="memberDto" />
    </typeAliases>
 </configuration>

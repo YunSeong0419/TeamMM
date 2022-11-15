@@ -1,6 +1,7 @@
 package com.mealmaker.babiyo.order.controller;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -32,6 +33,29 @@ public class OrderController {
 	public String order(HttpSession session, Model model) {
 		logger.info("Welcome OrderController order! ");
 
+		MemberDto memberDto = new MemberDto();
+		
+		String id = "dong";
+		String password = "123";
+		String name = "이동현";
+		String email = "dong@test.com";
+		String phone = "01055553333";
+		String nickname = "동현";
+		int cash = 1000000;
+		int grade = 2;
+		
+		session.setAttribute("_memberDto_", memberDto);
+		
+		memberDto.setId(id);
+		memberDto.setPassword(password);
+		memberDto.setName(name);
+		memberDto.setEmail(email);
+		memberDto.setPhone(phone);
+		memberDto.setNickname(nickname);
+		memberDto.setCash(cash);
+		memberDto.setGrade(grade);
+		
+		
 		List<OrderDetailDto> orderDetailList = new ArrayList<>();
 		
 		OrderDetailDto orderDetailDto = new OrderDetailDto();
@@ -68,20 +92,24 @@ public class OrderController {
 	public String orderCtr(OrderDto orderDto, OrderDetailDto orderDetailDto, HttpSession session, Model model) {
 		logger.info("Welcome OrderController orderCtr! " + orderDto);
 		
-//		List<OrderDetailDto> detailList = orderDetailDto.getOrderDetailList();
-
-//		orderService.order(orderDto, detailList);
+		List<OrderDetailDto> detailList = orderDetailDto.getOrderDetailList();
+		
+		int orderNo = orderService.order(orderDto, detailList);
 		
 		
-		return "redirect:/order/orderComplete.do";
+		return "redirect:/order/orderComplete.do?orderNo=" + orderNo;
 	}
 	
 	@RequestMapping(value = "/order/orderComplete.do", method = RequestMethod.GET)
 	public String orderComplete(HttpSession session, Model model) {
 		logger.info("Welcome OrderController orderComplete! ");
-//		session.getAttribute("memberDto");
+		MemberDto memberDto = (MemberDto) session.getAttribute("_memberDto_");
 		
-//		OrderDto orderDto = orderService.lastOrder();
+		String memberId = memberDto.getId();
+		
+		OrderDto orderDto = orderService.lastOrder(memberId);
+		
+		model.addAttribute("orderDto", orderDto);
 		
 		return "order/orderComplete";
 	}

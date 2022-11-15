@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -83,21 +85,26 @@
 		<div id="receiverInfo" class="info">
 			<span id="receiverInfoTitle">받는사람 정보</span>
 			<ul id="receiverInfoUl">
-				<li><span>받는사람</span> <span></span></li>
-				<li><span>받는주소</span> <span></span></li>
-				<li><span>요청사항</span> <span></span></li>
+				<li><span>받는사람</span> <span>${orderDto.receiverName}</span></li>
+				<li><span>받는주소</span> <span>${orderDto.address} ${orderDto.addressDetail}</span></li>
+				<li><span>요청사항</span> <span>${orderDto.request}</span></li>
 			</ul>
-		
+			
 		</div>
 		
 		<hr class="info" style="">
 		
 		<div id="paymentInfo" class="info">
 			<span id="paymentInfoTitle">결제 정보</span>
-			
-			<div><span>주문금액</span><span>${totalPrice}원</span></div>
+			<div>
+				<span>주문금액</span>
+				<span><fmt:formatNumber pattern="#,###">${orderDto.totalPrice}</fmt:formatNumber>원</span>
+			</div>
 			<hr>
-			<div><span>결제후 보유금액</span><span>${cashBalance}원</span></div>
+			<div>
+				<span>결제후 보유금액</span>
+				<span><fmt:formatNumber pattern="#,###">${_memberDto_.cash}</fmt:formatNumber>원</span>
+			</div>
 		</div>
 		
 		<hr style="clear:both;">

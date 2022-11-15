@@ -9,8 +9,8 @@ public interface OrderService {
 	
 	public List<OrderDto> selectId();
 
-	public void order(OrderDto orderDto, List<OrderDetailDto> detailList);
+	public int order(OrderDto orderDto, List<OrderDetailDto> detailList);
 
-	public OrderDto lastOrder();
+	public OrderDto lastOrder(String memberId);
 	
 }
