@@ -9,7 +9,7 @@ public interface MemberDao {
 
 	public List<MemberDto> memberSelectList(String searchOption, 
 		String keyword,	int start, int end);
-	public MemberDto memberExist(String email, String password);
+	public MemberDto memberExist(String id, String password);
 	public int memberInsertOne(MemberDto memberDto);
 	public MemberDto memberSelectOne(int no);
 	int memberUpdateOne(MemberDto memberDto);

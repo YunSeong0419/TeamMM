@@ -1,9 +1,5 @@
 package com.mealmaker.babiyo.member.controller;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -13,12 +9,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.mealmaker.babiyo.member.model.MemberDto;
 import com.mealmaker.babiyo.member.service.MemberService;
-import com.mealmaker.babiyo.member.util.Paging;
 
 // 어노테이션 드리븐
 @Controller
@@ -27,8 +20,8 @@ public class MemberController {
 	private static final Logger logger 
 		= LoggerFactory.getLogger(MemberController.class);
 	
-//	@Autowired
-//	private MemberService memberService;
+	@Autowired
+	private MemberService memberService;
 	
 	@RequestMapping(value = "/auth/login.do", method = RequestMethod.GET)
 	public String login(HttpSession session, Model model) {
@@ -38,26 +31,27 @@ public class MemberController {
 		return "auth/LoginForm";
 	}
 	
-//	@RequestMapping(value = "/auth/loginCtr.do", method = RequestMethod.POST)
-//	public String loginCtr(String email, String password
-//			, HttpSession session, Model model) {
-//		logger.info("Welcome MemberController loginCtr! " + email 
-//			+ ", " + password);
-//		
-//		MemberDto memberDto = memberService.memberExist(email, password);
-//		
-//		String viewUrl = "";
-//		if(memberDto != null) {
-//			session.setAttribute("_memberDto_", memberDto);
-////			session.setMaxInactiveInterval(60);
-//			
-//			viewUrl = "redirect:/member/list.do";
-//		}else {
-//			viewUrl = "/auth/LoginFail";
-//		}
-//		
-//		return viewUrl;
-//	}
+	@RequestMapping(value = "/auth/loginCtr.do", method = RequestMethod.POST)
+	public String loginCtr(String id, String password
+			, HttpSession session, Model model) {
+		logger.info("Welcome MemberController loginCtr! " + id 
+			+ ", " + password);
+		
+		MemberDto memberDto = memberService.memberExist(id, password);
+		logger.info("wel" + id + password);
+		logger.info("wel" + memberDto);
+		String viewUrl = "";
+		if(memberDto != null) {
+			session.setAttribute("_memberDto_", memberDto);
+//			session.setMaxInactiveInterval(60);
+			logger.info("Welcome");
+			viewUrl = "/main/main";
+		}else {
+			viewUrl = "/auth/LoginFail";
+		}
+		
+		return viewUrl;
+	}
 //	
 //	//로그아웃
 //	@RequestMapping(value = "/auth/logout.do", method = RequestMethod.GET)

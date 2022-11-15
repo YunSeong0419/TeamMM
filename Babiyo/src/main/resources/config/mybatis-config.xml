@@ -3,7 +3,8 @@
   PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
-	<typeAliases>
-		<typeAlias type="com.mealmaker.babiyo.order.model.OrderDto"	alias="orderDto" />
-	</typeAliases>
+   <typeAliases>
+      <typeAlias type="com.mealmaker.babiyo.order.model.OrderDto"   alias="orderDto" />
+      <typeAlias type="com.mealmaker.babiyo.member.model.MemberDto" alias="memberDto" />
+   </typeAliases>
 </configuration>

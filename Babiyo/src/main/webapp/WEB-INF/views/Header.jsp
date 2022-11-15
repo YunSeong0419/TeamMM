@@ -90,7 +90,7 @@ header{
 		
 		<div id='serviceAreaMenuBar'>
 			<c:choose>
-				<c:when test="${mname eq admin}">
+				<c:when test="${id eq admin}">
 					<div id='serviceAreaManagerMenuBar'>
 						<a id='managerInfo' href="#">관리자</a>
 						<a id='logout' href="#">로그아웃</a>

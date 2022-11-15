@@ -34,12 +34,12 @@ public class MemberDaoImpl<string> implements MemberDao{
 //	}
 
 	@Override
-	public MemberDto memberExist(String email, String password) {
+	public MemberDto memberExist(String id, String password) {
 		// TODO Auto-generated method stub
 		
 		HashMap<String, Object> paramMap = new HashMap<String, Object>();
-		paramMap.put("email", email);
-		paramMap.put("pwd", password);
+		paramMap.put("id", id);
+		paramMap.put("password", password);
 		
 		MemberDto memberDto 
 			= sqlSession.selectOne(namespace + "memberExist", paramMap);

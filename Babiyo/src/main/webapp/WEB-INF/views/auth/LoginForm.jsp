@@ -77,8 +77,7 @@
 	.categoryVerticalLine{
    display: inline-block;
    border-left : 1px solid #A0A0A0;
-   height: 47px;
-   float: left;
+   height: 10px;
 }
 
 </style>
@@ -95,7 +94,7 @@
 			<h3 style="text-align: center; margin-bottom: 200px; border-top: 10px; border-top-color: gray;">로그인</h3>
 		</div>
 		<div id='titleForm'>
-			<form action="./login" method="post">
+			
 				<div>
 					<ul id='loginMethodList'>
 						<li><a style=" border-right: 1px; border-right-color: grey;" href="./findId">아이디 찾기</a></li>
@@ -105,11 +104,17 @@
 				</div>
 						
 				<div>
-					<input type="text" name="mid" id="boxSizeAjdust1" placeholder="아이디">
+				<form action="./loginCtr.do" method="post">
+					<input type="text" name="id" id="boxSizeAjdust1" placeholder="아이디">
 					<br>
-					<input type="password" name="pwd" id="boxSizeAjdust2" placeholder="비밀번호">
+					<input type="password" name="password" id="boxSizeAjdust2" placeholder="비밀번호">
+					<div>
+					<input type="submit" id="loginBtnSizeAjdust" value="로그인" style="float: left">
+					<input type="button" id="memberAddBtn" value="회원가입">
 				</div>
-			
+				</form>
+				</div>
+				
 				<div style="margin-top: 5px; text-align: left;">
 					<label for="together" style="font-size: 14px; 
 								color: #888; cursor: pointer;">
@@ -117,11 +122,8 @@
 				</div>
 				<br>
 				<br>
-				<div>
-					<input type="submit" id="loginBtnSizeAjdust" value="로그인" style="float: left">
-					<input type="button" id="memberAddBtn" value="회원가입">
-				</div>
-			</form>
+				
+			
 		</div>
 	</div>
 	
