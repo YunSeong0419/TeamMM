@@ -1,4 +1,4 @@
-package com.mealmaker.babiyo.inquiry.member;
+package com.mealmaker.babiyo.inquiry.controller;
 
 import javax.servlet.http.HttpSession;
 
@@ -14,10 +14,10 @@ import com.mealmaker.babiyo.order.service.OrderService;
 
 // 어노테이션 드리븐
 @Controller
-public class inquiryMemberController {
+public class InquiryMemberController {
 
 	private static final Logger logger 
-		= LoggerFactory.getLogger(inquiryMemberController.class);
+		= LoggerFactory.getLogger(InquiryMemberController.class);
 	
 //	@Autowired
 //	private OrderService orderService;

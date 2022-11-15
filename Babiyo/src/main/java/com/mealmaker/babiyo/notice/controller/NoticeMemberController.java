@@ -1,4 +1,4 @@
-package com.mealmaker.babiyo.ranking;
+package com.mealmaker.babiyo.notice.controller;
 
 import javax.servlet.http.HttpSession;
 
@@ -14,19 +14,27 @@ import com.mealmaker.babiyo.order.service.OrderService;
 
 // 어노테이션 드리븐
 @Controller
-public class rankingController {
+public class NoticeMemberController {
 
 	private static final Logger logger 
-		= LoggerFactory.getLogger(rankingController.class);
+		= LoggerFactory.getLogger(NoticeMemberController.class);
 	
 //	@Autowired
 //	private OrderService orderService;
 	
-	@RequestMapping(value = "/ranking.do", method = RequestMethod.GET)
-	public String ranking(HttpSession session, Model model) {
+	@RequestMapping(value = "/notice/member.do", method = RequestMethod.GET)
+	public String memberNotice(HttpSession session, Model model) {
 		logger.info("Welcome OrderController login! ");
 		
-		return "ranking/ranking";
+		return "notice/member/memberNotice";
 	}
-
+	
+	@RequestMapping(value = "/notice/member/detail.do", method = RequestMethod.GET)
+	public String memberDetail(HttpSession session, Model model) {
+		logger.info("Welcome OrderController login! ");
+		
+		return "notice/member/memberNoticeDetail";
+	}
+		
+	
 }

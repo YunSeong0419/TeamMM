@@ -1,4 +1,4 @@
-package com.mealmaker.babiyo.notice.admin;
+package com.mealmaker.babiyo.notice.controller;
 
 import javax.servlet.http.HttpSession;
 
@@ -14,10 +14,10 @@ import com.mealmaker.babiyo.order.service.OrderService;
 
 // 어노테이션 드리븐
 @Controller
-public class noticeAdminController {
+public class NoticeAdminController {
 
 	private static final Logger logger 
-		= LoggerFactory.getLogger(noticeAdminController.class);
+		= LoggerFactory.getLogger(NoticeAdminController.class);
 	
 //	@Autowired
 //	private OrderService orderService;
