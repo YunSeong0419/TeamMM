@@ -131,8 +131,9 @@ $(document).ready(function(){
 		totalPrice += Number($(element).val()) * Number($('.amount').eq(i).val());
 	});
 	
-	var htmlStr =  totalPrice.toLocaleString('ko-KR') + '원';
+	var htmlStr = totalPrice.toLocaleString('ko-KR') + '원';
 	
+	$('#totalPrice').val(totalPrice);
 	$('#totalPriceMoney').html(htmlStr);
 	
 	$('#orderBtn').click(function(){
@@ -160,14 +161,14 @@ $(document).ready(function(){
 		<div id="receiverDiv">
 			<span id="receiverTitle">받는사람 정보</span>
 
-			<form action="/orderCtr.do" method="post" id="receiverForm">
+			<form action="./orderCtr.do" method="post" id="receiverForm">
 				<div class="receiverInfoDiv">
 					<span class="receiverInfo">받으시는 분 성함</span> <input type="text"
-						name="receiverName" class="receiverInput">
+						name="receiverName" class="receiverInput" value="">
 				</div>
 				<div class="receiverInfoDiv">
 					<span class="receiverInfo">받으시는 분 연락처</span> <input type="text"
-						name="receiverPhone" class="receiverInput">
+						name="receiverPhone" class="receiverInput" value="">
 				</div>
 				<div class="receiverInfoDiv">
 					<span class="receiverInfo">배송지 입력</span> <input type="text"
@@ -186,11 +187,15 @@ $(document).ready(function(){
 					<textarea name="request" id="requestText" class="receiverInput"></textarea>
 				</div>
 				
-				<c:forEach items="${orderDetailList}" var="mealkit" varStatus="status">
-					<input type="hidden" name="orderDetailList.productNo[${status.index}]" value="${mealkit.productNo}">
-					<input type="hidden" class="amount" name="orderDetailList.amount[${status.index}]" value="${mealkit.amount}">
-					<input type="hidden" class="price" name="orderDetailList.price[${status.index}]" value="${mealkit.price}">
-				</c:forEach>
+				<div>
+					<c:forEach items="${orderDetailList}" var="mealkit" varStatus="status">
+						<input type="hidden" name="orderDetailList[${status.index}].productNo" value="${mealkit.productNo}">
+						<input type="hidden" class="amount" name="orderDetailList[${status.index}].amount" value="${mealkit.amount}">
+						<input type="hidden" class="price" name="orderDetailList[${status.index}].price" value="${mealkit.price}">
+					</c:forEach>
+					<input type="hidden" id="totalPrice" name="totalPrice" value="">
+					<input type="hidden" id="memberId" name="memberId" value="">
+				</div>
 				
 			</form>
 

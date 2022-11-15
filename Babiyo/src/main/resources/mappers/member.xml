@@ -17,6 +17,7 @@
 			javaType="java.util.Date"/>
 		<result column="GENDER" property="gender"/>
 		<result column="PHONE" property="phone"/>
+		<result column="NICKNAME" property="nickname"/>
 		<result column="CASH" property="cash"/>
 		<result column="GRADE_CODE" property="grade"/>
 		<result column="CREATE_DATE" property="createDate"
@@ -34,7 +35,7 @@
 	</select>
 
 <insert id="memberInsertOne" 
-		parameterType="com.mealmaker.babiyo.member.model.MemberDto">
+		parameterType="MemberDto">
 		
 		INSERT INTO MEMBER
 		(ID, PASSWORD, NAME, EMAIL, BIRTHDAY, GENDER, PHONE, NICKNAME, CASH

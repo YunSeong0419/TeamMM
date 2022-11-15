@@ -10,12 +10,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.mealmaker.babiyo.member.model.MemberDto;
 import com.mealmaker.babiyo.order.model.OrderDetailDto;
-import com.mealmaker.babiyo.order.model.OrderDetailList;
 import com.mealmaker.babiyo.order.model.OrderDto;
 import com.mealmaker.babiyo.order.service.OrderService;
 
@@ -32,7 +31,7 @@ public class OrderController {
 	@RequestMapping(value = "/order/order.do", method = RequestMethod.GET)
 	public String order(HttpSession session, Model model) {
 		logger.info("Welcome OrderController order! ");
-		
+
 		List<OrderDetailDto> orderDetailList = new ArrayList<>();
 		
 		OrderDetailDto orderDetailDto = new OrderDetailDto();
@@ -66,15 +65,26 @@ public class OrderController {
 	}
 	
 	@RequestMapping(value = "/order/orderCtr.do", method = RequestMethod.POST)
-	public String orderCtr(OrderDto orderDto, @ModelAttribute(value="OrderDetailList") OrderDetailList orderDetailList
-			,HttpSession session, Model model) {
-		logger.info("Welcome OrderController orderCtr! ");
+	public String orderCtr(OrderDto orderDto, OrderDetailDto orderDetailDto, HttpSession session, Model model) {
+		logger.info("Welcome OrderController orderCtr! " + orderDto);
 		
-		orderService.order(orderDto);
+//		List<OrderDetailDto> detailList = orderDetailDto.getOrderDetailList();
+
+//		orderService.order(orderDto, detailList);
 		
-		return "order/orderForm";
+		
+		return "redirect:/order/orderComplete.do";
 	}
 	
+	@RequestMapping(value = "/order/orderComplete.do", method = RequestMethod.GET)
+	public String orderComplete(HttpSession session, Model model) {
+		logger.info("Welcome OrderController orderComplete! ");
+//		session.getAttribute("memberDto");
+		
+//		OrderDto orderDto = orderService.lastOrder();
+		
+		return "order/orderComplete";
+	}
 	
 	
 }

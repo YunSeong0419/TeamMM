@@ -1,5 +1,7 @@
 package com.mealmaker.babiyo.order.model;
 
+import java.util.List;
+
 import lombok.Data;
 
 @Data
@@ -11,5 +13,7 @@ public class OrderDetailDto {
 	private String productName;
 	private int amount;
 	private int price;
+	
+	private List<OrderDetailDto> orderDetailList;
 	
 }

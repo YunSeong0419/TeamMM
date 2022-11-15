@@ -50,5 +50,23 @@ VALUES(#{no} ,#{memberId}, SYSDATE, #{totalPrice}, #{receiverName}, #{receiverPh
 , #{addressDetail}, #{request}, 1);
 </insert>
 
+<!-- <insert id="orderDetail" parameterType="java.util.List"> -->
+<!-- INSERT INTO ORDER_DETAIL -->
+<!-- VALUE(NO,ORDER_NO,PRODUCT_NO,AMOUNT,PRICE) -->
+<!-- VALUES -->
+<!-- <foreach collection="list" separator="," item="detail"> -->
+<!-- 	(SEQ_ORDER_DETAIL_NO.NEXTVAL, #{detail.orderNo}, #{detail.productNo}, #{detail.amount}, #{detail.price}) -->
+<!-- </foreach> -->
+<!-- </insert> -->
+
+<!-- <select id="lastOrder" resultType="orderDto"> -->
+<!-- SELECT * -->
+<!-- FROM (SELECT * -->
+<!-- 		FROM MEMBER_ORDER -->
+<!-- 		WHERE MEMBER_ID = #{memberId} -->
+<!-- 		ORDER BY ORDER_DATE DESC)  -->
+<!-- WHERE <![CDATA[ ROWNUM <= 1 ]]> -->
+<!-- </select> -->
+
 
 </mapper>

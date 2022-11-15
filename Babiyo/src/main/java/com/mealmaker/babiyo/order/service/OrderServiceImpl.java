@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.mealmaker.babiyo.order.dao.OrderDao;
+import com.mealmaker.babiyo.order.model.OrderDetailDto;
 import com.mealmaker.babiyo.order.model.OrderDto;
 
 @Service
@@ -27,9 +28,23 @@ public class OrderServiceImpl implements OrderService{
 	}
 
 	@Override
-	public void order(OrderDto orderDto) {
+	public void order(OrderDto orderDto, List<OrderDetailDto> detailList) {
 		// TODO Auto-generated method stub
 		orderDao.order(orderDto);
+		
+		int orderNo = orderDto.getNo();
+		
+		for (OrderDetailDto orderDetailDto : detailList) {
+			orderDetailDto.setOrderNo(orderNo);;
+		}
+		orderDao.orderDetail(detailList);
+		
+	}
+
+	@Override
+	public OrderDto lastOrder() {
+		// TODO Auto-generated method stub
+		return orderDao.lastOrder();
 	}
 	
 
