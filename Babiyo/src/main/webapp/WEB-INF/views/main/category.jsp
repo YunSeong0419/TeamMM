@@ -92,8 +92,9 @@ hr{
 		<div id='mealkitCategoryName'>
 			<a href="#">한식</a>
 			<a href="#">중식</a>
-			<a href="#">양식</a>
 			<a href="#">일식</a>
+			<a href="#">양식</a>
+			<a href="#">분식</a>
 			<a href="#">동남아</a>
 		</div>
 		

@@ -14,30 +14,30 @@ import com.mealmaker.babiyo.order.service.OrderService;
 
 // 어노테이션 드리븐
 @Controller
-public class MainPagerController {
+public class MainController {
 
 	private static final Logger logger 
-		= LoggerFactory.getLogger(MainPagerController.class);
+		= LoggerFactory.getLogger(MainController.class);
 	
-	@RequestMapping(value = "/member/main.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/main/main.do", method = RequestMethod.GET)
 	public String mainPage(HttpSession session, Model model) {
 		logger.info("Welcome Controller main! ");
 		
-		return "member/mainPage";
+		return "main/main";
 	}
 
-	@RequestMapping(value = "/member/union.do", method = RequestMethod.GET)
-	public String union(HttpSession session, Model model) {
+	@RequestMapping(value = "/main/union.do", method = RequestMethod.GET)
+	public String unionPage(HttpSession session, Model model) {
 		logger.info("Welcome Controller union! ");
 		
-		return "member/union";
+		return "main/union";
 	}
 	
-	@RequestMapping(value = "/member/mealkitCategoryPage.do", method = RequestMethod.GET)
-	public String mealkitCategoryPage(HttpSession session, Model model) {
-		logger.info("Welcome Controller mealkitCategory! ");
+	@RequestMapping(value = "/main/category.do", method = RequestMethod.GET)
+	public String categoryPage(HttpSession session, Model model) {
+		logger.info("Welcome Controller category! ");
 		
-		return "member/mealkitCategoryPage";
+		return "main/category";
 	}
 }
 
