@@ -26,5 +26,11 @@ public class ProductController {
 		return "product/category";
 	}
 
+	@RequestMapping(value = "/product/mealkitList.do", method = RequestMethod.GET)
+	public String mealkitList(HttpSession session, Model model) {
+		logger.info("Welcome Controller product mealkitList! ");
+		
+		return "product/mealkitList";
+	}
 }
 
