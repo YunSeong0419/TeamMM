@@ -11,7 +11,7 @@ public class MemberDto {
 	private String password = "";
 	private String name = "";
 	private String email = "";
-	private Date birthDate = null;
+	private String birthDate = "";
 	private String gender = "";
 	private String phone = "";
 	private String nickname = "";
