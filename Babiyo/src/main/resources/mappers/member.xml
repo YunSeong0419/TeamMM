@@ -29,7 +29,7 @@
 	<select id="memberExist" parameterType="map" 
 		resultMap="memberResultMap">
 		SELECT ID, NAME, EMAIL, BIRTHDAY, GENDER, PHONE, NICKNAME
-		, CASH
+		, CASH, GRADE_CODE, CREATE_DATE, MODIFY_DATE
 		FROM MEMBER
 		WHERE ID = #{id} AND PASSWORD = #{password}
 	</select>

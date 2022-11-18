@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.mealmaker.babiyo.cart.model.CartDto;
 import com.mealmaker.babiyo.cart.service.CartService;
@@ -44,6 +45,8 @@ public class CartController {
 
 		MemberDto memberDto = memberDao.memberExist("dong", "123");
 		
+		System.out.println(memberDto);
+		
 		session.setAttribute("_memberDto_", memberDto);
 		
 		String memberId= memberDto.getId();
@@ -66,4 +69,15 @@ public class CartController {
 		
 		return "redirect:/cart/list.do";
 	}
+	
+	
+	@RequestMapping(value="/cart/ajax/amountModify.do", method=RequestMethod.POST)
+	@ResponseBody
+	public String cartAmountModify() {
+		
+		String a = "난뭐지";
+		
+		return a;
+	}
+	
 }

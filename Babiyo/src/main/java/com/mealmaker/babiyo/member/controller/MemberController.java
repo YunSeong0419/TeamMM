@@ -1,5 +1,9 @@
 package com.mealmaker.babiyo.member.controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -79,18 +83,20 @@ public class MemberController {
 	public String memberAdd(MemberDto memberDto, 
 		MultipartHttpServletRequest mulRequest, Model model) {
 		
+		logger.info("Welcome MemberController memberAdd 신규등록 처리! " 
+				+ memberDto);
+		
+		SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
 		
 		String year = mulRequest.getParameter("yy");
 		String month = mulRequest.getParameter("mm");
 		String day = mulRequest.getParameter("dd");
-		String birthdate = year + month + day;
-		
-		logger.info(birthdate);
-			memberDto.setBirthDate(birthdate);
-		logger.info("Welcome MemberController memberAdd 신규등록 처리! " 
-			+ memberDto);
 		
 		try {
+			Date birthDate = format.parse(year+month+day);
+			
+			memberDto.setBirthDate(birthDate);
+		
 			memberService.memberInsertOne(memberDto, mulRequest);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
