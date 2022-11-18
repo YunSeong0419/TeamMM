@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.mealmaker.babiyo.member.model.MemberDto;
 
 @Repository
-public class MemberDaoImpl<string> implements MemberDao{
+public class MemberDaoImpl implements MemberDao{
 
 	@Autowired
 	SqlSessionTemplate sqlSession;

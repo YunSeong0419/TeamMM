@@ -7,5 +7,7 @@
       <typeAlias type="com.mealmaker.babiyo.order.model.OrderDto"   alias="orderDto" />
       <typeAlias type="com.mealmaker.babiyo.order.model.OrderDetailDto"   alias="orderDetailDto" />
       <typeAlias type="com.mealmaker.babiyo.member.model.MemberDto" alias="memberDto" />
+      <typeAlias type="com.mealmaker.babiyo.product.model.ProductDto" alias="productDto" />
+      <typeAlias type="com.mealmaker.babiyo.cart.model.CartDto" alias="cartDto" />
    </typeAliases>
 </configuration>

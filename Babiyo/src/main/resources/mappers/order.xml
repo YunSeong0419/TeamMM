@@ -17,7 +17,7 @@
 <result column="STATE_CODE" property="stateCode"/>
 </resultMap>
 
-<resultMap type="com.mealmaker.babiyo.product.model.ProductDto" id="productResultMap">
+<resultMap type="productDto" id="productResultMap">
 <id column="NO" property="no"/>
 <result column="CATEGORY_CODE" property="categoryCode"/>
 <result column="NAME" property="name"/>
@@ -25,6 +25,7 @@
 <result column="STOCK" property="stock"/>
 <result column="CONTENT" property="content"/>
 </resultMap>
+
 
 <select id="lastOrder" resultMap="orderResultMap" parameterType="String">
 SELECT *
@@ -38,23 +39,21 @@ WHERE <![CDATA[ ROWNUM <= 1 ]]>
 
 <insert id="order" parameterType="orderDto"
 useGeneratedKeys="true" keyProperty="no">
-<selectKey keyProperty="no" resultType="int" order="BEFORE">
-	SELECT SEQ_MEMBER_ORDER_NO.NEXTVAL 
+<selectKey keyProperty="no" resultType="int" order="AFTER">
+	SELECT SEQ_MEMBER_ORDER_NO.CURRVAL 
 	FROM DUAL
 </selectKey>
 INSERT INTO MEMBER_ORDER
-VALUE(NO, MEMBER_ID,ORDER_DATE,TOTAL_PRICE,RECEIVER_NAME,RECEIVER_PHONE,POST,ADDRESS
-	,ADDRESS_DETAIL,REQUEST,STATE_CODE)
-VALUES(#{no} ,#{memberId}, SYSDATE, #{totalPrice}, #{receiverName}, #{receiverPhone}, #{post}, #{address}
-, #{addressDetail}, #{request}, 1)
+(MEMBER_ID,ORDER_DATE,TOTAL_PRICE,RECEIVER_NAME,RECEIVER_PHONE
+	,POST,ADDRESS,ADDRESS_DETAIL,REQUEST,STATE_CODE)
+VALUES(#{memberId}, SYSDATE, #{totalPrice}, #{receiverName}, #{receiverPhone}
+	, #{post}, #{address}, #{addressDetail}, #{request}, 1)
 </insert>
 
 <insert id="orderDetail" parameterType="orderDetailDto">
-INSERT INTO ORDER_DETAIL(NO, ORDER_NO, PRODUCT_NO, AMOUNT, PRICE)
-VALUES(SEQ_ORDER_DETAIL_NO.NEXTVAL, #{orderNo}, #{productNo}, #{amount}, #{price})
+INSERT INTO ORDER_DETAIL(ORDER_NO, PRODUCT_NO, AMOUNT, PRICE)
+VALUES(#{orderNo}, #{productNo}, #{amount}, #{price})
 </insert>
-
-
 
 
 </mapper>

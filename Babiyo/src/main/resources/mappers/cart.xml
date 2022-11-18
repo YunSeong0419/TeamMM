@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mealmaker.babiyo.cart">
+
+<resultMap type="cartDto" id="cartResultMap">
+<id column="NO" property="no"/>
+<result column="MEMBER_ID" property="memberId"/>
+<result column="PRODUCT_NO" property="productNo"/>
+<result column="NAME" property="productName"/>
+<result column="PRICE" property="productPrice"/>
+<result column="AMOUNT" property="amount"/>
+</resultMap>
+
+<select id="cartList" resultMap="cartResultMap">
+SELECT C.NO, C.MEMBER_ID, C.PRODUCT_NO, C.AMOUNT, P.NAME, P.PRICE
+FROM CART C JOIN PRODUCT P
+ON C.PRODUCT_NO = P.NO
+WHERE MEMBER_ID = #{memberId}
+</select>
+
+<delete id="cartDelete" parameterType="int">
+DELETE CART
+WHERE NO = #{value}
+</delete>
+
+</mapper>
