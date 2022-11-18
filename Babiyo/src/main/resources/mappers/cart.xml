@@ -9,11 +9,11 @@
 <result column="PRODUCT_NO" property="productNo"/>
 <result column="NAME" property="productName"/>
 <result column="PRICE" property="productPrice"/>
-<result column="AMOUNT" property="amount"/>
+<result column="QUANTITY" property="quantity"/>
 </resultMap>
 
 <select id="cartList" resultMap="cartResultMap">
-SELECT C.NO, C.MEMBER_ID, C.PRODUCT_NO, C.AMOUNT, P.NAME, P.PRICE
+SELECT C.NO, C.MEMBER_ID, C.PRODUCT_NO, C.QUANTITY, P.NAME, P.PRICE
 FROM CART C JOIN PRODUCT P
 ON C.PRODUCT_NO = P.NO
 WHERE MEMBER_ID = #{memberId}
@@ -23,5 +23,11 @@ WHERE MEMBER_ID = #{memberId}
 DELETE CART
 WHERE NO = #{value}
 </delete>
+
+<update id="quantityModify" parameterType="cartDto">
+UPDATE CART
+SET QUANTITY = #{quantity}
+WHERE NO = #{no}
+</update>
 
 </mapper>

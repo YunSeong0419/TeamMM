@@ -9,4 +9,6 @@ public interface CartDao {
 	List<CartDto> cartList(String memberId);
 
 	void cartDelete(List<CartDto> list);
+
+	void quantityModify(CartDto cartDto);
 }

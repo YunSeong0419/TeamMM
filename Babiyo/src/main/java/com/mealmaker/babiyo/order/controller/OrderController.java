@@ -1,6 +1,9 @@
 package com.mealmaker.babiyo.order.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
@@ -73,6 +76,27 @@ public class OrderController {
 		model.addAttribute("orderDto", orderDto);
 		
 		return "order/orderComplete";
+	}
+	
+	@RequestMapping(value = "/order/memberOrder.do", method = RequestMethod.GET)
+	public String memberOrderList(HttpSession session, Model model) {
+		logger.info("Welcome OrderController memberOrderList! ");
+		
+		MemberDto memberDto = (MemberDto)session.getAttribute("_memberDto_");
+		
+		List<OrderDto> orderList = orderService.orderList(memberDto);
+		
+		List<Map<String, Object>> mapList = new ArrayList<>();
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		for (OrderDto orderDto : orderList) {
+//			orderService.orderProductName(orderDto.getNo());
+			
+			
+		}
+
+		
+		return "order/memberOrderList";
 	}
 	
 	

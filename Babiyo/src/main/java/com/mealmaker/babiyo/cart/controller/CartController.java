@@ -71,13 +71,11 @@ public class CartController {
 	}
 	
 	
-	@RequestMapping(value="/cart/ajax/amountModify.do", method=RequestMethod.POST)
+	@RequestMapping(value="/cart/ajax/quantityModify.do", method=RequestMethod.POST)
 	@ResponseBody
-	public String cartAmountModify() {
+	public void cartQuantityModify(CartDto cartDto) {
 		
-		String a = "난뭐지";
-		
-		return a;
+		cartService.quantityModify(cartDto);
 	}
 	
 }

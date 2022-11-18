@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -72,7 +73,7 @@
 #mealkitListDiv{
 	height: 300px;
 
-}
+} 
 
 #mealkitUl{
 	list-style: none;
@@ -88,11 +89,11 @@
 	margin-left: 12px;
 }
 
-#mealkitListP,#balanceName,#totalPriceName{
+#mealkitListP,#balanceName,#totalAmountName{
 	font-weight: bold;
 }
 
-#balanceMoney, #totalPriceMoney{
+#balanceMoney, #totalAmountMoney{
 	float: right
 }
 
@@ -100,7 +101,7 @@
 	display: inline-block;
 	width: 300px;
 }
-.mealkitAmount{
+.mealkitQuantity{
 	display: inline-block;
 	width: 100px;
 	text-align: right;
@@ -125,16 +126,16 @@
 
 $(document).ready(function(){
 	
-	var totalPrice = 0;
+	var totalAmount = 0;
 	
 	$('.price').each(function(i, element) {
-		totalPrice += Number($(element).val()) * Number($('.amount').eq(i).val());
+		totalAmount += Number($(element).val()) * Number($('.quantity').eq(i).val());
 	});
 	
-	var htmlStr = totalPrice.toLocaleString('ko-KR') + '원';
+	var htmlStr = totalAmount.toLocaleString('ko-KR') + '원';
 	
-	$('#totalPrice').val(totalPrice);
-	$('#totalPriceMoney').html(htmlStr);
+	$('#totalAmount').val(totalAmount);
+	$('#totalAmountMoney').html(htmlStr);
 	
 	$('#orderBtn').click(function(){
 		$('#receiverForm').submit();
@@ -190,12 +191,16 @@ $(document).ready(function(){
 				<div>
 					<c:forEach items="${orderDetailList}" var="mealkit" varStatus="status">
 						<input type="hidden" name="orderDetailList[${status.index}].productNo" value="${mealkit.productNo}">
-						<input type="hidden" class="amount" name="orderDetailList[${status.index}].amount" value="${mealkit.amount}">
+						<input type="hidden" class="quantity" name="orderDetailList[${status.index}].quantity" value="${mealkit.quantity}">
 						<input type="hidden" class="price" name="orderDetailList[${status.index}].price" value="${mealkit.price}">
 					</c:forEach>
-					<input type="hidden" id="totalPrice" name="totalPrice" value="">
+					<input type="hidden" id="totalAmount" name="totalAmount" value="">
 					<input type="hidden" id="memberId" name="memberId" value="${_memberDto_.id}">
+					<input type="hidden" name="preview" value="${orderDetailList[0].productName}">
+					<input type="hidden" name="productQuantity" value="${fn:length(orderDetailList)}">
 				</div>
+				
+				
 				
 			</form>
 
@@ -207,9 +212,9 @@ $(document).ready(function(){
 					<c:forEach items="${orderDetailList}" var="mealkit">
 						<li>
 							<span class="mealkitName">${mealkit.productName}</span>
-							<span class="mealkitAmount">${mealkit.amount}개</span>
+							<span class="mealkitQuantity">${mealkit.quantity}개</span>
 							<span class="mealkitPrice">
-							<fmt:formatNumber pattern="#,###">${mealkit.price * mealkit.amount}</fmt:formatNumber>원
+							<fmt:formatNumber pattern="#,###">${mealkit.price * mealkit.quantity}</fmt:formatNumber>원
 							</span>
 						</li>
 					</c:forEach>
@@ -221,7 +226,7 @@ $(document).ready(function(){
 					<span id="balanceMoney"><fmt:formatNumber pattern="#,###">${_memberDto_.cash}</fmt:formatNumber>원</span>
 				</p>
 				<p>
-					<span id="totalPriceName">총 결제금액</span> <span id="totalPriceMoney"></span>
+					<span id="totalAmountName">총 결제금액</span> <span id="totalAmountMoney"></span>
 				</p>
 			</div>
 

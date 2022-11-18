@@ -98,7 +98,7 @@
 			<span id="paymentInfoTitle">결제 정보</span>
 			<div>
 				<span>주문금액</span>
-				<span><fmt:formatNumber pattern="#,###">${orderDto.totalPrice}</fmt:formatNumber>원</span>
+				<span><fmt:formatNumber pattern="#,###">${orderDto.totalAmount}</fmt:formatNumber>원</span>
 			</div>
 			<hr>
 			<div>

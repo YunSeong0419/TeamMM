@@ -11,7 +11,7 @@ public class OrderDetailDto {
 	private int orderNo;
 	private int productNo;
 	private String productName;
-	private int amount;
+	private int quantity;
 	private int price;
 	
 	private List<OrderDetailDto> orderDetailList;

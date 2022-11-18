@@ -12,7 +12,7 @@ public class CartDto {
 	private int productNo;
 	private String productName;
 	private int productPrice;
-	private int amount;
+	private int quantity;
 	
 	private List<CartDto> cartList;
 	

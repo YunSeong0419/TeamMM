@@ -7,6 +7,17 @@ body{
 	overflow: scroll;
 }
 
+#middleRightDiv{
+	float: left;
+	width: 1050px;
+	min-height: 548px;
+}
+
+#marginDiv{
+	margin: auto;
+	width: 850px;
+}
+
 
 /* header{ */
 /* 	width: 1200px; */

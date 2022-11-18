@@ -7,7 +7,9 @@
 <id column="NO" property="no"/>
 <result column="MEMBER_ID" property="memberId"/>
 <result column="ORDER_DATE" property="orderDate" javaType="java.util.Date"/>
-<result column="TOTAL_PRICE" property="totalPrice"/>
+<result column="TOTAL_AMOUNT" property="totalAmount"/>
+<result column="PREVIEW" property="preview"/>
+<result column="PRODUCT_QUANTITY" property="productQuantity"/>
 <result column="RECEIVER_NAME" property="receiverName"/>
 <result column="RECEIVER_PHONE" property="receiverPhone"/>
 <result column="POST" property="post"/>
@@ -16,16 +18,6 @@
 <result column="REQUEST" property="request"/>
 <result column="STATE_CODE" property="stateCode"/>
 </resultMap>
-
-<resultMap type="productDto" id="productResultMap">
-<id column="NO" property="no"/>
-<result column="CATEGORY_CODE" property="categoryCode"/>
-<result column="NAME" property="name"/>
-<result column="PRICE" property="price"/>
-<result column="STOCK" property="stock"/>
-<result column="CONTENT" property="content"/>
-</resultMap>
-
 
 <select id="lastOrder" resultMap="orderResultMap" parameterType="String">
 SELECT *
@@ -44,16 +36,21 @@ useGeneratedKeys="true" keyProperty="no">
 	FROM DUAL
 </selectKey>
 INSERT INTO MEMBER_ORDER
-(MEMBER_ID,ORDER_DATE,TOTAL_PRICE,RECEIVER_NAME,RECEIVER_PHONE
+(MEMBER_ID,ORDER_DATE,TOTAL_AMOUNT,PREVIEW,PRODUCT_QUANTITY,RECEIVER_NAME,RECEIVER_PHONE
 	,POST,ADDRESS,ADDRESS_DETAIL,REQUEST,STATE_CODE)
-VALUES(#{memberId}, SYSDATE, #{totalPrice}, #{receiverName}, #{receiverPhone}
-	, #{post}, #{address}, #{addressDetail}, #{request}, 1)
+VALUES(#{memberId}, SYSDATE, #{totalAmount}, #{preview}, #{productQuantity}, #{receiverName}
+	, #{receiverPhone}, #{post}, #{address}, #{addressDetail}, #{request}, 1)
 </insert>
 
 <insert id="orderDetail" parameterType="orderDetailDto">
-INSERT INTO ORDER_DETAIL(ORDER_NO, PRODUCT_NO, AMOUNT, PRICE)
-VALUES(#{orderNo}, #{productNo}, #{amount}, #{price})
+INSERT INTO ORDER_DETAIL(ORDER_NO, PRODUCT_NO, QUANTITY, PRICE)
+VALUES(#{orderNo}, #{productNo}, #{quantity}, #{price})
 </insert>
 
+<select id="orderList" parameterType="memberDto">
+SELECT ORDER_DATE, NO, TOTAL_AMOUNT, STATE_CODE
+FROM MEMBER_ORDER
+WHERE MEMBER_ID = #{id}
+</select>	
 
 </mapper>

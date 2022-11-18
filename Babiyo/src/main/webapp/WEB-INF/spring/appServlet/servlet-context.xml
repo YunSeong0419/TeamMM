@@ -20,7 +20,18 @@
 	<context:component-scan base-package="com.mealmaker.babiyo" />
 	
 	<!-- Enables the Spring MVC @Controller programming model -->
-	<annotation-driven />
+	<annotation-driven >
+		 <message-converters>
+	        <!-- @ResponseBody로 String 처리할때 한글처리 -->
+	        <beans:bean class="org.springframework.http.converter.StringHttpMessageConverter">
+	            <beans:property name="supportedMediaTypes">
+	                <beans:list>
+	                    <beans:value>text/html; charset=UTF-8</beans:value>
+	                </beans:list>
+	            </beans:property>
+	        </beans:bean>
+	    </message-converters>
+	</annotation-driven>
 
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
 	<resources mapping="/resources/**" location="/resources/" />

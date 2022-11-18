@@ -10,7 +10,9 @@ public class OrderDto {
 	private int no;
 	private String memberId;
 	private Date orderDate;
-	private int totalPrice;
+	private int totalAmount;
+	private String preview;
+	private int productQuantity;
 	private String receiverName;
 	private String receiverPhone;
 	private String post;
