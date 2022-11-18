@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.mealmaker.babiyo.member.model.MemberDto;
 import com.mealmaker.babiyo.member.service.MemberService;
@@ -52,18 +53,152 @@ public class MemberController {
 		
 		return viewUrl;
 	}
+	
+	//로그아웃
+	@RequestMapping(value = "/auth/logout.do", method = RequestMethod.GET)
+	public String logout(HttpSession session, Model model) {
+		logger.info("Welcome MemberController logout! ");
+		
+//		session.removeAttribute("member");
+		session.invalidate();
+		
+		return "redirect:/auth/login.do";
+	}
+	
+
 //	
-//	//로그아웃
-//	@RequestMapping(value = "/auth/logout.do", method = RequestMethod.GET)
-//	public String logout(HttpSession session, Model model) {
-//		logger.info("Welcome MemberController logout! ");
+	@RequestMapping(value = "/auth/member/add.do", method = RequestMethod.GET)
+	public String memberAdd(Model model) {
+		logger.debug("Welcome MemberController memberAdd! ");
+		
+		
+		return "/member/MemberJoin";
+	}
+	
+	@RequestMapping(value = "/auth/member/addCtr.do", method = RequestMethod.POST)
+	public String memberAdd(MemberDto memberDto, 
+		MultipartHttpServletRequest mulRequest, Model model) {
+		
+		
+		String year = mulRequest.getParameter("yy");
+		String month = mulRequest.getParameter("mm");
+		String day = mulRequest.getParameter("dd");
+		String birthdate = year + month + day;
+		
+		logger.info(birthdate);
+			memberDto.setBirthDate(birthdate);
+		logger.info("Welcome MemberController memberAdd 신규등록 처리! " 
+			+ memberDto);
+		
+		try {
+			memberService.memberInsertOne(memberDto, mulRequest);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		return "/member/MemberInterest";
+	}
+	
+//	@RequestMapping(value = "/auth/member/addInterest.do", method = RequestMethod.POST)
+//	public String addInterest(MemberDto memberDto, 
+//		MultipartHttpServletRequest mulRequest, Model model) {
 //		
-////		session.removeAttribute("member");
-//		session.invalidate();
 //		
-//		return "redirect:/auth/login.do";
+//		String year = mulRequest.getParameter("yy");
+//		String month = mulRequest.getParameter("mm");
+//		String day = mulRequest.getParameter("dd");
+//		String birthdate = year + month + day;
+//		
+//		logger.info(birthdate);
+//			memberDto.setBirthDate(birthdate);
+//		logger.info("Welcome MemberController memberAdd 신규등록 처리! " 
+//			+ memberDto);
+//		
+//		try {
+//			memberService.memberInsertOne(memberDto, mulRequest);
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			System.out.println("오랜만에 예외 처리 한다");
+//			System.out.println("파일 문제 예외일 가능성 높음");
+//			e.printStackTrace();
+//		}
+//		
+//		
+//		return "redirect:/auth/member/MemberInterest";
 //	}
 //	
+//	// 회원수정 화면으로
+//	@RequestMapping(value = "/member/update.do", method = RequestMethod.GET)
+//	public String memberUpdate(int no, Model model) {
+//		logger.debug("Welcome MemberController memberUpdate! " + no);
+//		
+//		Map<String, Object> map = memberService.memberSelectOne(no);
+//		
+//		MemberDto memberDto = (MemberDto)map.get("memberDto");
+//		List<Map<String, Object>> fileList 
+//			= (List<Map<String, Object>>) map.get("fileList");
+//		
+//		model.addAttribute("memberDto", memberDto);
+//		model.addAttribute("fileList", fileList);
+//		
+//		return "member/MemberUpdateForm";
+//	}
+//
+//	// 회원수정
+//	@RequestMapping(value = "/member/updateCtr.do"
+//		, method = RequestMethod.POST)
+//	public String memberUpdateCtr(HttpSession session,
+//		MemberDto memberDto
+//		, @RequestParam(value = "fileIdx", defaultValue = "-1") int fileIdx
+//		, MultipartHttpServletRequest multipartHttpServletRequest
+//		, Model model) {
+//		logger.info("Welcome MemberController memberUpdateCtr {} :: {}" 
+//		 , memberDto, fileIdx);
+//		
+//		int resultNum = 0; 
+//			
+//		try {
+//			resultNum = memberService.memberUpdateOne(memberDto
+//				, multipartHttpServletRequest, fileIdx);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//
+//		// 데이터베이스에서 회원정보가 수정이 됐는지 여부😊😊
+//		// 존재, 증명여부 
+//		MemberDto sessionMemberDto 
+//			= (MemberDto)session.getAttribute("_memberDto_");
+//		
+//		if(sessionMemberDto != null) {
+//			if(sessionMemberDto.getId() == memberDto.getId()) {
+//				MemberDto newMemberDto = new MemberDto();
+//				
+//				newMemberDto.setId(memberDto.getId());
+//				newMemberDto.setEmail(memberDto.getEmail());
+//				newMemberDto.setName(memberDto.getName());
+//				
+//				session.removeAttribute("_memberDto_");
+//				
+//				session.setAttribute("_memberDto_", newMemberDto);
+//			}
+//		}
+//		
+//		
+//		return "common/sucessPage";
+//	}
+//	
+//	// 회원탈퇴
+//	@RequestMapping(value = "/member/deleteCtr.do"
+//		, method = RequestMethod.GET)
+//	public String memberDelete(int no, Model model) {
+//		logger.info("Welcome MemberController memberDelete! " + no);
+//		
+//		memberService.memberDeleteOne(no);
+//		
+//		return "redirect:/member/list.do";
+//	}
 //	// 회원목록 화면으로
 //	@RequestMapping(value = "/member/list.do"
 //		, method = {RequestMethod.GET, RequestMethod.POST})
@@ -136,103 +271,5 @@ public class MemberController {
 //		
 //		
 //		return "member/MemberOneView";
-//	}
-//	
-//	@RequestMapping(value = "/member/add.do", method = RequestMethod.GET)
-//	public String memberAdd(Model model) {
-//		logger.debug("Welcome MemberController memberAdd! ");
-//		
-//		
-//		return "member/MemberForm";
-//	}
-//	
-//	@RequestMapping(value = "/member/addCtr.do", method = RequestMethod.POST)
-//	public String memberAdd(MemberDto memberDto, 
-//		MultipartHttpServletRequest mulRequest, Model model) {
-//		logger.trace("Welcome MemberController memberAdd 신규등록 처리! " 
-//			+ memberDto);
-//		
-//		try {
-//			memberService.memberInsertOne(memberDto, mulRequest);
-//		} catch (Exception e) {
-//			// TODO Auto-generated catch block
-//			System.out.println("오랜만에 예외 처리 한다");
-//			System.out.println("파일 문제 예외일 가능성 높음");
-//			e.printStackTrace();
-//		}
-//		
-//		
-//		return "redirect:/member/list.do";
-//	}
-//	
-//	// 회원수정 화면으로
-//	@RequestMapping(value = "/member/update.do", method = RequestMethod.GET)
-//	public String memberUpdate(int no, Model model) {
-//		logger.debug("Welcome MemberController memberUpdate! " + no);
-//		
-//		Map<String, Object> map = memberService.memberSelectOne(no);
-//		
-//		MemberDto memberDto = (MemberDto)map.get("memberDto");
-//		List<Map<String, Object>> fileList 
-//			= (List<Map<String, Object>>) map.get("fileList");
-//		
-//		model.addAttribute("memberDto", memberDto);
-//		model.addAttribute("fileList", fileList);
-//		
-//		return "member/MemberUpdateForm";
-//	}
-//
-//	// 회원수정
-//	@RequestMapping(value = "/member/updateCtr.do"
-//		, method = RequestMethod.POST)
-//	public String memberUpdateCtr(HttpSession session,
-//		MemberDto memberDto
-//		, @RequestParam(value = "fileIdx", defaultValue = "-1") int fileIdx
-//		, MultipartHttpServletRequest multipartHttpServletRequest
-//		, Model model) {
-//		logger.info("Welcome MemberController memberUpdateCtr {} :: {}" 
-//		 , memberDto, fileIdx);
-//		
-//		int resultNum = 0; 
-//			
-//		try {
-//			resultNum = memberService.memberUpdateOne(memberDto
-//				, multipartHttpServletRequest, fileIdx);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//
-//		// 데이터베이스에서 회원정보가 수정이 됐는지 여부😊😊
-//		// 존재, 증명여부 
-//		MemberDto sessionMemberDto 
-//			= (MemberDto)session.getAttribute("_memberDto_");
-//		
-//		if(sessionMemberDto != null) {
-//			if(sessionMemberDto.getId() == memberDto.getId()) {
-//				MemberDto newMemberDto = new MemberDto();
-//				
-//				newMemberDto.setId(memberDto.getId());
-//				newMemberDto.setEmail(memberDto.getEmail());
-//				newMemberDto.setName(memberDto.getName());
-//				
-//				session.removeAttribute("_memberDto_");
-//				
-//				session.setAttribute("_memberDto_", newMemberDto);
-//			}
-//		}
-//		
-//		
-//		return "common/sucessPage";
-//	}
-//	
-//	// 회원탈퇴
-//	@RequestMapping(value = "/member/deleteCtr.do"
-//		, method = RequestMethod.GET)
-//	public String memberDelete(int no, Model model) {
-//		logger.info("Welcome MemberController memberDelete! " + no);
-//		
-//		memberService.memberDeleteOne(no);
-//		
-//		return "redirect:/member/list.do";
 //	}
 }

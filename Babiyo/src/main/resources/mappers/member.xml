@@ -34,14 +34,16 @@
 		WHERE ID = #{id} AND PASSWORD = #{password}
 	</select>
 
-<insert id="memberInsertOne" 
+	<insert id="memberInsertOne" 
 		parameterType="MemberDto">
 		
 		INSERT INTO MEMBER
 		(ID, PASSWORD, NAME, EMAIL, BIRTHDAY, GENDER, PHONE, NICKNAME, CASH
 		, GRADE_CODE, CREATE_DATE, MODIFY_DATE)
 		VALUES(#{id}, #{password}, #{name}, #{email}, TO_DATE(#{birthDate})
-		    , #{gender}, #{phone}, #{nickname}, 0, 2, SYSDATE, SYSDATE);
+		    , #{gender}, #{phone}, #{nickname}, 0, 2, SYSDATE, SYSDATE)
 	</insert>
+	
+	
 
 </mapper>
