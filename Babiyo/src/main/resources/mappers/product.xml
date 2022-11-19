@@ -2,5 +2,112 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mealmaker.babiyo.product">
+	
+	<sql id="search">
+		<choose>
+			<when test="searchOption == 'all'">
+				WHERE	NAME LIKE '%'||#{keyword}||'%'
+				OR		CLASSIFICATION LIKE '%'||#{keyword}||'%'
+			</when>
+			<otherwise>
+				WHERE ${searchOption} LIKE '%'||#{keyword}||'%'
+			</otherwise>
+		</choose>
+	</sql>
+	
+	<sql id="sort">
+		ORDER BY ${sortOption}
+	</sql>
+	
+	<resultMap type="productDto" id="productResultMap">
+		<id column="NO" property="no"/>
+		<result column="CATEGORY_CODE" property="categoryCode"/>
+		<result column="NAME" property="name"/>
+		<result column="PRICE" property="price"/>
+		<result column="STOCK" property="stock"/>
+		<result column="CONTENT" property="content"/>
+	</resultMap>
+	
+	<select id="productList" parameterType="map" resultMap="productResultMap">
+		SELECT PL.NO, PL.CATEGORY_CODE, PL.NAME, PL.PRICE, PL.STOCK
+		FROM (
+	        	SELECT ROWNUM RNUM, P.NO, P.CATEGORY_CODE, P.NAME, P.PRICE, P.STOCK
+	        	FROM (
+	                SELECT NO, CATEGORY_CODE, NAME, PRICE, STOCK
+					FROM PRODUCT
+	                <include refid="search"></include>
+					<include refid="sort"></include>) P
+		) PL
+		WHERE PL.RNUM BETWEEN #{start} AND #{end} 
+	</select>
+	
+	<insert id="productRegistration" parameterType="com.mealmaker.babiyo.product.model.ProductDto" 
+		useGeneratedKeys="true" keyProperty="no">
+		
+		<selectKey keyProperty="no" resultType="int" order="BEFORE">
+			SELECT MEMBER_MNO_SEQ.NEXTVAL FROM DUAL
+		</selectKey>
+		
+		INSERT INTO PRODUCT
+		VALUE(NO, CATEGORY_CODE, NAME, PRICE, STOCK, CONTENT)
+		VALUES(#{no}, #{category_code}, #{name}, #{price}, #{stock}, #{content})
+	</insert>
 
+	<select id="productDetail" parameterType="int" resultMap="productResultMap">
+		SELECT NO, CATEGORY_CODE, NAME, PRICE, STOCK, CONTENT
+		FROM PRODUCT
+		WHERE NO = #{no} 
+	</select>
+
+	<update id="productModification" parameterType="productDto">
+		UPDATE PRODUCT
+		<set>
+			<if test="name != ''">NAME = #{name},</if> 
+			<if test="category_code != ''">CATEGORY_CODE = #{category_code},</if> 
+			<if test="price != ''">PRICE = #{price},</if>
+			<if test="stock != ''">STOCK = #{stock},</if>
+			<if test="content != ''">CONTENT = #{content},</if>
+		</set>
+		WHERE NO = #{no}
+	</update>	
+	
+	<delete id="productDelete" parameterType="int">
+		DELETE FROM PRODUCT
+		WHERE NO = #{value}
+	</delete>
+
+	<select id="productTotalCount" resultType="java.lang.Integer"
+		parameterType="map">
+		SELECT COUNT(*)
+		FROM PRODUCT
+		<include refid="search"></include>
+	</select>
+
+	<insert id="insertFile" parameterType="map">
+		INSERT INTO TB_FILE
+		(IDX, PARENT_SEQ, ORIGINAL_FILE_NAME,
+		STORED_FILE_NAME, FILE_SIZE, CRE_DATE)
+		VALUES
+		(TB_FILE_IDX_SEQ.NEXTVAL, #{parentSeq}, #{original_file_name},
+		 #{stored_file_name}, #{file_size}, SYSDATE)
+	</insert>
+
+	<select id="fileSelectList" parameterType="int" resultType="map">
+		SELECT IDX, ORIGINAL_FILE_NAME, STORED_FILE_NAME,
+	    ROUND(FILE_SIZE/1024, 1) AS FILE_SIZE
+		FROM TB_FILE
+		WHERE PARENT_SEQ = #{no}
+	</select>
+
+	<select id="fileSelectStoredFileName" parameterType="int" resultType="map">
+		SELECT IDX, STORED_FILE_NAME
+		FROM TB_FILE
+		WHERE PARENT_SEQ = #{parentSeq}
+	</select>
+
+	<delete id="fileDelete" parameterType="int">
+		DELETE FROM TB_FILE
+		WHERE PARENT_SEQ = #{parentSeq}
+	</delete>
+	
 </mapper>

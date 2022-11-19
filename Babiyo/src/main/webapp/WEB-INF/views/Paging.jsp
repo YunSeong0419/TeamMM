@@ -6,7 +6,7 @@
 
 <style type="text/css">
 nav{
-	width: 900px;
+	width: 1050px;
 	height: 40px;
 	margin: 5px auto;
 	float: left;
