@@ -54,7 +54,7 @@ table{
 
 	<div id="middleRightDiv">
 	
-	<div id="marginDiv">
+		<div id="marginDiv">
 			<div id="cartTableDiv">
 				<table>
 					<tr style="background-color: gray;">
@@ -100,11 +100,16 @@ table{
 					</c:choose>
 					
 				</table>
+				
 			</div>
 			
+			
 		</div>
+		<jsp:include page="/WEB-INF/views/Paging.jsp"/>
 	
-		
+		<form method="get" id="pagingForm">
+			<input type="hidden" name="curPage" id="curPage" value="${paging.curPage}">
+		</form>
 		
 	</div>
 	

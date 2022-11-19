@@ -51,9 +51,21 @@ public class OrderDaoImpl implements OrderDao {
 	}
 
 	@Override
-	public List<OrderDto> orderList(MemberDto memberDto) {
+	public List<OrderDto> orderList(String memberId, int begin, int end) {
 		// TODO Auto-generated method stub
-		return sqlSession.selectList(namespace + "orderList", memberDto);
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		
+		paramMap.put("id", memberId);
+		paramMap.put("begin", begin);
+		paramMap.put("end", end);
+		
+		return sqlSession.selectList(namespace + "orderList", paramMap);
+	}
+
+	@Override
+	public int memberOrderCount(String id) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(namespace + "memberOrderCount", id);
 	}
 
 	

@@ -57,10 +57,16 @@ public class OrderServiceImpl implements OrderService{
 	}
 
 	@Override
-	public List<OrderDto> orderList(MemberDto memberDto) {
+	public List<OrderDto> orderList(String memberId, int begin, int end) {
 		// TODO Auto-generated method stub
 		
-		return orderDao.orderList(memberDto);
+		return orderDao.orderList(memberId, begin, end);
+	}
+
+	@Override
+	public int memberOrderCount(String id) {
+		// TODO Auto-generated method stub
+		return orderDao.memberOrderCount(id);
 	}
 	
 

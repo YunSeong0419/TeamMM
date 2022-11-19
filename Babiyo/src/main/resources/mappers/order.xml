@@ -48,12 +48,21 @@ INSERT INTO ORDER_DETAIL(ORDER_NO, PRODUCT_NO, QUANTITY, PRICE)
 VALUES(#{orderNo}, #{productNo}, #{quantity}, #{price})
 </insert>
 
-<select id="orderList" parameterType="memberDto" resultMap="orderResultMap">
-SELECT O.ORDER_DATE, O.NO, O.TOTAL_AMOUNT, O.PREVIEW, O.PRODUCT_QUANTITY, S.NAME STATE_NAME
-FROM MEMBER_ORDER O JOIN ORDER_STATE S
-ON O.STATE_CODE = S.CODE
-WHERE O.MEMBER_ID = #{id}
-ORDER BY O.ORDER_DATE DESC
+<select id="orderList" parameterType="map" resultMap="orderResultMap">
+SELECT *
+FROM(SELECT ROWNUM INROW, ORDER_DATE, NO, TOTAL_AMOUNT, PREVIEW, PRODUCT_QUANTITY, STATE_NAME
+FROM(SELECT O.ORDER_DATE, O.NO, O.TOTAL_AMOUNT, O.PREVIEW, O.PRODUCT_QUANTITY, S.NAME STATE_NAME
+	FROM MEMBER_ORDER O JOIN ORDER_STATE S
+	ON O.STATE_CODE = S.CODE
+	WHERE O.MEMBER_ID = #{id}
+	ORDER BY O.ORDER_DATE DESC))
+WHERE INROW BETWEEN ${begin} AND ${end}
 </select>	
+
+<select id="memberOrderCount" parameterType="String" resultType="int">
+SELECT COUNT(*)
+FROM MEMBER_ORDER
+WHERE MEMBER_ID = #{value}
+</select>
 
 </mapper>

@@ -1,7 +1,9 @@
 package com.mealmaker.babiyo.order.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
@@ -22,6 +24,7 @@ import com.mealmaker.babiyo.member.model.MemberDto;
 import com.mealmaker.babiyo.order.model.OrderDetailDto;
 import com.mealmaker.babiyo.order.model.OrderDto;
 import com.mealmaker.babiyo.order.service.OrderService;
+import com.mealmaker.babiyo.util.Paging;
 
 // 어노테이션 드리븐
 @Controller
@@ -93,17 +96,24 @@ public class OrderController {
 	}
 	
 	@RequestMapping(value = "/order/memberOrderList.do", method = RequestMethod.GET)
-	public String memberOrderList(HttpSession session, Model model) {
+	public String memberOrderList(@RequestParam(defaultValue = "1") int curPage, HttpSession session, Model model) {
 		logger.info("Welcome OrderController memberOrderList! ");
 		
 		MemberDto memberDto = memberDao.memberExist("dong", "123");
 		
-		List<OrderDto> orderList = orderService.orderList(memberDto);
+		String memberId = memberDto.getId();
+		int totalCount = orderService.memberOrderCount(memberId);
 		
+		Paging paging = new Paging(totalCount, curPage);
+		
+		int begin = paging.getPageBegin();
+		int end = paging.getPageEnd();
+		
+		List<OrderDto> orderList = orderService.orderList(memberId, begin, end);
+		
+		
+		model.addAttribute("paging", paging);
 		model.addAttribute("orderList", orderList);
-
-		
-		
 		
 		return "order/memberOrderList";
 	}

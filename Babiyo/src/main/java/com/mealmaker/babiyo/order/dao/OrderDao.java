@@ -15,6 +15,8 @@ public interface OrderDao {
 
 	public OrderDto lastOrder(String memberId);
 
-	public List<OrderDto> orderList(MemberDto memberDto);
+	public List<OrderDto> orderList(String memberId, int begin, int end);
+
+	public int memberOrderCount(String id);
 	
 }

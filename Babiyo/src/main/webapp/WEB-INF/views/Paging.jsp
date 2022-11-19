@@ -55,7 +55,7 @@ nav > ul > li > a:hover {
 
 </style>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript" src="/babiyo/resources/js/jquery-3.6.1.js"></script>
 
 <script type="text/javascript">
 	function goPageFnc(pageNumber){
@@ -76,17 +76,17 @@ nav > ul > li > a:hover {
 
 <nav>
 	<ul>
-		<c:if test="${pagingMap.memberPaging.prevBlock ne 1}">
+		<c:if test="${paging.prevBlock ne 1}">
 			<li>
-				<a href="#" onclick="goPageFnc(${pagingMap.memberPaging.prevBlock});">
+				<a href="#" onclick="goPageFnc(${paging.prevBlock});">
 					<span>«</span>
 				</a>
 			</li>
 		</c:if>
 		
 		<c:forEach var="num" 
-			begin="${pagingMap.memberPaging.blockBegin}" 
-			end="${pagingMap.memberPaging.blockEnd}">
+			begin="${paging.blockBegin}" 
+			end="${paging.blockEnd}">
 			<li id='pageButton${num}'>
 				<a href="#" onclick="goPageFnc(${num});">
 					<c:out value="${num}"/>
@@ -94,10 +94,9 @@ nav > ul > li > a:hover {
 			</li>
 		</c:forEach>
 		
-		<c:if test="${pagingMap.memberPaging.curBlock 
-			< pagingMap.memberPaging.totBlock}">
+		<c:if test="${paging.curBlock < paging.totBlock}">
 			<li>
-				<a href="#" onclick="goPageFnc(${pagingMap.memberPaging.nextBlock});">
+				<a href="#" onclick="goPageFnc(${paging.nextBlock});">
 					<span>»</span>
 				</a>
 			</li>			
