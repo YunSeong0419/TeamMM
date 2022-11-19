@@ -16,9 +16,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import com.mealmaker.babiyo.member.util.Paging;
 import com.mealmaker.babiyo.product.model.ProductDto;
 import com.mealmaker.babiyo.product.service.ProductService;
+import com.mealmaker.babiyo.util.Paging;
 
 @Controller
 public class ProductController {
