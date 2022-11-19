@@ -26,10 +26,10 @@ public class CartDaoImpl implements CartDao {
 	}
 
 	@Override
-	public void cartDelete(List<CartDto> list) {
+	public void cartDelete(List<Integer> list) {
 		// TODO Auto-generated method stub
-		for (CartDto cartDto : list) {
-			sqlSession.delete(namespace + "cartDelete", cartDto.getNo());
+		for (int no : list) {
+			sqlSession.delete(namespace + "cartDelete", no);
 		}
 	}
 

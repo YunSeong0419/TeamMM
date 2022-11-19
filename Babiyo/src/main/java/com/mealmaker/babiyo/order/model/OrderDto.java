@@ -20,6 +20,7 @@ public class OrderDto {
 	private String addressDetail;
 	private String request;
 	private int stateCode;
+	private String stateName;
 	
 	
 }

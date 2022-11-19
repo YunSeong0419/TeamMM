@@ -1,9 +1,7 @@
 package com.mealmaker.babiyo.order.controller;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
@@ -15,8 +13,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.mealmaker.babiyo.cart.model.CartDto;
+import com.mealmaker.babiyo.cart.service.CartService;
 import com.mealmaker.babiyo.member.dao.MemberDao;
 import com.mealmaker.babiyo.member.model.MemberDto;
 import com.mealmaker.babiyo.order.model.OrderDetailDto;
@@ -33,7 +33,10 @@ public class OrderController {
 	private final OrderService orderService;
 	
 	@Resource
-	MemberDao memberDao;
+	private CartService cartService;
+	
+	@Resource
+	private MemberDao memberDao;
 	
 	@Autowired
 	public OrderController(OrderService orderService) {
@@ -53,12 +56,23 @@ public class OrderController {
 	}
 	
 	@RequestMapping(value = "/order/orderCtr.do", method = RequestMethod.POST)
-	public String orderCtr(OrderDto orderDto, OrderDetailDto orderDetailDto, CartDto cartDto, HttpSession session, Model model) {
-		logger.info("Welcome OrderController orderCtr! " + orderDto);
+	public String orderCtr(OrderDto orderDto, OrderDetailDto orderDetailDto
+			,CartDto cartDto, HttpSession session, Model model) {
+		logger.info("Welcome OrderController orderCtr! " + orderDto + cartDto);
 		
 		List<OrderDetailDto> detailList = orderDetailDto.getOrderDetailList();
 		
 		int orderNo = orderService.order(orderDto, detailList);
+		
+		if(cartDto != null) {
+			List<Integer> list = new ArrayList<Integer>();
+			
+			for (CartDto cart : cartDto.getCartList()) {
+				list.add(cart.getNo());
+				System.out.println(cart.getNo());
+			}
+			cartService.cartDelete(list);
+		}
 		
 		
 		return "redirect:/order/orderComplete.do?orderNo=" + orderNo;
@@ -78,23 +92,18 @@ public class OrderController {
 		return "order/orderComplete";
 	}
 	
-	@RequestMapping(value = "/order/memberOrder.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/order/memberOrderList.do", method = RequestMethod.GET)
 	public String memberOrderList(HttpSession session, Model model) {
 		logger.info("Welcome OrderController memberOrderList! ");
 		
-		MemberDto memberDto = (MemberDto)session.getAttribute("_memberDto_");
+		MemberDto memberDto = memberDao.memberExist("dong", "123");
 		
 		List<OrderDto> orderList = orderService.orderList(memberDto);
 		
-		List<Map<String, Object>> mapList = new ArrayList<>();
-		Map<String, Object> map = new HashMap<String, Object>();
-		
-		for (OrderDto orderDto : orderList) {
-//			orderService.orderProductName(orderDto.getNo());
-			
-			
-		}
+		model.addAttribute("orderList", orderList);
 
+		
+		
 		
 		return "order/memberOrderList";
 	}

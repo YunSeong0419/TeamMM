@@ -198,6 +198,9 @@ $(document).ready(function(){
 					<input type="hidden" id="memberId" name="memberId" value="${_memberDto_.id}">
 					<input type="hidden" name="preview" value="${orderDetailList[0].productName}">
 					<input type="hidden" name="productQuantity" value="${fn:length(orderDetailList)}">
+					<c:forEach items="${cartDto.cartList}" var="cart" varStatus="status">
+						<input type="hidden" name="cartList[${status.index}].no" value="${cart.no}">
+					</c:forEach>
 				</div>
 				
 				

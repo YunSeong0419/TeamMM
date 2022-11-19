@@ -1,5 +1,6 @@
 package com.mealmaker.babiyo.cart.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -44,9 +45,6 @@ public class CartController {
 		logger.info("Welcome CartController cartList! ");
 
 		MemberDto memberDto = memberDao.memberExist("dong", "123");
-		
-		System.out.println(memberDto);
-		
 		session.setAttribute("_memberDto_", memberDto);
 		
 		String memberId= memberDto.getId();
@@ -63,7 +61,11 @@ public class CartController {
 	public String cartDelete(CartDto cartDto, HttpSession session, Model model) {
 		logger.info("Welcome CartController cartDelete! cartList {}" , cartDto.getCartList());
 	
-		List<CartDto> list = cartDto.getCartList();
+		List<Integer> list = new ArrayList<Integer>();
+		
+		for (CartDto cart : cartDto.getCartList()) {
+			list.add(cart.getNo());
+		}
 			
 		cartService.cartDelete(list);
 		

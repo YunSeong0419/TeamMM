@@ -8,7 +8,7 @@ public interface CartService {
 
 	List<CartDto> cartList(String memberId);
 
-	void cartDelete(List<CartDto> list);
-
 	void quantityModify(CartDto cartDto);
+
+	void cartDelete(List<Integer> list);
 }

@@ -17,6 +17,7 @@
 <result column="ADDRESS_DETAIL" property="addressDetail"/>
 <result column="REQUEST" property="request"/>
 <result column="STATE_CODE" property="stateCode"/>
+<result column="STATE_NAME" property="stateName"/>
 </resultMap>
 
 <select id="lastOrder" resultMap="orderResultMap" parameterType="String">
@@ -47,10 +48,12 @@ INSERT INTO ORDER_DETAIL(ORDER_NO, PRODUCT_NO, QUANTITY, PRICE)
 VALUES(#{orderNo}, #{productNo}, #{quantity}, #{price})
 </insert>
 
-<select id="orderList" parameterType="memberDto">
-SELECT ORDER_DATE, NO, TOTAL_AMOUNT, STATE_CODE
-FROM MEMBER_ORDER
-WHERE MEMBER_ID = #{id}
+<select id="orderList" parameterType="memberDto" resultMap="orderResultMap">
+SELECT O.ORDER_DATE, O.NO, O.TOTAL_AMOUNT, O.PREVIEW, O.PRODUCT_QUANTITY, S.NAME STATE_NAME
+FROM MEMBER_ORDER O JOIN ORDER_STATE S
+ON O.STATE_CODE = S.CODE
+WHERE O.MEMBER_ID = #{id}
+ORDER BY O.ORDER_DATE DESC
 </select>	
 
 </mapper>

@@ -18,8 +18,13 @@ public class OrderServiceImpl implements OrderService{
 	private static final Logger log 
 		= LoggerFactory.getLogger(OrderServiceImpl.class);
 	
+	
+	private final OrderDao orderDao;
+	
 	@Autowired
-	OrderDao orderDao;
+	public OrderServiceImpl(OrderDao orderDao) {
+		this.orderDao = orderDao;
+	}
 
 	@Override
 	public List<OrderDto> selectId() {
@@ -37,9 +42,10 @@ public class OrderServiceImpl implements OrderService{
 		
 		for (OrderDetailDto orderDetailDto : detailList) {
 			orderDetailDto.setOrderNo(orderNo);;
-			
 		}
+		
 		orderDao.orderDetail(detailList);
+		
 		
 		return orderNo;
 	}
