@@ -1,4 +1,4 @@
-package com.mealmaker.babiyo.member.util;
+package com.mealmaker.babiyo.util;
 
 import java.util.UUID;
 
