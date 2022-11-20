@@ -1,13 +1,14 @@
 package com.mealmaker.babiyo.order.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.mealmaker.babiyo.member.model.MemberDto;
 import com.mealmaker.babiyo.order.dao.OrderDao;
 import com.mealmaker.babiyo.order.model.OrderDetailDto;
 import com.mealmaker.babiyo.order.model.OrderDto;
@@ -55,6 +56,7 @@ public class OrderServiceImpl implements OrderService{
 		// TODO Auto-generated method stub
 		return orderDao.lastOrder(memberId);
 	}
+	
 
 	@Override
 	public List<OrderDto> orderList(String memberId, int begin, int end) {
@@ -67,6 +69,28 @@ public class OrderServiceImpl implements OrderService{
 	public int memberOrderCount(String id) {
 		// TODO Auto-generated method stub
 		return orderDao.memberOrderCount(id);
+	}
+
+	@Override
+	public Map<String, Object> orderView(int orderNo) {
+		// TODO Auto-generated method stub
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		OrderDto orderDto = orderDao.orderView(orderNo);
+		List<OrderDetailDto> orderDetailList = orderDao.orderDetailView(orderNo);
+		
+		map.put("orderDto", orderDto);
+		map.put("orderDetailList", orderDetailList);
+		
+		return map;
+	}
+
+	@Override
+	public void orderCancel(int orderNo) {
+		// TODO Auto-generated method stub
+		
+		orderDao.orderCancel(orderNo);
 	}
 	
 

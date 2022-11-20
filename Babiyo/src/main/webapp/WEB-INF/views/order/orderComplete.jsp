@@ -18,7 +18,7 @@
 	text-align: center;
 	padding-top: 30px;
 	margin-top: 0px;
-	margin-bottom: 30px;
+	margin-bottom: 60px;
 }
 
 .info{
@@ -29,6 +29,7 @@
 #receiverInfoUl{
 	list-style: none;
 	padding: 0px;
+	margin: 0px;
 }
 
 .completeMsg{
@@ -36,30 +37,57 @@
 	margin: 0px;
 	font-weight: bold;
 }
+
 #infoDiv{
 	width: 1000px;
+	margin-top: 30px;
 	margin-left: 100px;
 }
 
-#receiverInfo{
-	width: 499px;
-	
-}
-
-#paymentInfo{
+#receiverInfo, #paymentInfo{
+	box-sizing: border-box;
+	padding: 10px;
 	width: 499px;
 }
 
-#btnDiv{
-	margin: auto;
-	text-align: center;
-	width: 300px;
-}
+
 #receiverInfoTitle, #paymentInfoTitle{
 	font-size: 18px;
 	font-weight: bold;
+	margin: 0px 0px 10px 10px;
+
 }
-#paymentInfoTitle{
+
+.receiverText{
+	margin-bottom: 5px;
+	width: 80px;
+	display: inline-block;
+	font-weight: bold;
+}
+
+#totalAmountDiv{
+	height: 115px;
+}
+
+#btnDiv{
+	text-align: center;
+}
+
+#orderDetailViewBtn, #orderAddBtn{
+	width: 200px;
+	height: 40px;
+	margin: 30px 10px;
+}
+.moneyText{
+	font-weight: bold;
+	display: inline-block;
+	width: 120px;
+}
+
+.moneySpan{
+	display: inline-block;
+	width: 350px;
+	text-align: right;
 }
 
 </style>
@@ -76,18 +104,19 @@
 	<h2 id="title">주문완료</h2>
 	
 	
-	<div style="margin-top: 100px;">
+	<div>
 		<p class="completeMsg" style="font-size: 35px;">주문이 완료되었습니다.</p>
 		<p class="completeMsg" style="font-size: 25px;">상품을 구매해주셔서 감사합니다!</p>
 	</div>
 	
 	<div id="infoDiv">
 		<div id="receiverInfo" class="info">
-			<span id="receiverInfoTitle">받는사람 정보</span>
+			<p id="receiverInfoTitle">받는사람 정보</p>
 			<ul id="receiverInfoUl">
-				<li><span>받는사람</span> <span>${orderDto.receiverName}</span></li>
-				<li><span>받는주소</span> <span>${orderDto.address} ${orderDto.addressDetail}</span></li>
-				<li><span>요청사항</span> <span>${orderDto.request}</span></li>
+				<li><span class="receiverText">받는 사람</span><span>${orderDto.receiverName}</span></li>
+				<li><span class="receiverText">받는 주소</span><span>${orderDto.address}</span></li>
+				<li><span class="receiverText">상세 주소</span><span>${orderDto.addressDetail}</span></li>
+				<li><span class="receiverText">요청 사항</span><span>${orderDto.request}</span></li>
 			</ul>
 			
 		</div>
@@ -95,15 +124,15 @@
 		<hr class="info" style="">
 		
 		<div id="paymentInfo" class="info">
-			<span id="paymentInfoTitle">결제 정보</span>
-			<div>
-				<span>주문금액</span>
-				<span><fmt:formatNumber pattern="#,###">${orderDto.totalAmount}</fmt:formatNumber>원</span>
+			<p id="paymentInfoTitle">결제 정보</p>
+			<div id="totalAmountDiv">
+				<span class="moneyText">주문금액</span>
+				<span class="moneySpan"><fmt:formatNumber pattern="#,###">${orderDto.totalAmount}</fmt:formatNumber>원</span>
 			</div>
 			<hr>
 			<div>
-				<span>결제후 보유금액</span>
-				<span><fmt:formatNumber pattern="#,###">${_memberDto_.cash}</fmt:formatNumber>원</span>
+				<span class="moneyText">결제후 보유금액</span>
+				<span class="moneySpan"><fmt:formatNumber pattern="#,###">${_memberDto_.cash}</fmt:formatNumber>원</span>
 			</div>
 		</div>
 		
@@ -111,8 +140,8 @@
 	</div>
 	
 	<div id="btnDiv">
-		<input type="button" value="상세내역 보기">
-		<input type="button" value="추가 주문하기">
+		<input id="orderDetailViewBtn" type="button" value="상세내역 보기">
+		<input id="orderAddBtn" type="button" value="추가 주문하기">
 	</div>
 	
 	</div>

@@ -20,15 +20,40 @@
 <result column="STATE_NAME" property="stateName"/>
 </resultMap>
 
+
+<resultMap type="orderDetailDto" id="orderDetailResultMap">
+<id column="NO" property="no"/>
+<result column="ORDER_NO" property="orderNo"/>
+<result column="PRODUCT_NO" property="productNo"/>
+<result column="PRODUCT_NAME" property="productName"/>
+<result column="QUANTITY" property="quantity"/>
+<result column="PRICE" property="price"/>
+
+</resultMap>
+
 <select id="lastOrder" resultMap="orderResultMap" parameterType="String">
 SELECT *
-FROM (SELECT *
+FROM (SELECT RECEIVER_NAME, ADDRESS, ADDRESS_DETAIL, REQUEST, TOTAL_AMOUNT
 		FROM MEMBER_ORDER
 		WHERE MEMBER_ID = #{memberId}
 		ORDER BY ORDER_DATE DESC) 
 WHERE <![CDATA[ ROWNUM <= 1 ]]>
 </select>
 
+<select id="orderView" resultMap="orderResultMap" parameterType="int">
+SELECT O.NO, O.ORDER_DATE, O.RECEIVER_NAME, O.RECEIVER_PHONE, O.POST, O.ADDRESS, O.ADDRESS_DETAIL
+	, O.REQUEST, O.TOTAL_AMOUNT, S.NAME STATE_NAME
+FROM MEMBER_ORDER O JOIN ORDER_STATE S
+ON O.STATE_CODE = S.CODE
+WHERE NO = ${value}
+</select>
+
+<select id="orderDetailView" resultMap="orderDetailResultMap" parameterType="int">
+SELECT P.NAME PRODUCT_NAME, D.QUANTITY, D.PRICE
+FROM ORDER_DETAIL D JOIN PRODUCT P
+ON D.PRODUCT_NO = P.NO
+WHERE ORDER_NO = ${value}
+</select>
 
 <insert id="order" parameterType="orderDto"
 useGeneratedKeys="true" keyProperty="no">
@@ -64,5 +89,11 @@ SELECT COUNT(*)
 FROM MEMBER_ORDER
 WHERE MEMBER_ID = #{value}
 </select>
+
+<update id="orderCancel" parameterType="int">
+UPDATE MEMBER_ORDER
+SET STATE_CODE = 3
+WHERE NO = ${value}
+</update>
 
 </mapper>

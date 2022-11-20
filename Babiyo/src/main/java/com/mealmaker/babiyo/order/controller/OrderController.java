@@ -76,18 +76,17 @@ public class OrderController {
 			}
 			cartService.cartDelete(list);
 		}
+		 
 		
-		
-		return "redirect:/order/orderComplete.do?orderNo=" + orderNo;
+		return "redirect:/order/complete.do";
 	}
 	
-	@RequestMapping(value = "/order/orderComplete.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/order/complete.do", method = RequestMethod.GET)
 	public String orderComplete(HttpSession session, Model model) {
 		logger.info("Welcome OrderController orderComplete! ");
 		MemberDto memberDto = (MemberDto) session.getAttribute("_memberDto_");
 		
 		String memberId = memberDto.getId();
-		
 		OrderDto orderDto = orderService.lastOrder(memberId);
 		
 		model.addAttribute("orderDto", orderDto);
@@ -95,7 +94,7 @@ public class OrderController {
 		return "order/orderComplete";
 	}
 	
-	@RequestMapping(value = "/order/memberOrderList.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/order/member/list.do", method = RequestMethod.GET)
 	public String memberOrderList(@RequestParam(defaultValue = "1") int curPage, HttpSession session, Model model) {
 		logger.info("Welcome OrderController memberOrderList! ");
 		
@@ -116,6 +115,32 @@ public class OrderController {
 		model.addAttribute("orderList", orderList);
 		
 		return "order/memberOrderList";
+	}
+	
+	@RequestMapping(value="/order/member/detail.do", method = RequestMethod.GET)
+	public String memberOrderDetail(int orderNo, HttpSession session, Model model) {
+		
+		Map<String, Object> orderMap = orderService.orderView(orderNo);
+		
+		model.addAttribute("orderMap", orderMap);
+		
+		return "/order/memberOrderDetail";
+	}
+	
+	@RequestMapping(value="/order/cancel.do", method = RequestMethod.GET)
+	public String orderCancel(int orderNo, String backPage, HttpSession session, Model model) {
+		
+		orderService.orderCancel(orderNo);
+		
+		String url = "";
+		
+		if(backPage.equals("detail")) {
+			url = "redirect:/order/member/detail.do?orderNo=" + orderNo;
+		} else if(backPage.equals("list")) {
+			url = "redirect:/order/member/list.do?orderNo=" + orderNo;
+		}
+		
+		return url;
 	}
 	
 	

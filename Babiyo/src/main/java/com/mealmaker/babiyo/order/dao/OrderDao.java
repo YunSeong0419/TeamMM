@@ -18,5 +18,11 @@ public interface OrderDao {
 	public List<OrderDto> orderList(String memberId, int begin, int end);
 
 	public int memberOrderCount(String id);
+
+	public OrderDto orderView(int orderNo);
+
+	List<OrderDetailDto> orderDetailView(int orderNo);
+
+	public void orderCancel(int orderNo);
 	
 }

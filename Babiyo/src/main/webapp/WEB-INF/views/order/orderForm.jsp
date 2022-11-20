@@ -10,6 +10,8 @@
 <title>주문화면</title>
 
 <script type="text/javascript" src="/babiyo/resources/js/jquery-3.6.1.js"></script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+
 <style type="text/css">
 
 #rootDiv{
@@ -20,6 +22,12 @@
 	margin: auto;
 	width: 1200px;
 	min-height: 650px; 
+}
+
+#title{
+	text-align: center;
+	padding-top: 30px;
+	margin: 0px 0px 30px 0px;
 }
 
 #receiverDiv {
@@ -33,19 +41,16 @@
 	border-radius: 20px;
 	float: left;
 }
-
-#paymentInfoDiv {
-	margin: 0px 50px;
-	width: 500px;
-	height: 500px;
-	float: left;
+#receiverTitle{
+	position: absolute;
+	top: -14px; 
+	left: 40px;
+	font-size:20px; 
+	font-weight: bold;
+	background-color: white;
+	padding: 0px 5px;
 }
 
-#title{
-	text-align: center;
-	padding-top: 30px;
-	margin: 0px 0px 30px 0px;
-}
 
 .receiverInfo {
 	display: inline-block;
@@ -60,6 +65,10 @@
 	margin-top: 20px;
 }
 
+#post{
+	width: 80px;
+}
+
 #requestInfo {
 	float: left;
 }
@@ -69,6 +78,14 @@
 	margin-left: 6px;
 	height: 200px;
 }
+
+#paymentInfoDiv {
+	margin: 0px 50px;
+	width: 500px;
+	height: 500px;
+	float: left;
+}
+
 
 #mealkitListDiv{
 	height: 300px;
@@ -80,14 +97,6 @@
 	padding: 0px;
 }
 
-#orderBtn, #backBtn{
-	width:240px;
-	height:40px;
-}
-
-#backBtn{
-	margin-left: 12px;
-}
 
 #mealkitListP,#balanceName,#totalAmountName{
 	font-weight: bold;
@@ -103,23 +112,26 @@
 }
 .mealkitQuantity{
 	display: inline-block;
-	width: 100px;
+	float: right;
 	text-align: right;
 }
 .mealkitPrice{
+	margin-left: 20px;
+	text-align: right;
+	width: 100px;
 	float: right;
 }
 
-#receiverTitle{
-	position: absolute;
-	top: -14px; 
-	left: 40px;
-	font-size:20px; 
-	font-weight: bold;
-	background-color: white;
-	padding: 0px 5px;
+
+
+#orderBtn, #backBtn{
+	width:240px;
+	height:40px;
 }
 
+#backBtn{
+	margin-left: 12px;
+}
 
 </style>
 <script type="text/javascript">
@@ -137,14 +149,85 @@ $(document).ready(function(){
 	$('#totalAmount').val(totalAmount);
 	$('#totalAmountMoney').html(htmlStr);
 	
+	
+	
 	$('#orderBtn').click(function(){
-		$('#receiverForm').submit();
+		
+		var str = '';
+		
+		if(!$('#receiverName').val()){
+			str = '받으시는 분 성함을 입력해주세요';
+			$('#receiverName').focus();
+		}else if(!$('#receiverPhone').val()){
+			str = '받으시는 분 연락처를 입력해주세요';
+			$('#receiverPhone').focus();		
+		}else if(!$('#post').val()){
+			str = '우편번호를 입력해주세요';
+			$('#post').focus();
+		}else if(!$('#addressDetail').val()){
+			str = '상제주소를 입력해주세요';
+			$('#addressDetail').focus();
+		}else{
+			return $('#receiverForm').submit();
+		}
+		
+		alert(str);
+		
+	});
+	
+	$('#backBtn').click(function(){
+		location.href = document.referrer;
 	});
 	
 });
 
 
+function postFind() {
+    new daum.Postcode({
+        oncomplete: function(data) {
+            // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+            // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+            // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+            var addr = ''; // 주소 변수
+            var extraAddr = ''; // 참고항목 변수
+
+            //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+            if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                addr = data.roadAddress;
+            } else { // 사용자가 지번 주소를 선택했을 경우(J)
+                addr = data.jibunAddress;
+            }
+
+            // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
+            if(data.userSelectedType === 'R'){
+                // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+                // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+                if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                    extraAddr += data.bname;
+                }
+                // 건물명이 있고, 공동주택일 경우 추가한다.
+                if(data.buildingName !== '' && data.apartment === 'Y'){
+                    extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                }
+                // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+                if(extraAddr !== ''){
+                    extraAddr = ' (' + extraAddr + ')';
+                }
+            }
+            
+            // 우편번호와 주소 정보를 해당 필드에 넣는다.
+            document.getElementById('post').value = data.zonecode;
+            document.getElementById("address").value = addr + extraAddr;
+            // 커서를 상세주소 필드로 이동한다.
+            document.getElementById("addressDetail").focus();
+        }
+    }).open();
+}
+
+
 </script>
+
 </head>
 
 <body>
@@ -157,35 +240,36 @@ $(document).ready(function(){
 	
 	<h2 id="title">주문하기</h2>
 	
-	
-
 		<div id="receiverDiv">
 			<span id="receiverTitle">받는사람 정보</span>
 
 			<form action="./orderCtr.do" method="post" id="receiverForm">
 				<div class="receiverInfoDiv">
-					<span class="receiverInfo">받으시는 분 성함</span> <input type="text"
-						name="receiverName" class="receiverInput" value="${_memberDto_.name}">
+					<span class="receiverInfo">받으시는 분 성함</span>
+					<input type="text" name="receiverName" id="receiverName" class="receiverInput"
+						 value="${_memberDto_.name}">
 				</div>
 				<div class="receiverInfoDiv">
-					<span class="receiverInfo">받으시는 분 연락처</span> <input type="text"
-						name="receiverPhone" class="receiverInput" value="${_memberDto_.phone}">
+					<span class="receiverInfo">받으시는 분 연락처</span>
+					<input type="text" name="receiverPhone" id="receiverPhone" class="receiverInput" 
+						value="${_memberDto_.phone}">
 				</div>
 				<div class="receiverInfoDiv">
-					<span class="receiverInfo">배송지 입력</span> <input type="text"
-						name="address" class="receiverInput" value="인천 서구 어느동 12번지">
+					<span class="receiverInfo">우편번호</span> 
+					<input type="text" name="post" id="post" class="receiverInput" readonly="readonly">
+					<input type="button" onclick="postFind()" value="우편번호 찾기">
 				</div>
 				<div class="receiverInfoDiv">
-					<span class="receiverInfo">우편번호</span> <input type="text"
-						name="post" class="receiverInput" value="123-234">
+					<span class="receiverInfo">배송지 입력</span> 
+					<input type="text" name="address" id="address" class="receiverInput" readonly="readonly">
 				</div>
 				<div class="receiverInfoDiv">
-					<span class="receiverInfo">상세주소</span> <input type="text"
-						name="addressDetail" class="receiverInput" value="3동 704호">
+					<span class="receiverInfo">상세주소</span>
+					<input type="text" name="addressDetail" id="addressDetail" class="receiverInput">
 				</div>
 				<div class="receiverInfoDiv">
 					<span id="requestInfo" class="receiverInfo">배송 시 요청사항</span>
-					<textarea name="request" id="requestText" class="receiverInput">테스트 요청사항입니다</textarea>
+					<textarea name="request" id="requestText" class="receiverInput"></textarea>
 				</div>
 				
 				<div>
@@ -215,10 +299,10 @@ $(document).ready(function(){
 					<c:forEach items="${orderDetailList}" var="mealkit">
 						<li>
 							<span class="mealkitName">${mealkit.productName}</span>
-							<span class="mealkitQuantity">${mealkit.quantity}개</span>
 							<span class="mealkitPrice">
 							<fmt:formatNumber pattern="#,###">${mealkit.price * mealkit.quantity}</fmt:formatNumber>원
 							</span>
+							<span class="mealkitQuantity">${mealkit.quantity}개</span>
 						</li>
 					</c:forEach>
 				</ul>

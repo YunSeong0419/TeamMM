@@ -68,7 +68,26 @@ public class OrderDaoImpl implements OrderDao {
 		return sqlSession.selectOne(namespace + "memberOrderCount", id);
 	}
 
-	
+	@Override
+	public OrderDto orderView(int orderNo) {
+		// TODO Auto-generated method stub
+		
+		return sqlSession.selectOne(namespace + "orderView", orderNo);
+	}
+
+	@Override
+	public List<OrderDetailDto> orderDetailView(int orderNo) {
+		// TODO Auto-generated method stub
+		
+		return sqlSession.selectList(namespace + "orderDetailView", orderNo);
+	}
+
+	@Override
+	public void orderCancel(int orderNo) {
+		// TODO Auto-generated method stub
+		sqlSession.update(namespace + "orderCancel", orderNo);
+	}
+
 	
 	
 }
