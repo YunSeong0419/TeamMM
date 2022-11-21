@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.mealmaker.babiyo.order.dao.OrderDao;
 import com.mealmaker.babiyo.order.model.OrderDetailDto;
 import com.mealmaker.babiyo.order.model.OrderDto;
+import com.mealmaker.babiyo.util.SearchOption;
 
 @Service
 public class OrderServiceImpl implements OrderService{
@@ -59,16 +60,16 @@ public class OrderServiceImpl implements OrderService{
 	
 
 	@Override
-	public List<OrderDto> orderList(String memberId, int begin, int end) {
+	public List<OrderDto> orderList(String memberId, int begin, int end, SearchOption searchOption) {
 		// TODO Auto-generated method stub
 		
-		return orderDao.orderList(memberId, begin, end);
+		return orderDao.orderList(memberId, begin, end, searchOption);
 	}
 
 	@Override
-	public int memberOrderCount(String id) {
+	public int memberOrderCount(String id, SearchOption searchOption) {
 		// TODO Auto-generated method stub
-		return orderDao.memberOrderCount(id);
+		return orderDao.memberOrderCount(id, searchOption);
 	}
 
 	@Override
@@ -91,6 +92,12 @@ public class OrderServiceImpl implements OrderService{
 		// TODO Auto-generated method stub
 		
 		orderDao.orderCancel(orderNo);
+	}
+
+	@Override
+	public List<Map<String, Object>> orderStateList() {
+		// TODO Auto-generated method stub
+		return orderDao.orderStateList();
 	}
 	
 

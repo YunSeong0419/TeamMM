@@ -7,6 +7,9 @@
 <head>
 <meta charset="UTF-8">
 <title>주문완료</title>
+
+<script type="text/javascript" src="/babiyo/resources/js/jquery-3.6.1.js"></script>
+
 <style type="text/css">
 #middleDiv{
 	min-height: 650px;
@@ -91,6 +94,17 @@
 }
 
 </style>
+
+<script type="text/javascript">
+
+function orderDetailFnc(no){
+
+	location.href = './member/detail.do?orderNo=' + no ;
+	
+}
+
+
+</script>
 </head>
 <body>
 
@@ -140,7 +154,7 @@
 	</div>
 	
 	<div id="btnDiv">
-		<input id="orderDetailViewBtn" type="button" value="상세내역 보기">
+		<input id="orderDetailViewBtn" type="button" value="상세내역 보기" onclick="orderDetailFnc(${orderDto.no});">
 		<input id="orderAddBtn" type="button" value="추가 주문하기">
 	</div>
 	

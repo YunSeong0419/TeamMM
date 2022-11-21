@@ -25,6 +25,7 @@ import com.mealmaker.babiyo.order.model.OrderDetailDto;
 import com.mealmaker.babiyo.order.model.OrderDto;
 import com.mealmaker.babiyo.order.service.OrderService;
 import com.mealmaker.babiyo.util.Paging;
+import com.mealmaker.babiyo.util.SearchOption;
 
 // 어노테이션 드리븐
 @Controller
@@ -95,24 +96,27 @@ public class OrderController {
 	}
 	
 	@RequestMapping(value = "/order/member/list.do", method = RequestMethod.GET)
-	public String memberOrderList(@RequestParam(defaultValue = "1") int curPage, HttpSession session, Model model) {
+	public String memberOrderList(@RequestParam(defaultValue = "1") int curPage, SearchOption searchOption
+			, HttpSession session, Model model) {
 		logger.info("Welcome OrderController memberOrderList! ");
 		
 		MemberDto memberDto = memberDao.memberExist("dong", "123");
 		
 		String memberId = memberDto.getId();
-		int totalCount = orderService.memberOrderCount(memberId);
+		int totalCount = orderService.memberOrderCount(memberId, searchOption);
 		
 		Paging paging = new Paging(totalCount, curPage);
 		
 		int begin = paging.getPageBegin();
 		int end = paging.getPageEnd();
 		
-		List<OrderDto> orderList = orderService.orderList(memberId, begin, end);
-		
+		List<OrderDto> orderList = orderService.orderList(memberId, begin, end, searchOption);
+		List<Map<String, Object>> stateList = orderService.orderStateList();
 		
 		model.addAttribute("paging", paging);
 		model.addAttribute("orderList", orderList);
+		model.addAttribute("stateList", stateList);
+		model.addAttribute("searchOption", searchOption);
 		
 		return "order/memberOrderList";
 	}

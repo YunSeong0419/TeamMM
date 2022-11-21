@@ -33,7 +33,7 @@
 
 <select id="lastOrder" resultMap="orderResultMap" parameterType="String">
 SELECT *
-FROM (SELECT RECEIVER_NAME, ADDRESS, ADDRESS_DETAIL, REQUEST, TOTAL_AMOUNT
+FROM (SELECT NO, RECEIVER_NAME, ADDRESS, ADDRESS_DETAIL, REQUEST, TOTAL_AMOUNT
 		FROM MEMBER_ORDER
 		WHERE MEMBER_ID = #{memberId}
 		ORDER BY ORDER_DATE DESC) 
@@ -75,19 +75,26 @@ VALUES(#{orderNo}, #{productNo}, #{quantity}, #{price})
 
 <select id="orderList" parameterType="map" resultMap="orderResultMap">
 SELECT *
-FROM(SELECT ROWNUM INROW, ORDER_DATE, NO, TOTAL_AMOUNT, PREVIEW, PRODUCT_QUANTITY, STATE_NAME
-FROM(SELECT O.ORDER_DATE, O.NO, O.TOTAL_AMOUNT, O.PREVIEW, O.PRODUCT_QUANTITY, S.NAME STATE_NAME
+FROM(SELECT ROWNUM INROW, ORDER_DATE, NO, TOTAL_AMOUNT, PREVIEW, PRODUCT_QUANTITY, STATE_CODE, STATE_NAME
+FROM(SELECT O.ORDER_DATE, O.NO, O.TOTAL_AMOUNT, O.PREVIEW, O.PRODUCT_QUANTITY, S.CODE STATE_CODE, S.NAME STATE_NAME
 	FROM MEMBER_ORDER O JOIN ORDER_STATE S
 	ON O.STATE_CODE = S.CODE
-	WHERE O.MEMBER_ID = #{id}
+	<where>
+	O.MEMBER_ID = #{id}
+	<if test="stateCode != 0">AND O.STATE_CODE = ${stateCode}</if>
+	</where>
 	ORDER BY O.ORDER_DATE DESC))
 WHERE INROW BETWEEN ${begin} AND ${end}
 </select>	
 
-<select id="memberOrderCount" parameterType="String" resultType="int">
+<select id="memberOrderCount" parameterType="map" resultType="int">
 SELECT COUNT(*)
 FROM MEMBER_ORDER
-WHERE MEMBER_ID = #{value}
+<where>
+MEMBER_ID = #{id}
+<if test="stateCode != 0">AND STATE_CODE = ${stateCode}</if>
+</where>
+
 </select>
 
 <update id="orderCancel" parameterType="int">
@@ -95,5 +102,10 @@ UPDATE MEMBER_ORDER
 SET STATE_CODE = 3
 WHERE NO = ${value}
 </update>
+
+<select id="orderStateList" resultType="map">
+SELECT CODE, NAME
+FROM ORDER_STATE
+</select>
 
 </mapper>

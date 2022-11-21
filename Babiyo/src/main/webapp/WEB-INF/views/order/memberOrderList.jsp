@@ -11,8 +11,6 @@
 <link rel="stylesheet" type="text/css" href="/babiyo/resources/css/basic.css"/>
 <script type="text/javascript" src="/babiyo/resources/js/jquery-3.6.1.js"></script>
 
-
-
 <style type="text/css">
 table{
 	border-collapse: collapse;
@@ -69,7 +67,9 @@ td{
 	text-decoration: none;
 }
 
-
+#searchOptionDiv{
+	margin-left: 50px;
+}
 
 
 
@@ -77,9 +77,21 @@ td{
 
 <script type="text/javascript">
 
+$(function(){
+	
+	$('#stateSelect').val($('#stateCode').val());
+	
+});
+
 function cancelFnc(orderNo){
 	
 	location.href = '../cancel.do?orderNo=' + orderNo + '&backPage=list';
+}
+
+function stateSelectFnc(){
+	
+	$('#stateForm').submit();
+	
 }
 
 </script>
@@ -93,6 +105,18 @@ function cancelFnc(orderNo){
 	<jsp:include page="/WEB-INF/views/CommonMiddleDiv.jsp" />
 
 	<div id="middleRightDiv">
+	
+		<div id="searchOptionDiv">
+			<form id="stateForm" method="get">
+				<span>상태</span>
+				<select id="stateSelect" name="stateCode" onchange="stateSelectFnc();">
+				<option value="0">전체</option>
+				<c:forEach items="${stateList}" var="state">
+				<option value="${state.CODE}">${state.NAME}</option>
+		GH		</c:forEach>
+				</select>
+			</form>
+		</div>
 	
 		<div id="cartTableDiv">
 			<table id="orderListTable">
@@ -121,10 +145,10 @@ function cancelFnc(orderNo){
 					
 					<td class="btnTd">
 					<c:choose>
-						<c:when test="${order.stateName eq '대기'}">
+						<c:when test="${order.stateCode eq 1}">
 						<input type="button" value="취소" onclick="cancelFnc(${order.no});">
 						</c:when>
-						<c:when test="${order.stateName eq '완료'}">
+						<c:when test="${order.stateCode eq 2}">
 						<input type="button" value="리뷰쓰기">
 						</c:when>
 					</c:choose>
@@ -147,7 +171,8 @@ function cancelFnc(orderNo){
 		<jsp:include page="/WEB-INF/views/Paging.jsp"/>
 	
 		<form method="get" id="pagingForm">
-			<input type="hidden" name="curPage" id="curPage" value="${paging.curPage}">
+			<input type="hidden" id="curPage" name="curPage" value="${paging.curPage}">
+			<input type="hidden" id="stateCode" name="stateCode" value="${searchOption.stateCode}">
 		</form>
 		
 	</div>

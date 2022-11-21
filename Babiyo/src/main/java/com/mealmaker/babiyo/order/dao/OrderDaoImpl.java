@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.mealmaker.babiyo.member.model.MemberDto;
 import com.mealmaker.babiyo.order.model.OrderDetailDto;
 import com.mealmaker.babiyo.order.model.OrderDto;
+import com.mealmaker.babiyo.util.SearchOption;
 
 @Repository
 public class OrderDaoImpl implements OrderDao {
@@ -51,21 +52,31 @@ public class OrderDaoImpl implements OrderDao {
 	}
 
 	@Override
-	public List<OrderDto> orderList(String memberId, int begin, int end) {
+	public List<OrderDto> orderList(String memberId, int begin, int end, SearchOption searchOption) {
 		// TODO Auto-generated method stub
-		Map<String, Object> paramMap = new HashMap<String, Object>();
+		Map<String, Object> paraMap = new HashMap<String, Object>();
 		
-		paramMap.put("id", memberId);
-		paramMap.put("begin", begin);
-		paramMap.put("end", end);
+		int stateCode = searchOption.getStateCode();
 		
-		return sqlSession.selectList(namespace + "orderList", paramMap);
+		paraMap.put("id", memberId);
+		paraMap.put("begin", begin);
+		paraMap.put("end", end);
+		paraMap.put("stateCode", stateCode);
+		
+		return sqlSession.selectList(namespace + "orderList", paraMap);
 	}
 
 	@Override
-	public int memberOrderCount(String id) {
+	public int memberOrderCount(String id, SearchOption searchOption) {
 		// TODO Auto-generated method stub
-		return sqlSession.selectOne(namespace + "memberOrderCount", id);
+		
+		Map<String, Object> paraMap = new HashMap<String, Object>();
+		int stateCode = searchOption.getStateCode();
+		
+		paraMap.put("id", id);
+		paraMap.put("stateCode", stateCode);
+		
+		return sqlSession.selectOne(namespace + "memberOrderCount", paraMap);
 	}
 
 	@Override
@@ -86,6 +97,12 @@ public class OrderDaoImpl implements OrderDao {
 	public void orderCancel(int orderNo) {
 		// TODO Auto-generated method stub
 		sqlSession.update(namespace + "orderCancel", orderNo);
+	}
+
+	@Override
+	public List<Map<String, Object>> orderStateList() {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList(namespace + "orderStateList");
 	}
 
 	
