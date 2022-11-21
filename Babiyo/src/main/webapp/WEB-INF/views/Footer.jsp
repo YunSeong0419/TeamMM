@@ -1,39 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-<style type="text/css">
-html, body {
-	padding: 0px;
-	margin: 0px;
-}
-
-footer {
-	height: 85px;
-	font-size: 12px;
-	background-color: #E0E0E0;
-	padding: 5px 50px 10px 50px;
-}
-
-footer > div{
-	width: 1200px;
-	margin: 0px auto;
-}
-
-#footerSmallPTag {
-	font-size: 10px;
-	margin: 10px;
-	color: #666666;
-}
-
-.footerPTag {
-	margin: 10px;
-	color: #A0A0A0;
-}
-
-</style>
-
-<!-- 여기서 몸통 닫음 -->
-</div>
 
 <footer>
 	<div>

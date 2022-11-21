@@ -7,12 +7,14 @@
 <head>
 <meta charset="UTF-8">
 <title>장바구니</title>
-<link rel="stylesheet" type="text/css" href="/babiyo/resources/css/basic.css?a"/>
+<link rel="stylesheet" type="text/css" href="/babiyo/resources/css/basic.css?b"/>
 <script type="text/javascript" src="/babiyo/resources/js/jquery-3.6.1.js"></script>
 <style type="text/css">
 
 #cartTableDiv{
+	width: 1000px;
 	min-height: 400px;
+	margin: 0px auto;
 }
 
 .checkTd{
@@ -40,10 +42,14 @@
 table{
 	border-collapse: collapse;
 }
+#cartListTable{
+	margin: 0px auto;
+}
 
 #totalAmount{
 	float: right;
 }
+
 #orderBtnDiv{
 	width: 200px;
 	height: 40px;
@@ -214,12 +220,14 @@ function totalTrans(){ // 장바구니의 총합계금액을 반영해주는 함
 <div id="rootDiv">
 
 	<jsp:include page="/WEB-INF/views/Header.jsp" />
-	<jsp:include page="/WEB-INF/views/CommonMiddleDiv.jsp" />
-	<div id="middleRightDiv">
+	
+	<div id="middleDiv">
 		
-		<div id="marginDiv">
+		<jsp:include page="/WEB-INF/views/CommonMiddleDiv.jsp" />
+		<div id="middleMainDiv">
+		
 			<div id="cartTableDiv">
-				<table>
+				<table id="cartListTable">
 					<tr style="background-color: gray;">
 						<th class="checkTd"><input type="checkbox" id="allCheck"></th><th class="nameTd">상품명</th>
 						<th class="priceTd">단가</th><th class="quantityTd">수량</th><th class="sumTd">합계</th>
@@ -270,10 +278,11 @@ function totalTrans(){ // 장바구니의 총합계금액을 반영해주는 함
 				<input type="button" value="주문하기" id="selectOrder">
 			</div>
 		
-		</div>
 		<form action="./delete.do" method="post" id="deleteForm"></form>
 		<form action="../order/order.do" method="post" id="selectOrderForm"></form>
 	
+		</div>
+		
 	</div>
 	
 	

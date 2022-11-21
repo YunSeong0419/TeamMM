@@ -2,111 +2,35 @@
 	pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<style type="text/css">
-html, body{
-	padding: 0px;
-	margin: 0px;
-}
-
-header{
-	width: 1200px;
-	height: 200px;
-	margin: 0px auto;
-}
-
-#logoDiv{
-	width: 150px;
-	padding: 20px 0px 0px 525px;
-	margin: 30px auto;
-	text-align: center;
-	display: inline;
-	float: left;
-}
-
-#logo{
-	width: 150px;
-	height: 60px;
-}
-
-#serviceAreaDiv{
-	height: 150px;
-}
-
-#serviceAreaMenuBar{
-	margin-top: 65px;
-	margin-right: 20px;
-	width: 300px;
-	height: 30px;
-	float: right;
-	text-align: right;
-}
-
-#serviceAreaMenuBar > div > a{
-	width: 60px;
-	height: 30px;
-	margin: 2px;
-	padding: 4px 4px;
-	font-size: 12px;
-	font-weight: bold;
-	text-decoration: none;
-	color: #666666;
-}
-
-#categoryMenuBar{
-	width: 1200px;
-	height: 50px;
-}
-
-#categoryMenuBar > div > a{
-	display: inline-block;
-	padding: 10px 123px;
-	font-size: 20px;
-	font-weight: bold;
-	text-decoration: none;
-	color: #4A4A4A;
-	float: left;
-}
-
-.categoryVerticalLine{
-	display: inline-block;
-	border-left : 1px solid #A0A0A0;
-	height: 47px;
-	float: left;
-}
-
-#clearBlock{
-	display: none;
-	clear: both;
-}
-
-</style>
-
 <header>
+	<div style="width: 1200px; margin: auto;">
+	
 	<div id="serviceAreaDiv">
 		<div id='logoDiv'>
-			<a href="#"><img id='logo' alt="메인으로 이동" 
-				src="/babiyo/resources/img/logo.png"></a>
+			<a href="/babiyo">
+			<img id='logo' alt="메인으로 이동" src="/babiyo/resources/img/logo.png">
+			</a>
 		</div>
 		
 		<div id='serviceAreaMenuBar'>
-			<c:choose>
-				<c:when test="${id eq admin}">
-					<div id='serviceAreaManagerMenuBar'>
-						<a id='managerInfo' href="#">관리자</a>
-						<a id='logout' href="#">로그아웃</a>
-					</div>
-				</c:when>
-				
-				<c:otherwise>
-					<div id='serviceAreaMemberMenuBar'>
-						<a id='cash' href="#">충전</a>
-						<a id='memberInfo' href="#">내 정보</a>
-						<a id='shoppingBasket' href="#">장바구니</a>
-						<a id='bookMark' href="#">즐겨찾기</a>
-						<a id='logout' href="#">로그아웃</a>
-					</div>
-				</c:otherwise>
-			</c:choose>
+		<c:choose>
+			<c:when test="${_memberDto_.grade eq 1}">
+				<div id='serviceAreaManagerMenuBar'>
+					<a id='managerInfo' href="#">관리자</a>
+					<a id='logout' href="#">로그아웃</a>
+				</div>
+			</c:when>
+			
+			<c:otherwise>
+				<div id='serviceAreaMemberMenuBar'>
+					<a id='cash' href="#">충전</a>
+					<a id='memberInfo' href="#">내 정보</a>
+					<a id='shoppingBasket' href="#">장바구니</a>
+					<a id='bookMark' href="#">즐겨찾기</a>
+					<a id='logout' href="#">로그아웃</a>
+				</div>
+			</c:otherwise>
+		</c:choose>
 		</div>
 	</div>
 	
@@ -132,8 +56,10 @@ header{
 		<div>
 			<a id='notice' href="#">공지</a>
 		</div>
+		<div class='clearBlock'></div>
 	</div>
 	
-	<div id='clearBlock'></div>
+	</div>
+	
 	
 </header>
