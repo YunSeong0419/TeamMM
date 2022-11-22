@@ -1,62 +1,44 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>문의작성</title>
+<title>문의 작성</title>
+
 <style type="text/css">
-input, select{
-	border-radius: 8px;
-}
-
-#leftDiv{
-	margin-left: 200px;
-}
-#divisionId {
-	width: 150px;
-	height: 40px;
-	margin-left: 20px;
-}
-
-#titleId {
-	width: 840px;
-	height: 40px;
-	margin: 20px 0px 0px 20px;
-}
-
-.contentsId {
+#contentsId{
 	width: 900px;
 	height: 350px;
-	margin-top: 10px;
 }
-
-#contentsDiv{
-	margin-top: 20px;
-	width: 908px;
-}
-
-#submitDiv{
-	float: right;
-	margin: 20px 87px 0px 0px;
-}
-
-#backDiv{
-	margin: 20px 0px 0px 420px;
-} 
 </style>
+
+<link rel="stylesheet" type="text/css" href="/babiyo/resources/css/common.css"/>
+<script type="text/javascript" src="/babiyo/resources/js/jquery-3.6.1.js"></script>
+
 <script type="text/javascript">
-function backBtn() {
-	location.href = '.do';
-}	
+	function backBtn() {
+		location.href = "../member.do"
+	}
 </script>
 </head>
 <body>
-<jsp:include page="/WEB-INF/views/Header.jsp"/>
-<jsp:include page="/WEB-INF/views/CommonMiddleDiv.jsp" />
-	<div>
-	<div id="leftDiv">
-		<form action="./writeCtr.do" method="post">
+
+<div id="rootDiv">
+
+	<jsp:include page="/WEB-INF/views/Header.jsp" />
+
+	<div id="middleDiv">
+	
+		<jsp:include page="/WEB-INF/views/CommonMiddleDiv.jsp" />
+		
+		<div id="middleMainDiv">
+			<div id="sideTitle"></div>
+			<!--여기서 작성 -->
+		
+			<form action="./writeCtr.do" method="post">
 			<div>
 				분류 
 				<select name="categoryCode" id="divisionId">
@@ -74,15 +56,21 @@ function backBtn() {
 				내용<br> 
 				<textarea name="content" id="contentsId"></textarea>
 			</div>
-			<input type="hidden" name="memberId" value="${memberDto.id}"> 
+			<input type="hidden" name="memberId" value="${_memberDto_.id}"> 
 			<input id="backDiv" type="button" value="뒤로가기" onclick="backBtn()"> 
 			<input id="submitDiv"  type="submit" value="작성">
 
 		</form>
-		</div>
-	</div>
+		
+			<div id="underPadding"></div>
+			
+		</div> <!--middelMain 끝 -->
+	
+	</div> <!--middleDiv 끝 -->
 
+	<jsp:include page="/WEB-INF/views/Footer.jsp" />
 
-<jsp:include page="/WEB-INF/views/Footer.jsp"/>
+</div> <!-- rootDiv 끝 -->
+
 </body>
 </html>

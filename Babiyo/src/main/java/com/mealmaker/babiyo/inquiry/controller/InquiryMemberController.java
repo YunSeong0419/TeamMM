@@ -2,6 +2,7 @@ package com.mealmaker.babiyo.inquiry.controller;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -27,10 +28,13 @@ public class InquiryMemberController {
 	
 	@Autowired
 	private InquiryService inquiryService;
+
+	private Object InquiryDto;
 	
+	//문의 게시글 목록
 	@RequestMapping(value = "/inquiry/member.do", method = RequestMethod.GET)
 	public String memberInquiry(HttpSession session, Model model) {
-		logger.info("Welcome OrderController login! ");
+		logger.info("Welcome InquiryMemberController list! ");
 		
 		List<InquiryDto> inquiryList = inquiryService.inquirySelectList();
 		
@@ -39,23 +43,34 @@ public class InquiryMemberController {
 		return "inquiry/member/memberInquiryListView";
 	}
 	
+	//문의 게시글 상세
 	@RequestMapping(value = "/inquiry/member/detail.do", method = RequestMethod.GET)
-	public String memberDetail(HttpSession session, Model model) {
-		logger.info("Welcome OrderController login! ");
+	public String memberDetail(int no, HttpSession session, Model model) {
+		logger.info("Welcome InquiryMemberController detail! ");
+		
+		System.out.println(no);
+		
+		/*
+		 * Map<String, Object> map = inquiryService.inquirySelectOne(no);
+		 * 
+		 * 
+		 * model.addAttribute("inquiryDto",InquiryDto); model.addAttribute("map",map);
+		 */
 		
 		return "inquiry/member/memberInquiryDetail";
 	}
 	
+	//문의 게시글 작성
 	@RequestMapping(value = "/inquiry/member/write.do", method = RequestMethod.GET)
 	public String memberWrite(HttpSession session, Model model) {
-		logger.info("Welcome OrderController login! ");
+		logger.info("Welcome InquiryMemberController login! ");
 		
 		MemberDto memberDto = 
-				new MemberDto("test", "123", "테스트", "test@test.com",
-				null, "남", "010010101", "테스트", 0, 2, null, null);
+				new MemberDto("dong", "123", "이동현", "dong@test.com",
+				null, "남", "01088294445", "동현", 10000, 2, null, null);
 		
 		
-		model.addAttribute("memberDto", memberDto);
+		model.addAttribute("_memberDto_", memberDto);
 		
 		
 		return "inquiry/member/memberInquiryWrite";
@@ -63,25 +78,31 @@ public class InquiryMemberController {
 	
 	@RequestMapping(value = "/inquiry/member/writeCtr.do", method = RequestMethod.POST)
 	public String memberWrite(InquiryDto inquiryDto, MemberDto memberDto, Model model) {
-		logger.info("Welcome MemberWriteController memberWrite 신규 문의 작성! "
+		logger.info("Welcome InquiryMemberController memberWrite 신규 문의 작성! "
 				+ inquiryDto);
-		try {
-			inquiryService.inquiry(inquiryDto);
-		} catch (Exception e) {
-			// TODO: handle exception
-			System.out.println("예외 처리");
-			e.printStackTrace();
-		}
 		
+		inquiryService.inquiryWrite(inquiryDto);
 		
 		return "redirect:/inquiry/member.do";
 	}
 	
+	//문의 게시글 수정
 	@RequestMapping(value = "/inquiry/member/update.do", method = RequestMethod.GET)
 	public String memberUpdate(HttpSession session, Model model) {
-		logger.info("Welcome OrderController login! ");
+		logger.info("Welcome InquiryMemberController login! ");
 		
 		return "inquiry/member/memberInquiryUpdate";
 	}
+	
+	//문의 게시글 삭제
+//	@RequestMapping(value = "/inquiry/member/deleteCtr.do"
+//			, method = RequestMethod.GET)
+//	public String memberDelete(int no, Model model) {
+//		logger.info("Welcome InquiryMemberController delete! ");
+//		
+//		inquiryService.inquiryDeleteOne(no);
+//		
+//		return "redirect:/inquiry/member/update.do";
+//	}
 
 }

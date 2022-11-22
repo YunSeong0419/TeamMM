@@ -1,96 +1,82 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>문의수정</title>
+<title>문의 작성</title>
+
 <style type="text/css">
-input, select {
-	border-radius: 8px;
-}
-
-#leftDiv {
-	margin-left: 200px;
-}
-
-.divisionCl {
-	width: 150px;
-	height: 40px;
-	margin-left: 20px;
-}
-
-#titleId {
-	width: 840px;
-	height: 40px;
-	margin: 20px 0px 0px 20px;
-}
-
-.contentsCl {
+#contentsId{
 	width: 900px;
 	height: 350px;
-	margin-top: 10px;
-}
-
-#contentsDiv {
-	margin-top: 20px;
-	width: 908px;
-}
-
-#submitDiv {
-	float: right;
-	margin: 20px 87px 0px 0px;
-}
-
-#backDiv {
-	margin: 20px 0px 0px 420px;
-}
-
-.cursorCl {
-	cursor: pointer;
-}
-
-#deletId {
-	margin-top: 20px;
-	float: right;
-}
-#clearDiv{
-	clear: both;
 }
 </style>
+
+<link rel="stylesheet" type="text/css" href="/babiyo/resources/css/common.css"/>
+<script type="text/javascript" src="/babiyo/resources/js/jquery-3.6.1.js"></script>
+
 <script type="text/javascript">
-	
+function backBtn(no){
+	location.href = '../member/detail.do?no=' + no;
+}
+
+function deleteBtn(no){
+	var url = "../member/deleteCtr.do?no=" + no;
+	location.href = url;
+}
 </script>
 </head>
 <body>
-	<jsp:include page="/WEB-INF/views/Header.jsp" />
-	<jsp:include page="/WEB-INF/views/CommonMiddleDiv.jsp" />
-	<div>
-		<div id="leftDiv">
-			<form action="" method="get">
-				<div>
-					분류 <select class="divisionCl">
-						<option selected>주문</option>
-						<option>충전</option>
-						<option>기타</option>
-					</select>
-				</div>
 
-				<div>
-				
-					제목 <input id="titleId" type="text" value="제목">
-				</div>
-				<div id="contentsDiv">
-					내용<br> <input class="contentsCl" type="text">
-				</div>
-				<input id="backDiv" class="cursorCl" type="button" value="뒤로가기"onclick="">
-				<input id="submitDiv" class="cursorCl"type="submit" value="수정하기">
-				<input id="deletId"type="button" class="cursorCl" value="삭제하기" onclick="">
-			</form>
-		</div>
-	</div>
-<div id="clearDiv"></div><!--float 정리div-->
+<div id="rootDiv">
+
+	<jsp:include page="/WEB-INF/views/Header.jsp" />
+
+	<div id="middleDiv">
+	
+		<jsp:include page="/WEB-INF/views/CommonMiddleDiv.jsp" />
+		
+		<div id="middleMainDiv">
+			<div id="sideTitle"></div>
+			<!--여기서 작성 -->
+		
+			<form action="./writeCtr.do" method="post">
+			<div>
+				분류 
+				<select name="categoryCode" id="divisionId">
+					<option value="1" selected>주문</option>
+					<option value="2">밀키트</option>
+					<option value="3">회원</option>
+					<option value="4">기타</option>
+				</select>
+			</div>
+
+			<div>
+				제목 <input name="title" id="titleId" type="text" placeholder="제목">
+			</div>
+			<div id="contentsDiv">
+				내용<br> 
+				<textarea name="content" id="contentsId"></textarea>
+			</div>
+			<input type="hidden" name="memberId" value="${_memberDto_.id}"> 
+			<input id="backDiv" type="button" value="뒤로가기" onclick="backBtn(${inquiryDto.no});"> 
+			<input id="submitDiv"  type="submit" value="수정하기">
+			<input id="deleteDiv"  type="button" value="삭제하기" onclick="deleteBtn(${inquiryDto.no});">
+
+		</form>
+		
+			<div id="underPadding"></div>
+			
+		</div> <!--middelMain 끝 -->
+	
+	</div> <!--middleDiv 끝 -->
 
 	<jsp:include page="/WEB-INF/views/Footer.jsp" />
+
+</div> <!-- rootDiv 끝 -->
+
 </body>
 </html>

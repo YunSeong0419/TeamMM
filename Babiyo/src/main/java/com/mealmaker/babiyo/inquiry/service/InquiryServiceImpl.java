@@ -1,6 +1,8 @@
 package com.mealmaker.babiyo.inquiry.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,10 +29,31 @@ public class InquiryServiceImpl implements InquiryService{
 	}
 	
 	@Override
-	public void inquiry(InquiryDto inquiryDto) {
+	public int inquiryWrite(InquiryDto inquiryDto) {
 		// TODO Auto-generated method stub
 		
-		return;
+		return inquiryDao.inquiryWrite(inquiryDto);
+	}
+
+	@Override
+	public Map<String, Object> inquirySelectOne(int no) {
+		// TODO Auto-generated method stub
+		
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		
+		InquiryDto inquiryDto = inquiryDao.inquirySelectOne(no);
+		resultMap.put("inquiryDto", inquiryDto);
+		
+		
+		return resultMap;
+	}
+
+	@Override
+	public void inquiryDeleteOne(int no) {
+		// TODO Auto-generated method stub
+		
+		inquiryDao.inquiryDeleteOne(no);
+		
 	}
 
 }

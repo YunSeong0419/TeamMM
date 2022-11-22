@@ -21,10 +21,26 @@
 	ORDER BY NO DESC
 </select>
 
-<insert id="ipuuiry" parameterType="inquiryDto">
+<select id="inquirySelectOne" parameterType="int"
+	resultMap="inquiryResultMap">
+	SELECT NO, MEMBER_ID, CATEGORY_CODE, TITLE, CONTENT, ANSWER, CREATE_DATE
+	FROM INQUIRY
+	WHERE NO = #{no}
+</select>
+
+<insert id="inquiryWrite" parameterType="inquiryDto">
+<selectKey keyProperty="no" resultType="int" order="AFTER">
+	SELECT SEQ_INQUIRY_NO.CURRVAL
+	FROM DUAL
+</selectKey>
 	INSERT INTO INQUIRY
 	VALUE(MEMBER_ID, CATEGORY_CODE, TITLE, CONTENT, CREATE_DATE)
 	VALUES(#{memberId} ,#{categoryCode} , #{title}, #{content}, SYSDATE)	
 </insert>
+
+<delete id="inquirDeleteOne" parameterType="int">
+	DELETE FROM INQUIRY
+	WHERE NO = #{value}
+</delete>
 
 </mapper>
