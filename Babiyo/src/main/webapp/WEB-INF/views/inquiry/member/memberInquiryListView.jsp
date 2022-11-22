@@ -93,6 +93,7 @@ td {
 <script type="text/javascript" src="/babiyo/resources/js/jquery-3.6.1.js"></script>
 
 <script type="text/javascript">
+
 function backBtn() {
 	
 	location.href = "#"
@@ -102,6 +103,7 @@ function writeBtn() {
 	
 	location.href = "./member/write.do"
 }
+
 </script>
 </head>
 <body>
@@ -141,7 +143,7 @@ function writeBtn() {
 		<c:when test="${empty inquiryList}">
 		<tr>
 			<td colspan="5"
-				style="width: 310px; height: 810px;
+				style="width: 900px; height: 350px;
 				font-weight: bold; text-align: center;">
 					문의가 존재하지 않습니다
 			</td>
@@ -152,7 +154,7 @@ function writeBtn() {
 				<tr>
 					<td>${inquiryDto.no}</td>
 					<td>${inquiryDto.categoryCode}</td>
-					<td>${inquiryDto.title}</td>
+					<td><a href="./member/detail.do?no=${inquiryDto.no}">${inquiryDto.title}</a></td>
 					<td><fmt:formatDate pattern="yyyy년MM월dd일 " value="${inquiryDto.createDate}"/></td>
 					<td></td>
 				</tr>
