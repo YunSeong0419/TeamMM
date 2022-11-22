@@ -1,7 +1,9 @@
 package com.mealmaker.babiyo.order.controller;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -101,6 +103,7 @@ public class OrderController {
 		logger.info("Welcome OrderController memberOrderList! ");
 		
 		MemberDto memberDto = memberDao.memberExist("dong", "123");
+		session.setAttribute("_memberDto_", memberDto);
 		
 		String memberId = memberDto.getId();
 		int totalCount = orderService.memberOrderCount(memberId, searchOption);
@@ -145,6 +148,51 @@ public class OrderController {
 		}
 		
 		return url;
+	}
+	
+	@RequestMapping(value = "/order/admin/list.do", method = {RequestMethod.GET, RequestMethod.POST})
+	public String adminOrderList(@RequestParam(defaultValue = "1") int curPage
+			, SearchOption searchOption, HttpSession session, Model model) {
+		logger.info("Welcome OrderController memberOrderList! ");
+		
+		if(searchOption.getBeginDate() == null) {
+			searchOption = new SearchOption();
+			
+			Date today = new Date();
+			
+			Calendar cal = Calendar.getInstance();
+			cal.setTime(today);
+			cal.add(Calendar.MONTH, -1);
+			
+			Date beforeMonth = cal.getTime();
+			
+			searchOption.setBeginDate(beforeMonth);
+			searchOption.setEndDate(today);
+			System.out.println("난 널이야");
+		}else {
+			System.out.println("난 널이 아니야");
+		}
+		
+		MemberDto memberDto = memberDao.memberExist("admin", "123");
+		
+		session.setAttribute("_memberDto_", memberDto);
+		
+		int totalCount = orderService.adminOrderCount(searchOption);
+		
+		Paging paging = new Paging(totalCount, curPage);
+		
+		int begin = paging.getPageBegin();
+		int end = paging.getPageEnd();
+		
+		List<OrderDto> orderList = orderService.adminOrderList(begin, end, searchOption);
+		List<Map<String, Object>> stateList = orderService.orderStateList();
+		
+		model.addAttribute("paging", paging);
+		model.addAttribute("orderList", orderList);
+		model.addAttribute("stateList", stateList);
+		model.addAttribute("searchOption", searchOption);
+		
+		return "order/adminOrderList";
 	}
 	
 	

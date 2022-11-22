@@ -23,6 +23,9 @@ table{
 #orderListTable{
 	margin: auto;
 }
+#firstRow{
+	background-color: #E0E0E0;
+}
 
 #orderDateTh{
 	width: 120px;
@@ -124,7 +127,7 @@ function stateSelectFnc(){
 		
 			<div id="orderList">
 				<table id="orderListTable">
-					<tr style="background-color: gray;">
+					<tr id="firstRow">
 						<th id="orderDateTh">주문일자</th><th id="orderNoTh">주문번호</th>
 						<th id="productNameTh">상품명</th><th id="totalAmountTh">결제금액</th>
 						<th id="orderStateTh">상태</th><th id="btnTh"></th>

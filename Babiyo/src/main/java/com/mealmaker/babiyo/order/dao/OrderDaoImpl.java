@@ -1,5 +1,7 @@
 package com.mealmaker.babiyo.order.dao;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,7 +10,6 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.mealmaker.babiyo.member.model.MemberDto;
 import com.mealmaker.babiyo.order.model.OrderDetailDto;
 import com.mealmaker.babiyo.order.model.OrderDto;
 import com.mealmaker.babiyo.util.SearchOption;
@@ -103,6 +104,29 @@ public class OrderDaoImpl implements OrderDao {
 	public List<Map<String, Object>> orderStateList() {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList(namespace + "orderStateList");
+	}
+
+	@Override
+	public int adminOrderCount(SearchOption searchOption) {
+		// TODO Auto-generated method stub
+		
+		return sqlSession.selectOne(namespace + "adminOrderCount", searchOption);
+	}
+
+	@Override
+	public List<OrderDto> adminOrderList(int begin, int end, SearchOption searchOption) {
+		// TODO Auto-generated method stub
+		
+		Map<String, Object> paraMap = new HashMap<String, Object>();
+	
+		paraMap.put("begin", begin);
+		paraMap.put("end", end);
+		paraMap.put("beginDate", searchOption.getBeginDate());
+		paraMap.put("endDate", searchOption.getEndDate());
+		paraMap.put("search", searchOption.getSearch());
+		paraMap.put("stateCode", searchOption.getStateCode());
+		
+		return sqlSession.selectList(namespace + "adminOrderList", paraMap);
 	}
 
 	

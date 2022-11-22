@@ -4,7 +4,7 @@
 
 <div id='verticalSideMenuBarArea'>
  	<c:choose>
-		<c:when test="${mname eq admin}">
+		<c:when test="${_memberDto_.grade eq 1}">
 			<div id='verticalSideManagerMenuBar'>
 				<div><a id='managerInfo' href="#">관리자</a></div>
 				<div><a id='memberManagement' href="#">회원 관리</a></div>

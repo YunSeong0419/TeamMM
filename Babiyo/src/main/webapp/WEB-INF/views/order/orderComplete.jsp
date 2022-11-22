@@ -12,23 +12,7 @@
 <script type="text/javascript" src="/babiyo/resources/js/jquery-3.6.1.js"></script>
 
 <style type="text/css">
-#middleDiv{
-	min-height: 650px;
-	width: 1200px;
-	margin: auto;
-}
 
-#title{
-	text-align: center;
-	padding-top: 30px;
-	margin-top: 0px;
-	margin-bottom: 60px;
-}
-
-.info{
-	float: left;
-	height: 200px;
-}
 
 #receiverInfoUl{
 	list-style: none;
@@ -44,16 +28,26 @@
 
 #infoDiv{
 	width: 1000px;
-	margin-top: 30px;
+	margin-top: 80px;
 	margin-left: 100px;
+	border-top: 2px solid #FF5E00;
+	border-bottom: 2px solid #FF5E00;
 }
+
 
 #receiverInfo, #paymentInfo{
-	box-sizing: border-box;
-	padding: 10px;
-	width: 499px;
+	padding: 20px;
+	width: 500px;
 }
 
+#receiverInfo{
+	float: left;
+}
+
+#paymentInfo{
+	margin-left: 500px;
+	border-left: 2px solid #FF5E00;
+}
 
 #receiverInfoTitle, #paymentInfoTitle{
 	font-size: 18px;
@@ -70,7 +64,7 @@
 }
 
 #totalAmountDiv{
-	height: 115px;
+	height: 80px;
 }
 
 #btnDiv{
@@ -80,7 +74,7 @@
 #orderDetailViewBtn, #orderAddBtn{
 	width: 200px;
 	height: 40px;
-	margin: 30px 10px;
+	margin: 20px 10px;
 }
 .moneyText{
 	font-weight: bold;
@@ -90,8 +84,8 @@
 
 .moneySpan{
 	display: inline-block;
-	width: 350px;
 	text-align: right;
+	float: right;
 }
 
 </style>
@@ -123,7 +117,7 @@ function orderDetailFnc(no){
 	</div>
 	
 	<div id="infoDiv">
-		<div id="receiverInfo" class="info">
+		<div id="receiverInfo">
 			<p id="receiverInfoTitle">받는사람 정보</p>
 			<ul id="receiverInfoUl">
 				<li><span class="receiverText">받는 사람</span><span>${orderDto.receiverName}</span></li>
@@ -134,9 +128,7 @@ function orderDetailFnc(no){
 			
 		</div>
 		
-		<hr class="info" style="">
-		
-		<div id="paymentInfo" class="info">
+		<div id="paymentInfo">
 			<p id="paymentInfoTitle">결제 정보</p>
 			<div id="totalAmountDiv">
 				<span class="moneyText">주문금액</span>
@@ -148,8 +140,6 @@ function orderDetailFnc(no){
 				<span class="moneySpan"><fmt:formatNumber pattern="#,###">${_memberDto_.cash}</fmt:formatNumber>원</span>
 			</div>
 		</div>
-		
-		<hr style="clear:both;">
 		
 	</div>
 	

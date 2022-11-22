@@ -99,6 +99,18 @@ public class OrderServiceImpl implements OrderService{
 		// TODO Auto-generated method stub
 		return orderDao.orderStateList();
 	}
+
+	@Override
+	public int adminOrderCount(SearchOption searchOption) {
+		// TODO Auto-generated method stub
+		return orderDao.adminOrderCount(searchOption);
+	}
+
+	@Override
+	public List<OrderDto> adminOrderList(int begin, int end, SearchOption searchOption) {
+		// TODO Auto-generated method stub
+		return orderDao.adminOrderList(begin, end, searchOption);
+	}
 	
 
 }

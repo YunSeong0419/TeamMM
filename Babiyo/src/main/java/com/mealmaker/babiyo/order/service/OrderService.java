@@ -24,5 +24,9 @@ public interface OrderService {
 	public void orderCancel(int orderNo);
 
 	public List<Map<String, Object>> orderStateList();
+
+	public int adminOrderCount(SearchOption searchOption);
+
+	public List<OrderDto> adminOrderList(int begin, int end, SearchOption searchOption);
 	
 }

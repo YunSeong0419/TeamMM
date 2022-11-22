@@ -44,6 +44,11 @@
 table{
 	border-collapse: collapse;
 }
+
+#firstRow{
+	background-color: #E0E0E0;
+}
+
 #cartListTable{
 	margin: 0px auto;
 }
@@ -237,7 +242,7 @@ function totalTrans(){ // 장바구니의 총합계금액을 반영해주는 함
 			
 			<div id="cartTableDiv">
 				<table id="cartListTable">
-					<tr style="background-color: gray;">
+					<tr id="firstRow">
 						<th class="checkTd"><input type="checkbox" id="allCheck"></th><th class="nameTd">상품명</th>
 						<th class="priceTd">단가</th><th class="quantityTd">수량</th><th class="sumTd">합계</th>
 					</tr>

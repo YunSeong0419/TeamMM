@@ -108,4 +108,34 @@ SELECT CODE, NAME
 FROM ORDER_STATE
 </select>
 
+<select id="adminOrderCount" parameterType="com.mealmaker.babiyo.util.SearchOption"
+resultType="int">
+SELECT COUNT(*)
+FROM MEMBER_ORDER
+<where>
+ORDER_DATE BETWEEN #{beginDate} AND #{endDate}
+<if test="stateCode != 0">STATE_CODE = ${stateCode}</if>
+<if test="search != null">AND MEMBER_ID LIKE '%'||#{search}||'%'</if>
+</where>
+</select>
+
+
+<select id="adminOrderList" parameterType="map" resultMap="orderResultMap">
+SELECT *
+FROM(SELECT ROWNUM INROW, ORDER_DATE, MEMBER_ID, NO, TOTAL_AMOUNT, PREVIEW, PRODUCT_QUANTITY, STATE_CODE, STATE_NAME
+FROM(SELECT O.ORDER_DATE, O.MEMBER_ID, O.NO, O.TOTAL_AMOUNT, O.PREVIEW, O.PRODUCT_QUANTITY, S.CODE STATE_CODE, S.NAME STATE_NAME
+	FROM MEMBER_ORDER O JOIN ORDER_STATE S
+	ON O.STATE_CODE = S.CODE
+	<where>
+	O.ORDER_DATE BETWEEN #{beginDate} AND #{endDate}
+	<if test="stateCode != 0">O.STATE_CODE = ${stateCode}</if>
+	<if test="search != null">AND MEMBER_ID LIKE '%'||#{search}||'%'</if>
+	</where>
+	ORDER BY O.ORDER_DATE DESC))
+WHERE INROW BETWEEN ${begin} AND ${end}
+</select>
+
+
+
+
 </mapper>
