@@ -20,7 +20,7 @@ public class NoticeAdminController {
 		= LoggerFactory.getLogger(NoticeAdminController.class);
 	
 //	@Autowired
-//	private OrderService orderService;
+//	private NoticeService noticeService;
 	
 	@RequestMapping(value = "/notice/admin.do", method = RequestMethod.GET)
 	public String adminNotice(HttpSession session, Model model) {

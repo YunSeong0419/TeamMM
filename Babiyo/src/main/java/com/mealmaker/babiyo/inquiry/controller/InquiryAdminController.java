@@ -20,7 +20,7 @@ public class InquiryAdminController {
 		= LoggerFactory.getLogger(InquiryAdminController.class);
 	
 //	@Autowired
-//	private OrderService orderService;
+//	private InquiryService inquiryService;
 	
 	@RequestMapping(value = "/inquiry/admin.do", method = RequestMethod.GET)
 	public String adminInquiry(HttpSession session, Model model) {

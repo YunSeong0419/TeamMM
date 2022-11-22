@@ -5,6 +5,10 @@
 <head>
 <meta charset="UTF-8">
 <title>관리자 문의</title>
+
+<link rel="stylesheet" type="text/css" href="/babiyo/resources/css/basic.css?b"/>
+<script type="text/javascript" src="/babiyo/resources/js/jquery-3.6.1.js"></script>
+
 <style type="text/css">
 
 table {
@@ -13,7 +17,7 @@ table {
 	width: 900px;
 	height: 350px;
 }
-.tableDiv{
+#tableDiv{
 	margin: 70px;
 }
 th, td{
@@ -31,19 +35,19 @@ td {
 	 text-align: center;
 	 font-size: 14px;
 }
-.numTh{
+#numTh{
 		width: 30px;
 };
-.classTh{
+#classTh{
 		width: 134px;
 };
-.titleTh{
+#titleTh{
 		width: 583px;
 };
-.dateTh{
+#dateTh{
 		width: 101px;
 };
-.lookupTh{
+#lookupTh{
 		width: 52px;
 };
 
@@ -60,16 +64,16 @@ a{
 	text-decoration: none;
 }
 
-#wrapDiv{
-	min-height: 600px;
-	margin: auto;
-	width: 1200px;
-}
-.tableCl{
+/* #wrapDiv{ */
+/* 	min-height: 600px; */
+/* 	margin: auto; */
+/* 	width: 1200px; */
+/* } */
+#tableId{
 	margin: auto;
 }
 
-.divisionCl{
+#divisionId{
 	width: 60px;
 	height: 30px;
 	font-weight: bold;
@@ -78,27 +82,27 @@ a{
 	line-height: 40px;
 	margin-left: 580px;
 }
-.selectCl{
+#selectId{
 	width: 100px;
 	height: 40px;
 	border-radius: 6px;
 	float: left;
 }
-.backCl{
+#backId{
 	margin: 35px 550px;
 }
-.backInput{
+#backInput{
 	border:#EAEAEA;
 	background: #EAEAEA;
 	border-radius: 3px;
 	cursor: pointer;
 }
-.nameCl{
+#nameId{
 	width: 90px;
 	height: 40px;
 	border-radius: 8px;
 }
-.formCl{
+#formId{
 	float: left;
 	margin-left: 10px;
 }
@@ -111,14 +115,17 @@ onClick="window.open('https://www.google.com/','','');"
 </script>
 </head>
 <body>
+<div id="rootDiv">
 <jsp:include page="/WEB-INF/views/Header.jsp"/>
+
+<div id="middleDiv">
 <jsp:include page="/WEB-INF/views/CommonMiddleDiv.jsp" />
-<div id="wrapDiv">
-<div class="divisionCl">
+<div id="middleMainDiv">
+<div id="divisionCl">
 분류
 </div>
 <div>
-<select class="selectCl">
+<select id="selectCl">
 	<option selected>완료된 답변</option>
 	<option>대기중 답변</option>
 	<option>충전</option>
@@ -127,20 +134,20 @@ onClick="window.open('https://www.google.com/','','');"
 </select>
 </div>
 <div>
-	<form action="" class="formCl">
+	<form action="" id="formId">
 		<span>작성자</span>
-		<input class="nameCl" type="text" value="" placeholder="">
-		<input class="findCl" type="submit" value="검색">
+		<input id="nameId" type="text" value="" placeholder="">
+		<input id="findId" type="submit" value="검색">
 	</form>
 </div>
-<div class="tableDiv">
-<table class="tableCl">
+<div id="tableDiv">
+<table id="tableId">
 <tr>
-<th class="numTh">번호</th>
-<th class="classTh">분류</th>
-<th class="titleTh">문의제목</th>
-<th class="dateTh">작성일</th>
-<th class="lookupTh">답변</th>
+<th id="numTh">번호</th>
+<th id="classTh">분류</th>
+<th id="titleTh">문의제목</th>
+<th id="dateTh">작성일</th>
+<th id="lookupTh">답변</th>
 </tr>
 <tr>
 <td>10</td>
@@ -216,36 +223,15 @@ onClick="window.open('https://www.google.com/','','');"
 </div>
 
 
-<div class="backCl">
-	<input class="backInput" type="button" value="뒤로가기" onclick="">
+<div id="backId">
+	<input id="backInput" type="button" value="뒤로가기" onclick="">
 </div>
+<jsp:include page="/WEB-INF/views/Paging.jsp"/> 
 
-<ul>
-<li>
-<a href="#" onclick="">
-<img alt="" src="">
-</a>
-</li>
-<li>
-<a href="#" onclick="">1</a>
-</li>
-<li>
-<a href="#" onclick="">2</a>
-</li>
-<li>
-<a href="#" onclick="">3</a>
-</li>
-<li>
-<a href="#" onclick="">4</a>
-</li>
-<li>
-<a href="#" onclick="">
-<img alt="" src="">
-</a>
-</li>
-</ul>
+</div>
 </div>
 <jsp:include page="/WEB-INF/views/Footer.jsp"/> 
+</div>
 
 </body>
 </html>

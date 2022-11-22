@@ -2,9 +2,13 @@ package com.mealmaker.babiyo.member.model;
 
 import java.util.Date;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.RequiredArgsConstructor;
 
 @Data
+@RequiredArgsConstructor
+@AllArgsConstructor
 public class MemberDto {
 
 	private String id = "";

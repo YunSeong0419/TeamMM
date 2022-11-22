@@ -30,19 +30,19 @@ td {
 	 text-align: center;
 	 font-size: 14px;
 }
-.numTh{
+#numTh{
 		width: 30px;
 };
-.classTh{
+#classTh{
 		width: 134px;
 };
-.titleTh{
+#titleTh{
 		width: 583px;
 };
-.dateTh{
+#dateTh{
 		width: 101px;
 };
-.lookupTh{
+#lookupTh{
 		width: 52px;
 };
 
@@ -69,7 +69,7 @@ onClick="window.open('https://www.google.com/','','');"
 <jsp:include page="/WEB-INF/views/Header.jsp"/>
 <jsp:include page="/WEB-INF/views/CommonMiddleDiv.jsp" />
 <div>
-<div class="noticeCl">
+<div id="noticeCl">
  공지사항
 </div>
 <div>
@@ -88,11 +88,11 @@ onClick="window.open('https://www.google.com/','','');"
 <div>
 <table>
 <tr>
-<th class="numTh">번호</th>
-<th class="classTh">분류</th>
-<th class="titleTh">제목</th>
-<th class="dateTh">날짜</th>
-<th class="lookupTh">조회수</th>
+<th id="numTh">번호</th>
+<th id="classTh">분류</th>
+<th id="titleTh">제목</th>
+<th id="dateTh">날짜</th>
+<th id="lookupTh">조회수</th>
 </tr>
 <tr>
 <td>3</td>

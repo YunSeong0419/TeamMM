@@ -13,19 +13,19 @@ input, select{
 #leftDiv{
 	margin-left: 200px;
 }
-.divisionCl {
+#divisionId {
 	width: 150px;
 	height: 40px;
 	margin-left: 20px;
 }
 
-.titleCl {
+#titleId {
 	width: 840px;
 	height: 40px;
 	margin: 20px 0px 0px 20px;
 }
 
-.contentsCl {
+.contentsId {
 	width: 900px;
 	height: 350px;
 	margin-top: 10px;
@@ -46,7 +46,9 @@ input, select{
 } 
 </style>
 <script type="text/javascript">
-	
+function backBtn() {
+	location.href = '.do';
+}	
 </script>
 </head>
 <body>
@@ -54,22 +56,26 @@ input, select{
 <jsp:include page="/WEB-INF/views/CommonMiddleDiv.jsp" />
 	<div>
 	<div id="leftDiv">
-		<form action="" method="get">
+		<form action="./writeCtr.do" method="post">
 			<div>
-				분류 <select class="divisionCl">
-					<option selected>주문</option>
-					<option>충전</option>
-					<option>기타</option>
+				분류 
+				<select name="categoryCode" id="divisionId">
+					<option value="1" selected>주문</option>
+					<option value="2">밀키트</option>
+					<option value="3">회원</option>
+					<option value="4">기타</option>
 				</select>
 			</div>
 
 			<div>
-				제목 <input class="titleCl" type="text" value="제목">
+				제목 <input name="title" id="titleId" type="text" placeholder="제목">
 			</div>
 			<div id="contentsDiv">
-				내용<br> <input class="contentsCl" type="text">
+				내용<br> 
+				<textarea name="content" id="contentsId"></textarea>
 			</div>
-			<input id="backDiv" type="button" value="뒤로가기" onclick=""> 
+			<input type="hidden" name="memberId" value="${memberDto.id}"> 
+			<input id="backDiv" type="button" value="뒤로가기" onclick="backBtn()"> 
 			<input id="submitDiv"  type="submit" value="작성">
 
 		</form>
