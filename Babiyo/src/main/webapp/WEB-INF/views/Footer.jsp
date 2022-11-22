@@ -11,11 +11,18 @@
 </footer>
 	
 <script type="text/javascript">
-	window.onload = function () {
-		var contentTitleObj = document.getElementById('contentTitle');
-		contentTitleObj.innerHTML = '<p>' + document.title + '</p>';
+$(function(){
+	var side = $('#verticalSideMenuBarArea').text();
+	
+	if(side == ''){
+		var titleObj = document.getElementById('centerTitle');
+	}else{
+		var titleObj = document.getElementById('sideTitle');
 	}
-</script>	
+	
+	titleObj.innerHTML = '<p>' + document.title + '</p>';
+});
+</script>
 	
 	
 	

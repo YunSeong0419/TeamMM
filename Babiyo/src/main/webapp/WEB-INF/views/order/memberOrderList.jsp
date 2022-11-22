@@ -8,7 +8,7 @@
 <meta charset="UTF-8">
 <title>회원 주문목록</title>
 
-<link rel="stylesheet" type="text/css" href="/babiyo/resources/css/basic.css?b"/>
+<link rel="stylesheet" type="text/css" href="/babiyo/resources/css/common.css"/>
 <script type="text/javascript" src="/babiyo/resources/js/jquery-3.6.1.js"></script>
 
 <style type="text/css">
@@ -98,14 +98,17 @@ function stateSelectFnc(){
 
 </head>
 <body>
-
+<div id="rootDiv">
 
 	<jsp:include page="/WEB-INF/views/Header.jsp" />
 
 	<div id="middleDiv">
 	
 		<jsp:include page="/WEB-INF/views/CommonMiddleDiv.jsp" />
+		
 		<div id="middleMainDiv">
+			
+			<div id='sideTitle'></div>
 		
 			<div id="searchOption">
 				<form id="stateForm" method="get">
@@ -167,6 +170,7 @@ function stateSelectFnc(){
 				</table>
 				
 			</div>
+			
 			<jsp:include page="/WEB-INF/views/Paging.jsp"/>
 		
 			<form method="get" id="pagingForm">
@@ -174,11 +178,14 @@ function stateSelectFnc(){
 				<input type="hidden" id="stateCode" name="stateCode" value="${searchOption.stateCode}">
 			</form>
 			
+			<div id="underPadding"></div>
+			
 		</div>
 	</div>
 	
 	<jsp:include page="/WEB-INF/views/Footer.jsp" />
 
+</div>
 
 </body>
 </html>

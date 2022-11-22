@@ -7,13 +7,15 @@
 <head>
 <meta charset="UTF-8">
 <title>장바구니</title>
-<link rel="stylesheet" type="text/css" href="/babiyo/resources/css/basic.css?b"/>
+
+<link rel="stylesheet" type="text/css" href="/babiyo/resources/css/common.css"/>
 <script type="text/javascript" src="/babiyo/resources/js/jquery-3.6.1.js"></script>
+
 <style type="text/css">
 
 #cartTableDiv{
-	width: 1000px;
-	min-height: 400px;
+	width: 950px;
+	min-height: 380px;
 	margin: 0px auto;
 }
 
@@ -24,7 +26,7 @@
 }
 .nameTd{
 	padding-left: 20px;
-	width: 520px;
+	width: 620px;
 }
 .priceTd{
 	text-align: center;
@@ -61,6 +63,11 @@ table{
 	width: 200px;
 	height: 40px;
 }
+#tableUnder{
+	width: 950px;
+	margin: auto;
+}
+
 
 </style>
 <script type="text/javascript">
@@ -225,7 +232,9 @@ function totalTrans(){ // 장바구니의 총합계금액을 반영해주는 함
 		
 		<jsp:include page="/WEB-INF/views/CommonMiddleDiv.jsp" />
 		<div id="middleMainDiv">
-		
+			
+			<div id='sideTitle'></div>
+			
 			<div id="cartTableDiv">
 				<table id="cartListTable">
 					<tr style="background-color: gray;">
@@ -268,7 +277,7 @@ function totalTrans(){ // 장바구니의 총합계금액을 반영해주는 함
 				</table>
 			</div>
 			
-			<div>
+			<div id="tableUnder">
 				<input type="button" value="선택항목 삭제" id="selectDelete">
 				<span id="totalAmount"></span>
 			</div>
@@ -278,9 +287,9 @@ function totalTrans(){ // 장바구니의 총합계금액을 반영해주는 함
 				<input type="button" value="주문하기" id="selectOrder">
 			</div>
 		
-		<form action="./delete.do" method="post" id="deleteForm"></form>
-		<form action="../order/order.do" method="post" id="selectOrderForm"></form>
-	
+			<form action="./delete.do" method="post" id="deleteForm"></form>
+			<form action="../order/order.do" method="post" id="selectOrderForm"></form>
+			<div id="underPadding"></div>
 		</div>
 		
 	</div>

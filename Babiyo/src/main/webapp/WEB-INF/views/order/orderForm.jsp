@@ -9,20 +9,11 @@
 <meta charset="UTF-8">
 <title>주문화면</title>
 
+<link rel="stylesheet" type="text/css" href="/babiyo/resources/css/common.css"/>
 <script type="text/javascript" src="/babiyo/resources/js/jquery-3.6.1.js"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
 <style type="text/css">
-
-#rootDiv{
-	
-}
-
-#middleDiv{
-	margin: auto;
-	width: 1200px;
-	min-height: 650px; 
-}
 
 #title{
 	text-align: center;
@@ -50,7 +41,6 @@
 	background-color: white;
 	padding: 0px 5px;
 }
-
 
 .receiverInfo {
 	display: inline-block;
@@ -80,15 +70,14 @@
 }
 
 #paymentInfoDiv {
-	margin: 0px 50px;
+	margin: 0px 0px 0px 650px;
 	width: 500px;
-	height: 500px;
-	float: left;
+	min-height: 500px;
 }
 
 
 #mealkitListDiv{
-	height: 300px;
+	height: 280px;
 
 } 
 
@@ -238,9 +227,10 @@ function postFind() {
 
 	<div id="middleDiv">
 	
-	<h2 id="title">주문하기</h2>
-	
+		<div id='centerTitle'></div>
+		
 		<div id="receiverDiv">
+			
 			<span id="receiverTitle">받는사람 정보</span>
 
 			<form action="./orderCtr.do" method="post" id="receiverForm">
@@ -321,11 +311,12 @@ function postFind() {
 			<hr>
 			<input id="orderBtn" type="button" value="결제하기">
 			<input id="backBtn" type="button" value="뒤로가기">
-		</div>
+			
+		</div> <!-- paymentDiv 끝 -->
 
-		<div style="clear: both;"></div>
+		<div id="underPadding"></div>
 	
-	</div>
+	</div> <!-- middleDiv 끝 -->
 	
 	<jsp:include page="/WEB-INF/views/Footer.jsp" />
 

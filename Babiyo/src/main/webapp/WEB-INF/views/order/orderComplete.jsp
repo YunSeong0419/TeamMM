@@ -8,6 +8,7 @@
 <meta charset="UTF-8">
 <title>주문완료</title>
 
+<link rel="stylesheet" type="text/css" href="/babiyo/resources/css/common.css"/>
 <script type="text/javascript" src="/babiyo/resources/js/jquery-3.6.1.js"></script>
 
 <style type="text/css">
@@ -114,9 +115,7 @@ function orderDetailFnc(no){
 
 	<div id="middleDiv">
 	
-	
-	<h2 id="title">주문완료</h2>
-	
+	<div id="centerTitle"></div>
 	
 	<div>
 		<p class="completeMsg" style="font-size: 35px;">주문이 완료되었습니다.</p>
@@ -151,12 +150,15 @@ function orderDetailFnc(no){
 		</div>
 		
 		<hr style="clear:both;">
+		
 	</div>
 	
 	<div id="btnDiv">
 		<input id="orderDetailViewBtn" type="button" value="상세내역 보기" onclick="orderDetailFnc(${orderDto.no});">
 		<input id="orderAddBtn" type="button" value="추가 주문하기">
 	</div>
+	
+	<div id="underPadding"></div>
 	
 	</div>
 	

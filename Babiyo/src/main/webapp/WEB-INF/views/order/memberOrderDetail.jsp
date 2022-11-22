@@ -8,7 +8,7 @@
 <meta charset="UTF-8">
 <title>주문 상세내역</title>
 
-<link rel="stylesheet" type="text/css" href="/babiyo/resources/css/basic.css?a"/>
+<link rel="stylesheet" type="text/css" href="/babiyo/resources/css/common.css"/>
 <script type="text/javascript" src="/babiyo/resources/js/jquery-3.6.1.js"></script>
 
 <style type="text/css">
@@ -18,7 +18,7 @@
 	box-sizing: border-box;
 	margin-left: 40px;
  	width: 550px;
-	height: 500px;
+	height: 450px;
 	padding: 30px;
 	border: 1px solid black;
 	border-radius: 20px;
@@ -55,17 +55,17 @@
 #requestText {
 	resize: none;
 	margin-left: 6px;
-	height: 200px;
+	height: 150px;
 }
 
 #paymentInfoDiv {
 	margin: 0px 50px 0px 640px;
 	width: 350px;
-	min-height: 500px;
+	min-height: 450px;
 }
 
 #mealkitListDiv{
-	min-height: 300px;
+	min-height: 230px;
 
 } 
 
@@ -145,7 +145,10 @@ $(function(){
 	<div id="middleDiv">
 	
 	<jsp:include page="/WEB-INF/views/CommonMiddleDiv.jsp" />
+		
 		<div id="middleMainDiv">
+			<div id="sideTitle"></div>
+			
 			<div id="receiverDiv">
 				<span id="receiverTitle">받는사람 정보</span>
 	
@@ -233,7 +236,7 @@ $(function(){
 				</c:choose>
 			</div>
 			
-		<div class="clearBlock"></div>
+		<div id="underPadding"></div>
 			
 		<input type="hidden" id="orderNo" value="${orderMap.orderDto.no}">
 		

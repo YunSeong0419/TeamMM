@@ -8,7 +8,7 @@
 <meta charset="UTF-8">
 <title>제목입력해주세요</title>
 
-<link rel="stylesheet" type="text/css" href="/babiyo/resources/css/basic.css"/>
+<link rel="stylesheet" type="text/css" href="/babiyo/resources/css/common.css"/>
 <script type="text/javascript" src="/babiyo/resources/js/jquery-3.6.1.js"></script>
 
 </head>
@@ -21,25 +21,24 @@
 	<div id="middleDiv">
 	
 		<jsp:include page="/WEB-INF/views/CommonMiddleDiv.jsp" />
-	
+		
 		<div id="middleMainDiv">
+			<div id="sideTitle"></div>
 			<!--여기서 작성 -->
 		
 		
 		
 		
-		
-		
-		
-		
-		
+			<div id="underPadding"></div>
+			
 		</div> <!--middelMain 끝 -->
 	
 	</div> <!--middleDiv 끝 -->
 
 	<jsp:include page="/WEB-INF/views/Footer.jsp" />
 
-</div>
+</div> <!-- rootDiv 끝 -->
+
 
 </body>
 </html>
