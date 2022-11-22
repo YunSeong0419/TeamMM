@@ -113,9 +113,9 @@ resultType="int">
 SELECT COUNT(*)
 FROM MEMBER_ORDER
 <where>
-ORDER_DATE BETWEEN #{beginDate} AND #{endDate}
-<if test="stateCode != 0">STATE_CODE = ${stateCode}</if>
-<if test="search != null">AND MEMBER_ID LIKE '%'||#{search}||'%'</if>
+ORDER_DATE BETWEEN #{beginDate} AND #{endDate}+1
+<if test="stateCode != 0">AND STATE_CODE = ${stateCode}</if>
+<if test="search != ''">AND MEMBER_ID = #{search}</if>
 </where>
 </select>
 
@@ -127,9 +127,9 @@ FROM(SELECT O.ORDER_DATE, O.MEMBER_ID, O.NO, O.TOTAL_AMOUNT, O.PREVIEW, O.PRODUC
 	FROM MEMBER_ORDER O JOIN ORDER_STATE S
 	ON O.STATE_CODE = S.CODE
 	<where>
-	O.ORDER_DATE BETWEEN #{beginDate} AND #{endDate}
-	<if test="stateCode != 0">O.STATE_CODE = ${stateCode}</if>
-	<if test="search != null">AND MEMBER_ID LIKE '%'||#{search}||'%'</if>
+	O.ORDER_DATE BETWEEN #{beginDate} AND #{endDate}+1
+	<if test="stateCode != 0">AND O.STATE_CODE = ${stateCode}</if>
+	<if test="search != ''">AND MEMBER_ID = #{search}</if>
 	</where>
 	ORDER BY O.ORDER_DATE DESC))
 WHERE INROW BETWEEN ${begin} AND ${end}

@@ -1,6 +1,5 @@
 package com.mealmaker.babiyo.order.controller;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -152,13 +151,13 @@ public class OrderController {
 	
 	@RequestMapping(value = "/order/admin/list.do", method = {RequestMethod.GET, RequestMethod.POST})
 	public String adminOrderList(@RequestParam(defaultValue = "1") int curPage
-			, SearchOption searchOption, HttpSession session, Model model) {
+			,SearchOption searchOption, HttpSession session, Model model) {
 		logger.info("Welcome OrderController memberOrderList! ");
+		
+		Date today = new Date();
 		
 		if(searchOption.getBeginDate() == null) {
 			searchOption = new SearchOption();
-			
-			Date today = new Date();
 			
 			Calendar cal = Calendar.getInstance();
 			cal.setTime(today);
@@ -168,9 +167,10 @@ public class OrderController {
 			
 			searchOption.setBeginDate(beforeMonth);
 			searchOption.setEndDate(today);
-			System.out.println("난 널이야");
-		}else {
-			System.out.println("난 널이 아니야");
+		}
+		
+		if(searchOption.getSearch() == null) {
+			searchOption.setSearch("");
 		}
 		
 		MemberDto memberDto = memberDao.memberExist("admin", "123");
@@ -191,6 +191,7 @@ public class OrderController {
 		model.addAttribute("orderList", orderList);
 		model.addAttribute("stateList", stateList);
 		model.addAttribute("searchOption", searchOption);
+		model.addAttribute("today", today);
 		
 		return "order/adminOrderList";
 	}
