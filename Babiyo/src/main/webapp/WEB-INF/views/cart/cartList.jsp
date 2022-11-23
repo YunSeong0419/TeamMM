@@ -115,38 +115,40 @@ $(function(){
 	
 	$('#selectDelete').click(function() { // 선택한 품목의 번호만 삭제로 보냄
 		
-		var submitCheck = false;
-		var htmlStr = '';
-		var index = 0;
-		
-		$('input[id^="cartNo"]').each(function() {
+		if(confirm('선택한 품목을 삭제하시겠습니까?')){
+			var submitCheck = false;
+			var htmlStr = '';
+			var index = 0;
 			
-			var no = $(this).attr('id').substr(6);
-			var checked = $(this).is(':checked');
+			$('input[id^="cartNo"]').each(function() {
+				
+				var no = $(this).attr('id').substr(6);
+				var checked = $(this).is(':checked');
+				
+				if(checked){ //선택이 됫으면 폼안에 히든으로 번호를 저장함
+					htmlStr += '<input type="hidden" name="cartList[' + index + '].no" value="' + no + '">';
+					submitCheck = true;
+					index = index + 1;
+				}
+				
+			});
 			
-			if(checked){ //선택이 됫으면 폼안에 히든으로 번호를 저장함
-				htmlStr += '<input type="hidden" name="cartList[' + index + '].no" value="' + no + '">';
-				submitCheck = true;
-				index = index + 1;
+			if(submitCheck){
+				$('#deleteForm').html(htmlStr);
+				$('#deleteForm').submit();
+			}else{ 
+				alert('선택한 항목이 없습니다');
 			}
-			
-		});
-		
-		if(submitCheck){
-			$('#deleteForm').html(htmlStr);
-			$('#deleteForm').submit();
-		}else{ 
-			alert('선택한 항목이 없습니다');
 		}
+		
 		
 	});
 	
 	$('#selectOrder').click(function() {
-		
+	
 		var submitCheck = false;
 		var htmlStr = '';
 		var index = 0;
-		
 		
 		$('input[id^="cartNo"]').each(function() {
 			
@@ -182,6 +184,7 @@ $(function(){
 		}else{
 			alert('선택한 항목이 없습니다');
 		}
+		
 		
 	});
 	

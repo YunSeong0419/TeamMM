@@ -9,7 +9,8 @@
 <body>
 
 <ol>
-	<li><a href="./product/list.do">회원 문의 목록</a></li>
+	<li><a href="./auth/login.do">로그인하기</a></li>
+	<li><a href="./product/list.do">관리자 상품목록</a></li>
 	<li><a href="./cart/list.do">장바구니 목록</a></li>
 	<li><a href="./member/orderList.do">회원 주문 목록</a></li>
 	<li><a href="./admin/orderList.do">관리자 주문 목록</a></li>

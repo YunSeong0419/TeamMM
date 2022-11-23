@@ -142,25 +142,26 @@ $(document).ready(function(){
 	
 	$('#orderBtn').click(function(){
 		
-		var str = '';
-		
 		if(!$('#receiverName').val()){
-			str = '받으시는 분 성함을 입력해주세요';
+			alert('받으시는 분 성함을 입력해주세요');
 			$('#receiverName').focus();
 		}else if(!$('#receiverPhone').val()){
-			str = '받으시는 분 연락처를 입력해주세요';
+			alert('받으시는 분 연락처를 입력해주세요');
 			$('#receiverPhone').focus();		
 		}else if(!$('#post').val()){
-			str = '우편번호를 입력해주세요';
+			alert('우편번호를 입력해주세요');
 			$('#post').focus();
 		}else if(!$('#addressDetail').val()){
-			str = '상제주소를 입력해주세요';
+			alert('상제주소를 입력해주세요');
 			$('#addressDetail').focus();
 		}else{
-			return $('#receiverForm').submit();
+			
+			if(confirm('상품을 구매하시겠습니가?')){
+				$('#receiverForm').submit();
+			}
+			
+			return;
 		}
-		
-		alert(str);
 		
 	});
 	

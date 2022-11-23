@@ -45,7 +45,7 @@ $(function(){
 				str += '0' + (endDate.getMonth() - 1) + '-';
 			}else {
 				str += endDate.getMonth() - 1 + '-';
-			}
+			} 
 			
 			if(endDate.getDate() < 10){
 				str += '0' + endDate.getDate();
@@ -58,7 +58,26 @@ $(function(){
 		
 	});
 	
+	$('.stateColor').each(function(i, element) {
+		
+		var state = $(this).text();
+		
+		if(state == '완료'){
+			$(this).css("color", "green");
+		}else if(state == '대기'){
+			$(this).css("color", "blue");
+		}else if(state == '취소'){
+			$(this).css("color", "red");
+		}
+		
+	});
+	
+	
 });
+
+function stateSelectFnc(){
+	$('#searchOption').submit();
+}
 </script>
 
 </head>
@@ -75,7 +94,7 @@ $(function(){
 		<div id="middleMainDiv">
 			<div id="sideTitle"></div>
 			
-			<form method="get">
+			<form id="searchOption" method="get">
 				<div>
 					기간 선택
 					<input type="date" name="beginDate" id="beginDate" max="<fmt:formatDate value="${searchOption.endDate}" pattern="yyyy-MM-dd"/>"
@@ -85,7 +104,7 @@ $(function(){
 				</div>
 				<div>
 				상태
-				<select id="stateCodeSel" name="stateCode">
+				<select id="stateCodeSel" name="stateCode" onchange="stateSelectFnc();">
 					<option value="0">전체</option>
 					<c:forEach items="${stateList}" var="state">
 					<option value="${state.CODE}">${state.NAME}</option>
@@ -117,7 +136,7 @@ $(function(){
 					</div>
 					<div>
 						<span>상태</span>
-						<span>${order.stateName}</span>
+						<span class="stateColor">${order.stateName}</span>
 					</div>
 					<div>
 						<span>날짜</span>

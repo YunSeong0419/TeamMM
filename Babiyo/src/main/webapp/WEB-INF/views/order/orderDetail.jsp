@@ -123,11 +123,15 @@ function goListFnc(grade){
 }
 
 function cancelFnc(no){
-	location.href = './cancel.do?orderNo=' + no;
+	if(confirm('정말로 주문을 취소하시겠습니까?')){
+		location.href = './cancel.do?orderNo=' + no;
+	}
 }
 
 function acceptFnc(no){
-	location.href = './accept.do?orderNo=' + no;
+	if(confirm('정말로 주문접수를 하시겠습니까?')){
+		location.href = './accept.do?orderNo=' + no;
+	}
 }
 
 
