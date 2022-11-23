@@ -15,9 +15,17 @@
 	function backBtn() {
 		location.href = "../member.do"
 	}
-	function modifytBtn() {
-		location.href = "./update.do"
+	function modifytBtn(no) {
+		location.href = "./update.do?no=" + no;
 	}
+	function deleteBtn(no){
+		if (confirm('삭제')) {
+			var url = "./deleteCtr.do?no=" + no;
+			location.href = url;	
+		}
+		
+	}
+	
 </script>
 
 </head>
@@ -37,43 +45,42 @@
 			
 			<div>
 				작성자<input type="text" name="memberId" id=""
-				 value="${_memberDto_.id}">
+				 value="${inquiryDto.memberId}" readonly>
 			</div>
 			
 			<div>
 				분류<input type="text" name="categoryCode" id="divisionId"
-				 value="${_memberDto_.categoryCode}">
+				 value="${inquiryDto.name}" readonly>
 			</div>
 			
 			<div>
 				작성일<input type="text" name="createDate" id=""
-				 value="${_memberDto_.createDate}">
+				 value="<fmt:formatDate pattern='yyyy년MM월dd일 ' value='${inquiryDto.createDate}'/>" readonly>
 			</div>
 			
 			<div>
 				제목 <input type="text" name="title" id=""
-				 value="${_memberDto_.title}">
+				 value="${inquiryDto.title}" readonly>
 			</div>
 
 			<div>
 				내용<br><input type="text" name="content" id=""
-				 value="${_memberDto_.content}">
+				 value="${inquiryDto.content}" readonly>
 			</div>
-		<c:choose>
-			<c:when test="${empty a}">
-				답변<br><input type="text" name="answer" id=""
-				 value="답변이 존재하지 않습니다.">
-			</c:when>
-			<c:otherwise>
+
+			<c:if test="${!empty inquiryDto.answer}">
 			<div>
 				답변<br><input type="text" name="answer" id=""
-				 value="${_memberDto_.answer}">
+				 value="${inquiryDto.answer}" readonly>
 			</div>	
-			</c:otherwise>
-		</c:choose>	
-			<input id="backDiv" type="button" value="뒤로가기" onclick="backBtn()"> 
-			<input id="modifytDiv"  type="button" value="수정하기" onclick="modifytBtn()">
+			</c:if>
 			
+			<input id="backDiv" type="button" value="뒤로가기" onclick="backBtn()"> 
+			<input id="backDiv" type="button" value="삭제" onclick="deleteBtn(${inquiryDto.no})">
+			
+			<c:if test="${empty inquiryDto.answer}">
+			<input id="modifytDiv"  type="button" value="수정하기" onclick="modifytBtn(${inquiryDto.no})">
+			</c:if>
 			<div id="underPadding"></div>
 			
 		</div> <!--middelMain 끝 -->

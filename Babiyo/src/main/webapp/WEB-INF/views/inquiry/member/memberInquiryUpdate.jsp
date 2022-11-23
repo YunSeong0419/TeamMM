@@ -6,13 +6,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>문의 작성</title>
+<title>문의 수정</title>
 
 <style type="text/css">
-#contentsId{
-	width: 900px;
-	height: 350px;
-}
+
 </style>
 
 <link rel="stylesheet" type="text/css" href="/babiyo/resources/css/common.css"/>
@@ -42,32 +39,24 @@ function deleteBtn(no){
 		<div id="middleMainDiv">
 			<div id="sideTitle"></div>
 			<!--여기서 작성 -->
-		
-			<form action="./writeCtr.do" method="post">
+			<form action="./updateCtr.do" method="post">
+			<input type="hidden" name="no" value="${inquiryDto.no}">
+			<input type="hidden" name="categoryCode" value="${inquiryDto.categoryCode}">
 			<div>
-				분류 
-				<select name="categoryCode" id="divisionId">
-					<option value="1" selected>주문</option>
-					<option value="2">밀키트</option>
-					<option value="3">회원</option>
-					<option value="4">기타</option>
-				</select>
+				분류<input type="text" name="name" id="divisionId"
+				 value="${inquiryDto.name}" >
 			</div>
-
 			<div>
-				제목 <input name="title" id="titleId" type="text" placeholder="제목">
+				제목 <input type="text" name="title" id="title"
+				 value="${inquiryDto.title}" >
 			</div>
-			<div id="contentsDiv">
-				내용<br> 
-				<textarea name="content" id="contentsId"></textarea>
+			<div>
+				내용<br><input type="text" name="content" id="content"
+				 value="${inquiryDto.content}" >
 			</div>
-			<input type="hidden" name="memberId" value="${_memberDto_.id}"> 
-			<input id="backDiv" type="button" value="뒤로가기" onclick="backBtn(${inquiryDto.no});"> 
-			<input id="submitDiv"  type="submit" value="수정하기">
-			<input id="deleteDiv"  type="button" value="삭제하기" onclick="deleteBtn(${inquiryDto.no});">
-
-		</form>
-		
+				<input type="submit" value="수정하기">
+			</form>
+			
 			<div id="underPadding"></div>
 			
 		</div> <!--middelMain 끝 -->

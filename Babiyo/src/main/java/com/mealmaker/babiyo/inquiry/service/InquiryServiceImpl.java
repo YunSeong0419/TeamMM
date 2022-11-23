@@ -49,6 +49,14 @@ public class InquiryServiceImpl implements InquiryService{
 	}
 
 	@Override
+	public int inquiryUpdateOne(InquiryDto inquiryDto) {
+		// TODO Auto-generated method stub
+//		inquiryDao.inquiryUpdateOne(inquiryDto);
+		
+		return inquiryDao.inquiryUpdateOne(inquiryDto);
+	}
+	
+	@Override
 	public void inquiryDeleteOne(int no) {
 		// TODO Auto-generated method stub
 		

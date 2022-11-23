@@ -15,32 +15,44 @@
 <result column="NAME" property="name"/>
 </resultMap>
 
+<!-- 문의 리스트 -->
 <select id="inquirytList" resultMap="inquiryResultMap">
-	SELECT NO, CATEGORY_CODE, TITLE, CREATE_DATE
-	FROM INQUIRY
-	ORDER BY NO DESC
+	SELECT  I.NO, C.NAME, I.TITLE, I.ANSWER, I.CREATE_DATE
+	FROM INQUIRY I INNER JOIN INQUIRY_CATEGORY C
+	ON C.CODE = I.CATEGORY_CODE
+	ORDER BY I.NO DESC
 </select>
 
+<!-- 문의 상세 -->
 <select id="inquirySelectOne" parameterType="int"
 	resultMap="inquiryResultMap">
-	SELECT NO, MEMBER_ID, CATEGORY_CODE, TITLE, CONTENT, ANSWER, CREATE_DATE
-	FROM INQUIRY
+	SELECT  I.MEMBER_ID, C.NAME, I.TITLE, I.CONTENT,I.ANSWER, I.CREATE_DATE, I.NO, I.CATEGORY_CODE
+	FROM INQUIRY I INNER JOIN INQUIRY_CATEGORY C
+	ON C.CODE = I.CATEGORY_CODE
 	WHERE NO = #{no}
 </select>
 
+<!-- 문의 작성 -->
 <insert id="inquiryWrite" parameterType="inquiryDto">
-<selectKey keyProperty="no" resultType="int" order="AFTER">
-	SELECT SEQ_INQUIRY_NO.CURRVAL
-	FROM DUAL
-</selectKey>
 	INSERT INTO INQUIRY
 	VALUE(MEMBER_ID, CATEGORY_CODE, TITLE, CONTENT, CREATE_DATE)
 	VALUES(#{memberId} ,#{categoryCode} , #{title}, #{content}, SYSDATE)	
 </insert>
 
-<delete id="inquirDeleteOne" parameterType="int">
+<!-- 문의 수정 -->
+<update id="inquiryUpdateOne" parameterType="inquiryDto">
+	UPDATE INQUIRY
+	SET 
+	CATEGORY_CODE = #{categoryCode},
+	TITLE = #{title},
+	CONTENT = #{content}
+	WHERE NO = #{no}
+</update>
+
+<!-- 문의 삭제 -->
+<delete id="inquiryDeleteOne" parameterType="int">
 	DELETE FROM INQUIRY
-	WHERE NO = #{value}
+	WHERE NO = ${value}
 </delete>
 
 </mapper>
