@@ -29,13 +29,6 @@ public class MainController {
 		return "main/main";
 	}
 
-	@RequestMapping(value = "/union.do", method = RequestMethod.GET)
-	public String unionPage(HttpSession session, Model model) {
-		logger.info("Welcome Controller union! ");
-		
-		return "main/union";
-	}
-	
 	@RequestMapping(value = "/category.do", method = RequestMethod.GET)
 	public String categoryPage(HttpSession session, Model model) {
 		logger.info("Welcome Controller category! ");

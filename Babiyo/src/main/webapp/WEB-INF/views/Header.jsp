@@ -2,6 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
+<link rel="stylesheet" type="text/css" href="/babiyo/resources/css/common.css"/>
+
 <header>
 	<div style="width: 1200px; margin: auto;">
 	

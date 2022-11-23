@@ -40,8 +40,8 @@ public class ProductController {
 	//오븐 56p 관리자-밀키트 관리(목록)
 	@RequestMapping(value = "/product/list.do", method = {RequestMethod.GET, RequestMethod.POST})
 	public String productList(@RequestParam(defaultValue = "1") int curPage
-			, @RequestParam(defaultValue = "name") String searchOption
-			, @RequestParam(defaultValue = "stockASC") String sortOption
+			, @RequestParam(defaultValue = "all") String searchOption
+			, @RequestParam(defaultValue = "STOCK ASC") String sortOption
 			, @RequestParam(defaultValue = "") String keyword
 			, Model model) {
 		logger.info("ProductController productList! curPage: {}, searchOption: {}"
@@ -51,9 +51,9 @@ public class ProductController {
 		int totalCount = 
 			productService.productTotalCount(searchOption, sortOption, keyword);
 		
-		Paging memberPaging = new Paging(totalCount, curPage);
-		int start = memberPaging.getPageBegin();
-		int end = memberPaging.getPageEnd();
+		Paging paging = new Paging(totalCount, curPage);
+		int start = paging.getPageBegin();
+		int end = paging.getPageEnd();
 		
 		List<ProductDto> productList = 
 			productService.productList(searchOption, sortOption, keyword, start, end);
@@ -63,16 +63,12 @@ public class ProductController {
 		searchAndSortMap.put("sortOption", sortOption);
 		searchAndSortMap.put("keyword", keyword);
 		
-		Map<String, Object> pagingMap = new HashMap<String, Object>();
-		pagingMap.put("totalCount", totalCount);
-		pagingMap.put("memberPaging", memberPaging);
-		
 		model.addAttribute("productList", productList);
 		model.addAttribute("searchMap", searchAndSortMap);
 		model.addAttribute("sortMap", searchAndSortMap);
-		model.addAttribute("pagingMap", pagingMap);
+		model.addAttribute("paging", paging);
 		
-		return "product/list";
+		return "product/productList";
 	}
 	
 	//오븐 56p 관리자-밀키트 관리-밀키트 등록으로 가기
@@ -113,6 +109,7 @@ public class ProductController {
 		Map<String, Object> prevMap = new HashMap<>();
 		prevMap.put("curPage", curPage);
 		prevMap.put("searchOption", searchOption);
+		prevMap.put("sortOption", sortOption);
 		prevMap.put("keyword", keyword);
 		
 		model.addAttribute("productDto", productDto);

@@ -143,7 +143,7 @@ public class ProductServiceImpl implements ProductService{
 	//???
 	@Override
 	public int productTotalCount(String searchOption, String sortOption, String keyword) {
-		// TODO Auto-generated method stub
+
 		return productDao.productTotalCount(searchOption, sortOption, keyword);
 	}
 

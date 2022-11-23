@@ -7,16 +7,16 @@
 		<choose>
 			<when test="searchOption == 'all'">
 				WHERE	NAME LIKE '%'||#{keyword}||'%'
-				OR		CLASSIFICATION LIKE '%'||#{keyword}||'%'
+				OR		CATEGORY_CODE LIKE '%'||#{keyword}||'%'
 			</when>
 			<otherwise>
-				WHERE ${searchOption} LIKE '%'||#{keyword}||'%'
+				WHERE	${searchOption} LIKE '%'||#{keyword}||'%'
 			</otherwise>
 		</choose>
 	</sql>
 	
 	<sql id="sort">
-		ORDER BY ${sortOption}
+		ORDER BY	${sortOption}
 	</sql>
 	
 	<resultMap type="productDto" id="productResultMap">
@@ -50,7 +50,7 @@
 		
 		INSERT INTO PRODUCT
 		VALUE(NO, CATEGORY_CODE, NAME, PRICE, STOCK, CONTENT)
-		VALUES(#{no}, #{category_code}, #{name}, #{price}, #{stock}, #{content})
+		VALUES(#{no}, #{categoryCode}, #{name}, #{price}, #{stock}, #{content})
 	</insert>
 
 	<select id="productDetail" parameterType="int" resultMap="productResultMap">
@@ -63,7 +63,7 @@
 		UPDATE PRODUCT
 		<set>
 			<if test="name != ''">NAME = #{name},</if> 
-			<if test="category_code != ''">CATEGORY_CODE = #{category_code},</if> 
+			<if test="categoryCode != ''">CATEGORY_CODE = #{categoryCode},</if> 
 			<if test="price != ''">PRICE = #{price},</if>
 			<if test="stock != ''">STOCK = #{stock},</if>
 			<if test="content != ''">CONTENT = #{content},</if>
@@ -76,38 +76,34 @@
 		WHERE NO = #{value}
 	</delete>
 
-	<select id="productTotalCount" resultType="java.lang.Integer"
-		parameterType="map">
+	<select id="productTotalCount" resultType="java.lang.Integer" parameterType="map">
 		SELECT COUNT(*)
 		FROM PRODUCT
 		<include refid="search"></include>
 	</select>
 
 	<insert id="insertFile" parameterType="map">
-		INSERT INTO TB_FILE
-		(IDX, PARENT_SEQ, ORIGINAL_FILE_NAME,
-		STORED_FILE_NAME, FILE_SIZE, CRE_DATE)
+		INSERT INTO PRODUCT_IMAGE
+		(NO, PRODUCT_NO, ORIGINAL_NAME, STORED_NAME)
 		VALUES
-		(TB_FILE_IDX_SEQ.NEXTVAL, #{parentSeq}, #{original_file_name},
-		 #{stored_file_name}, #{file_size}, SYSDATE)
+		(#{no}, #{product_no}, #{original_name}, #{stored_name})
 	</insert>
 
 	<select id="fileSelectList" parameterType="int" resultType="map">
-		SELECT IDX, ORIGINAL_FILE_NAME, STORED_FILE_NAME,
-	    ROUND(FILE_SIZE/1024, 1) AS FILE_SIZE
-		FROM TB_FILE
-		WHERE PARENT_SEQ = #{no}
+		SELECT NO, ORGINAL_NAME, STORED_NAME
+		FROM PRODUCT_IMAGE
+		WHERE NO = #{no}
 	</select>
 
 	<select id="fileSelectStoredFileName" parameterType="int" resultType="map">
-		SELECT IDX, STORED_FILE_NAME
-		FROM TB_FILE
-		WHERE PARENT_SEQ = #{parentSeq}
+		SELECT NO, STORED_NAME
+		FROM PRODUCT_IMAGE
+		WHERE NO = #{no}
 	</select>
 
 	<delete id="fileDelete" parameterType="int">
-		DELETE FROM TB_FILE
-		WHERE PARENT_SEQ = #{parentSeq}
+		DELETE FROM PRODUCT_IMAGE
+		WHERE NO = #{no}
 	</delete>
 	
 </mapper>

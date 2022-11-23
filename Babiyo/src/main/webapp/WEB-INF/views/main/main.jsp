@@ -1,10 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>메인화면</title>
+
+<link rel="stylesheet" type="text/css" href="/babiyo/resources/css/common.css"/>
 
 <style type="text/css">
 
@@ -160,12 +164,19 @@
 }
 </style>
 
+<script type="text/javascript" src="/babiyo/resources/js/jquery-3.6.1.js"></script>
+
 </head>
+
 <body>
-	<jsp:include page="../Header.jsp"/>
-	
-	<div id='middleDiv'>
-		<div id='mainPageNoticeAreaDiv'>
+
+<div id="rootDiv">
+
+	<jsp:include page="/WEB-INF/views/Header.jsp" />
+
+	<div id="middleDiv">
+		<!--여기서 작성 -->
+<div id='mainPageNoticeAreaDiv'>
 			<div class='noticeName'>
 				<span><strong>공지사항</strong></span>
 			</div>
@@ -219,7 +230,6 @@
 					<div class='recommendMealkitContentPrice'>(가격 4)</div>
 				</div>
 			</div>
-			
 		</div>
 		
 		<div id='newMealkitDiv'>
@@ -259,10 +269,15 @@
 					<div class='newMealkitContentPrice'>(가격 4)</div>
 				</div>
 			</div>
-			
-		</div>
-	</div>
-	
-	<jsp:include page="../Footer.jsp"/>
+		</div>		
+
+		<div id="underPadding"></div>
+		
+	</div> <!--middleDiv 끝 -->
+
+	<jsp:include page="/WEB-INF/views/Footer.jsp" />
+
+</div>  <!--rootDiv 끝 -->
+
 </body>
 </html>

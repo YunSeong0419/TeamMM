@@ -16,7 +16,7 @@ public class ProductDaoImpl implements ProductDao{
 	@Autowired
 	SqlSessionTemplate sqlSession;
 	
-	String namespace = "com.mealmaker.babiyo.";
+	String namespace = "com.mealmaker.babiyo.product.";
 	
 	//DB에서 밀키트 목록 퍼오기
 	@Override

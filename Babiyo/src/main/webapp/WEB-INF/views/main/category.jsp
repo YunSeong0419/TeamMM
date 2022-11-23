@@ -1,10 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>밀키트</title>
+
+<link rel="stylesheet" type="text/css" href="/babiyo/resources/css/common.css"/>
 
 <style type="text/css">
 
@@ -12,7 +16,7 @@
 	min-height: 650px;
 }
 
-hr{
+#middleDiv > hr{
 	width: 900px;
 	margin: 0px auto;
 	border: 0px;
@@ -20,14 +24,14 @@ hr{
 	height: 2px;
 }
 
-#mealkitCategoryName{
+#productCategoryName{
 	width: 900px;
  	height: 68px;
 	margin: auto;
 	line-height: 68px;
 }
 
-#mealkitCategoryName > a{
+#productCategoryName > a{
 	color: #4A4A4A;
 	padding: 10px 30px;
 	margin: 0px auto;
@@ -44,20 +48,23 @@ hr{
 	text-align: right;
 }
 
-#mealkitDiv{
+#productDiv{
 	width: 900px;
-	height: 650px;
+	height: 600px;
 	margin: 0px auto 0px auto;
 }
 
-.mealkitContent{
+#firstRow, #secondRow{
+	height: 300px;
+}
+.productContent{
 	width: 225px;
 	height: 280px;
 	font-size: 16px;
 	float: left;
 }
 
-.mealkitContentImage > a{
+.productContentImage > a{
 	width: 225px;
 	height: 200px;
 	text-align: center;
@@ -66,7 +73,7 @@ hr{
 	float: left;
 }
 
-.mealkitContentName{
+.productContentName{
 	width: 225px;
 	height: 20px;
 	font-weight: bold;
@@ -74,7 +81,7 @@ hr{
 	float: left;
 }
 
-.mealkitContentPrice{
+.productContentPrice{
 	width: 225px;
 	height: 20px;
 	text-align: center;
@@ -83,19 +90,25 @@ hr{
 
 </style>
 
+<script type="text/javascript" src="/babiyo/resources/js/jquery-3.6.1.js"></script>
+
 </head>
+
 <body>
-	<jsp:include page="../Header.jsp"/>
-	
-<!-- 밑 div를 닫으면 컨텐츠가 몸통 밑으로 들어가게 됨. 푸터 시작에서 닫음. -->	
-	<div id='middleSideDiv'>
-		<div id='mealkitCategoryName'>
+
+<div id="rootDiv">
+
+	<jsp:include page="/WEB-INF/views/Header.jsp" />
+
+	<div id="middleDiv">
+		<!--여기서 작성 -->
+		<div id='productCategoryName'>
 			<a href="#">한식</a>
 			<a href="#">중식</a>
 			<a href="#">일식</a>
 			<a href="#">양식</a>
 			<a href="#">분식</a>
-			<a href="#">동남아</a>
+			<a href="#">아시안</a>
 		</div>
 		
 		<hr />
@@ -105,71 +118,75 @@ hr{
 			<input type="button" value='검색' style="width: 50px; height: 36px;">
 		</div>
 		
-		<div id='mealkitDiv'>
+		<div id='productDiv'>
 			<div id='firstRow'>
-				<div class='mealkitContent'>
-					<div class='mealkitContentImage'>
+				<div class='productContent'>
+					<div class='productContentImage'>
 						<a href="#"><img alt="밀키트 이미지 1" src=""></a>					
 					</div>
-					<div class='mealkitContentName'>(상품명 1)</div>
-					<div class='mealkitContentPrice'>(가격 1)</div>
+					<div class='productContentName'>(상품명 1)</div>
+					<div class='productContentPrice'>(가격 1)</div>
 				</div>
-				<div class='mealkitContent'>
-					<div class='mealkitContentImage'>
+				<div class='productContent'>
+					<div class='productContentImage'>
 						<a href="#"><img alt="밀키트 이미지 2" src=""></a>					
 					</div>
-					<div class='mealkitContentName'>(상품명 2)</div>
-					<div class='mealkitContentPrice'>(가격 2)</div>
+					<div class='productContentName'>(상품명 2)</div>
+					<div class='productContentPrice'>(가격 2)</div>
 				</div>
-				<div class='mealkitContent'>
-					<div class='mealkitContentImage'>
+				<div class='productContent'>
+					<div class='productContentImage'>
 						<a href="#"><img alt="밀키트 이미지 3" src=""></a>					
 					</div>
-					<div class='mealkitContentName'>(상품명 3)</div>
-					<div class='mealkitContentPrice'>(가격 3)</div>
+					<div class='productContentName'>(상품명 3)</div>
+					<div class='productContentPrice'>(가격 3)</div>
 				</div>
-				<div class='mealkitContent'>
-					<div class='mealkitContentImage'>
+				<div class='productContent'>
+					<div class='productContentImage'>
 						<a href="#"><img alt="밀키트 이미지 4" src=""></a>					
 					</div>
-					<div class='mealkitContentName'>(상품명 4)</div>
-					<div class='mealkitContentPrice'>(가격 4)</div>
+					<div class='productContentName'>(상품명 4)</div>
+					<div class='productContentPrice'>(가격 4)</div>
 				</div>
 			</div>
 			<div id='secondRow'>
-				<div class='mealkitContent'>
-					<div class='mealkitContentImage'>
+				<div class='productContent'>
+					<div class='productContentImage'>
 						<a href="#"><img alt="밀키트 이미지 5" src=""></a>					
 					</div>
-					<div class='mealkitContentName'>(상품명 5)</div>
-					<div class='mealkitContentPrice'>(가격 5)</div>
+					<div class='productContentName'>(상품명 5)</div>
+					<div class='productContentPrice'>(가격 5)</div>
 				</div>
-				<div class='mealkitContent'>
-					<div class='mealkitContentImage'>
+				<div class='productContent'>
+					<div class='productContentImage'>
 						<a href="#"><img alt="밀키트 이미지 6" src=""></a>					
 					</div>
-					<div class='mealkitContentName'>(상품명 6)</div>
-					<div class='mealkitContentPrice'>(가격 6)</div>
+					<div class='productContentName'>(상품명 6)</div>
+					<div class='productContentPrice'>(가격 6)</div>
 				</div>
-				<div class='mealkitContent'>
-					<div class='mealkitContentImage'>
+				<div class='productContent'>
+					<div class='productContentImage'>
 						<a href="#"><img alt="밀키트 이미지 7" src=""></a>					
 					</div>
-					<div class='mealkitContentName'>(상품명 7)</div>
-					<div class='mealkitContentPrice'>(가격 7)</div>
+					<div class='productContentName'>(상품명 7)</div>
+					<div class='productContentPrice'>(가격 7)</div>
 				</div>
-				<div class='mealkitContent'>
-					<div class='mealkitContentImage'>
+				<div class='productContent'>
+					<div class='productContentImage'>
 						<a href="#"><img alt="밀키트 이미지 8" src=""></a>					
 					</div>
-					<div class='mealkitContentName'>(상품명 8)</div>
-					<div class='mealkitContentPrice'>(가격 8)</div>
+					<div class='productContentName'>(상품명 8)</div>
+					<div class='productContentPrice'>(가격 8)</div>
 				</div>
 			</div>
-			
-			<jsp:include page="../Paging.jsp"/>
 		</div>
+		<jsp:include page="/WEB-INF/views/Paging.jsp" />		
+		<div id="underPadding"></div>
+	</div> <!--middleDiv 끝 -->
 
-	<jsp:include page="../Footer.jsp"/>
+	<jsp:include page="/WEB-INF/views/Footer.jsp" />
+
+</div>  <!--rootDiv 끝 -->
+
 </body>
 </html>
