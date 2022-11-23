@@ -4,7 +4,6 @@
 <mapper namespace="com.mealmaker.babiyo.cart">
 
 <resultMap type="cartDto" id="cartResultMap">
-<id column="NO" property="no"/>
 <result column="MEMBER_ID" property="memberId"/>
 <result column="PRODUCT_NO" property="productNo"/>
 <result column="NAME" property="productName"/>
@@ -13,21 +12,23 @@
 </resultMap>
 
 <select id="cartList" resultMap="cartResultMap">
-SELECT C.NO, C.MEMBER_ID, C.PRODUCT_NO, C.QUANTITY, P.NAME, P.PRICE
+SELECT C.MEMBER_ID, C.PRODUCT_NO, C.QUANTITY, P.NAME, P.PRICE
 FROM CART C JOIN PRODUCT P
 ON C.PRODUCT_NO = P.NO
 WHERE MEMBER_ID = #{memberId}
 </select>
 
-<delete id="cartDelete" parameterType="int">
+<delete id="cartDelete" parameterType="cartDto">
 DELETE CART
-WHERE NO = #{value}
+WHERE MEMBER_ID = #{memberId}
+AND PRODUCT_NO = #{productNo}
 </delete>
 
 <update id="quantityModify" parameterType="cartDto">
 UPDATE CART
 SET QUANTITY = #{quantity}
-WHERE NO = #{no}
+WHERE MEMBER_ID = #{memberId}
+AND PRODUCT_NO = #{productNo}
 </update>
 
 </mapper>

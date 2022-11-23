@@ -1,11 +1,8 @@
 
 /* Drop Triggers */
 
-DROP TRIGGER TRI_cart_no;
 DROP TRIGGER TRI_cash_history_no;
-DROP TRIGGER TRI_favorite_no;
 DROP TRIGGER TRI_inquiry_no;
-DROP TRIGGER TRI_interest_no;
 DROP TRIGGER TRI_login_history_no;
 DROP TRIGGER TRI_member_order_no;
 DROP TRIGGER TRI_notice_image_no;
@@ -15,7 +12,6 @@ DROP TRIGGER TRI_product_image_no;
 DROP TRIGGER TRI_product_no;
 DROP TRIGGER TRI_review_image_no;
 DROP TRIGGER TRI_review_no;
-
 
 
 /* Drop Tables */
@@ -46,11 +42,8 @@ DROP TABLE product_category CASCADE CONSTRAINTS;
 
 /* Drop Sequences */
 
-DROP SEQUENCE SEQ_cart_no;
 DROP SEQUENCE SEQ_cash_history_no;
-DROP SEQUENCE SEQ_favorite_no;
 DROP SEQUENCE SEQ_inquiry_no;
-DROP SEQUENCE SEQ_interest_no;
 DROP SEQUENCE SEQ_login_history_no;
 DROP SEQUENCE SEQ_member_order_no;
 DROP SEQUENCE SEQ_notice_image_no;
@@ -66,11 +59,8 @@ DROP SEQUENCE SEQ_review_no;
 
 /* Create Sequences */
 
-CREATE SEQUENCE SEQ_cart_no INCREMENT BY 1 START WITH 1;
 CREATE SEQUENCE SEQ_cash_history_no INCREMENT BY 1 START WITH 1;
-CREATE SEQUENCE SEQ_favorite_no INCREMENT BY 1 START WITH 1;
 CREATE SEQUENCE SEQ_inquiry_no INCREMENT BY 1 START WITH 1;
-CREATE SEQUENCE SEQ_interest_no INCREMENT BY 1 START WITH 1;
 CREATE SEQUENCE SEQ_login_history_no INCREMENT BY 1 START WITH 1;
 CREATE SEQUENCE SEQ_member_order_no INCREMENT BY 1 START WITH 1;
 CREATE SEQUENCE SEQ_notice_image_no INCREMENT BY 1 START WITH 1;
@@ -87,11 +77,10 @@ CREATE SEQUENCE SEQ_review_no INCREMENT BY 1 START WITH 1;
 
 CREATE TABLE cart
 (
-	no number NOT NULL,
 	member_id varchar2(80) NOT NULL,
 	product_no number NOT NULL,
 	quantity number NOT NULL,
-	PRIMARY KEY (no)
+	UNIQUE (member_id, product_no)
 );
 
 
@@ -117,10 +106,9 @@ CREATE TABLE cash_history_category
 
 CREATE TABLE favorite
 (
-	no number NOT NULL,
 	member_id varchar2(80) NOT NULL,
 	product_no number NOT NULL,
-	PRIMARY KEY (no)
+	UNIQUE (member_id, product_no)
 );
 
 
@@ -147,11 +135,10 @@ CREATE TABLE inquiry_category
 
 CREATE TABLE interest
 (
-	no number NOT NULL,
 	member_id varchar2(80) NOT NULL,
 	list_no varchar2(20) NOT NULL,
 	code number NOT NULL,
-	PRIMARY KEY (no)
+	UNIQUE (member_id, list_no)
 );
 
 
@@ -248,7 +235,8 @@ CREATE TABLE order_detail
 	product_no number NOT NULL,
 	quantity number DEFAULT 1 NOT NULL,
 	price number NOT NULL,
-	PRIMARY KEY (no)
+	PRIMARY KEY (no),
+	UNIQUE (order_no, product_no)
 );
 
 
@@ -457,16 +445,6 @@ ALTER TABLE review_image
 
 /* Create Triggers */
 
-CREATE OR REPLACE TRIGGER TRI_cart_no BEFORE INSERT ON cart
-FOR EACH ROW
-BEGIN
-	SELECT SEQ_cart_no.nextval
-	INTO :new.no
-	FROM dual;
-END;
-
-/
-
 CREATE OR REPLACE TRIGGER TRI_cash_history_no BEFORE INSERT ON cash_history
 FOR EACH ROW
 BEGIN
@@ -477,30 +455,10 @@ END;
 
 /
 
-CREATE OR REPLACE TRIGGER TRI_favorite_no BEFORE INSERT ON favorite
-FOR EACH ROW
-BEGIN
-	SELECT SEQ_favorite_no.nextval
-	INTO :new.no
-	FROM dual;
-END;
-
-/
-
 CREATE OR REPLACE TRIGGER TRI_inquiry_no BEFORE INSERT ON inquiry
 FOR EACH ROW
 BEGIN
 	SELECT SEQ_inquiry_no.nextval
-	INTO :new.no
-	FROM dual;
-END;
-
-/
-
-CREATE OR REPLACE TRIGGER TRI_interest_no BEFORE INSERT ON interest
-FOR EACH ROW
-BEGIN
-	SELECT SEQ_interest_no.nextval
 	INTO :new.no
 	FROM dual;
 END;
@@ -653,7 +611,7 @@ insert into member
 (id, password, name, email, birthday, gender, phone, nickname, cash
 , grade_code, create_date, modify_date)
 values('dong', '123', '이동현', 'dong@test.com', TO_DATE('19960325')
-    , '남', '01055553333', '동현', 100000000, 2, sysdate, sysdate);
+    , '남', '01055553333', '동현', 100000, 2, sysdate, sysdate);
 
 insert into product(CATEGORY_CODE, NAME, PRICE, STOCK, CONTENT)
 values(1, '봉골레파스타', 6000, 100, '아주 맛있는 봉골레파스타!');

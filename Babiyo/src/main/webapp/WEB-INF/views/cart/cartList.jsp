@@ -19,26 +19,43 @@
 	margin: 0px auto;
 }
 
-.checkTd{
+#checkTh{
 	height: 30px;
 	width: 30px;
+}
+
+.checkTd{
 	text-align: center;
+}
+
+#nameTh{
+	width: 620px;
 }
 .nameTd{
 	padding-left: 20px;
-	width: 620px;
+}
+#priceTh{
+	width: 100px;
 }
 .priceTd{
 	text-align: center;
+}
+#quantityTh{
 	width: 100px;
 }
 .quantityTd{
 	text-align: center;
+}
+
+.quantity{
+	text-align: right;
+	width: 40px;
+}
+#sumTh{
 	width: 100px;
 }
 .sumTd{
 	text-align: center;
-	width: 100px;
 }
 
 table{
@@ -53,7 +70,7 @@ table{
 	margin: 0px auto;
 }
 
-#totalAmount{
+#totalAmountText{
 	float: right;
 }
 
@@ -79,127 +96,105 @@ table{
 
 $(function(){
 	
-	totalTrans(); // 페이지를 불러오자마자 합계금액을 적용시킴
+	$('.quantity').change(function() { // 품목갯수 변경 시 금액 바꾸는 함수
+		
+		if($(this).val() >= 100){
+			$(this).val(99);
+		}
 	
-	$('input[id^="quantity"]').change(function() { // 품목갯수 변경시 합계가격 바꾸는 함수
+		var no = $('.quantity').index(this);	// 이벤트가 일어난 클래스 인덱스 찾기
+		var quantity = Number($(this).val());	// 변경한 갯수
 		
-		var no = $(this).attr("id").substr(8); // 이벤트가 일어난 카트no 찾기
-		var quantity = Number($(this).val());
-		
-// 		alert(no);
+		var productNo = $('.productNo').eq(no).val();	// 제품번호
 		
 		$.ajax({
 		    type : 'post',           // 타입 (get, post, put 등등)
-		    url : './ajax/quantityModify.do',           // 요청할 서버url
+		    url : './cartModify.do',           // 요청할 서버url
 		    async : true,            // 비동기화 여부 (default : true)
 		    data : {
-		    	no: no,
+		    	productNo: productNo,
 		    	quantity: quantity
 		    },
 		    success : function() { // 결과 성공 콜백함수
-				var priceHidId = '#priceHid' + no;
-				var price = Number($(priceHidId).val());
-				var sumPrice = quantity * price; //합계금액
+		    	
+				var price = Number($('.price').eq(no).val()); // 제품의 가격
+				var sumPrice = quantity * price; // 합계 금액
 				
-				var sumPriceHidId = '#sumPriceHid' + no;
-				$(sumPriceHidId).val(sumPrice); // 히든에 합계금액을 저장
+				$('.sumPrice').eq(no).val(sumPrice); // input에 값 저장
 				
-				var sumPriceId = '#sumPrice' + no;
+				$('.sumTd').eq(no).html(korTrans(sumPrice)); // 화면에 적용
 				
-				$(sumPriceId).html(korTrans(sumPrice));
-				totalTrans();
+				totalTrans();	// 주문금액 적용
 		    }
-		});
-		
+		}); // ajax 종료
 	});
+	
 	
 	$('#selectDelete').click(function() { // 선택한 품목의 번호만 삭제로 보냄
+	
+		var checked = $('.check').is(':checked');
 		
-		if(confirm('선택한 품목을 삭제하시겠습니까?')){
-			var submitCheck = false;
-			var htmlStr = '';
-			var index = 0;
-			
-			$('input[id^="cartNo"]').each(function() {
-				
-				var no = $(this).attr('id').substr(6);
-				var checked = $(this).is(':checked');
-				
-				if(checked){ //선택이 됫으면 폼안에 히든으로 번호를 저장함
-					htmlStr += '<input type="hidden" name="cartList[' + index + '].no" value="' + no + '">';
-					submitCheck = true;
-					index = index + 1;
-				}
-				
-			});
-			
-			if(submitCheck){
-				$('#deleteForm').html(htmlStr);
-				$('#deleteForm').submit();
-			}else{ 
-				alert('선택한 항목이 없습니다');
-			}
+		if(checked == false){ // 하나라도 체크가 되어야지 수행
+			alert('선택한 항목이 없습니다');
+			return;
 		}
 		
+		if(confirm('선택한 품목을 삭제하시겠습니까?') == false){ // 삭제를 할 것인지 확인
+			return;
+		}
 		
+		$('.check:checked').each(function(index) {
+			var no = $('.check').index(this); // 체크가 되어있는 인덱스의 번호
+			var name = 'cartList[' + index + '].productNo'; 
+			$('.productNo').eq(no).attr('name', name); // 체크가 된 제품번호에만 name 태그를 달아줌
+		});
+			
+		$('#cartForm').attr('action', './cartDelete.do');
+		$('#cartForm').submit();
 	});
+	
+	
 	
 	$('#selectOrder').click(function() {
-	
-		var submitCheck = false;
-		var htmlStr = '';
-		var index = 0;
 		
-		$('input[id^="cartNo"]').each(function() {
-			
-			var no = $(this).attr('id').substr(6);
-			var checked = $(this).is(':checked');
-			
-			var productNoId = '#productNoHid' + no;
-			var productNameId = '#productNameHid' + no;
-			var quantityId = '#quantity' + no;
-			var priceId = '#priceHid' + no;
-			
-			if(checked){
-				htmlStr += '<input type="hidden" name="cartList[' + index + '].no" value="' + no + '">';
-				htmlStr += '<input type="hidden" name="orderDetailList[' + index + '].productNo" value="'
-					+ $(productNoId).val() + '">';
-				htmlStr += '<input type="hidden" name="orderDetailList[' + index + '].productName" value="'
-					+ $(productNameId).val() + '">';
-				htmlStr += '<input type="hidden" name="orderDetailList[' + index + '].quantity" value="'
-					+ $(quantityId).val() + '">';
-				htmlStr += '<input type="hidden" name="orderDetailList[' + index + '].price" value="'
-					+ $(priceId).val() + '">';
-				
-				index = index + 1;
-				
-				submitCheck = true;
-			}
-			
-		});
+		var checked = $('.check').is(':checked');
 		
-		if(submitCheck){
-			$('#selectOrderForm').html(htmlStr);
-			$('#selectOrderForm').submit();
-		}else{
+		if(checked == false){ // 하나라도 체크가 되어야지 수행
 			alert('선택한 항목이 없습니다');
+			return;
 		}
 		
+		$('.check:checked').each(function(index) {
+			var no = $('.check').index(this); // 체크가 되어있는 인덱스의 번호
+			
+			var productNo = 'orderDetailList[' + index + '].productNo'; 
+			var productName = 'orderDetailList[' + index + '].productName'; 
+			var quantity = 'orderDetailList[' + index + '].quantity'; 
+			var price = 'orderDetailList[' + index + '].price'; 
+			
+			$('.productNo').eq(no).attr('name', productNo); // 체크가 된 제품번호에만 name 태그를 달아줌
+			$('.productName').eq(no).attr('name', productName);
+			$('.quantity').eq(no).attr('name', quantity); 
+			$('.price').eq(no).attr('name', price); 
+		});
 		
+		
+		$('#cartForm').attr('action', '../order/order.do');
+		$('#cartForm').submit();
 	});
+	
+	
 	
 	$('#allCheck').change(function() { // 전체선택 기능
 		var checked = $(this).is(':checked');
-		$('input[id^="cartNo"]').prop('checked', checked);
+		$('.check').prop('checked', checked);
 		
 		totalTrans(); // 전체선택 후에 총합계가 변하게 함
 	});
 	
 	
 	
-	$('input[id^="cartNo"]').change(function() { // 개별선택시에 총합계가 변하게하는 이벤트
-		totalTrans();
-	})
+	$('.check').change(totalTrans); 
 	
 });
 
@@ -207,21 +202,17 @@ function korTrans(price){ // 숫자를 원화시키기 위한 함수
 	return price.toLocaleString('ko-KR') + '원';
 }
 
-function totalTrans(){ // 장바구니의 총합계금액을 반영해주는 함수
+function totalTrans(){ // 체크한 주문금액을 반영해주는 함수
 	var totalAmount = 0;
 	
-	$('input[id^="sumPriceHid"]').each(function(index, item) {
-		var no = $(this).attr('id').substr(11);
-		var id = '#cartNo' + no;
-		var checked = $(id).is(':checked');
-		
-		if(checked){ // 체크를 해야지만 합계 금액에 포함됌
-			totalAmount += Number($(item).val());
-		}
+	$('.check:checked').each(function() {
+		var no = $('.check').index(this); // 체크가 되어있는 인덱스의 번호
+		var sumPrice = Number($('.sumPrice').eq(no).val()); // 체크가 된 상품금액
+		totalAmount += sumPrice;
 	});
 	
-	$('#totalAmountHid').val(totalAmount); // form으로 보내기 위해서 히든에 저장
-	$('#totalAmount').html('총 합계: ' + korTrans(totalAmount)); // 화면을 위한 값
+	$('#totalAmount').val(totalAmount); // input에 값 저장
+	$('#totalAmountText').html('주문금액: ' + korTrans(totalAmount)); // 화면을 위한 값
 }
 
 
@@ -244,59 +235,59 @@ function totalTrans(){ // 장바구니의 총합계금액을 반영해주는 함
 			<div id='sideTitle'></div>
 			
 			<div id="cartTableDiv">
-				<table id="cartListTable">
-					<tr id="firstRow">
-						<th class="checkTd"><input type="checkbox" id="allCheck"></th><th class="nameTd">상품명</th>
-						<th class="priceTd">단가</th><th class="quantityTd">수량</th><th class="sumTd">합계</th>
-					</tr>
-					<c:choose>
-					<c:when test="${!empty cartList}">
-					<c:forEach items="${cartList}" var="cart" varStatus="status">
-					<tr>
-						<td class="checkTd"><input type="checkbox" id="cartNo${cart.no}"></td>
-						<td class="nameTd">${cart.productName}</td>
-						<td class="priceTd" id="price${cart.no}">
-							<fmt:formatNumber pattern="#,###">${cart.productPrice}</fmt:formatNumber>원
-						</td>
-						<td class="quantityTd">
-							<input id="quantity${cart.no}" type="number" value="${cart.quantity}"
-								 min="1" max="99" style="width: 35px; text-align: right;">
-						</td>
-						<td class="sumTd" id="sumPrice${cart.no}">
-							<fmt:formatNumber pattern="#,###">${cart.productPrice * cart.quantity}</fmt:formatNumber>원
-						</td>
-					</tr>
-					<div>
-						<input type="hidden" value="${cart.productNo}" id="productNoHid${cart.no}">
-						<input type="hidden" value="${cart.productName}" id="productNameHid${cart.no}">
-						<input type="hidden" value="${cart.productPrice}" id="priceHid${cart.no}">
-						<input type="hidden" value="${cart.productPrice * cart.quantity}" id="sumPriceHid${cart.no}">
-					</div>
-					</c:forEach>
-					</c:when>
-					
-					<c:otherwise>
-					<tr>
-						<td colspan="5" style="text-align: center;"><span>장바구니가 비었습니다</span></td>
-					</tr>
-					</c:otherwise>
-					</c:choose>
-					
-				</table>
+				<form id="cartForm" method="post">
+					<table id="cartListTable">
+						<tr id="firstRow">
+							<th id="checkTh"><input type="checkbox" id="allCheck"></th><th id="nameTh">상품명</th>
+							<th id="priceTh">가격</th><th id="quantityTh">수량</th><th id="sumTh">상품금액</th>
+						</tr>
+						<c:choose>
+						<c:when test="${!empty cartList}">
+						<c:forEach items="${cartList}" var="cart">
+						<tr>
+							<td class="checkTd"><input type="checkbox" class="check"></td>
+							<td class="nameTd">${cart.productName}</td>
+							<td class="priceTd">
+								<fmt:formatNumber pattern="#,###">${cart.productPrice}</fmt:formatNumber>원
+							</td>
+							<td class="quantityTd">
+								<input class="quantity" type="number" min="1" max="99" value="${cart.quantity}">
+							</td>
+							<td class="sumTd">
+								<fmt:formatNumber pattern="#,###">${cart.productPrice * cart.quantity}</fmt:formatNumber>원
+							</td>
+						</tr>
+						<div>
+							<input type="hidden" value="${cart.productNo}" class="productNo">
+							<input type="hidden" value="${cart.productName}" class="productName">
+							<input type="hidden" value="${cart.productPrice}" class="price">
+							<input type="hidden" value="${cart.productPrice * cart.quantity}" class="sumPrice">
+						</div>
+						</c:forEach>
+						</c:when>
+						
+						<c:otherwise>
+						<tr>
+							<td colspan="5" style="text-align: center;"><span>장바구니가 비었습니다</span></td>
+						</tr>
+						</c:otherwise>
+						</c:choose>
+						
+					</table>
+					<input type="text" style="display: none">
+				</form>
 			</div>
 			
 			<div id="tableUnder">
 				<input type="button" value="선택항목 삭제" id="selectDelete">
-				<span id="totalAmount"></span>
+				<span id="totalAmountText">주문금액: 0원</span>
 			</div>
-			<input type="hidden" id="totalAmountHid" name="totalAmount" value="">
+			<input type="hidden" id="totalAmount" name="totalAmount" value="">
 			
 			<div id="orderBtnDiv">
 				<input type="button" value="주문하기" id="selectOrder">
 			</div>
 		
-			<form action="./delete.do" method="post" id="deleteForm"></form>
-			<form action="../order/order.do" method="post" id="selectOrderForm"></form>
 			<div id="underPadding"></div>
 		</div>
 		

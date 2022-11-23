@@ -30,7 +30,7 @@ public class CartServiceImpl implements CartService{
 	}
 
 	@Override
-	public void cartDelete(List<Integer> list) {
+	public void cartDelete(List<CartDto> list) {
 		// TODO Auto-generated method stub
 		cartDao.cartDelete(list);
 	}

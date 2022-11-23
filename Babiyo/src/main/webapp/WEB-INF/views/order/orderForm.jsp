@@ -248,7 +248,7 @@ function postFind() {
 				<div class="receiverInfoDiv">
 					<span class="receiverInfo">우편번호</span> 
 					<input type="text" name="post" id="post" class="receiverInput" readonly="readonly">
-					<input type="button" onclick="postFind()" value="우편번호 찾기">
+					<input type="button" onclick="postFind();" value="우편번호 찾기">
 				</div>
 				<div class="receiverInfoDiv">
 					<span class="receiverInfo">배송지 입력</span> 
@@ -264,21 +264,15 @@ function postFind() {
 				</div>
 				
 				<div>
-					<c:forEach items="${orderDetailList}" var="mealkit" varStatus="status">
-						<input type="hidden" name="orderDetailList[${status.index}].productNo" value="${mealkit.productNo}">
-						<input type="hidden" class="quantity" name="orderDetailList[${status.index}].quantity" value="${mealkit.quantity}">
-						<input type="hidden" class="price" name="orderDetailList[${status.index}].price" value="${mealkit.price}">
+					<c:forEach items="${orderDetailList}" var="order" varStatus="status">
+						<input type="hidden" name="orderDetailList[${status.index}].productNo" value="${order.productNo}">
+						<input type="hidden" class="quantity" name="orderDetailList[${status.index}].quantity" value="${order.quantity}">
+						<input type="hidden" class="price" name="orderDetailList[${status.index}].price" value="${order.price}">
 					</c:forEach>
 					<input type="hidden" id="totalAmount" name="totalAmount" value="">
-					<input type="hidden" id="memberId" name="memberId" value="${_memberDto_.id}">
 					<input type="hidden" name="preview" value="${orderDetailList[0].productName}">
 					<input type="hidden" name="productQuantity" value="${fn:length(orderDetailList)}">
-					<c:forEach items="${cartDto.cartList}" var="cart" varStatus="status">
-						<input type="hidden" name="cartList[${status.index}].no" value="${cart.no}">
-					</c:forEach>
 				</div>
-				
-				
 				
 			</form>
 
@@ -287,13 +281,13 @@ function postFind() {
 			<div id="mealkitListDiv">
 				<p id="mealkitListP">품목</p>
 				<ul id="mealkitUl">
-					<c:forEach items="${orderDetailList}" var="mealkit">
+					<c:forEach items="${orderDetailList}" var="list">
 						<li>
-							<span class="mealkitName">${mealkit.productName}</span>
+							<span class="mealkitName">${list.productName}</span>
 							<span class="mealkitPrice">
-							<fmt:formatNumber pattern="#,###">${mealkit.price * mealkit.quantity}</fmt:formatNumber>원
+								<fmt:formatNumber pattern="#,###">${list.price * list.quantity}</fmt:formatNumber>원
 							</span>
-							<span class="mealkitQuantity">${mealkit.quantity}개</span>
+							<span class="mealkitQuantity">${list.quantity}개</span>
 						</li>
 					</c:forEach>
 				</ul>
@@ -304,7 +298,7 @@ function postFind() {
 					<span id="balanceMoney"><fmt:formatNumber pattern="#,###">${_memberDto_.cash}</fmt:formatNumber>원</span>
 				</p>
 				<p>
-					<span id="totalAmountName">총 결제금액</span> <span id="totalAmountMoney"></span>
+					<span id="totalAmountName">결제금액</span> <span id="totalAmountMoney"></span>
 				</p>
 			</div>
 

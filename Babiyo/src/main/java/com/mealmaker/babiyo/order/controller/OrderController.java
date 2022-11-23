@@ -50,7 +50,7 @@ public class OrderController {
 	
 	@RequestMapping(value = "/order/order.do", method = RequestMethod.POST)
 	public String order(OrderDetailDto orderDetailDto, CartDto cartDto, HttpSession session, Model model) {
-		logger.info("Welcome OrderController order! ");
+		logger.info("주문화면 {}", orderDetailDto.getOrderDetailList());
 
 		List<OrderDetailDto> orderDetailList = orderDetailDto.getOrderDetailList();
 		
@@ -61,23 +61,32 @@ public class OrderController {
 	}
 	
 	@RequestMapping(value = "/order/orderCtr.do", method = RequestMethod.POST)
-	public String orderCtr(OrderDto orderDto, OrderDetailDto orderDetailDto
-			,CartDto cartDto, HttpSession session, Model model) {
-		logger.info("Welcome OrderController orderCtr! " + orderDto + cartDto);
+	public String orderCtr(OrderDto orderDto, OrderDetailDto orderDetailDto, HttpSession session, Model model) {
+		logger.info("Welcome OrderController orderCtr! " + orderDto);
 		
 		List<OrderDetailDto> detailList = orderDetailDto.getOrderDetailList();
 		
+		MemberDto memberDto = (MemberDto) session.getAttribute("_memberDto_");
+		
+		String memberId = memberDto.getId();
+		
+		orderDto.setMemberId(memberId);
+		
 		orderService.order(orderDto, detailList);
 		
-		if(cartDto != null) {
-			List<Integer> list = new ArrayList<Integer>();
+		List<CartDto> list = new ArrayList<>();
+		
+		for (OrderDetailDto order : detailList) {
+			CartDto cartDto = new CartDto();
+			int productNo = order.getProductNo();
 			
-			for (CartDto cart : cartDto.getCartList()) {
-				list.add(cart.getNo());
-				System.out.println(cart.getNo());
-			}
-			cartService.cartDelete(list);
+			cartDto.setMemberId(memberId);
+			cartDto.setProductNo(productNo);
+			
+			list.add(cartDto);
 		}
+			
+		cartService.cartDelete(list);
 		 
 		
 		return "redirect:/order/complete.do";

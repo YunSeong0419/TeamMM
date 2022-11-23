@@ -10,5 +10,5 @@ public interface CartDao {
 
 	void quantityModify(CartDto cartDto);
 
-	void cartDelete(List<Integer> list);
+	void cartDelete(List<CartDto> list);
 }
