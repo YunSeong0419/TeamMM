@@ -162,7 +162,7 @@
 					</div>
 					<div class='classificationDiv'>
 						<p class='sidePTagName'>분류</p>
-						<select name='classification' class='smallInputBox'>
+						<select name='categoryCode' class='smallInputBox'>
 							<option value=0 id='classificationOption' selected='selected'>분류</option>
 							<option value=1>한식</option>
 							<option value=2>중식</option>

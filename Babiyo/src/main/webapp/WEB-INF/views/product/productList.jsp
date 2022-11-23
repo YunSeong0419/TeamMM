@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+ <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
@@ -127,13 +127,20 @@
 
 <script type="text/javascript" src="/babiyo/resources/js/jquery-3.6.1.js"></script>
 
+
 <script type="text/javascript">
-	function pageMoveProductDetailFnc() {
-		var productDetailCurPageInputObj = document.getElementById('productDetailCurPage');		
-		productDetailCurPageInputObj.value = document.getElementById('curPage').value;
+	function pageMoveProductDetailFnc(no) {
 		
-		var productDetailFormObj = document.getElementById('productDetailForm');
-		productDetailFormObj.submit();
+		var pagingFormObj = $('#pagingForm');
+		
+		var htmlStr = pagingFormObj.html();
+		
+		// 상품번호를 input태그에 담음
+		htmlStr += '<input type="hidden" name="no" value="' + no + '">';
+		
+		pagingFormObj.html(htmlStr);
+		pagingFormObj.attr('action', './detail.do');
+		pagingFormObj.submit();
 	}
 	
 // 	function stockBatchModificationFnc() {
@@ -318,16 +325,9 @@
 										<td>${productDto.no}</td>
 										<td>${productDto.categoryCode}</td>
 										<td>
-											<form id='productDetailForm' action="./detail.do" method="get">
-												<a href='./detail.do' onclick="pageMoveProductDetailFnc();">
-													${productDto.name}
-												</a>
-												<input type="hidden" name="no" value="${productDto.no}">
-												<input type="hidden" id="productDetailCurPage" name="curPage" value="">
-												<input type="hidden" name="keyword" value="${searchMap.keyword}">
-												<input type="hidden" name="searchOption" value="${searchMap.searchOption}">
-												<input type="hidden" name="sortOption" value="${searchMap.sortOption}">
-											</form>
+											<a href='#' onclick="pageMoveProductDetailFnc(${productDto.no});">
+												${productDto.name}
+											</a>
 										</td>
 										<td>${productDto.price}</td>
 										<td>${productDto.stock}<input type="text" name='stockVariation' 
@@ -347,7 +347,8 @@
 				</div>
 				<jsp:include page="/WEB-INF/views/Paging.jsp" />
 			</div>
-			<form id="pagingForm" method="post">
+
+			<form id="pagingForm" method="get">
 				<input type="hidden" id="curPage" name="curPage" value="${paging.curPage}">
 				<input type="hidden" name="keyword" value="${searchMap.keyword}">
 				<input type="hidden" name="searchOption" value="${searchMap.searchOption}">

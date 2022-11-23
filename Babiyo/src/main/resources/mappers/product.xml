@@ -41,11 +41,12 @@
 		WHERE PL.RNUM BETWEEN #{start} AND #{end} 
 	</select>
 	
-	<insert id="productRegistration" parameterType="com.mealmaker.babiyo.product.model.ProductDto" 
+	<insert id="productRegistration" parameterType="productDto" 
 		useGeneratedKeys="true" keyProperty="no">
 		
-		<selectKey keyProperty="no" resultType="int" order="BEFORE">
-			SELECT MEMBER_MNO_SEQ.NEXTVAL FROM DUAL
+		<selectKey keyProperty="no" resultType="int" order="AFTER">
+			SELECT SEQ_PRODUCT_NO.CURRVAL
+			FROM DUAL
 		</selectKey>
 		
 		INSERT INTO PRODUCT

@@ -38,13 +38,13 @@ public class ProductDaoImpl implements ProductDao{
 	@Override
 	public int productRegistration(ProductDto productDto) {
 		
-		return sqlSession.insert("com.mealmaker.babiyo.productRegistration", productDto);
+		return sqlSession.insert(namespace + "productRegistration", productDto);
 	}
 
 	//DB에서 밀키트 상세 퍼오기
 	@Override
 	public ProductDto productDetail(int no) {
-		return sqlSession.selectOne("com.mealmaker.babiyo.productDetail", no);
+		return sqlSession.selectOne(namespace + "productDetail", no);
 	}
 
 	//DB에 있는 밀키트 수정

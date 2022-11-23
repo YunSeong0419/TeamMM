@@ -91,18 +91,18 @@ public class ProductController {
 			e.printStackTrace();
 		}
 		return "redirect:/product/list.do";
-	}	
+	}
 	
 	//오븐 58p 관리자-밀키트 관리-밀키트 상세
 	@RequestMapping(value = "/product/detail.do")
-	public String productDetail(int no, int curPage, String searchOption, String sortOption
-			, String keyword, Model model) {
+	public String productDetail(int no , @RequestParam(defaultValue = "1") int curPage
+			, String searchOption, String sortOption, String keyword, Model model) {
 		logger.info("ProductController productDetail! - {}", no);
 		
 		Map<String, Object> map = productService.productDetail(no);
-		
+	
 		ProductDto productDto = (ProductDto) map.get("productDto");
-		
+	
 		List<Map<String, Object>> fileList 
 			= (List<Map<String, Object>>) map.get("fileList");
 		

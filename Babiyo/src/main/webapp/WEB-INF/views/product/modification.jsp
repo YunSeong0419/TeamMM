@@ -156,7 +156,7 @@
 	}
 	
 	var classificationSelectedObj = document.getElementById('classification');
-	if(classificationSelectedObj.option.value == {productDto.categoryCode}){
+	if(classificationSelectedObj.option.value == {ProductDto.categoryCode}){
 		this option.selected = selected;
 	}
 			
@@ -199,7 +199,7 @@
 								<input type="hidden" id="fileIdx_${obj.index}" 
 								name="fileIdx" value="${row.IDX}">
 								<img alt="image not found" 
-								src="<c:url value='/img/${row.STORED_FILE_NAME}'/>"/><br>
+								src="<c:url value='/img/${row.STORED_NAME}'/>"/><br>
 								${row.ORIGINAL_NAME} 
 								<input type="file" id='file_${obj.index}' 
 									name="file_${obj.index}">
@@ -224,7 +224,7 @@
 					</div>
 					<div class='classificationDiv'>
 						<p class='sidePTagName'>분류</p>
-						<select id='classification' name='classification' class='smallInputBox'>
+						<select id='classification' name='categoryCode' class='smallInputBox'>
 							<option value=1>한식</option>
 							<option value=2>중식</option>
 							<option value=3>일식</option>
@@ -243,13 +243,14 @@
 					<input type='text' name='content' class='contentTextBox' value='${productDto.content}'>
 				</div>
 				<div id='lowerButtonDiv'>
-					<input type="submit" value="등록" class='lowerButton'> 
-  					<input type='button' value='취소'  class='lowerButton' 
+					<input type="submit" value="수정" class='lowerButton'> 
+  					<input type='button' value='뒤로가기'  class='lowerButton' 
   						onclick='pageMoveBeforeFnc(${productDto.no});'>	  
 				</div>
 				</form>
 			</div>
-			<form id="pagingForm" action="./list.do" method="get">
+			<form id="pagingForm" action="./detail.do" method="get">
+				<input type="hidden" id="no" name="no" value="${productDto.no}">
 				<input type="hidden" id="curPage" name="curPage" value="${paging.curPage}">
 				<input type="hidden" name="keyword" value="${searchMap.keyword}">
 				<input type="hidden" name="searchOption" value="${searchMap.searchOption}">

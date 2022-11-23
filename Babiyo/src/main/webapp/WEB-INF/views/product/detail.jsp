@@ -114,6 +114,11 @@
 	height: 40px;
 	font-size: 16px;
 }
+
+.dataSpace{
+	line-height: 30px;
+	font-size: 16px;
+}
 </style>
 
 <script type="text/javascript" src="/babiyo/resources/js/jquery-3.6.1.js"></script>
@@ -160,39 +165,27 @@
 				<div id='upperInsertDataDiv'>
 					<div class='insertDataDiv'>
 						<p class='pTagName'>밀키트명</p>
-						<input type='text' name='name' class='inputBox' 
-							value='${productDto.name}' readonly="readonly">
+						<span class='dataSpace'>${productDto.name}</span>
 					</div>
 					<div class='insertDataDiv'>
 						<p class='pTagName'>가격</p>
-						<input type='text' name='name' class='inputBox' 
-							value='${productDto.price}' readonly="readonly">
+						${productDto.price}
 					</div>
 					<div class='classificationDiv'>
 						<p class='sidePTagName'>분류</p>
-						<select name='classification' class='smallInputBox'>
-							<option value=0 id='classificationOption' selected='selected'>분류</option>
-							<option value=1>한식</option>
-							<option value=2>중식</option>
-							<option value=3>일식</option>
-							<option value=4>양식</option>
-							<option value=5>분식</option>
-							<option value=6>아시안</option>
-						</select>
+						${productDto.categoryCode}
 					</div>
 					<div class='stockDiv'>
 						<p class='sidePTagName'>재고</p>
-						<input type='text' name='stock' class='smallInputBox' 
-							value='${productDto.stock}' readonly="readonly">
+						${productDto.stock}
 					</div>
 				</div>
 				<div id='contentDiv'>
 					<p class='pTagName'>설명</p>
-					<input type='text' name='content' class='contentTextBox' 
-						value='${productDto.content}' readonly="readonly">
+					${productDto.content}
 				</div>
 				<div id='lowerButtonDiv'>
-					<input type="submit" value="등록" class='lowerButton'>
+					<input type="submit" value="수정" class='lowerButton'>
 					 <input type='button' value='삭제' class='lowerButton' 
   						onclick='pageMoveDeleteFnc(${productDto.no});'>  
 					<input type="button" value="뒤로가기" class='lowerButton' onclick="pageMoveListFnc();">		
