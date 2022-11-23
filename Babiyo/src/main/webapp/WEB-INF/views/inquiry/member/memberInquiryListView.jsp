@@ -33,16 +33,7 @@ td {
 	 font-size: 14px;
 }
 
-#division{
-	width: 60px;
-	height: 30px;
-	font-weight: bold;
-	text-align: center;
-	line-height: 40px;
-	margin-left: 80px;
-}
-
-#selectId{
+#stateSelect{
 	width: 100px;
 	height: 40px;
 	border-radius: 6px;
@@ -94,6 +85,17 @@ td {
 
 <script type="text/javascript">
 
+$(function(){
+	
+	$('#stateSelect').val($('#stateCode').val());
+	
+});
+
+function stateSelectFnc(){
+	
+	$('#stateForm').submit();
+	
+}
 function backBtn() {
 	
 	location.href = "#"
@@ -120,18 +122,19 @@ function writeBtn() {
 		<div id="middleMainDiv">
 		<div id="sideTitle"></div>
 			<!--여기서 작성 -->
-	<div> <!-- stateForm div 시작-->
+	<div id="searchOption"> <!-- searchOption div 시작-->
 		<form id="stateForm" action="get">
-			<span id="division">분류</span>
-			<select id="selectId">
-				<option selected>완료된 답변</option>
+			<span>분류</span>
+			<select id="stateSelect" name="stateCode" onchange="stateSelectFnc();">
+				<option value="0">전체</option>
+				<option>완료된 답변</option>
 				<option>대기중 답변</option>
-				<option>충전</option>
-				<option>주문</option>
-				<option>기타</option>
+				<c:forEach items="" var="state">
+				<option value=""></option>
+				</c:forEach>
 			</select>
 		</form>	
-	</div>	<!-- stateForm div 끝-->
+	</div>	<!-- searchOption div 끝-->
 	
 	<div> <!-- table div 시작 -->
 <table id="tableId">
@@ -153,10 +156,17 @@ function writeBtn() {
 			<c:forEach var="inquiryDto" items="${inquiryList}">
 				<tr>
 					<td>${inquiryDto.no}</td>
-					<td>${inquiryDto.categoryCode}</td>
+					<td>${inquiryDto.name}</td>
 					<td><a href="./member/detail.do?no=${inquiryDto.no}">${inquiryDto.title}</a></td>
 					<td><fmt:formatDate pattern="yyyy년MM월dd일 " value="${inquiryDto.createDate}"/></td>
-					<td></td>
+					<c:choose>
+						<c:when test="${empty inquiryDto.answer}">
+							<td>N</td>
+						</c:when>
+						<c:otherwise>
+							<td>Y</td>
+						</c:otherwise>
+					</c:choose>					
 				</tr>
 			</c:forEach>	
 		</c:otherwise>	

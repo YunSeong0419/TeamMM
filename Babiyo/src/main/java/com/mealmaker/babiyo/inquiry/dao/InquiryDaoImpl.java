@@ -35,10 +35,16 @@ public class InquiryDaoImpl implements InquiryDao{
 	}
 
 	@Override
+	public int inquiryUpdateOne(InquiryDto inquiryDto) {
+		// TODO Auto-generated method stub
+		return sqlSession.update(namespace + "inquiryUpdateOne", inquiryDto);
+	}
+	
+	@Override
 	public void inquiryDeleteOne(int no) {
 		// TODO Auto-generated method stub
-		sqlSession.delete(namespace + "inquiryDeleteOne", no);
-		
+		 sqlSession.delete(namespace + "inquiryDeleteOne", no);
 	}
+
 
 }
