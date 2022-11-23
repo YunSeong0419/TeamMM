@@ -111,27 +111,25 @@
 <script type="text/javascript">
 
 $(function(){
-	
-	$('#orderListBtn').click(function() {
-		
-		location.href = './list.do';
-		
-	});
-	
-	$('#cancelBtn').click(function() {
-		var no = $('#orderNo').val();
-		
-		location.href = '../cancel.do?orderNo=' + no + '&backPage=detail';
-		
-	})
-	
-	
-	
-	
-	
-	
-	
+
 });
+
+function goListFnc(grade){
+	if(grade == 1){
+		location.href = '../admin/orderList.do';
+	}else{
+		location.href = '../member/orderList.do';
+	}
+}
+
+function cancelFnc(no){
+	location.href = './cancel.do?orderNo=' + no;
+}
+
+function acceptFnc(no){
+	location.href = './accept.do?orderNo=' + no;
+}
+
 
 </script>
 
@@ -224,22 +222,24 @@ $(function(){
 					
 				</div>
 				
-				
-				<input id="orderListBtn" class="btn" type="button" value="주문목록">
 				<c:choose>
 				<c:when test="${orderMap.orderDto.stateName eq '완료'}">
-				<input id="reviewBtn" class="btn" type="button" value="리뷰쓰기">
+					<c:if test="${_memberDto_.grade eq 2}">
+						<input id="reviewBtn" class="btn" type="button" value="리뷰쓰기">
+					</c:if>
 				</c:when>
 				<c:when test="${orderMap.orderDto.stateName eq '대기'}">
-				<input id="cancelBtn" class="btn" type="button" value="주문취소">
+					<c:if test="${_memberDto_.grade eq 1}">
+						<input id="acceptBtn" class="btn" type="button" value="주문수락" onclick="acceptFnc(${orderMap.orderDto.no});">
+					</c:if>
+					<input id="cancelBtn" class="btn" type="button" value="주문취소" onclick="cancelFnc(${orderMap.orderDto.no});">
 				</c:when>
 				</c:choose>
+				<input id="orderListBtn" class="btn" type="button" value="주문목록" onclick="goListFnc(${_memberDto_.grade});">
 			</div>
 			
 		<div id="underPadding"></div>
 			
-		<input type="hidden" id="orderNo" value="${orderMap.orderDto.no}">
-		
 		</div>
 	</div>
 	

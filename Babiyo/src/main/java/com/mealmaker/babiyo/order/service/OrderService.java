@@ -28,5 +28,7 @@ public interface OrderService {
 	public int adminOrderCount(SearchOption searchOption);
 
 	public List<OrderDto> adminOrderList(int begin, int end, SearchOption searchOption);
+
+	public void orderAccept(int orderNo);
 	
 }

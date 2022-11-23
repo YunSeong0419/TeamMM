@@ -9,7 +9,9 @@ public class OrderDto {
 
 	private int no;
 	private String memberId;
+	
 	private Date orderDate;
+	
 	private int totalAmount;
 	private String preview;
 	private int productQuantity;

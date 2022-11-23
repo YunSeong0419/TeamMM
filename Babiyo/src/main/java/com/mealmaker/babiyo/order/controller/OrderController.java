@@ -67,7 +67,7 @@ public class OrderController {
 		
 		List<OrderDetailDto> detailList = orderDetailDto.getOrderDetailList();
 		
-		int orderNo = orderService.order(orderDto, detailList);
+		orderService.order(orderDto, detailList);
 		
 		if(cartDto != null) {
 			List<Integer> list = new ArrayList<Integer>();
@@ -96,60 +96,52 @@ public class OrderController {
 		return "order/orderComplete";
 	}
 	
-	@RequestMapping(value = "/order/member/list.do", method = RequestMethod.GET)
-	public String memberOrderList(@RequestParam(defaultValue = "1") int curPage, SearchOption searchOption
-			, HttpSession session, Model model) {
-		logger.info("Welcome OrderController memberOrderList! ");
-		
-		MemberDto memberDto = memberDao.memberExist("dong", "123");
-		session.setAttribute("_memberDto_", memberDto);
-		
-		String memberId = memberDto.getId();
-		int totalCount = orderService.memberOrderCount(memberId, searchOption);
-		
-		Paging paging = new Paging(totalCount, curPage);
-		
-		int begin = paging.getPageBegin();
-		int end = paging.getPageEnd();
-		
-		List<OrderDto> orderList = orderService.orderList(memberId, begin, end, searchOption);
-		List<Map<String, Object>> stateList = orderService.orderStateList();
-		
-		model.addAttribute("paging", paging);
-		model.addAttribute("orderList", orderList);
-		model.addAttribute("stateList", stateList);
-		model.addAttribute("searchOption", searchOption);
-		
-		return "order/memberOrderList";
-	}
 	
-	@RequestMapping(value="/order/member/detail.do", method = RequestMethod.GET)
+	
+	@RequestMapping(value="/order/detail.do", method = RequestMethod.GET)
 	public String memberOrderDetail(int orderNo, HttpSession session, Model model) {
 		
 		Map<String, Object> orderMap = orderService.orderView(orderNo);
 		
 		model.addAttribute("orderMap", orderMap);
 		
-		return "/order/memberOrderDetail";
+		return "/order/orderDetail";
 	}
 	
 	@RequestMapping(value="/order/cancel.do", method = RequestMethod.GET)
-	public String orderCancel(int orderNo, String backPage, HttpSession session, Model model) {
+	public String orderCancel(int orderNo, HttpSession session, Model model) {
 		
 		orderService.orderCancel(orderNo);
 		
-		String url = "";
+		MemberDto memberDto = (MemberDto) session.getAttribute("_memberDto_");
 		
-		if(backPage.equals("detail")) {
-			url = "redirect:/order/member/detail.do?orderNo=" + orderNo;
-		} else if(backPage.equals("list")) {
-			url = "redirect:/order/member/list.do?orderNo=" + orderNo;
+		int grade = memberDto.getGrade();
+		
+		String url = "redirect:/";
+		
+		if(grade == 1) {
+			url += "admin";
+		} else {
+			url += "member";
 		}
+		
+		url += "/orderList.do?orderNo=" + orderNo;
 		
 		return url;
 	}
 	
-	@RequestMapping(value = "/order/admin/list.do", method = {RequestMethod.GET, RequestMethod.POST})
+	@RequestMapping(value="/order/accept.do", method = RequestMethod.GET)
+	public String orderAccept(int orderNo, HttpSession session, Model model) {
+		
+		orderService.orderAccept(orderNo);
+		
+		String url = "redirect:/order/detail.do?orderNo=" + orderNo;
+		
+		return url;
+	}
+	
+	
+	@RequestMapping(value = "/admin/orderList.do", method = RequestMethod.GET)
 	public String adminOrderList(@RequestParam(defaultValue = "1") int curPage
 			,SearchOption searchOption, HttpSession session, Model model) {
 		logger.info("Welcome OrderController memberOrderList! ");
@@ -196,5 +188,31 @@ public class OrderController {
 		return "order/adminOrderList";
 	}
 	
+	@RequestMapping(value = "/member/orderList.do", method = RequestMethod.GET)
+	public String memberOrderList(@RequestParam(defaultValue = "1") int curPage, SearchOption searchOption
+			, HttpSession session, Model model) {
+		logger.info("Welcome OrderController memberOrderList! ");
+		
+		MemberDto memberDto = memberDao.memberExist("dong", "123");
+		session.setAttribute("_memberDto_", memberDto);
+		
+		String memberId = memberDto.getId();
+		int totalCount = orderService.memberOrderCount(memberId, searchOption);
+		
+		Paging paging = new Paging(totalCount, curPage);
+		
+		int begin = paging.getPageBegin();
+		int end = paging.getPageEnd();
+		
+		List<OrderDto> orderList = orderService.orderList(memberId, begin, end, searchOption);
+		List<Map<String, Object>> stateList = orderService.orderStateList();
+		
+		model.addAttribute("paging", paging);
+		model.addAttribute("orderList", orderList);
+		model.addAttribute("stateList", stateList);
+		model.addAttribute("searchOption", searchOption);
+		
+		return "order/memberOrderList";
+	}
 	
 }

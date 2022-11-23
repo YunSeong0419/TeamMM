@@ -94,7 +94,7 @@
 
 function orderDetailFnc(no){
 
-	location.href = './member/detail.do?orderNo=' + no ;
+	location.href = './detail.do?orderNo=' + no ;
 	
 }
 

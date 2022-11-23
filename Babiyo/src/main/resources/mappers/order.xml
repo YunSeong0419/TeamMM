@@ -135,7 +135,11 @@ FROM(SELECT O.ORDER_DATE, O.MEMBER_ID, O.NO, O.TOTAL_AMOUNT, O.PREVIEW, O.PRODUC
 WHERE INROW BETWEEN ${begin} AND ${end}
 </select>
 
-
+<update id="orderAccept" parameterType="int">
+UPDATE MEMBER_ORDER
+SET STATE_CODE = 2
+WHERE NO = ${value}
+</update>
 
 
 </mapper>

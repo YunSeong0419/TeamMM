@@ -130,5 +130,12 @@ public class OrderDaoImpl implements OrderDao {
 	}
 
 	
+	@Override
+	public void orderAccept(int orderNo) {
+		// TODO Auto-generated method stub
+		sqlSession.update(namespace + "orderAccept", orderNo);
+	}
+
+	
 	
 }

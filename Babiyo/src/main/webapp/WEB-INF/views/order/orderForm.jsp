@@ -77,7 +77,7 @@
 
 
 #mealkitListDiv{
-	height: 280px;
+	min-height: 280px;
 
 } 
 

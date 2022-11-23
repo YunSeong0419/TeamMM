@@ -110,8 +110,9 @@ $(function(){
 					</div>
 					<div>
 						<span>품목</span>
-						<span>${order.preview}
+						<span><a href="../order/detail.do?orderNo=${order.no}">${order.preview}
 						<c:if test="${order.productQuantity ne 1}"> 외 ${order.productQuantity-1}개</c:if>
+						</a>
 						</span>
 					</div>
 					<div>

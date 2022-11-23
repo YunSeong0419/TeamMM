@@ -139,13 +139,14 @@ function stateSelectFnc(){
 					<tr>
 						<td class="orderDateTd"><fmt:formatDate value="${order.orderDate}"/></td>
 						<td class="orderNoTd">${order.no}</td>
-						<td class="productNameTd"><a id="detailLink" href="./detail.do?orderNo=${order.no}">${order.preview}
-						<c:choose>
-							<c:when test="${order.productQuantity gt 1}">
-							 외 ${order.productQuantity-1}건
-							</c:when>
-						</c:choose>
-						</a>
+						<td class="productNameTd"><a id="detailLink" href="../order/detail.do?orderNo=${order.no}">
+							${order.preview}
+							<c:choose>
+								<c:when test="${order.productQuantity gt 1}">
+								 외 ${order.productQuantity-1}건
+								</c:when>
+							</c:choose>
+							</a>
 						</td>
 						<td class="totalAmountTd"><fmt:formatNumber pattern="#,###" value="${order.totalAmount}"/>원</td>
 						<td class="orderStateTd">${order.stateName}</td>

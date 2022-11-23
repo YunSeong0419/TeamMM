@@ -48,7 +48,6 @@ public class OrderServiceImpl implements OrderService{
 		
 		orderDao.orderDetail(detailList);
 		
-		
 		return orderNo;
 	}
 
@@ -110,6 +109,12 @@ public class OrderServiceImpl implements OrderService{
 	public List<OrderDto> adminOrderList(int begin, int end, SearchOption searchOption) {
 		// TODO Auto-generated method stub
 		return orderDao.adminOrderList(begin, end, searchOption);
+	}
+
+	@Override
+	public void orderAccept(int orderNo) {
+		// TODO Auto-generated method stub
+		orderDao.orderAccept(orderNo);
 	}
 	
 
