@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>내가 한 문의</title>
+<title>내가 한 문의</title>		
 
 <link rel="stylesheet" type="text/css" href="/babiyo/resources/css/common.css"/>
 <script type="text/javascript" src="/babiyo/resources/js/jquery-3.6.1.js"></script>
@@ -19,7 +19,7 @@
 		location.href = "./update.do?no=" + no;
 	}
 	function deleteBtn(no){
-		if (confirm('삭제')) {
+		if (confirm('삭제하시겠습니까?')) {
 			var url = "./deleteCtr.do?no=" + no;
 			location.href = url;	
 		}
@@ -76,7 +76,7 @@
 			</c:if>
 			
 			<input id="backDiv" type="button" value="뒤로가기" onclick="backBtn()"> 
-			<input id="backDiv" type="button" value="삭제" onclick="deleteBtn(${inquiryDto.no})">
+			<input id="deleteDiv" type="button" value="삭제하기" onclick="deleteBtn(${inquiryDto.no})">
 			
 			<c:if test="${empty inquiryDto.answer}">
 			<input id="modifytDiv"  type="button" value="수정하기" onclick="modifytBtn(${inquiryDto.no})">

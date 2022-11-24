@@ -11,13 +11,13 @@
 <result column="CONTENT" property="content"/>
 <result column="ANSWER" property="answer"/>
 <result column="CREATE_DATE" property="createDate"/>
-<result column="CODE" property="code"/>
 <result column="NAME" property="name"/>
 </resultMap>
 
+<!-- 회원 -->
 <!-- 문의 리스트 -->
 <select id="inquirytList" resultMap="inquiryResultMap">
-	SELECT  I.NO, C.NAME, I.TITLE, I.ANSWER, I.CREATE_DATE
+	SELECT  I.NO, C.NAME, I.TITLE, I.ANSWER, I.CREATE_DATE, I.MEMBER_ID
 	FROM INQUIRY I INNER JOIN INQUIRY_CATEGORY C
 	ON C.CODE = I.CATEGORY_CODE
 	ORDER BY I.NO DESC
@@ -54,5 +54,39 @@
 	DELETE FROM INQUIRY
 	WHERE NO = ${value}
 </delete>
+
+<!-- 관리자 -->
+<!-- 문의 리스트 -->
+<select id="adminList" resultMap="inquiryResultMap">
+	SELECT  I.NO, C.NAME, I.TITLE, I.ANSWER, I.CREATE_DATE, I.MEMBER_ID
+	FROM INQUIRY I INNER JOIN INQUIRY_CATEGORY C
+	ON C.CODE = I.CATEGORY_CODE
+	ORDER BY I.NO DESC
+</select>
+
+<!-- 문의 상세 -->
+<select id="adminInquirySelectOne" parameterType="int"
+	resultMap="inquiryResultMap">
+	SELECT  I.MEMBER_ID, C.NAME, I.TITLE, I.CONTENT,I.ANSWER, I.CREATE_DATE
+		, I.NO, I.CATEGORY_CODE
+	FROM INQUIRY I INNER JOIN INQUIRY_CATEGORY C
+	ON C.CODE = I.CATEGORY_CODE
+	WHERE NO = #{value}
+</select>
+
+<!--문의답변, 수정-->
+<update id="adminAnswer" parameterType="inquiryDto">
+	UPDATE INQUIRY
+	SET ANSWER = #{answer}
+	WHERE NO = #{no}
+</update>
+
+<!--문의삭제-->
+<update id="adminDeleteOne" parameterType="inquiryDto">
+	UPDATE INQUIRY
+	SET 
+	ANSWER = ''
+	WHERE NO = #{no} 
+</update>
 
 </mapper>

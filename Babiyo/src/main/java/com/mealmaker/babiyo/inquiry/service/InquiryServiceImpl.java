@@ -21,7 +21,7 @@ public class InquiryServiceImpl implements InquiryService{
 	
 	@Autowired
 	InquiryDao inquiryDao;
-
+	//회원
 	@Override
 	public List<InquiryDto> inquirySelectList() {
 		// TODO Auto-generated method stub
@@ -51,7 +51,6 @@ public class InquiryServiceImpl implements InquiryService{
 	@Override
 	public int inquiryUpdateOne(InquiryDto inquiryDto) {
 		// TODO Auto-generated method stub
-//		inquiryDao.inquiryUpdateOne(inquiryDto);
 		
 		return inquiryDao.inquiryUpdateOne(inquiryDto);
 	}
@@ -62,6 +61,38 @@ public class InquiryServiceImpl implements InquiryService{
 		
 		inquiryDao.inquiryDeleteOne(no);
 		
+	}
+	
+	//관리자
+	@Override
+	public List<InquiryDto> adminInquirySelectList() {
+		// TODO Auto-generated method stub
+		return inquiryDao.adminInquirySelectList();
+	}
+
+	@Override
+	public Map<String, Object> adminInquirySelectOne(int no) {
+		// TODO Auto-generated method stub
+		
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		
+		InquiryDto inquiryDto = inquiryDao.adminInquirySelectOne(no);
+		
+		resultMap.put("inquiryDto", inquiryDto);
+		
+		return resultMap;
+	}
+	
+	@Override
+	public int adminAnswer(InquiryDto inquiryDto) {
+		// TODO Auto-generated method stub
+		return inquiryDao.adminAnswer(inquiryDto);
+	}
+
+	@Override
+	public int adminInquiryDeleteOne(InquiryDto inquiryDto) {
+		// TODO Auto-generated method stub
+		return inquiryDao.adminInquiryDeleteOne(inquiryDto);
 	}
 
 }

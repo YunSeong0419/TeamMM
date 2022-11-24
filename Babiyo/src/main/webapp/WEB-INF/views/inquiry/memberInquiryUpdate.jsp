@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>문의 수정</title>
+<title>문의 수정</title>		
 
 <style type="text/css">
 
@@ -54,9 +54,10 @@ function deleteBtn(no){
 				내용<br><input type="text" name="content" id="content"
 				 value="${inquiryDto.content}" >
 			</div>
+				<input id="backDiv" type="button" value="뒤로가기" onclick="backBtn(${inquiryDto.no})"> 
 				<input type="submit" value="수정하기">
 			</form>
-			
+			<input id="deleteDiv" type="button" value="삭제하기" onclick="deleteBtn(${inquiryDto.no})">	 
 			<div id="underPadding"></div>
 			
 		</div> <!--middelMain 끝 -->
