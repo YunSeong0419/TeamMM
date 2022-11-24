@@ -90,10 +90,13 @@
 		(#{no}, #{product_no}, #{original_name}, #{stored_name})
 	</insert>
 
-	<select id="fileSelectList" parameterType="int" resultType="map">
+
+	<!-- 상품이미지 DB -->
+	
+	<select id="fileSelectOne" parameterType="int" resultType="map">
 		SELECT NO, ORGINAL_NAME, STORED_NAME
 		FROM PRODUCT_IMAGE
-		WHERE NO = #{no}
+		WHERE PRODUCT_NO = #{value}	<!-- NO = #{no} >> PRODUCT_NO = #{value} 로 변경했습니다 -->
 	</select>
 
 	<select id="fileSelectStoredFileName" parameterType="int" resultType="map">

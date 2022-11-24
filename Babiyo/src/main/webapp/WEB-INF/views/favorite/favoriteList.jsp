@@ -11,6 +11,28 @@
 <link rel="stylesheet" type="text/css" href="/babiyo/resources/css/common.css"/>
 <script type="text/javascript" src="/babiyo/resources/js/jquery-3.6.1.js"></script>
 
+<style type="text/css">
+.favorite{
+	background-color: gray;
+	float: left;
+	width: 180px;
+	height: 200px;
+	margin: 10px;
+}
+
+
+#favoriteContainer{
+	width: 1050px;
+	min-height: 550px;
+	padding: 0px 20px;
+}
+
+#btnContainer{
+	clear:both;
+}
+
+</style>
+
 </head>
 <body>
 
@@ -29,14 +51,13 @@
 				<input type="checkbox">전체선택	
 			</div>
 				
-			<div>
+			<div id="favoriteContainer">
 			<c:choose>
-				<c:when test="${!empty productList}">
-					<c:forEach items="${productList}">
-						<div>
-							<img alt="사진을 찾을 수 없습니다" src="./a.jpg">
-							
-							<span></span>
+				<c:when test="${!empty favoriteList}">
+					<c:forEach items="${favoriteList}" var="favorite">
+						<div class="favorite">
+							<img class="productImg" alt="사진을 찾을 수 없습니다" src="./a.jpg">
+							<span>${favorite.productName}</span>
 							<input type="checkbox">
 						</div>
 					</c:forEach>
@@ -46,7 +67,8 @@
 				</c:otherwise>
 			</c:choose>
 			</div>
-			<div>
+			
+			<div id="btnContainer">
 				<input type="button" value="장바구니 담기">
 				<input type="button" value="선택 삭제">
 			</div>

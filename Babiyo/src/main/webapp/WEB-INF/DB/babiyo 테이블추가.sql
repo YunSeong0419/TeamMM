@@ -627,6 +627,13 @@ values('dong', 2, 2);
 insert into cart(member_id, product_no, quantity)
 values('dong', 3, 4);
 
+INSERT INTO FAVORITE(MEMBER_ID, PRODUCT_NO)
+VALUES('dong', 1);
+INSERT INTO FAVORITE(MEMBER_ID, PRODUCT_NO)
+VALUES('dong', 2);
+INSERT INTO FAVORITE(MEMBER_ID, PRODUCT_NO)
+VALUES('dong', 3);
+
 commit;
 
 

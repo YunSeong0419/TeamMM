@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mealmaker.babiyo.favorite">
+
+<resultMap type="com.mealmaker.babiyo.favorite.model.FavoriteDto" id="favoriteResultMap">
+<result column="MEMBER_ID" property="memberId"/>
+<result column="PRODUCT_NO" property="productNo"/>
+<result column="NAME" property="productName"/>
+<result column="PRICE" property="productPrice"/>
+</resultMap>
+
+<select id="favoriteList" parameterType="String" resultMap="favoriteResultMap">
+SELECT F.MEMBER_ID, F.PRODUCT_NO, P.NAME, P.PRICE
+FROM FAVORITE F JOIN PRODUCT P
+ON F.PRODUCT_NO = P.NO
+WHERE MEMBER_ID = #{value}
+</select>
+
+
+
+
+
+</mapper>

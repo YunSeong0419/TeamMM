@@ -87,7 +87,7 @@ $(function(){
 function cancelFnc(orderNo){
 	
 	if(confirm('정말로 주문을 취소하시겠습니가?')){
-		location.href = '../cancel.do?orderNo=' + orderNo + '&backPage=list';
+		location.href = '../order/cancel.do?orderNo=' + orderNo + '&backPage=list';
 	}
 }
 

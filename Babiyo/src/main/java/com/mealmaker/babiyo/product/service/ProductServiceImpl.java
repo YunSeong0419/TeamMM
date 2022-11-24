@@ -85,7 +85,10 @@ public class ProductServiceImpl implements ProductService{
 		ProductDto productDto = productDao.productDetail(no);
 		resultMap.put("productDto", productDto);
 		
-		List<Map<String, Object>> fileList = productDao.fileSelectList(no);
+		// List<Map<String, Object>> >> Map<String, Object> 변경
+		Map<String, Object> fileList = productDao.fileSelectOne(no);
+		
+		// 이부분 수정보셔야 할거에요
 		resultMap.put("fileList", fileList);
 		
 		return resultMap;

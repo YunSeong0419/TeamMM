@@ -82,10 +82,14 @@ public class ProductDaoImpl implements ProductDao{
 	}
 
 	//파일 목록 보기??
+	// 제가 수정좀 했어요 
+	// list >> one , no >> productNo
+	// 밀키트는 하나에 사진한개만 등록이되서 리스트가 필요없을거 같아서요 
+	// 그리고 매퍼에서 where절 사진의 번호가 아닌 상품의 번호를 기준으로 조회하셔야 해요
 	@Override
-	public List<Map<String, Object>> fileSelectList(int no) {
+	public Map<String, Object> fileSelectOne(int productNo) {
 		
-		return sqlSession.selectList(namespace + "fileSelectList", no);
+		return sqlSession.selectOne(namespace + "fileSelectList", productNo);
 	}
 
 	//파일 저장된 이름 불러오기??
