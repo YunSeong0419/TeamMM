@@ -23,6 +23,9 @@
 	
 	<li><a href="./inquiry/member.do">회원 문의 목록</a></li>
 	
+	<li><a href="./inquiry/admin.do">관리자 문의 목록</a></li>
+	
+	
 </ol>
 
 </body>

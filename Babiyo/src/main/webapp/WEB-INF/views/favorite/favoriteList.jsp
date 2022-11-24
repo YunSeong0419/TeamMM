@@ -16,8 +16,13 @@
 	background-color: gray;
 	float: left;
 	width: 180px;
-	height: 200px;
+	height: 220px;
 	margin: 10px;
+}
+
+.productImg{
+	width: 180px;
+	height: 180px;
 }
 
 
@@ -56,7 +61,7 @@
 				<c:when test="${!empty favoriteList}">
 					<c:forEach items="${favoriteList}" var="list">
 						<div class="favorite">
-							<img class="productImg" alt="사진을 찾을 수 없습니다" src="./a.jpg">
+							<img class="productImg" alt="${list.favoriteDto.productName}" src="/babiyo/img/${list.imgMap.STORED_NAME}">
 							<span>${list.favoriteDto.productName}</span>
 							<input type="checkbox">
 						</div>

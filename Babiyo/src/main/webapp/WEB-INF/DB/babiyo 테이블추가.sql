@@ -272,7 +272,7 @@ CREATE TABLE product_image
 (
 	no number NOT NULL,
 	product_no number NOT NULL,
-	orginal_name varchar2(200) NOT NULL,
+	original_name varchar2(200) NOT NULL,
 	stored_name varchar2(200) NOT NULL,
 	PRIMARY KEY (no)
 );
@@ -620,6 +620,15 @@ values(1, '까르보나라', 8000, 100, '아주 맛있는 까르보나라!');
 insert into product(CATEGORY_CODE, NAME, PRICE, STOCK, CONTENT)
 values(1, '로제파스타', 7000, 100, '아주 맛있는 로제파스타!');
 
+
+INSERT INTO PRODUCT_IMAGE(PRODUCT_NO, ORIGINAL_NAME, STORED_NAME)
+VALUES(1, '봉골레사진.jpg', '봉골레.jpg');
+INSERT INTO PRODUCT_IMAGE(PRODUCT_NO, ORIGINAL_NAME, STORED_NAME)
+VALUES(2, '까르보.jpg', '까르보.jpg');
+INSERT INTO PRODUCT_IMAGE(PRODUCT_NO, ORIGINAL_NAME, STORED_NAME)
+VALUES(3, '로제.jpg', '로제.jpg');
+
+
 insert into cart(member_id, product_no, quantity)
 values('dong', 1, 3);
 insert into cart(member_id, product_no, quantity)
@@ -633,6 +642,8 @@ INSERT INTO FAVORITE(MEMBER_ID, PRODUCT_NO)
 VALUES('dong', 2);
 INSERT INTO FAVORITE(MEMBER_ID, PRODUCT_NO)
 VALUES('dong', 3);
+
+
 
 commit;
 
