@@ -89,7 +89,7 @@ public class ProductDaoImpl implements ProductDao{
 	@Override
 	public Map<String, Object> fileSelectOne(int productNo) {
 		
-		return sqlSession.selectOne(namespace + "fileSelectList", productNo);
+		return sqlSession.selectOne(namespace + "fileSelectOne", productNo);
 	}
 
 	//파일 저장된 이름 불러오기??
