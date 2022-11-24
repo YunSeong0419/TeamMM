@@ -124,13 +124,20 @@ function goListFnc(grade){
 
 function cancelFnc(no){
 	if(confirm('정말로 주문을 취소하시겠습니까?')){
-		location.href = './cancel.do?orderNo=' + no;
+		$('#orderNo').val(no);
+		
+		$('#orderInfoForm').attr('action','./cancel.do');
+		$('#orderInfoForm').submit();
 	}
 }
 
 function acceptFnc(no){
 	if(confirm('정말로 주문접수를 하시겠습니까?')){
-		location.href = './accept.do?orderNo=' + no;
+		
+		$('#orderNo').val(no);
+		
+		$('#orderInfoForm').attr('action','./accept.do');
+		$('#orderInfoForm').submit();
 	}
 }
 
@@ -241,6 +248,10 @@ function acceptFnc(no){
 				</c:choose>
 				<input id="orderListBtn" class="btn" type="button" value="주문목록" onclick="goListFnc(${_memberDto_.grade});">
 			</div>
+			
+			<form method="post" id="orderInfoForm">
+				<input type="hidden" id="orderNo" name="orderNo" value="">
+			</form>
 			
 		<div id="underPadding"></div>
 			

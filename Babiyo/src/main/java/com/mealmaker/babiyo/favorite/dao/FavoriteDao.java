@@ -10,4 +10,6 @@ public interface FavoriteDao {
 
 	void favoriteDelete(List<FavoriteDto> list);
 
+	void favoriteAdd(FavoriteDto favoriteDto);
+
 }

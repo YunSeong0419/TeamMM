@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.mealmaker.babiyo.cart.controller.CartController;
+import com.mealmaker.babiyo.cart.model.CartDto;
 import com.mealmaker.babiyo.favorite.model.FavoriteDto;
 import com.mealmaker.babiyo.favorite.service.FavoriteService;
 import com.mealmaker.babiyo.member.dao.MemberDao;
@@ -32,6 +33,19 @@ public class FavoriteController {
 	@Autowired
 	public FavoriteController(FavoriteService favoriteService) {
 		this.favoriteService = favoriteService;
+	}
+	
+	@RequestMapping(value = "/favorite/favoriteAdd.do", method = RequestMethod.POST)
+	public String cartList(FavoriteDto favoriteDto ,HttpSession session, Model model) {
+		logger.info("즐겨찾기 추가 {}", favoriteDto);
+		MemberDto memberDto = (MemberDto) session.getAttribute("_memberDto_");
+		String memberId= memberDto.getId();
+		
+		favoriteDto.setMemberId(memberId);
+		
+		favoriteService.favoriteAdd(favoriteDto);
+		
+		return "redirect:/product/detail.do";
 	}
 	
 	@RequestMapping(value="/favorite/favoriteView.do", method = RequestMethod.GET)

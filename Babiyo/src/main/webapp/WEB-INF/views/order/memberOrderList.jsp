@@ -85,9 +85,11 @@ $(function(){
 });
 
 function cancelFnc(orderNo){
-	
 	if(confirm('정말로 주문을 취소하시겠습니가?')){
-		location.href = '../order/cancel.do?orderNo=' + orderNo + '&backPage=list';
+		$('#orderNo').val(orderNo);
+		
+		$('#orderInfoForm').attr('action','../order/cancel.do');
+		$('#orderInfoForm').submit();
 	}
 }
 
@@ -176,6 +178,10 @@ function stateSelectFnc(){
 			</div>
 			
 			<jsp:include page="/WEB-INF/views/Paging.jsp"/>
+			
+			<form method="post" id="orderInfoForm">
+				<input type="hidden" id="orderNo" name="orderNo" value="">
+			</form>
 		
 			<form method="get" id="pagingForm">
 				<input type="hidden" id="curPage" name="curPage" value="${paging.curPage}">

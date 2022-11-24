@@ -114,7 +114,7 @@ public class OrderController {
 		return "/order/orderDetail";
 	}
 	
-	@RequestMapping(value="/order/cancel.do", method = RequestMethod.GET)
+	@RequestMapping(value="/order/cancel.do", method = RequestMethod.POST)
 	public String orderCancel(int orderNo, HttpSession session, Model model) {
 		
 		orderService.orderCancel(orderNo);
@@ -136,7 +136,7 @@ public class OrderController {
 		return url;
 	}
 	
-	@RequestMapping(value="/order/accept.do", method = RequestMethod.GET)
+	@RequestMapping(value="/order/accept.do", method = RequestMethod.POST)
 	public String orderAccept(int orderNo, HttpSession session, Model model) {
 		
 		orderService.orderAccept(orderNo);

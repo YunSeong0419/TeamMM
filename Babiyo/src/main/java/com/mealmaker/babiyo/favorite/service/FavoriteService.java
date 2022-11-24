@@ -11,4 +11,6 @@ public interface FavoriteService {
 
 	void favoriteDelete(List<FavoriteDto> list);
 
+	void favoriteAdd(FavoriteDto favoriteDto);
+
 }

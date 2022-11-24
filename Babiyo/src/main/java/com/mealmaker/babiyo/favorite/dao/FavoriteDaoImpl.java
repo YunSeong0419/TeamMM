@@ -34,5 +34,11 @@ public class FavoriteDaoImpl implements FavoriteDao {
 		}
 		
 	}
+
+	@Override
+	public void favoriteAdd(FavoriteDto favoriteDto) {
+		// TODO Auto-generated method stub
+		sqlSession.insert(namespace + "favoriteAdd", favoriteDto);
+	}
 	
 }

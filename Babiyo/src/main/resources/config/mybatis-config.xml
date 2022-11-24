@@ -10,5 +10,6 @@
       <typeAlias type="com.mealmaker.babiyo.product.model.ProductDto" alias="productDto" />
       <typeAlias type="com.mealmaker.babiyo.cart.model.CartDto" alias="cartDto" />
       <typeAlias type="com.mealmaker.babiyo.inquiry.model.InquiryDto" alias="inquiryDto" />
+      <typeAlias type="com.mealmaker.babiyo.favorite.model.FavoriteDto" alias="favoriteDto" />
    </typeAliases>
 </configuration>

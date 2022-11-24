@@ -3,7 +3,7 @@
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mealmaker.babiyo.favorite">
 
-<resultMap type="com.mealmaker.babiyo.favorite.model.FavoriteDto" id="favoriteResultMap">
+<resultMap type="favoriteDto" id="favoriteResultMap">
 <result column="MEMBER_ID" property="memberId"/>
 <result column="PRODUCT_NO" property="productNo"/>
 <result column="NAME" property="productName"/>
@@ -17,12 +17,15 @@ ON F.PRODUCT_NO = P.NO
 WHERE MEMBER_ID = #{value}
 </select>
 
-<delete id="favoriteDelete" parameterType="com.mealmaker.babiyo.favorite.model.FavoriteDto">
+<delete id="favoriteDelete" parameterType="favoriteDto">
 DELETE FAVORITE
 WHERE MEMBER_ID = #{memberId}
 AND PRODUCT_NO = ${productNo}
 </delete>
 
-
+<insert id="favoriteAdd" parameterType="favoriteDto">
+INSERT INTO FAVORITE(MEMBER_ID, PRODUCT_NO)
+VALUES(#{memberId}, #{productNo})
+</insert>
 
 </mapper>
