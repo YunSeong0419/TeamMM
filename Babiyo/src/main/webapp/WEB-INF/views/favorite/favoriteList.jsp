@@ -54,10 +54,10 @@
 			<div id="favoriteContainer">
 			<c:choose>
 				<c:when test="${!empty favoriteList}">
-					<c:forEach items="${favoriteList}" var="favorite">
+					<c:forEach items="${favoriteList}" var="list">
 						<div class="favorite">
 							<img class="productImg" alt="사진을 찾을 수 없습니다" src="./a.jpg">
-							<span>${favorite.productName}</span>
+							<span>${list.favoriteDto.productName}</span>
 							<input type="checkbox">
 						</div>
 					</c:forEach>

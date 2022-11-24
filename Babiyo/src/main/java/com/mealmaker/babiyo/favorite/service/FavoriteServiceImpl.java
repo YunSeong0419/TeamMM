@@ -25,9 +25,6 @@ public class FavoriteServiceImpl implements FavoriteService{
 	
 	private final FavoriteDao favoriteDao;
 	
-	@Resource(name="fileUtils")
-	private FileUtils fileUtils;
-	
 	@Resource
 	private ProductDao productDao;
 	
@@ -54,7 +51,6 @@ public class FavoriteServiceImpl implements FavoriteService{
 			
 			list.add(map);
 		}
-		
 		
 		return list;
 	}
