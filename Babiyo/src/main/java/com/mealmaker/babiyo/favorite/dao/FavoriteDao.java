@@ -8,4 +8,6 @@ public interface FavoriteDao {
 
 	List<FavoriteDto> favoriteList(String memberId);
 
+	void favoriteDelete(List<FavoriteDto> list);
+
 }

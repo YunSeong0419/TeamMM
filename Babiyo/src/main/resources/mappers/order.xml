@@ -28,8 +28,32 @@
 <result column="PRODUCT_NAME" property="productName"/>
 <result column="QUANTITY" property="quantity"/>
 <result column="PRICE" property="price"/>
-
 </resultMap>
+
+<resultMap type="memberDto" id="memberResultMap">
+		<id column="ID" property="id"/>
+		<result column="PASSWORD" property="password"/>
+		<result column="NAME" property="name"/>
+		<result column="EMAIL" property="email"/>
+		<result column="BIRTHDAY" property="birthDate"
+			javaType="java.util.Date"/>
+		<result column="GENDER" property="gender"/>
+		<result column="PHONE" property="phone"/>
+		<result column="NICKNAME" property="nickname"/>
+		<result column="CASH" property="cash"/>
+		<result column="GRADE_CODE" property="grade"/>
+		<result column="CREATE_DATE" property="createDate"
+			javaType="java.util.Date"/>
+		<result column="MODIFY_DATE" property="modifyDate"
+			javaType="java.util.Date"/>
+</resultMap>
+
+
+<select id="testLogin" parameterType="String" resultMap="memberResultMap">
+SELECT *
+FROM MEMBER
+WHERE ID = #{value}
+</select>
 
 <select id="lastOrder" resultMap="orderResultMap" parameterType="String">
 SELECT *

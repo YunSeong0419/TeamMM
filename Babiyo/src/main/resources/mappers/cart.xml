@@ -11,6 +11,18 @@
 <result column="QUANTITY" property="quantity"/>
 </resultMap>
 
+<insert id="cartAdd" parameterType="cartDto">
+INSERT INTO CART(MEMBER_ID, PRODUCT_NO, QUANTITY)
+VALUES(
+	#{memberId},
+	#{productNo},
+	<choose>
+		<when test="quantity != 0">${quantity}</when>
+		<otherwise>1</otherwise>
+	</choose>
+)
+</insert>
+
 <select id="cartList" resultMap="cartResultMap">
 SELECT C.MEMBER_ID, C.PRODUCT_NO, C.QUANTITY, P.NAME, P.PRICE
 FROM CART C JOIN PRODUCT P

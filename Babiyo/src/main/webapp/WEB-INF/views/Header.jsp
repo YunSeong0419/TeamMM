@@ -9,7 +9,7 @@
 	
 	<div id="serviceAreaDiv">
 		<div id='logoDiv'>
-			<a href="/babiyo">
+			<a href="/babiyo/index.do">
 			<img id='logo' alt="메인으로 이동" src="/babiyo/resources/img/logo.png">
 			</a>
 		</div>

@@ -25,5 +25,14 @@ public class FavoriteDaoImpl implements FavoriteDao {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList(namespace + "favoriteList", memberId);
 	}
+
+	@Override
+	public void favoriteDelete(List<FavoriteDto> list) {
+		// TODO Auto-generated method stub
+		for (FavoriteDto favoriteDto : list) {
+			sqlSession.delete(namespace + "favoriteDelete", favoriteDto);
+		}
+		
+	}
 	
 }

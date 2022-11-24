@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.mealmaker.babiyo.member.model.MemberDto;
 import com.mealmaker.babiyo.order.dao.OrderDao;
 import com.mealmaker.babiyo.order.model.OrderDetailDto;
 import com.mealmaker.babiyo.order.model.OrderDto;
@@ -115,6 +116,12 @@ public class OrderServiceImpl implements OrderService{
 	public void orderAccept(int orderNo) {
 		// TODO Auto-generated method stub
 		orderDao.orderAccept(orderNo);
+	}
+
+	@Override
+	public MemberDto testLogin(String memberId) {
+		// TODO Auto-generated method stub
+		return orderDao.testLogin(memberId);
 	}
 	
 

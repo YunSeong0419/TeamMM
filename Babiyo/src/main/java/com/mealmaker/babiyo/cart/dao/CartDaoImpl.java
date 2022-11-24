@@ -40,5 +40,15 @@ public class CartDaoImpl implements CartDao {
 		sqlSession.update(namespace + "quantityModify", cartDto);
 	}
 
+	@Override
+	public void cartAdd(List<CartDto> cartList) {
+		// TODO Auto-generated method stub
+		
+		for (CartDto cartDto : cartList) {
+			sqlSession.insert(namespace + "cartAdd", cartDto);
+		}
+	}
+		
+
 	
 }

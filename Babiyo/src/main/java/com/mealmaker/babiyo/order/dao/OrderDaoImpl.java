@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.mealmaker.babiyo.member.model.MemberDto;
 import com.mealmaker.babiyo.order.model.OrderDetailDto;
 import com.mealmaker.babiyo.order.model.OrderDto;
 import com.mealmaker.babiyo.util.SearchOption;
@@ -132,6 +133,12 @@ public class OrderDaoImpl implements OrderDao {
 	public void orderAccept(int orderNo) {
 		// TODO Auto-generated method stub
 		sqlSession.update(namespace + "orderAccept", orderNo);
+	}
+
+	@Override
+	public MemberDto testLogin(String memberId) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(namespace + "testLogin", memberId);
 	}
 
 	

@@ -11,4 +11,6 @@ public interface CartDao {
 	void quantityModify(CartDto cartDto);
 
 	void cartDelete(List<CartDto> list);
+
+	void cartAdd(List<CartDto> cartList);
 }

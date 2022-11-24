@@ -28,21 +28,45 @@ public class CartController {
 	
 	private final CartService cartService;
 	
-	@Resource
-	private MemberDao memberDao;
-	
 	@Autowired
 	public CartController(CartService cartService) {
 		this.cartService = cartService;
 	}
 	
+	
+	@RequestMapping(value = "/cart/cartAdd.do", method = RequestMethod.POST)
+	public String cartList(CartDto cartDto, String backPage ,HttpSession session, Model model) {
+		logger.info("장바구니 추가 {} : {}", cartDto.getCartList(), backPage);
+		MemberDto memberDto = (MemberDto) session.getAttribute("_memberDto_");
+		String memberId= memberDto.getId();
+		
+		cartDto.setMemberId(memberId);
+		List<CartDto> cartList = cartDto.getCartList();
+		
+		for (CartDto cart : cartList) {
+			cart.setMemberId(memberId);
+		}
+		
+		cartService.cartAdd(cartList);
+		
+		String url = "";
+		
+		if(backPage.equals("cart")) {
+			url = "redirect:/cart/cartView.do";
+		}else if(backPage.equals("favorite")) {
+			url = "redirect:/favorite/favoriteView.do";
+		}
+		
+		return url;
+	}
+	
+	
+	
 	@RequestMapping(value = "/cart/cartView.do", method = RequestMethod.GET)
 	public String cartList(HttpSession session, Model model) {
 		logger.info("장바구니 목록");
 
-		MemberDto memberDto = memberDao.memberExist("dong", "123");
-		session.setAttribute("_memberDto_", memberDto);
-		
+		MemberDto memberDto = (MemberDto) session.getAttribute("_memberDto_");
 		String memberId= memberDto.getId();
 		
 		List<CartDto> list = cartService.cartList(memberId);

@@ -13,10 +13,9 @@
 
 <style type="text/css">
 .favorite{
-	background-color: gray;
 	float: left;
 	width: 180px;
-	height: 220px;
+	height: 210px;
 	margin: 10px;
 }
 
@@ -25,6 +24,11 @@
 	height: 180px;
 }
 
+.productName{
+	display: inline-block;
+	width: 180px;
+	text-align: center;
+}
 
 #favoriteContainer{
 	width: 1050px;
@@ -36,7 +40,66 @@
 	clear:both;
 }
 
+
 </style>
+
+<script type="text/javascript">
+$(function(){
+
+	$('#allCheck').change(function() { // 전체선택 기능
+		var checked = $(this).is(':checked');
+		$('.check').prop('checked', checked);
+	});
+	
+	$('#cartAdd').click(function() { // 선택한 품목만 장바구니 담기
+		
+		var checked = $('.check').is(':checked');
+		
+		if(checked == false){ // 하나라도 체크가 되어야지 수행
+			alert('선택한 항목이 없습니다');
+			return;
+		}
+		
+		$('.check:checked').each(function(index) {
+			var no = $('.check').index(this); // 체크가 되어있는 인덱스의 번호
+			var name = 'cartList[' + index + '].productNo'; 
+			$('.productNo').eq(no).attr('name', name); // 체크가 된 제품번호에만 name 태그를 달아줌
+		});
+		
+		alert('장바구니에 추가되었습니다');
+		
+		$('#favoriteForm').attr('action', '../cart/cartAdd.do');
+		$('#favoriteForm').submit();
+	});
+	
+	$('#selectDelete').click(function() { // 선택한 품목만 삭제
+		
+		var checked = $('.check').is(':checked');
+		
+		if(checked == false){ // 하나라도 체크가 되어야지 수행
+			alert('선택한 항목이 없습니다');
+			return;
+		}
+		
+		if(confirm('선택한 품목을 삭제하시겠습니까?') == false){ // 삭제를 할 것인지 확인
+			return;
+		}
+		
+		$('.check:checked').each(function(index) {
+			var no = $('.check').index(this); // 체크가 되어있는 인덱스의 번호
+			var name = 'favoriteList[' + index + '].productNo'; 
+			$('.productNo').eq(no).attr('name', name); // 체크가 된 제품번호에만 name 태그를 달아줌
+		});
+		
+		alert('즐겨찾기가 삭제되었습니다');
+			
+		$('#favoriteForm').attr('action', './favoriteDelete.do');
+		$('#favoriteForm').submit();
+	});
+	
+	
+});
+</script>
 
 </head>
 <body>
@@ -53,31 +116,35 @@
 			<div id="sideTitle"></div>
 				
 			<div>
-				<input type="checkbox">전체선택	
+				<input type="checkbox" id="allCheck">전체선택	
 			</div>
 				
-			<div id="favoriteContainer">
-			<c:choose>
-				<c:when test="${!empty favoriteList}">
-					<c:forEach items="${favoriteList}" var="list">
-						<div class="favorite">
-							<img class="productImg" alt="${list.favoriteDto.productName}" src="/babiyo/img/${list.imgMap.STORED_NAME}">
-							<span>${list.favoriteDto.productName}</span>
-							<input type="checkbox">
-						</div>
-					</c:forEach>
-				</c:when>
-				<c:otherwise>
-					즐겨찾기가 없습니다
-				</c:otherwise>
-			</c:choose>
-			</div>
+			<form id="favoriteForm" method="post">
+				<div id="favoriteContainer">
+						<c:choose>
+							<c:when test="${!empty favoriteList}">
+								<c:forEach items="${favoriteList}" var="list">
+									<div class="favorite">
+										<img class="productImg" alt="${list.favoriteDto.productName}" src="/babiyo/img/${list.imgMap.STORED_NAME}">
+										<span class="productName"><input type="checkbox" class="check"> ${list.favoriteDto.productName}</span>
+										<input type="hidden" class="productNo" value="${list.favoriteDto.productNo}">
+									</div>
+								</c:forEach>
+							</c:when>
+							<c:otherwise>
+								즐겨찾기가 없습니다
+							</c:otherwise>
+						</c:choose>
+				</div>
+				
+				<div id="btnContainer">
+					<input type="button" value="장바구니 담기" id="cartAdd">
+					<input type="button" value="선택 삭제" id="selectDelete">
+				</div>
+				
+				<input type="hidden" name="backPage" value="favorite">
+			</form>
 			
-			<div id="btnContainer">
-				<input type="button" value="장바구니 담기">
-				<input type="button" value="선택 삭제">
-			</div>
-				
 			<jsp:include page="/WEB-INF/views/Paging.jsp"/>
 		
 			<div id="underPadding"></div>

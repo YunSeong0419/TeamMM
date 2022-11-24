@@ -28,18 +28,14 @@ public class FavoriteController {
 
 	private final FavoriteService favoriteService;
 	
-	@Resource
-	private MemberDao memberDao;
 	
 	@Autowired
 	public FavoriteController(FavoriteService favoriteService) {
 		this.favoriteService = favoriteService;
 	}
 	
-	
 	@RequestMapping(value="/favorite/favoriteView.do", method = RequestMethod.GET)
 	public String favoritList(HttpSession session , Model model) {
-		
 		MemberDto memberDto = (MemberDto) session.getAttribute("_memberDto_");
 		String memberId = memberDto.getId();
 		
@@ -50,5 +46,21 @@ public class FavoriteController {
 		return "favorite/favoriteList";
 	}
 	
+	@RequestMapping(value="/favorite/favoriteDelete.do", method = RequestMethod.POST)
+	public String favoritDelete(FavoriteDto favoriteDto, HttpSession session , Model model) {
+		
+		MemberDto memberDto = (MemberDto) session.getAttribute("_memberDto_");
+		String memberId = memberDto.getId();
+		
+		List<FavoriteDto> list = favoriteDto.getFavoriteList();
+		
+		for (FavoriteDto favorite : list) {
+			favorite.setMemberId(memberId);
+		}
+		
+		favoriteService.favoriteDelete(list);
+		
+		return "redirect:/favorite/favoriteView.do";
+	}
 	
 }

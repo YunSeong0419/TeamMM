@@ -40,6 +40,12 @@ public class CartServiceImpl implements CartService{
 		// TODO Auto-generated method stub
 		cartDao.quantityModify(cartDto);
 	}
+
+	@Override
+	public void cartAdd(List<CartDto> cartList) {
+		// TODO Auto-generated method stub
+		cartDao.cartAdd(cartList);
+	}
 	
 
 }

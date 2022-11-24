@@ -55,4 +55,10 @@ public class FavoriteServiceImpl implements FavoriteService{
 		return list;
 	}
 
+	@Override
+	public void favoriteDelete(List<FavoriteDto> list) {
+		// TODO Auto-generated method stub
+		favoriteDao.favoriteDelete(list);
+	}
+
 }

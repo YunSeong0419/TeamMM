@@ -40,9 +40,6 @@ public class OrderController {
 	@Resource
 	private CartService cartService;
 	
-	@Resource
-	private MemberDao memberDao;
-	
 	@Autowired
 	public OrderController(OrderService orderService) {
 		this.orderService = orderService;
@@ -174,10 +171,6 @@ public class OrderController {
 			searchOption.setSearch("");
 		}
 		
-		MemberDto memberDto = memberDao.memberExist("admin", "123");
-		
-		session.setAttribute("_memberDto_", memberDto);
-		
 		int totalCount = orderService.adminOrderCount(searchOption);
 		
 		Paging paging = new Paging(totalCount, curPage);
@@ -202,9 +195,7 @@ public class OrderController {
 			, HttpSession session, Model model) {
 		logger.info("Welcome OrderController memberOrderList! ");
 		
-		MemberDto memberDto = memberDao.memberExist("dong", "123");
-		session.setAttribute("_memberDto_", memberDto);
-		
+		MemberDto memberDto = (MemberDto) session.getAttribute("_memberDto_");		
 		String memberId = memberDto.getId();
 		int totalCount = orderService.memberOrderCount(memberId, searchOption);
 		
@@ -222,6 +213,23 @@ public class OrderController {
 		model.addAttribute("searchOption", searchOption);
 		
 		return "order/memberOrderList";
+	}
+	
+	@RequestMapping(value = "/testLogin.do", method = {RequestMethod.GET, RequestMethod.POST})
+	public String memberOrderList(String memberId, HttpSession session, Model model) {
+		logger.info("테스트 로그인");
+		
+		MemberDto memberDto = orderService.testLogin(memberId);
+		session.setAttribute("_memberDto_", memberDto);
+		
+		return "redirect:/index.do";
+	}
+	
+	@RequestMapping(value = "/index.do", method = RequestMethod.GET)
+	public String memberOrderList(HttpSession session, Model model) {
+		logger.info("테스트 로그인");
+
+		return "index";
 	}
 	
 }

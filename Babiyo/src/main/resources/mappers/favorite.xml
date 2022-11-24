@@ -17,7 +17,11 @@ ON F.PRODUCT_NO = P.NO
 WHERE MEMBER_ID = #{value}
 </select>
 
-
+<delete id="favoriteDelete" parameterType="com.mealmaker.babiyo.favorite.model.FavoriteDto">
+DELETE FAVORITE
+WHERE MEMBER_ID = #{memberId}
+AND PRODUCT_NO = ${productNo}
+</delete>
 
 
 
