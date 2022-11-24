@@ -119,6 +119,13 @@
 	line-height: 30px;
 	font-size: 16px;
 }
+
+.horizonDataSpace{
+	line-height: 30px;
+	font-size: 16px;
+	margin-left: 25px;
+}
+
 </style>
 
 <script type="text/javascript" src="/babiyo/resources/js/jquery-3.6.1.js"></script>
@@ -134,6 +141,8 @@
 		var url = "./deleteCtr.do?no=" + no;
 		location.href = url;
 	}
+	
+
 </script>
 
 </head>
@@ -159,7 +168,6 @@
 					</div>
 					<div>
 						<input type="file" name='file' class='insertFileButton'>
-						<input type="button" value='-' class='deleteFileButton' onclick="fileDeleteFnc();">
 					</div>
 				</div>
 				<div id='upperInsertDataDiv'>
@@ -169,20 +177,21 @@
 					</div>
 					<div class='insertDataDiv'>
 						<p class='pTagName'>가격</p>
-						${productDto.price}
+						<span class='dataSpace'>${productDto.price}</span>
 					</div>
 					<div class='classificationDiv'>
 						<p class='sidePTagName'>분류</p>
-						${productDto.categoryCode}
+						<span id='classification' class='horizonDataSpace'>
+							${productDto.categoryCode}</span>
 					</div>
 					<div class='stockDiv'>
 						<p class='sidePTagName'>재고</p>
-						${productDto.stock}
+						<span class='horizonDataSpace'>${productDto.stock}</span>
 					</div>
 				</div>
 				<div id='contentDiv'>
 					<p class='pTagName'>설명</p>
-					${productDto.content}
+					<span class='dataSpace'>${productDto.content}</span>
 				</div>
 				<div id='lowerButtonDiv'>
 					<input type="submit" value="수정" class='lowerButton'>

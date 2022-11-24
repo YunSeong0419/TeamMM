@@ -150,15 +150,16 @@
 			deleteFileFnc($(this));
 		});		
 	}
-	
+
 	function pageMoveBeforeFnc(no){
-		location.href = 'detail.do?no=' + no;
+		var url = './detail.do?no=' + no;
+		location.href = url;
 	}
 	
-	var classificationSelectedObj = document.getElementById('classification');
-	if(classificationSelectedObj.option.value == {ProductDto.categoryCode}){
-		this option.selected = selected;
-	}
+// 	var classificationSelectedObj = document.getElementById('classification');
+// 	if(classificationSelectedObj.option.value == {ProductDto.categoryCode}){
+// 		this option.selected = selected;
+// 	}
 			
 	
 </script>
@@ -243,7 +244,7 @@
 					<input type='text' name='content' class='contentTextBox' value='${productDto.content}'>
 				</div>
 				<div id='lowerButtonDiv'>
-					<input type="submit" value="수정" class='lowerButton'> 
+					<input type="submit" value='수정' class='lowerButton'> 
   					<input type='button' value='뒤로가기'  class='lowerButton' 
   						onclick='pageMoveBeforeFnc(${productDto.no});'>	  
 				</div>
