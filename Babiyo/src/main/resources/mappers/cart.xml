@@ -13,14 +13,18 @@
 
 <insert id="cartAdd" parameterType="cartDto">
 INSERT INTO CART(MEMBER_ID, PRODUCT_NO, QUANTITY)
-VALUES(
-	#{memberId},
-	#{productNo},
-	<choose>
-		<when test="quantity != 0">${quantity}</when>
-		<otherwise>1</otherwise>
-	</choose>
-)
+
+<choose>
+	<when test="cartList == null">
+		VALUES(#{memberId},#{productNo},#{quantity})
+	</when>
+	<otherwise>
+		<foreach collection="cartList" item="cart" separator="UNION ALL">
+		SELECT #{memberId},#{cart.productNo},1
+		FROM DUAL
+		</foreach>
+	</otherwise>
+</choose>
 </insert>
 
 <select id="cartList" resultMap="cartResultMap">
@@ -32,8 +36,10 @@ WHERE MEMBER_ID = #{memberId}
 
 <delete id="cartDelete" parameterType="cartDto">
 DELETE CART
-WHERE MEMBER_ID = #{memberId}
-AND PRODUCT_NO = #{productNo}
+WHERE MEMBER_ID = #{memberId} AND
+<foreach collection="cartList" item="cart" open="(" separator="OR" close=")">
+PRODUCT_NO = ${cart.productNo}
+</foreach>
 </delete>
 
 <update id="quantityModify" parameterType="cartDto">

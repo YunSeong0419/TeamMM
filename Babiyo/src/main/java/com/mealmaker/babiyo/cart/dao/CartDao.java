@@ -10,7 +10,7 @@ public interface CartDao {
 
 	void quantityModify(CartDto cartDto);
 
-	void cartDelete(List<CartDto> list);
+	void cartDelete(CartDto cartDto);
 
-	void cartAdd(List<CartDto> cartList);
+	void cartAdd(CartDto cartDto);
 }

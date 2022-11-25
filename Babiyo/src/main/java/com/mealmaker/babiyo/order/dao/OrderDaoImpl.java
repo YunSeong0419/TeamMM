@@ -36,13 +36,9 @@ public class OrderDaoImpl implements OrderDao {
 
 
 	@Override
-	public void orderDetail(List<OrderDetailDto> detailList) {
+	public void orderDetail(OrderDetailDto orderDetailDto) {
 		// TODO Auto-generated method stub
-		
-		for (OrderDetailDto orderDetailDto : detailList) {
-			sqlSession.insert(namespace + "orderDetail", orderDetailDto);
-		}
-	
+		sqlSession.insert(namespace + "orderDetail", orderDetailDto);
 	}
 
 	@Override

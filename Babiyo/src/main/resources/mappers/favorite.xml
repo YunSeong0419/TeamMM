@@ -19,11 +19,20 @@ WHERE MEMBER_ID = #{value}
 
 <delete id="favoriteDelete" parameterType="favoriteDto">
 DELETE FAVORITE
-WHERE MEMBER_ID = #{memberId}
-AND PRODUCT_NO = ${productNo}
+WHERE MEMBER_ID = #{memberId} AND
+<choose>
+	<when test="favoriteList == null">
+		PRODUCT_NO = ${productNo}
+	</when>
+	<otherwise>
+	<foreach collection="favoriteList" item="favorite" open="(" separator="OR" close=")">
+		PRODUCT_NO = ${favorite.productNo}
+	</foreach>
+</otherwise>
+</choose>
 </delete>
 
-<insert id="favoriteAdd" parameterType="favoriteDto">
+<insert id="favoriteAdd" parameterType="map">
 INSERT INTO FAVORITE(MEMBER_ID, PRODUCT_NO)
 VALUES(#{memberId}, #{productNo})
 </insert>

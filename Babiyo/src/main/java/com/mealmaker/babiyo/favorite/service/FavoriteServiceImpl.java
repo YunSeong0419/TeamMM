@@ -32,7 +32,19 @@ public class FavoriteServiceImpl implements FavoriteService{
 	public FavoriteServiceImpl(FavoriteDao favoriteDao) {
 		this.favoriteDao = favoriteDao;
 	}
-
+	
+	@Override
+	public void favoriteAdd(int productNo, String memberId) {
+		// TODO Auto-generated method stub
+		
+		Map<String, Object> paraMap = new HashMap<String, Object>();
+		
+		paraMap.put("productNo", productNo);
+		paraMap.put("memberId", memberId);
+		
+		favoriteDao.favoriteAdd(paraMap);
+	}
+	
 	@Override
 	public List<Map<String, Object>> favoriteList(String memberId) {
 		// TODO Auto-generated method stub
@@ -56,15 +68,14 @@ public class FavoriteServiceImpl implements FavoriteService{
 	}
 
 	@Override
-	public void favoriteDelete(List<FavoriteDto> list) {
+	public void favoriteDelete(FavoriteDto favoriteDto, String memberId) {
 		// TODO Auto-generated method stub
-		favoriteDao.favoriteDelete(list);
+		favoriteDto.setMemberId(memberId);
+		favoriteDao.favoriteDelete(favoriteDto);
+
+		
 	}
 
-	@Override
-	public void favoriteAdd(FavoriteDto favoriteDto) {
-		// TODO Auto-generated method stub
-		favoriteDao.favoriteAdd(favoriteDto);
-	}
+
 
 }

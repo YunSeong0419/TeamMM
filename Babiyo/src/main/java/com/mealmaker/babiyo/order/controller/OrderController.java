@@ -1,6 +1,5 @@
 package com.mealmaker.babiyo.order.controller;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -14,13 +13,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.mealmaker.babiyo.cart.model.CartDto;
 import com.mealmaker.babiyo.cart.service.CartService;
-import com.mealmaker.babiyo.member.dao.MemberDao;
 import com.mealmaker.babiyo.member.model.MemberDto;
 import com.mealmaker.babiyo.order.model.OrderDetailDto;
 import com.mealmaker.babiyo.order.model.OrderDto;
@@ -30,6 +30,7 @@ import com.mealmaker.babiyo.util.SearchOption;
 
 // 어노테이션 드리븐
 @Controller
+@SessionAttributes("_memberDto_")
 public class OrderController {
 
 	private static final Logger logger 
@@ -46,7 +47,7 @@ public class OrderController {
 	}
 	
 	@RequestMapping(value = "/order/order.do", method = RequestMethod.POST)
-	public String order(OrderDetailDto orderDetailDto, CartDto cartDto, HttpSession session, Model model) {
+	public String order(OrderDetailDto orderDetailDto, CartDto cartDto, Model model) {
 		logger.info("주문화면 {}", orderDetailDto.getOrderDetailList());
 
 		List<OrderDetailDto> orderDetailList = orderDetailDto.getOrderDetailList();
@@ -58,33 +59,14 @@ public class OrderController {
 	}
 	
 	@RequestMapping(value = "/order/orderCtr.do", method = RequestMethod.POST)
-	public String orderCtr(OrderDto orderDto, OrderDetailDto orderDetailDto, HttpSession session, Model model) {
+	public String orderCtr(@ModelAttribute("_memberDto_") MemberDto memberDto
+			,OrderDto orderDto, OrderDetailDto orderDetailDto, Model model) {
 		logger.info("Welcome OrderController orderCtr! " + orderDto);
 		
-		List<OrderDetailDto> detailList = orderDetailDto.getOrderDetailList();
-		
-		MemberDto memberDto = (MemberDto) session.getAttribute("_memberDto_");
-		
 		String memberId = memberDto.getId();
-		
 		orderDto.setMemberId(memberId);
 		
-		orderService.order(orderDto, detailList);
-		
-		List<CartDto> list = new ArrayList<>();
-		
-		for (OrderDetailDto order : detailList) {
-			CartDto cartDto = new CartDto();
-			int productNo = order.getProductNo();
-			
-			cartDto.setMemberId(memberId);
-			cartDto.setProductNo(productNo);
-			
-			list.add(cartDto);
-		}
-			
-		cartService.cartDelete(list);
-		 
+		orderService.order(orderDto, orderDetailDto);
 		
 		return "redirect:/order/complete.do";
 	}

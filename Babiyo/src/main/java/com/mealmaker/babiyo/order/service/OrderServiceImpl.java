@@ -1,14 +1,20 @@
 package com.mealmaker.babiyo.order.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.annotation.Resource;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.mealmaker.babiyo.cart.dao.CartDao;
+import com.mealmaker.babiyo.cart.model.CartDto;
+import com.mealmaker.babiyo.member.dao.MemberDao;
 import com.mealmaker.babiyo.member.model.MemberDto;
 import com.mealmaker.babiyo.order.dao.OrderDao;
 import com.mealmaker.babiyo.order.model.OrderDetailDto;
@@ -24,6 +30,12 @@ public class OrderServiceImpl implements OrderService{
 	
 	private final OrderDao orderDao;
 	
+	@Resource 
+	private MemberDao memberDao;
+	
+	@Resource
+	private CartDao cartDao;
+	
 	@Autowired
 	public OrderServiceImpl(OrderDao orderDao) {
 		this.orderDao = orderDao;
@@ -37,17 +49,36 @@ public class OrderServiceImpl implements OrderService{
 	}
 
 	@Override
-	public int order(OrderDto orderDto, List<OrderDetailDto> detailList) {
+	public int order(OrderDto orderDto, OrderDetailDto orderDetailDto) {
 		// TODO Auto-generated method stub
+		
 		orderDao.order(orderDto);
 		
 		int orderNo = orderDto.getNo();
+		orderDetailDto.setOrderNo(orderNo);
 		
-		for (OrderDetailDto orderDetailDto : detailList) {
-			orderDetailDto.setOrderNo(orderNo);;
+		orderDao.orderDetail(orderDetailDto);
+		
+		CartDto cartDto = new CartDto();
+		cartDto.setMemberId(orderDto.getMemberId());
+		
+		List<CartDto> cartList = new ArrayList<CartDto>();
+		
+		for (OrderDetailDto detail : orderDetailDto.getOrderDetailList()) {
+			CartDto cart = new CartDto();
+			cart.setProductNo(detail.getProductNo());
+			
+			cartList.add(cart);
 		}
 		
-		orderDao.orderDetail(detailList);
+		cartDto.setCartList(cartList);
+		
+		cartDao.cartDelete(cartDto);
+		
+		
+		
+//		memberDao.cash();
+		
 		
 		return orderNo;
 	}

@@ -9,8 +9,8 @@ public interface FavoriteService {
 
 	List<Map<String, Object>> favoriteList(String memberId);
 
-	void favoriteDelete(List<FavoriteDto> list);
+	void favoriteDelete(FavoriteDto favoriteDto, String memberId);
 
-	void favoriteAdd(FavoriteDto favoriteDto);
+	void favoriteAdd(int productNo, String memberId);
 
 }

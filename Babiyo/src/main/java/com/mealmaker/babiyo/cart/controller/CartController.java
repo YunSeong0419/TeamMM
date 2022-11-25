@@ -10,9 +10,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.mealmaker.babiyo.cart.model.CartDto;
 import com.mealmaker.babiyo.cart.service.CartService;
@@ -21,6 +23,7 @@ import com.mealmaker.babiyo.member.model.MemberDto;
 
 // 어노테이션 드리븐
 @Controller
+@SessionAttributes("_memberDto_")
 public class CartController {
 
 	private static final Logger logger 
@@ -35,19 +38,12 @@ public class CartController {
 	
 	
 	@RequestMapping(value = "/cart/cartAdd.do", method = RequestMethod.POST)
-	public String cartList(CartDto cartDto, String backPage ,HttpSession session, Model model) {
+	public String cartList(@ModelAttribute("_memberDto_") MemberDto memberDto
+			,CartDto cartDto, String backPage ,HttpSession session, Model model) {
 		logger.info("장바구니 추가 {} : {}", cartDto.getCartList(), backPage);
-		MemberDto memberDto = (MemberDto) session.getAttribute("_memberDto_");
-		String memberId= memberDto.getId();
+		String memberId = memberDto.getId();
 		
-		cartDto.setMemberId(memberId);
-		List<CartDto> cartList = cartDto.getCartList();
-		
-		for (CartDto cart : cartList) {
-			cart.setMemberId(memberId);
-		}
-		
-		cartService.cartAdd(cartList);
+		cartService.cartAdd(cartDto, memberId);
 		
 		String url = "";
 		
@@ -78,19 +74,12 @@ public class CartController {
 	
 	
 	@RequestMapping(value="/cart/cartDelete.do", method = RequestMethod.POST)
-	public String cartDelete(CartDto cartDto, HttpSession session, Model model) {
+	public String cartDelete(@ModelAttribute("_memberDto_") MemberDto memberDto,
+			CartDto cartDto, HttpSession session, Model model) {
 		logger.info("장바구니 삭제 {}" , cartDto.getCartList());
-		
-		MemberDto memberDto = (MemberDto) session.getAttribute("_memberDto_");
 		String memberId = memberDto.getId();
 		
-		List<CartDto> cartList = cartDto.getCartList();
-		
-		for (CartDto cart : cartList) {
-			cart.setMemberId(memberId);
-		}
-		
-		cartService.cartDelete(cartList);
+		cartService.cartDelete(cartDto, memberId);
 		
 		return "redirect:/cart/cartView.do";
 	}

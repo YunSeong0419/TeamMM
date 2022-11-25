@@ -1,6 +1,7 @@
 package com.mealmaker.babiyo.favorite.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,18 +28,18 @@ public class FavoriteDaoImpl implements FavoriteDao {
 	}
 
 	@Override
-	public void favoriteDelete(List<FavoriteDto> list) {
+	public void favoriteDelete(FavoriteDto favoriteDto) {
 		// TODO Auto-generated method stub
-		for (FavoriteDto favoriteDto : list) {
-			sqlSession.delete(namespace + "favoriteDelete", favoriteDto);
-		}
+		
+		sqlSession.delete(namespace + "favoriteDelete", favoriteDto);
 		
 	}
 
+
 	@Override
-	public void favoriteAdd(FavoriteDto favoriteDto) {
+	public void favoriteAdd(Map<String, Object> paraMap) {
 		// TODO Auto-generated method stub
-		sqlSession.insert(namespace + "favoriteAdd", favoriteDto);
+		sqlSession.insert(namespace + "favoriteAdd", paraMap);
 	}
 	
 }

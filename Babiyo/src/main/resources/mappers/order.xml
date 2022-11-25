@@ -94,7 +94,10 @@ VALUES(#{memberId}, SYSDATE, #{totalAmount}, #{preview}, #{productQuantity}, #{r
 
 <insert id="orderDetail" parameterType="orderDetailDto">
 INSERT INTO ORDER_DETAIL(ORDER_NO, PRODUCT_NO, QUANTITY, PRICE)
-VALUES(#{orderNo}, #{productNo}, #{quantity}, #{price})
+<foreach collection="orderDetailList" item="detail" separator="UNION ALL">
+SELECT #{orderNo}, #{detail.productNo}, #{detail.quantity}, #{detail.price}
+FROM DUAL
+</foreach>
 </insert>
 
 <select id="orderList" parameterType="map" resultMap="orderResultMap">

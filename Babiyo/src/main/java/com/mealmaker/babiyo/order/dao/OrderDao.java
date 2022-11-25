@@ -13,7 +13,7 @@ public interface OrderDao {
 	public List<OrderDto> selectId();
 
 	public void order(OrderDto orderDto);
-	public void orderDetail(List<OrderDetailDto> detailList);
+	public void orderDetail(OrderDetailDto orderDetailDto);
 
 	public OrderDto lastOrder(String memberId);
 

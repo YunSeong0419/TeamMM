@@ -12,7 +12,7 @@ public interface OrderService {
 	
 	public List<OrderDto> selectId();
 
-	public int order(OrderDto orderDto, List<OrderDetailDto> detailList);
+	public int order(OrderDto orderDto, OrderDetailDto orderDetailDto);
 
 	public OrderDto lastOrder(String memberId);
 

@@ -10,8 +10,8 @@ public interface CartService {
 
 	void quantityModify(CartDto cartDto);
 
-	void cartDelete(List<CartDto> cartList);
 
+	void cartAdd(CartDto cartDto, String memberId);
 
-	void cartAdd(List<CartDto> cartList);
+	void cartDelete(CartDto cartDto, String memberId);
 }
