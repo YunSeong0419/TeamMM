@@ -1,7 +1,5 @@
 package com.mealmaker.babiyo.order.controller;
 
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -72,9 +70,9 @@ public class OrderController {
 	}
 	
 	@RequestMapping(value = "/order/complete.do", method = RequestMethod.GET)
-	public String orderComplete(HttpSession session, Model model) {
+	public String orderComplete(@ModelAttribute("_memberDto_") MemberDto memberDto
+			,HttpSession session, Model model) {
 		logger.info("Welcome OrderController orderComplete! ");
-		MemberDto memberDto = (MemberDto) session.getAttribute("_memberDto_");
 		
 		String memberId = memberDto.getId();
 		OrderDto orderDto = orderService.lastOrder(memberId);
@@ -97,23 +95,22 @@ public class OrderController {
 	}
 	
 	@RequestMapping(value="/order/cancel.do", method = RequestMethod.POST)
-	public String orderCancel(int orderNo, HttpSession session, Model model) {
+	public String orderCancel(@ModelAttribute("_memberDto_") MemberDto memberDto,
+			int orderNo, HttpSession session, Model model) {
 		
 		orderService.orderCancel(orderNo);
 		
-		MemberDto memberDto = (MemberDto) session.getAttribute("_memberDto_");
-		
 		int grade = memberDto.getGrade();
 		
-		String url = "redirect:/";
+		String url = "";
 		
 		if(grade == 1) {
-			url += "admin";
+			url += "redirect:/admin/orderList.do?orderNo=";
 		} else {
-			url += "member";
+			url += "redirect:/member/orderList.do?orderNo=";
 		}
 		
-		url += "/orderList.do?orderNo=" + orderNo;
+		url += orderNo;
 		
 		return url;
 	}
@@ -134,25 +131,6 @@ public class OrderController {
 			,SearchOption searchOption, HttpSession session, Model model) {
 		logger.info("Welcome OrderController memberOrderList! ");
 		
-		Date today = new Date();
-		
-		if(searchOption.getBeginDate() == null) {
-			searchOption = new SearchOption();
-			
-			Calendar cal = Calendar.getInstance();
-			cal.setTime(today);
-			cal.add(Calendar.MONTH, -1);
-			
-			Date beforeMonth = cal.getTime();
-			
-			searchOption.setBeginDate(beforeMonth);
-			searchOption.setEndDate(today);
-		}
-		
-		if(searchOption.getSearch() == null) {
-			searchOption.setSearch("");
-		}
-		
 		int totalCount = orderService.adminOrderCount(searchOption);
 		
 		Paging paging = new Paging(totalCount, curPage);
@@ -161,13 +139,13 @@ public class OrderController {
 		int end = paging.getPageEnd();
 		
 		List<OrderDto> orderList = orderService.adminOrderList(begin, end, searchOption);
+		
 		List<Map<String, Object>> stateList = orderService.orderStateList();
 		
 		model.addAttribute("paging", paging);
 		model.addAttribute("orderList", orderList);
 		model.addAttribute("stateList", stateList);
 		model.addAttribute("searchOption", searchOption);
-		model.addAttribute("today", today);
 		
 		return "order/adminOrderList";
 	}
@@ -202,7 +180,8 @@ public class OrderController {
 		logger.info("테스트 로그인");
 		
 		MemberDto memberDto = orderService.testLogin(memberId);
-		session.setAttribute("_memberDto_", memberDto);
+		
+		model.addAttribute("_memberDto_", memberDto);
 		
 		return "redirect:/index.do";
 	}
