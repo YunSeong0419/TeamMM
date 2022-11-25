@@ -59,6 +59,14 @@
 		FROM PRODUCT
 		WHERE NO = #{no} 
 	</select>
+	
+	<select id="newProductList" parameterType="productDto" resultMap="productResultMap">
+		SELECT NO, NAME, PRICE
+		FROM (SELECT NO, NAME, PRICE
+					FROM PRODUCT
+					ORDER BY NO DESC)
+		WHERE <![CDATA[ ROWNUM <= 4 ]]>
+	</select>
 
 	<update id="productModification" parameterType="productDto">
 		UPDATE PRODUCT
@@ -96,7 +104,7 @@
 	<select id="fileSelectOne" parameterType="int" resultType="map">
 		SELECT NO, ORIGINAL_NAME, STORED_NAME
 		FROM PRODUCT_IMAGE
-		WHERE PRODUCT_NO = #{value}	<!-- NO = #{no} >> PRODUCT_NO = #{value} 로 변경했습니다 -->
+		WHERE PRODUCT_NO = #{value}
 	</select>
 
 	<select id="fileSelectStoredFileName" parameterType="int" resultType="map">

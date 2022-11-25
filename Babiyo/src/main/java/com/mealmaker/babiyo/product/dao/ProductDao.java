@@ -3,7 +3,7 @@ package com.mealmaker.babiyo.product.dao;
 import java.util.List;
 import java.util.Map;
 
-
+import com.mealmaker.babiyo.favorite.model.FavoriteDto;
 import com.mealmaker.babiyo.product.model.ProductDto;
 
 public interface ProductDao {
@@ -25,4 +25,7 @@ public interface ProductDao {
 	Map<String, Object> fileSelectOne(int no);
 	public Map<String, Object> fileSelectStoredFileName(int parentSeq);
 	public int fileDelete(int parentSeq);
+	//메인에 신상 밀키트 쏴주기
+	List<ProductDto> newProductList();
 }
+

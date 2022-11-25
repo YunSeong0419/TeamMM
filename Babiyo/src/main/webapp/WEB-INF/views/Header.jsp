@@ -38,25 +38,25 @@
 	
 	<div id='categoryMenuBar'>
 		<div>
-			<a id='mealKit' href="#">밀키트</a>
+			<a id='mealKit' href="/babiyo/category.do">밀키트</a>
 		</div>
 		
 		<div class='categoryVerticalLine'></div>
 		
 		<div>
-			<a id='ranking' href="#">랭킹</a>
+			<a id='ranking' href="/babiyo/ranking.do">랭킹</a>
 		</div>
 		
 		<div class='categoryVerticalLine'></div>
 		
 		<div>
-			<a id='review' href="#">리뷰</a>
+			<a id='review' href="/babiyo/collection.do">리뷰</a>
 		</div>
 		
 		<div class='categoryVerticalLine'></div>
 		
 		<div>
-			<a id='notice' href="#">공지</a>
+			<a id='notice' href="/babiyo/notice/list.do">공지</a>
 		</div>
 		<div class='clearBlock'></div>
 	</div>

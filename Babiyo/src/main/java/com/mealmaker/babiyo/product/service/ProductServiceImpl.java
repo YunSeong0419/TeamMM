@@ -1,5 +1,6 @@
 package com.mealmaker.babiyo.product.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -16,6 +17,7 @@ import org.springframework.transaction.interceptor.TransactionAspectSupport;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.mealmaker.babiyo.favorite.model.FavoriteDto;
 import com.mealmaker.babiyo.product.dao.ProductDao;
 import com.mealmaker.babiyo.product.model.ProductDto;
 import com.mealmaker.babiyo.util.FileUtils;
@@ -41,7 +43,7 @@ public class ProductServiceImpl implements ProductService{
 		
 		return productDao.productList(searchOption, sortOption, keyword, start, end);
 	}
-	
+
 	//DAO에 밀키트 등록하게 시키기
 	@Override
 	public void productRegistration(ProductDto productDto, 
@@ -93,7 +95,7 @@ public class ProductServiceImpl implements ProductService{
 		
 		return resultMap;
 	}
-	
+
 	//DAO에 밀키트 상세 변경하게 시키기
 	@Transactional(rollbackFor = Exception.class)
 	@Override
@@ -149,5 +151,27 @@ public class ProductServiceImpl implements ProductService{
 
 		return productDao.productTotalCount(searchOption, sortOption, keyword);
 	}
-
+	
+	//DAO에서 신상 밀키트 가져오게 시키기
+	@Override
+	public List<Map<String, Object>> newProductList() {
+		List<ProductDto> newProductList = productDao.newProductList();
+		
+		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
+		
+		for (ProductDto productDto : newProductList) {
+			Map<String, Object> map = new HashMap<String, Object>();
+			
+			int productNo = productDto.getNo();
+			Map<String, Object> imgMap = productDao.fileSelectOne(productNo);
+			
+			map.put("productDto", productDto);
+			map.put("imgMap", imgMap);
+			
+			list.add(map);
+		}
+		
+		return list;
+	}
+	
 }

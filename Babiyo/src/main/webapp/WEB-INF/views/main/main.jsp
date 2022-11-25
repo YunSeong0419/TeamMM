@@ -20,7 +20,7 @@
 	margin: 40px auto 20px auto;
 	width: 1200px;
 	height: 30px;
-	background-color: lightgray;
+/* 	background-color: lightgray; */
 }
 
 .noticeName{
@@ -43,11 +43,12 @@
 }
 
 .noticeDate{
-	width: 80px;
+	width: 150px;
 	height: 30px;
 	padding-left: 30px;
 	line-height: 30px;
 	font-size: 14px;
+	text-align: center;
 	float: left;
 }
 
@@ -72,31 +73,47 @@
 	margin: 0px auto 30px auto;
 	text-align: center;
 	line-height: 300px;
-	background-color: lightgray;
+/* 	background-color: lightgray; */
 }
 
-#recommendMealkitDiv{
+#emptyEventList{
+	font-size: 32px;
+	font-weight: bold;
+	text-align: center;"
+}
+
+#recommendProductDiv{
 	width: 900px;
 	height: 300px;
 	margin: 0px auto 30px auto;
-	background-color: lightgray;
+/* 	background-color: lightgray; */
 }
 
-.recommendMealkitTitle{
+.recommendProductTitle{
 	height: 50px;
 	font-size: 18px;
 	font-weight: bold;
-	background-color: gray;
+/* 	background-color: gray; */
 }
 
-.recommendMealkitContent{
+#emptyProductList{
+	margin: 0px;
+	width: 900px;
+	height: 250px;
+	font-size: 32px;
+	font-weight: bold;
+	text-align: center;
+	line-height: 300px;
+}
+
+.recommendProductContent{
 	width: 225px;
 	height: 250px;
 	font-size: 16px;
 	float: left;
 }
 
-.recommendMealkitContentImage > a{
+.recommendProductContentImage > a{
 	width: 225px;
 	height: 200px;
 	text-align: center;
@@ -104,7 +121,12 @@
 	float: left;
 }
 
-.recommendMealkitContentName{
+.recommendProductContentImage > a > img{
+	width: 200px;
+	height: 200px;
+	text-align: center;
+}
+.recommendProductContentName{
 	width: 225px;
 	height: 20px;
 	font-weight: bold;
@@ -112,35 +134,36 @@
 	float: left;
 }
 
-.recommendMealkitContentPrice{
+.recommendProductContentPrice{
 	width: 225px;
 	height: 20px;
 	text-align: center;
-	clear: both;
+	float: left;
 }
 
-#newMealkitDiv{
+#newProductDiv{
 	width: 900px;
 	height: 300px;
 	margin: 0px auto 30px auto;
-	background-color: lightgray;
+/* 	background-color: lightgray; */
+	float: left;
 }
 
-.newMealkitTitle{
+.newProductTitle{
 	height: 50px;
 	font-size: 18px;
 	font-weight: bold;
-	background-color: gray;
+/* 	background-color: gray; */
 }
 
-.newMealkitContent{
+.newProductContent{
 	width: 225px;
 	height: 250px;
 	font-size: 16px;
 	float: left;
 }
 
-.newMealkitContentImage > a{
+.newProductContentImage > a{
 	width: 225px;
 	height: 200px;
 	text-align: center;
@@ -148,19 +171,28 @@
 	float: left;
 }
 
-.newMealkitContentName{
+.newProductContentImage > a > img{
+	width: 200px;
+	height: 200px;
+	text-align: center;
+}
+
+.newProductContentName{
+	margin-top: 10px;
 	width: 225px;
 	height: 20px;
+	font-size: 14px;
 	font-weight: bold;
 	text-align: center;
 	float: left;
 }
 
-.newMealkitContentPrice{
+.newProductContentPrice{
 	width: 225px;
 	height: 20px;
+	font-size: 12px;
 	text-align: center;
-	clear: both;
+	float: left;
 }
 </style>
 
@@ -181,93 +213,87 @@
 				<span><strong>공지사항</strong></span>
 			</div>
 			<div class='noticeTitle'>
+				바비요 오픈!
 			</div>
 			<div class='noticeDate'>
+				2022-12-07
 			</div>
 			<div class='goToNotice'>
 				<a href="#"><strong>더보기</strong></a>
 			</div>
 		</div>
-		
 		<div id='eventBannerDiv'>
-			<a href="#"><img alt="이벤트 이미지" src=""></a>
+			<c:choose>
+				<c:when test="${empty eventList}">
+					<p id='emptyEventList'>
+						이벤트가 존재하지 않습니다. 빠른 시일 내로 준비하겠습니다!
+					</p>
+				</c:when>
+				<c:otherwise>
+					<a href="#"><img alt="이벤트 이미지" src=""></a>
+				</c:otherwise>
+			</c:choose>
 		</div>
 		
-		<div id='recommendMealkitDiv'>
-			<div class='recommendMealkitTitle'>
+		<div id='recommendProductDiv'>
+			<div class='recommendProductTitle'>
 				<span>추천 밀키트</span>
 			</div>
+			<div class='recommendProductContent'>
 			<div>
-				<div class='recommendMealkitContent'>
-					<div class='recommendMealkitContentImage'>
-						<a href="#"><img alt="추천 밀키트 이미지 1" src=""></a>					
-					</div>
-					<div class='recommendMealkitContentName'>(상품명 1)</div>
-					<div class='recommendMealkitContentPrice'>(가격 1)</div>
-				</div>
-	
-				<div class='recommendMealkitContent'>
-					<div class='recommendMealkitContentImage'>
-						<a href="#"><img alt="추천 밀키트 이미지 2" src=""></a>					
-					</div>
-					<div class='recommendMealkitContentName'>(상품명 2)</div>
-					<div class='recommendMealkitContentPrice'>(가격 2)</div>
-				</div>
-	
-				<div class='recommendMealkitContent'>
-					<div class='recommendMealkitContentImage'>
-						<a href="#"><img alt="추천 밀키트 이미지 3" src=""></a>					
-					</div>
-					<div class='recommendMealkitContentName'>(상품명 3)</div>
-					<div class='recommendMealkitContentPrice'>(가격 3)</div>
-				</div>
-	
-				<div class='recommendMealkitContent'>
-					<div class='recommendMealkitContentImage'>
-						<a href="#"><img alt="추천 밀키트 이미지 4" src=""></a>					
-					</div>
-					<div class='recommendMealkitContentName'>(상품명 4)</div>
-					<div class='recommendMealkitContentPrice'>(가격 4)</div>
-				</div>
+				<c:choose>
+					<c:when test="${empty productList}">
+						<p id='emptyProductList'>
+							등록된 밀키트가 없습니다.
+						</p>
+					</c:when>
+					<c:otherwise>
+						<c:forEach var="productDto" items="${productList}"> 
+							<div class='recommendProductContent'>
+								<div class='recommendProductContentImage'>
+								
+									<a href="#"><img alt="추천 밀키트 이미지 " src=""></a>					
+								</div>
+								<div class='recommendProductContentName'>
+									${productDto.name}
+								</div>
+								<div class='recommendProductContentPrice'>>
+									<fmt:formatNumber value="${productDto.price}" pattern="###,###,###" />
+								</div>
+							</div>
+						</c:forEach>
+					</c:otherwise>
+				</c:choose>
 			</div>
 		</div>
 		
-		<div id='newMealkitDiv'>
-			<div class='newMealkitTitle'>
+		<div id='newProductDiv'>
+			<div class='newProductTitle'>
 				<span>신상 밀키트</span>
 			</div>
-			<div>
-				<div class='newMealkitContent'>
-					<div class='newMealkitContentImage'>
-						<a href="#"><img alt="신상 밀키트 이미지 1" src=""></a>					
-					</div>
-					<div class='newMealkitContentName'>(상품명 1)</div>
-					<div class='newMealkitContentPrice'>(가격 1)</div>
-				</div>
-	
-				<div class='newMealkitContent'>
-					<div class='newMealkitContentImage'>
-						<a href="#"><img alt="신상 밀키트 이미지 2" src=""></a>					
-					</div>
-					<div class='newMealkitContentName'>(상품명 2)</div>
-					<div class='newMealkitContentPrice'>(가격 2)</div>
-				</div>
-	
-				<div class='newMealkitContent'>
-					<div class='newMealkitContentImage'>
-						<a href="#"><img alt="신상 밀키트 이미지 3" src=""></a>					
-					</div>
-					<div class='newMealkitContentName'>(상품명 3)</div>
-					<div class='newMealkitContentPrice'>(가격 3)</div>
-				</div>
-	
-				<div class='newMealkitContent'>
-					<div class='newMealkitContentImage'>
-						<a href="#"><img alt="신상 밀키트 이미지 4" src=""></a>					
-					</div>
-					<div class='newMealkitContentName'>(상품명 4)</div>
-					<div class='newMealkitContentPrice'>(가격 4)</div>
-				</div>
+			<c:choose>
+				<c:when test="${empty newProductList}">
+					<p id='emptyProductList'>
+						등록된 밀키트가 없습니다.
+					</p>
+				</c:when>
+				<c:otherwise>
+					<c:forEach var="product" items="${newProductList}"> 
+						<div class='newProductContent'>
+							<div class='newProductContentImage'>
+								<a href="#"><img alt="${product.productDto.name}" 
+									src="/babiyo/img/${product.imgMap.STORED_NAME}"></a>					
+							</div>
+							<div class='newProductContentName'>
+								${product.productDto.name}
+							</div>
+							<div class='newProductContentPrice'>
+								<fmt:formatNumber value="${product.productDto.price}" pattern="#,###"/> 원
+							</div>
+						</div>
+					</c:forEach>
+				</c:otherwise>
+			</c:choose>
 			</div>
 		</div>		
 

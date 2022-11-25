@@ -24,4 +24,6 @@ public interface ProductService {
 	public void productDelete(int no);
 	//???
 	public int productTotalCount(String searchOption, String sortOption, String keyword);
-	}
+	//메인에 신상 밀키트 쏴주기
+	List<Map<String, Object>> newProductList();
+}
