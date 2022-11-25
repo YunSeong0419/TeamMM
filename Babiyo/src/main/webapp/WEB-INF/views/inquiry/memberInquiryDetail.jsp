@@ -44,11 +44,6 @@
 			<!--여기서 작성 -->
 			
 			<div>
-				작성자<input type="text" name="memberId" id=""
-				 value="${inquiryDto.memberId}" readonly>
-			</div>
-			
-			<div>
 				분류<input type="text" name="categoryCode" id="divisionId"
 				 value="${inquiryDto.name}" readonly>
 			</div>
@@ -75,11 +70,11 @@
 			</div>	
 			</c:if>
 			
-			<input id="backDiv" type="button" value="뒤로가기" onclick="backBtn()"> 
-			<input id="deleteDiv" type="button" value="삭제하기" onclick="deleteBtn(${inquiryDto.no})">
+			<input id="backId" type="button" value="뒤로가기" onclick="backBtn()"> 
+			<input id="deleteId" type="button" value="삭제하기" onclick="deleteBtn(${inquiryDto.no})">
 			
 			<c:if test="${empty inquiryDto.answer}">
-			<input id="modifytDiv"  type="button" value="수정하기" onclick="modifytBtn(${inquiryDto.no})">
+			<input id="modifytId"  type="button" value="수정하기" onclick="modifytBtn(${inquiryDto.no})">
 			</c:if>
 			<div id="underPadding"></div>
 			

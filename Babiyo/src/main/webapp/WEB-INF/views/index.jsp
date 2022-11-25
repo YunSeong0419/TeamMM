@@ -39,6 +39,8 @@
 	<li><a href="./admin/orderList.do">관리자 주문 목록</a></li>
 	
 	<li><a href="./inquiry/admin.do">관리자 문의 목록</a></li>
+	
+	<li><a href="./notice/list.do">관리자 공지 목록</a></li>
 	</c:when>
 
 	<c:otherwise>
@@ -49,6 +51,8 @@
 	<li><a href="./member/orderList.do">회원 주문 목록</a></li>
 	
 	<li><a href="./inquiry/member.do">회원 문의 목록</a></li>
+	
+	<li><a href="./notice/list.do">회원 공지 목록</a></li>
 	</c:otherwise>
 
 	</c:choose>

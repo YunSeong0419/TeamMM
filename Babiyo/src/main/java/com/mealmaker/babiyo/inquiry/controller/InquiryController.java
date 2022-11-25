@@ -62,16 +62,11 @@ public class InquiryController {
 	public String memberWrite(HttpSession session, Model model) {
 		logger.info("Welcome InquiryMemberController write! ");
 
-		MemberDto memberDto = new MemberDto("dong", "123", "이동현", "dong@test.com", null, "남", "01088294445", "동현",
-				10000, 2, null, null);
-
-		model.addAttribute("_memberDto_", memberDto);
-
 		return "inquiry/memberInquiryWrite";
 	}
 	// 문의 게시글 작성
 	@RequestMapping(value = "/inquiry/member/writeCtr.do", method = RequestMethod.POST)
-	public String memberWrite(InquiryDto inquiryDto, MemberDto memberDto, Model model) {
+	public String memberWriteCtr(InquiryDto inquiryDto, MemberDto memberDto, Model model) {
 		logger.info("Welcome InquiryMemberController memberWrite 신규 문의 작성! " + inquiryDto);
 
 		inquiryService.inquiryWrite(inquiryDto);
@@ -83,6 +78,7 @@ public class InquiryController {
 	@RequestMapping(value = "/inquiry/member/update.do", method = RequestMethod.GET)
 	public String memberUpdate(int no, Model model) {
 		logger.info("Welcome InquiryMemberController update! ");
+		
 		Map<String, Object> map = inquiryService.inquirySelectOne(no);
 		
 		InquiryDto inquiryDto = (InquiryDto) map.get("inquiryDto");
