@@ -3,6 +3,7 @@ package com.mealmaker.babiyo.member.dao;
 import java.util.List;
 import java.util.Map;
 
+import com.mealmaker.babiyo.member.model.InterestDto;
 import com.mealmaker.babiyo.member.model.MemberDto;
 
 public interface MemberDao {
@@ -21,4 +22,6 @@ public interface MemberDao {
 	public List<Map<String, Object>> fileSelectList(int no);
 	public Map<String, Object> fileSelectStoredFileName(String parentSeq);
 	public int fileDelete(String parentSeq);
+	public void addInterest(InterestDto interestDto);
+	
 }

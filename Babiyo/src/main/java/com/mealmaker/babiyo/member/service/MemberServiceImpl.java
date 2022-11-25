@@ -1,22 +1,19 @@
 package com.mealmaker.babiyo.member.service;
 
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.transaction.interceptor.TransactionAspectSupport;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.mealmaker.babiyo.member.dao.MemberDao;
+import com.mealmaker.babiyo.member.model.InterestDto;
 import com.mealmaker.babiyo.member.model.MemberDto;
 
 @Service
@@ -35,14 +32,31 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public void memberInsertOne(MemberDto memberDto
-		, MultipartHttpServletRequest mulRequest) throws Exception{
+	public void memberInsertOne(MemberDto memberDto){
 		// TODO Auto-generated method stub
+		
 		
 		memberDao.memberInsertOne(memberDto);
 		
+	}
+	
+	@Override
+	public void addInterest(InterestDto interestDto) {
+		// TODO Auto-generated method stub
 		
+		List<InterestDto> list = interestDto.getInterestList();
 		
+		String memberId = interestDto.getMemberId();
+		
+		for (InterestDto interest : list) {
+			interest.setMemberId(memberId);
+			
+			memberDao.addInterest(interest);
+		}
+		
+	}
+
+	
 		
 //		
 //
@@ -116,7 +130,7 @@ public class MemberServiceImpl implements MemberService{
 //		return memberDao.memberSelectTotalCount(searchOption, keyword);
 //	}
 
-	}
+	
 
 	@Override
 	public List<MemberDto> memberSelectList(String searchOption, String keyword, int start, int end) {
@@ -148,5 +162,9 @@ public class MemberServiceImpl implements MemberService{
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+	
+
+	
 
 }

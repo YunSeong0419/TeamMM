@@ -6,6 +6,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>네이버 : 회원가입</title>
+		<script type="text/javascript" src="/babiyo/resources/js/jquery-3.6.1.js"></script>
 		
 		<style type="text/css">
 		body{
@@ -73,11 +74,26 @@
 			text-align: center;
 			float: left;
 		}
+		#jump{
+			width: 200px;
+			margin-top: 20px;
+			padding-bottom: 20px;
+			padding-top: 20px;
+			padding-right: 10px;
+			border: none;
+			background: orange;
+			color: white;
+			font-size: 30px;
+			text-align: center;
+			float: left;
+		}
 		</style>
 		
 		<script type="text/javascript">
 		
-			
+			function skipInterestFnc() {
+				location.href = '/auth/member/MemberJoinComplete';
+			}
 		</script>
 		
 	</head>
@@ -94,10 +110,12 @@
 			<h3 style="text-align: center;">관심사 선택</h3>
 			<h4 style="text-align: center;">관심사는 고객님께서 원하시는 밀키트를 추천해 드리기 위해서 사용됩니다.</h4>
 			<form  action='./addInterest.do' method='post'>
+			<input type="hidden" name="memberId" value="${memberId}">
 				<div class="bir_wrap">
 					<h3>관심사</h3>
 					<div class="bir_yy">
- 							<select id='myYear' class='birth' name='yy'>
+							<input type="hidden" name="interestList[0].listNo" value="1">
+ 							<select id='myYear' class='birth' name='interestList[0].categoryCode'>
  								<option disabled selected></option>
  								<option value="01">한식</option>
 								<option value="02">중식</option>
@@ -108,18 +126,19 @@
 					</div>
 					<h3>관심사</h3>
 					<div class="bir_yy">
- 							<select id='myYear' class='birth' name='yy'>
- 								<option disabled selected></option>
- 								<option value="01">한식</option>
-								<option value="02">중식</option>
-								<option value="03">일식</option>
-								<option value="04">양식</option>
-								<option value="05">동남아</option>
- 							</select>
+						<input type="hidden" name="interestList[1].listNo" value="2">
+						<select id='myYear' class='birth' name='interestList[1].categoryCode'>
+							<option disabled selected></option>
+							<option value="01">한식</option>
+							<option value="02">중식</option>
+							<option value="03">일식</option>
+							<option value="04">양식</option>
+							<option value="05">동남아</option>
+						</select>
 					</div>
 				</div>	
 				<input id='all_chk' type="submit" value='결정'>
-				<input id='all_chk' type="submit" value='건너뛰기'>
+				<input id='jump' type="button"  value='건너뛰기' onclick="skipInterestFnc();">
 			</form>	
 		</div>	
 	</body>

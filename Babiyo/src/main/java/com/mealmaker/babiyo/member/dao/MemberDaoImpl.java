@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.mealmaker.babiyo.member.model.InterestDto;
 import com.mealmaker.babiyo.member.model.MemberDto;
 
 @Repository
@@ -53,6 +54,8 @@ public class MemberDaoImpl implements MemberDao{
 		return sqlSession.insert(namespace + "memberInsertOne"
 			, memberDto);
 	}
+	
+	
 
 	@Override
 	public MemberDto memberSelectOne(int no) {
@@ -117,6 +120,16 @@ public class MemberDaoImpl implements MemberDao{
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public void addInterest(InterestDto interestDto) {
+		// TODO Auto-generated method stub
+		sqlSession.insert(namespace + "insertInterest"
+				, interestDto);
+	}
+
+
+	
 
 	
 

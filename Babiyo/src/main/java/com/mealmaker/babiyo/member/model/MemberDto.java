@@ -2,6 +2,8 @@ package com.mealmaker.babiyo.member.model;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +17,7 @@ public class MemberDto {
 	private String password = "";
 	private String name = "";
 	private String email = "";
+	@DateTimeFormat(pattern = "yyyyMMdd")
 	private Date birthDate = null;
 	private String gender = "";
 	private String phone = "";
@@ -24,5 +27,4 @@ public class MemberDto {
 	private Date createDate = null;
 	private Date modifyDate = null;
 	
-
 }

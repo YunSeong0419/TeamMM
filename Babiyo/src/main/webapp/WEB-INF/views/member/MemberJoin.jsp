@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>회원가입</title>
-
+<script type="text/javascript" src="/babiyo/resources/js/jquery-3.6.1.js"></script>
 <style type="text/css">
 body {
 	margin: 0 auto;
@@ -81,6 +81,24 @@ form {
 
 <script type="text/javascript">
 	
+$(document).ready(function(){
+	
+	$('.birth').change(function() {
+		var birthday = '';
+		
+		var year = $('#myYear').val();
+		var month = $('#myMonth').val();
+		var day = $('#myDay').val();
+		
+		birthday = year+month+day;
+
+		$('#birthDate').val(birthday);
+	});
+	
+
+	
+});	
+
 
 
 </script>
@@ -138,8 +156,9 @@ form {
 			</div>
 			<div class="bir_wrap">
 				<h3>생년월일</h3>
+				<input type="hidden" id="birthDate" name="birthDate">
 				<div class="bir_yy">
-					<span> <select id='myYear' class='birth' name='yy'>
+					<span> <select id='myYear' class='birth'>
 							<option disabled selected>년도</option>
 							<%
 								for (int i = 1940; i < 2023; i++) {
@@ -151,7 +170,7 @@ form {
 					</span>
 				</div>
 				<div class="bir_mm">
-					<span> <select id='myMonth' class='birth' name='mm'>
+					<span> <select id='myMonth' class='birth'>
 							<option disabled selected>월</option>
 							<option value="01">1</option>
 							<option value="02">2</option>
@@ -169,14 +188,20 @@ form {
 					</span>
 				</div>
 				<div class="bir_dd">
-					<span> <select id='myDay' class='birth' name='dd'>
-							<option disabled selected>일</option>
-							<%
-								for (int i = 1; i < 32; i++) {
-							%><option value="<%=i%>"><%=i%></option>
-							<%
-								}
-							%>
+					<span> <select id='myDay' class='birth'>
+						<option disabled selected>일</option>
+						
+						<c:forEach begin="1" end="31" var="num">
+							<c:choose>
+								<c:when test="${num < 10}">
+									<option value="0${num}">${num}</option>
+								</c:when>
+								<c:otherwise>
+									<option value="${num}">${num}</option>
+								</c:otherwise>
+							</c:choose>
+						</c:forEach>
+						
 					</select>
 					</span>
 				</div>

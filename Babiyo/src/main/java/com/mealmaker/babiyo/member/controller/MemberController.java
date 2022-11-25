@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.mealmaker.babiyo.member.model.InterestDto;
 import com.mealmaker.babiyo.member.model.MemberDto;
 import com.mealmaker.babiyo.member.service.MemberService;
 
@@ -80,31 +82,26 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value = "/auth/member/addCtr.do", method = RequestMethod.POST)
-	public String memberAdd(MemberDto memberDto, 
-		MultipartHttpServletRequest mulRequest, Model model) {
-		
+	public String memberAdd(MemberDto memberDto, Model model) {
 		logger.info("Welcome MemberController memberAdd 신규등록 처리! " 
 				+ memberDto);
 		
-		SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
+		memberService.memberInsertOne(memberDto);
 		
-		String year = mulRequest.getParameter("yy");
-		String month = mulRequest.getParameter("mm");
-		String day = mulRequest.getParameter("dd");
-		
-		try {
-			Date birthDate = format.parse(year+month+day);
-			
-			memberDto.setBirthDate(birthDate);
-		
-			memberService.memberInsertOne(memberDto, mulRequest);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
+		String memberId = memberDto.getId();
+		model.addAttribute("memberId", memberId);
 		
 		return "/member/MemberInterest";
+	}
+	
+	@RequestMapping(value = "/auth/member/addInterest.do", method = RequestMethod.POST)
+	public String addInterest(InterestDto interestDto, HttpSession session, Model model) {
+		logger.info("Welcome InterestController memberAdd 신규등록 처리! ");
+		
+		memberService.addInterest(interestDto);
+		logger.info("last" + interestDto);
+		
+		return "/member/MemberJoinComplete";
 	}
 	
 //	@RequestMapping(value = "/auth/member/addInterest.do", method = RequestMethod.POST)
