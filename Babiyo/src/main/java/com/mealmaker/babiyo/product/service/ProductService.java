@@ -14,8 +14,8 @@ public interface ProductService {
 	//등록
 	public void productRegistration(ProductDto productDto
 		, MultipartHttpServletRequest multipartHttpServletRequest) throws Exception;
-	//상세
-	public Map<String, Object> productDetail(int no);
+	//관리자 밀키트 상세
+	Map<String, Object> productAdminDetail(int no);
 	//수정	
 	public int productModification(ProductDto productDto
 		, MultipartHttpServletRequest multipartHttpServletRequest

@@ -152,7 +152,7 @@
 	}
 
 	function pageMoveBeforeFnc(no){
-		var url = './detail.do?no=' + no;
+		var url = './adminDetail.do?no=' + no;
 		location.href = url;
 	}
 	
@@ -250,7 +250,7 @@
 				</div>
 				</form>
 			</div>
-			<form id="pagingForm" action="./detail.do" method="get">
+			<form id="pagingForm" action="./adminDetail.do" method="get">
 				<input type="hidden" id="no" name="no" value="${productDto.no}">
 				<input type="hidden" id="curPage" name="curPage" value="${paging.curPage}">
 				<input type="hidden" name="keyword" value="${searchMap.keyword}">

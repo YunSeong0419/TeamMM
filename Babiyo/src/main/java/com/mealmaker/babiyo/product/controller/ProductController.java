@@ -29,14 +29,13 @@ public class ProductController {
 	@Autowired
 	private ProductService productService;
 	
-	//오븐 15p, 헤더-밀키트 카테고리
-	@RequestMapping(value = "/product/category.do", method = RequestMethod.GET)
-	public String productCategory(HttpSession session, Model model) {
-		logger.info("ProductController product category!");
-		
-		return "product/category";
+	//오븐 21p 회원-밀키트 상세
+	@RequestMapping(value = "/product/memberDetail.do")
+	public String productMemberDetail(Model model) {
+		logger.info("ProductController productMemberDetail! - {}");
+		//화면구현용
+		return "product/memberDetail";
 	}
-
 	//오븐 56p 관리자-밀키트 관리(목록)
 	@RequestMapping(value = "/product/list.do", method = {RequestMethod.GET, RequestMethod.POST})
 	public String productList(@RequestParam(defaultValue = "1") int curPage
@@ -94,12 +93,12 @@ public class ProductController {
 	}
 	
 	//오븐 58p 관리자-밀키트 관리-밀키트 상세
-	@RequestMapping(value = "/product/detail.do")
-	public String productDetail(int no , @RequestParam(defaultValue = "1") int curPage
+	@RequestMapping(value = "/product/adminDetail.do")
+	public String productAdminDetail(int no , @RequestParam(defaultValue = "1") int curPage
 			, String searchOption, String sortOption, String keyword, Model model) {
-		logger.info("ProductController productDetail! - {}", no);
+		logger.info("ProductController productAdminDetail! - {}", no);
 		
-		Map<String, Object> map = productService.productDetail(no);
+		Map<String, Object> map = productService.productAdminDetail(no);
 	
 		ProductDto productDto = (ProductDto) map.get("productDto");
 	
@@ -116,7 +115,7 @@ public class ProductController {
 		model.addAttribute("fileList", fileList);
 		model.addAttribute("prevMap", prevMap);
 		
-		return "product/detail";
+		return "product/adminDetail";
 	}
 
 	//오븐 58p 관리자-밀키트 관리-밀키트 상세-밀키트 수정으로 가기
@@ -124,7 +123,7 @@ public class ProductController {
 	public String productModification(int no, Model model) {
 		logger.debug("ProductController productModification!" + no);
 		
-		Map<String, Object> map = productService.productDetail(no);
+		Map<String, Object> map = productService.productAdminDetail(no);
 		
 		ProductDto productDto = (ProductDto)map.get("productDto");
 		

@@ -23,7 +23,7 @@
 					<div><a id='memberOrderList' href="#">주문내역</a></div>
 					<div><a id='memberReviewList' href="#">내 리뷰</a></div>
 					<div><a id='memberInquiryList' href="#">내 문의</a></div>
-					<div><a id='memberShoppingBasket' href="#">장바구니</a></div>
+					<div><a id='memberShoppingCart' href="#">장바구니</a></div>
 					<div><a id='memberBookmark' href="#">즐겨찾기</a></div>
 					<div><a id='memberCash' href="#">밀캐시</a></div>
 				</div>

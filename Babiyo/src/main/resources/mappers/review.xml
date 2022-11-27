@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mealmaker.babiyo.review">
+
+	<resultMap type="reviewDto" id="reviewResultMap">
+		<id column="NO" property="no"/>
+		<result column="PRODUCT_NO" property="productNo"/>
+		<result column="MEMBER_ID" property="memberId"/>
+		<result column="STAR_RATING" property="starRating"/>
+		<result column="CONTENT" property="content"/>
+		<result column="CREATE_DATE" property="createDate"/>
+		<result column="MODIFY_DATE" property="modifyDate"/>
+	</resultMap>
+	
+	<select id="reviewDetail" parameterType="reviewDto" resultMap="reviewResultMap">
+		SELECT NO, PRODUCT_NO, MEMBER_ID, STAR_RATING, CONTENT, CREATE_DATE, MODIFY_DATE
+		FROM REVIEW
+		WHERE NO = #{no}
+	</select>
+	
+	<insert id="insertFile" parameterType="map">
+		INSERT INTO REVIEW_IMAGE
+		(NO, REVIEW_NO, ORIGINAL_NAME, STORED_NAME)
+		VALUES
+		(#{no}, #{review_no}, #{original_name}, #{stored_name})
+	</insert>
+
+
+	<!-- 상품이미지 DB -->
+	
+	<select id="fileSelectList" parameterType="int" resultType="map">
+		SELECT NO, ORIGINAL_NAME, STORED_NAME
+		FROM REVIEW_IMAGE
+		WHERE REVIEW_NO = #{value}
+	</select>
+
+	<select id="fileSelectStoredFileName" parameterType="int" resultType="map">
+		SELECT NO, STORED_NAME
+		FROM REVIEW_IMAGE
+		WHERE NO = #{no}
+	</select>
+
+	<delete id="fileDelete" parameterType="int">
+		DELETE FROM REVIEW_IMAGE
+		WHERE NO = #{no}
+	</delete>
+	
+</mapper>

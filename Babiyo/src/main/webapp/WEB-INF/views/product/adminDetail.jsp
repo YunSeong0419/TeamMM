@@ -8,8 +8,10 @@
 <meta charset="UTF-8">
 <title>밀키트 상세</title>
 
+<link rel="stylesheet" type="text/css" href="/babiyo/resources/css/common.css"/>
+
 <style type="text/css">
-#productRegistrationDiv{
+#productModificationDiv{
 	margin: 0px auto;
 	width: 1050px;
 	min-height: 550px;
@@ -159,7 +161,7 @@
 		<div id="middleMainDiv">
 			<div id="sideTitle"></div>
 			<!--여기서 작성 -->
-			<div id='productRegistrationDiv'>
+			<div id='productModificationDiv'>
 				<form action='./modification.do' method='get'>
  					<input type="hidden" name='no' value='${productDto.no}'>
 				<div id='imageDiv'>

@@ -19,7 +19,7 @@
 			<c:when test="${_memberDto_.grade eq 1}">
 				<div id='serviceAreaManagerMenuBar'>
 					<a id='managerInfo' href="#">관리자</a>
-					<a id='logout' href="#">로그아웃</a>
+					<a id='logout' href="/babiyo/auth/logout.do">로그아웃</a>
 				</div>
 			</c:when>
 			
@@ -29,7 +29,7 @@
 					<a id='memberInfo' href="#">내 정보</a>
 					<a id='shoppingBasket' href="#">장바구니</a>
 					<a id='bookMark' href="#">즐겨찾기</a>
-					<a id='logout' href="#">로그아웃</a>
+					<a id='logout' href="/babiyo/auth/logout.do">로그아웃</a>
 				</div>
 			</c:otherwise>
 		</c:choose>
@@ -50,7 +50,7 @@
 		<div class='categoryVerticalLine'></div>
 		
 		<div>
-			<a id='review' href="/babiyo/collection.do">리뷰</a>
+			<a id='review' href="/babiyo/review/collection.do">리뷰</a>
 		</div>
 		
 		<div class='categoryVerticalLine'></div>

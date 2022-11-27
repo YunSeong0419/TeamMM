@@ -17,7 +17,6 @@ import org.springframework.transaction.interceptor.TransactionAspectSupport;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import com.mealmaker.babiyo.favorite.model.FavoriteDto;
 import com.mealmaker.babiyo.product.dao.ProductDao;
 import com.mealmaker.babiyo.product.model.ProductDto;
 import com.mealmaker.babiyo.util.FileUtils;
@@ -29,7 +28,7 @@ public class ProductServiceImpl implements ProductService{
 	private static final Logger logger
 		= LoggerFactory.getLogger(ProductServiceImpl.class);
 	
-	//밀키트 이미지 첨삭용 보조프로그램
+	//이미지 첨삭용 보조프로그램
 	@Resource(name="fileUtils")
 	private FileUtils fileUtils;
 	
@@ -78,20 +77,17 @@ public class ProductServiceImpl implements ProductService{
 		}
 	}	//void라서 리턴 없음
 
-	//DAO에서 밀키트 상세 꺼내오게 시키기
+	//DAO에서 관리자 밀키트 상세 꺼내오게 시키기
 	@Override
-	public Map<String, Object> productDetail(int no) {
+	public Map<String, Object> productAdminDetail(int no) {
 		
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		
-		ProductDto productDto = productDao.productDetail(no);
+		ProductDto productDto = productDao.productAdminDetail(no);
+		Map<String, Object> fileSelectOne = productDao.fileSelectOne(no);
+		
 		resultMap.put("productDto", productDto);
-		
-		// List<Map<String, Object>> >> Map<String, Object> 변경
-		Map<String, Object> fileList = productDao.fileSelectOne(no);
-		
-		// 이부분 수정보셔야 할거에요
-		resultMap.put("fileList", fileList);
+		resultMap.put("fileSelectOne", fileSelectOne);
 		
 		return resultMap;
 	}

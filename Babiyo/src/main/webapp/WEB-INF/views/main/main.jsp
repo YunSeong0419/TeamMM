@@ -106,6 +106,24 @@
 	line-height: 300px;
 }
 
+#emptyinterestList{
+	margin-top: 50px;
+	width: 900px;
+	height: 250px;
+	font-size: 32px;
+	font-weight: bold;
+	text-align: center;
+	line-height: 50px;
+}
+
+#emptyinterestList > input{
+	border: 0px;
+	font-size: 20px;
+	color: #FF5E00;  
+	background-color: transparent;
+	cursor: pointer;
+}
+
 .recommendProductContent{
 	width: 225px;
 	height: 250px;
@@ -248,20 +266,30 @@
 						</p>
 					</c:when>
 					<c:otherwise>
-						<c:forEach var="productDto" items="${productList}"> 
-							<div class='recommendProductContent'>
-								<div class='recommendProductContentImage'>
-								
-									<a href="#"><img alt="추천 밀키트 이미지 " src=""></a>					
+						<c:when test="${empty interestList}">
+	<!-- 						<form action='/babiyo/auth/member/addInterest.do' method='post'> -->
+								<p id='emptyinterestList'>
+									관심사를 등록해 주시면 밀키트를 추천해 드려요!<br />
+									<input type="submit" value='관심사 등록하러 가기'>
+								</p>
+	<!-- 						</form> -->
+						</c:when>
+						<c:otherwise>
+							<c:forEach var="productDto" items="${productList}"> 
+								<div class='recommendProductContent'>
+									<div class='recommendProductContentImage'>
+									
+										<a href="#"><img alt="추천 밀키트 이미지 " src=""></a>					
+									</div>
+									<div class='recommendProductContentName'>
+										${productDto.name}
+									</div>
+									<div class='recommendProductContentPrice'>>
+										<fmt:formatNumber value="${productDto.price}" pattern="###,###,###" />
+									</div>
 								</div>
-								<div class='recommendProductContentName'>
-									${productDto.name}
-								</div>
-								<div class='recommendProductContentPrice'>>
-									<fmt:formatNumber value="${productDto.price}" pattern="###,###,###" />
-								</div>
-							</div>
-						</c:forEach>
+							</c:forEach>
+						</c:otherwise>
 					</c:otherwise>
 				</c:choose>
 			</div>

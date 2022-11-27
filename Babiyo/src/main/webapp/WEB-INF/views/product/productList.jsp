@@ -8,6 +8,8 @@
 <meta charset="UTF-8">
 <title>밀키트 관리</title>
 
+<link rel="stylesheet" type="text/css" href="/babiyo/resources/css/common.css"/>
+
 <style type="text/css">
 #productManagementDiv{
 	margin: 0px auto;
@@ -129,7 +131,7 @@
 
 
 <script type="text/javascript">
-	function pageMoveProductDetailFnc(no) {
+	function pageMoveProductAdminDetailFnc(no) {
 		
 		var pagingFormObj = $('#pagingForm');
 		
@@ -139,7 +141,7 @@
 		htmlStr += '<input type="hidden" name="no" value="' + no + '">';
 		
 		pagingFormObj.html(htmlStr);
-		pagingFormObj.attr('action', './detail.do');
+		pagingFormObj.attr('action', './adminDetail.do');
 		pagingFormObj.submit();
 	}
 	
@@ -325,7 +327,7 @@
 										<td>${productDto.no}</td>
 										<td>${productDto.categoryCode}</td>
 										<td>
-											<a href='#' onclick="pageMoveProductDetailFnc(${productDto.no});">
+											<a href='#' onclick="pageMoveProductAdminDetailFnc(${productDto.no});">
 												${productDto.name}
 											</a>
 										</td>

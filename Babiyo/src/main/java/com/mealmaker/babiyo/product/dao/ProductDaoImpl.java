@@ -8,7 +8,6 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.mealmaker.babiyo.favorite.model.FavoriteDto;
 import com.mealmaker.babiyo.product.model.ProductDto;
 
 @Repository
@@ -42,9 +41,9 @@ public class ProductDaoImpl implements ProductDao{
 		return sqlSession.insert(namespace + "productRegistration", productDto);
 	}
 
-	//DB에서 밀키트 상세 퍼오기
+	//DB에서 관리자 밀키트 상세 퍼오기
 	@Override
-	public ProductDto productDetail(int no) {
+	public ProductDto productAdminDetail(int no) {
 		return sqlSession.selectOne(namespace + "productDetail", no);
 	}
 

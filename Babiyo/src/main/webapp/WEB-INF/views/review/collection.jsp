@@ -6,20 +6,9 @@
 <meta charset="UTF-8">
 <title>리뷰 모음</title>
 
+<link rel="stylesheet" type="text/css" href="/babiyo/resources/css/common.css"/>
+
 <style type="text/css">
-
-#middleSideDiv{
-	min-height: 650px;
-}
-
-.upperDivisionLine{
-	width: 1200px;
-	margin: 0px auto;
-	border: 0px;
-	background-color: #FF5E00;
-	height: 2px;
-}
-
 .reviewCollectionTitle{
 	width: 900px;
  	height: 68px;
@@ -51,14 +40,14 @@
 	margin: 0px auto;
 }
 
-.mealkitInfo{
+.productInfo{
 	width: 150px;
 	height: 250px;
 	float: left;
 	background-color: lightgray;
 }
 
-.mealkitImage{
+.productImage{
 	margin-top: 20px;
 	width: 150px;
 	height: 150px;
@@ -66,14 +55,14 @@
 	background-color: gray;
 }
 
-.mealkitImage > a{
+.productImage > a{
 	margin: auto;
 	width: 100px;
 	height: 100px;
 	text-align: center;
 }
 
-.mealkitName{
+.productName{
 	margin-top: 20px;
 	width: 150px;
 	height: 20px;
@@ -125,16 +114,39 @@
 	height: 100px;
 	background-color: lightgray;
 }
+
+#lowerButtonDiv{
+	margin-top: 10px;
+	width: 1200px;
+	height: 50px;	
+	line-height: 50px;
+	text-align: center;
+	float: left;
+}
+
+.lowerButton{
+	margin: 0px;
+	border: 0px;
+	width: 100px;
+	height: 40px;
+	background-color: orange;
+	border-radius: 5px;
+	font-size: 16px;
+}
 </style>
 
+<script type="text/javascript" src="/babiyo/resources/js/jquery-3.6.1.js"></script>
+
 </head>
+
 <body>
-	<jsp:include page="../Header.jsp"/>
-	
-<!-- 밑 div를 닫으면 컨텐츠가 몸통 밑으로 들어가게 됨. 푸터 시작에서 닫음. -->	
-	<div id='middleSideDiv'>
-		<hr class='upperDivisionLine'/>
-		
+
+<div id="rootDiv">
+
+	<jsp:include page="/WEB-INF/views/Header.jsp" />
+
+	<div id="middleDiv">
+		<!--여기서 작성 -->
 		<div class='reviewCollectionTitle'>
 			<p>따끈따끈한 최신 리뷰를 확인해 보아요.</p>
 		</div>
@@ -142,11 +154,11 @@
 		<hr class='lowerDivisionLine'/>		
 		
 		<div class='reviewCollectionList'>
-			<div class='mealkitInfo'>
-				<div class='mealkitImage'>
+			<div class='productInfo'>
+				<div class='productImage'>
 					<a href="#"><img alt="밀키트 이미지 " src=""></a>
 				</div>				
-				<div class='mealkitName'>태극전사 레드불</div>
+				<div class='productName'>태극전사 레드불</div>
 			</div>
 			<div class='userEvaluation'>
 				<div class='nickname'>조윤성</div>
@@ -170,11 +182,11 @@
 		<hr class='lowerDivisionLine'/>	
 				
 		<div class='reviewCollectionList'>
-			<div class='mealkitInfo'>
-				<div class='mealkitImage'>
+			<div class='productInfo'>
+				<div class='productImage'>
 					<a href="#"><img alt="밀키트 이미지 " src=""></a>
 				</div>				
-				<div class='mealkitName'>밀키트명2</div>
+				<div class='productName'>밀키트명2</div>
 			</div>
 			<div class='userEvaluation'>
 				<div class='nickname'></div>
@@ -188,7 +200,18 @@
 				<a href="#"><img alt="밀키트 이미지 " src=""></a>
 			</div>
 		</div>
+		
+		<div id='lowerButtonDiv'>
+			<input type="submit" value="더보기" class='lowerButton'>
+		</div>
 
-	<jsp:include page="../Footer.jsp"/>
+		<div id="underPadding"></div>
+		
+	</div> <!--middleDiv 끝 -->
+
+	<jsp:include page="/WEB-INF/views/Footer.jsp" />
+
+</div>  <!--rootDiv 끝 -->
+
 </body>
 </html>
