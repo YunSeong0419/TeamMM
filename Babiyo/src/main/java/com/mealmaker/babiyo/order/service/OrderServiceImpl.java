@@ -19,6 +19,7 @@ import com.mealmaker.babiyo.member.model.MemberDto;
 import com.mealmaker.babiyo.order.dao.OrderDao;
 import com.mealmaker.babiyo.order.model.OrderDetailDto;
 import com.mealmaker.babiyo.order.model.OrderDto;
+import com.mealmaker.babiyo.util.Paging;
 import com.mealmaker.babiyo.util.SearchOption;
 
 @Service
@@ -91,16 +92,23 @@ public class OrderServiceImpl implements OrderService{
 	
 
 	@Override
-	public List<OrderDto> orderList(String memberId, int begin, int end, SearchOption searchOption) {
+	public Map<String, Object> orderList(String memberId, SearchOption searchOption, int curPage) {
 		// TODO Auto-generated method stub
+		Map<String, Object> map = new HashMap<>();
 		
-		return orderDao.orderList(memberId, begin, end, searchOption);
-	}
-
-	@Override
-	public int memberOrderCount(String id, SearchOption searchOption) {
-		// TODO Auto-generated method stub
-		return orderDao.memberOrderCount(id, searchOption);
+		int totalCount = orderDao.memberOrderCount(memberId, searchOption);
+		
+		Paging paging = new Paging(totalCount, curPage);
+		
+		int begin = paging.getPageBegin();
+		int end = paging.getPageEnd();
+		
+		List<OrderDto> orderList = orderDao.orderList(memberId, begin, end, searchOption);
+		
+		map.put("orderList", orderList);
+		map.put("paging", paging);
+		
+		return map;
 	}
 
 	@Override
@@ -131,16 +139,26 @@ public class OrderServiceImpl implements OrderService{
 		return orderDao.orderStateList();
 	}
 
-	@Override
-	public int adminOrderCount(SearchOption searchOption) {
-		// TODO Auto-generated method stub
-		return orderDao.adminOrderCount(searchOption);
-	}
 
 	@Override
-	public List<OrderDto> adminOrderList(int begin, int end, SearchOption searchOption) {
+	public Map<String, Object> adminOrderList(SearchOption searchOption, int curPage) {
 		// TODO Auto-generated method stub
-		return orderDao.adminOrderList(begin, end, searchOption);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		int totalCount = orderDao.adminOrderCount(searchOption);
+		
+		Paging paging = new Paging(totalCount, curPage);
+		
+		int begin = paging.getPageBegin();
+		int end = paging.getPageEnd();
+		
+		List<OrderDto> orderList = orderDao.adminOrderList(begin, end, searchOption);
+		
+		map.put("paging", paging);
+		map.put("orderList", orderList);
+		
+		return map;
 	}
 
 	@Override
@@ -154,6 +172,6 @@ public class OrderServiceImpl implements OrderService{
 		// TODO Auto-generated method stub
 		return orderDao.testLogin(memberId);
 	}
-	
+
 
 }

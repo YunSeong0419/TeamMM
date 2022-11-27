@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
@@ -96,6 +97,19 @@ public class CartController {
 		cartDto.setMemberId(memberId);
 		
 		cartService.quantityModify(cartDto);
+	}
+	
+	@RequestMapping(value="/cart/doubleCheck.do", method=RequestMethod.POST)
+	@ResponseBody
+	public boolean cartDoubleCheck(@ModelAttribute("_memberDto_") MemberDto memberDto,
+			@RequestParam(value="productList[]") List<Integer> productList, HttpSession session) {
+		logger.info("ajax: 장바구니 추가 중복확인", productList);
+		String memberId = memberDto.getId();
+		
+//		 중복값이 있으면 false 없으면 true
+		boolean doubleCheck = cartService.cartDoubleCheck(productList, memberId);
+		
+		return doubleCheck;
 	}
 	
 }

@@ -52,6 +52,25 @@ public class CartServiceImpl implements CartService{
 		
 		cartDao.cartDelete(cartDto);
 	}
+
+	
+	@Override
+	public boolean cartDoubleCheck(List<Integer> productList, String memeberId) {
+		// TODO Auto-generated method stub
+		List<CartDto> cartList = cartDao.cartList(memeberId);
+		
+		for (CartDto cartDto : cartList) {
+			int productNo = cartDto.getProductNo();
+			
+			boolean doubleCheck = productList.contains(productNo);
+			
+			if(doubleCheck) {
+				return false;
+			}
+		}
+		
+		return true;
+	}
 	
 
 }

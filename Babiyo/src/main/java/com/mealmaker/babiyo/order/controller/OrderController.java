@@ -131,14 +131,12 @@ public class OrderController {
 			,SearchOption searchOption, HttpSession session, Model model) {
 		logger.info("Welcome OrderController memberOrderList! ");
 		
-		int totalCount = orderService.adminOrderCount(searchOption);
+		Map<String, Object> map = orderService.adminOrderList(searchOption, curPage);
 		
-		Paging paging = new Paging(totalCount, curPage);
+		@SuppressWarnings("unchecked")
+		List<OrderDto> orderList = (List<OrderDto>) map.get("orderList");
 		
-		int begin = paging.getPageBegin();
-		int end = paging.getPageEnd();
-		
-		List<OrderDto> orderList = orderService.adminOrderList(begin, end, searchOption);
+		Paging paging = (Paging) map.get("paging");
 		
 		List<Map<String, Object>> stateList = orderService.orderStateList();
 		
@@ -151,21 +149,22 @@ public class OrderController {
 	}
 	
 	@RequestMapping(value = "/member/orderList.do", method = RequestMethod.GET)
-	public String memberOrderList(@RequestParam(defaultValue = "1") int curPage, SearchOption searchOption
+	public String memberOrderList(@ModelAttribute("_memberDto_") MemberDto memberDto
+			,@RequestParam(defaultValue = "1") int curPage
+			, SearchOption searchOption
 			, HttpSession session, Model model) {
 		logger.info("Welcome OrderController memberOrderList! ");
 		
-		MemberDto memberDto = (MemberDto) session.getAttribute("_memberDto_");		
 		String memberId = memberDto.getId();
-		int totalCount = orderService.memberOrderCount(memberId, searchOption);
 		
-		Paging paging = new Paging(totalCount, curPage);
-		
-		int begin = paging.getPageBegin();
-		int end = paging.getPageEnd();
-		
-		List<OrderDto> orderList = orderService.orderList(memberId, begin, end, searchOption);
 		List<Map<String, Object>> stateList = orderService.orderStateList();
+		
+		Map<String, Object> map = orderService.orderList(memberId, searchOption, curPage);
+		
+		@SuppressWarnings("unchecked")
+		List<OrderDto> orderList = (List<OrderDto>) map.get("orderList");
+				
+		Paging paging = (Paging) map.get("paging");
 		
 		model.addAttribute("paging", paging);
 		model.addAttribute("orderList", orderList);

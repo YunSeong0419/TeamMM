@@ -44,9 +44,9 @@
 	</c:when>
 
 	<c:otherwise>
-	<li><a href="./cart/cartView.do">장바구니</a></li>
-	
 	<li><a href="./favorite/favoriteView.do">즐겨찾기</a></li>
+	
+	<li><a href="./cart/cartView.do">장바구니</a></li>
 	
 	<li><a href="./member/orderList.do">회원 주문 목록</a></li>
 	

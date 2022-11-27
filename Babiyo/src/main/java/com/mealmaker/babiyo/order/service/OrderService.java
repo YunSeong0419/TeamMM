@@ -16,9 +16,7 @@ public interface OrderService {
 
 	public OrderDto lastOrder(String memberId);
 
-	public List<OrderDto> orderList(String memberId, int begin, int end, SearchOption searchOption);
-
-	public int memberOrderCount(String id, SearchOption searchOption);
+	public Map<String, Object> orderList(String memberId, SearchOption searchOption, int curPage);
 
 	public Map<String, Object> orderView(int orderNo);
 
@@ -26,12 +24,11 @@ public interface OrderService {
 
 	public List<Map<String, Object>> orderStateList();
 
-	public int adminOrderCount(SearchOption searchOption);
-
-	public List<OrderDto> adminOrderList(int begin, int end, SearchOption searchOption);
+	public Map<String, Object> adminOrderList(SearchOption searchOption, int curPage);
 
 	public void orderAccept(int orderNo);
 
 	public MemberDto testLogin(String memberId);
-	
+
+
 }

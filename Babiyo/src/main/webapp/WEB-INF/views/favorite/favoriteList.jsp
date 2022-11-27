@@ -14,9 +14,12 @@
 <style type="text/css">
 .favorite{
 	float: left;
-	width: 180px;
-	height: 210px;
 	margin: 10px;
+}
+
+.productImgContainer{
+	width: 180px;
+	height: 180px;
 }
 
 .productImg{
@@ -60,16 +63,38 @@ $(function(){
 			return;
 		}
 		
-		$('.check:checked').each(function(index) {
+		var selectList = [];
+		var productList = [];
+		
+		$('.check:checked').each(function() {
 			var no = $('.check').index(this); // 체크가 되어있는 인덱스의 번호
-			var name = 'cartList[' + index + '].productNo'; 
-			$('.productNo').eq(no).attr('name', name); // 체크가 된 제품번호에만 name 태그를 달아줌
+			selectList.push($('.productNo').eq(no));
+			productList.push($('.productNo').eq(no).val());
 		});
 		
-		alert('장바구니에 추가되었습니다');
+		$.ajax({
+		    type : 'post',           // 타입 (get, post, put 등등)
+		    url : '../cart/doubleCheck.do',           // 요청할 서버url
+		    async : true,            // 비동기화 여부 (default : true)
+		    data : {productList : productList},
+		    success : function(doubleCheck) { // 결과 성공 콜백함수
+		    	if(doubleCheck == true){
+					$.each(selectList, function(i, elt) {
+						var name = 'cartList[' + i + '].productNo'; 
+						elt.attr('name', name); // 체크가 된 제품번호에만 name 태그를 달아줌
+					});
+					
+					$('#favoriteForm').attr('action', '../cart/cartAdd.do');
+					$('#favoriteForm').submit();
+					alert('장바구니에 추가되었습니다');
+		    	}else {
+		    		alert('이미 장바구니에 추가되어있습니다');
+		    	}
+		    }
+		}); // ajax 종료
 		
-		$('#favoriteForm').attr('action', '../cart/cartAdd.do');
-		$('#favoriteForm').submit();
+		
+
 	});
 	
 	$('#selectDelete').click(function() { // 선택한 품목만 삭제
@@ -99,6 +124,12 @@ $(function(){
 	
 	
 });
+
+function selectProductFnc(no) {
+	
+	alert('미구현');
+}
+
 </script>
 
 </head>
@@ -123,10 +154,16 @@ $(function(){
 				<div id="favoriteContainer">
 						<c:choose>
 							<c:when test="${!empty favoriteList}">
-								<c:forEach items="${favoriteList}" var="list">
+								<c:forEach items="${favoriteList}" var="list" varStatus="status">
 									<div class="favorite">
-										<img class="productImg" alt="${list.favoriteDto.productName}" src="/babiyo/img/${list.imgMap.STORED_NAME}">
-										<span class="productName"><input type="checkbox" class="check"> ${list.favoriteDto.productName}</span>
+										<div class="productImgContainer" onclick="selectProductFnc(${list.favoriteDto.productNo});">
+											<img class="productImg" alt="${list.favoriteDto.productName}"
+													src="/babiyo/img/${list.imgMap.STORED_NAME}">
+										</div>
+										<span class="productName">
+											<input type="checkbox" class="check" id="check${status.index}"> 
+											<label for="check${status.index}">${list.favoriteDto.productName}</label>
+										</span>
 										<input type="hidden" class="productNo" value="${list.favoriteDto.productNo}">
 									</div>
 								</c:forEach>
