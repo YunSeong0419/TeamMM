@@ -164,7 +164,7 @@ function stateSelectFnc(){
 			<jsp:include page="/WEB-INF/views/Paging.jsp"/>
 			
 			<form id="pagingForm">
-				<input type="hidden" id="curPage" name="curPage" value="${curPage}">
+				<input type="hidden" id="curPage" name="curPage" value="${paging.curPage}">
 				<input type="hidden" name="beginDate"
 					 value="<fmt:formatDate value="${searchOption.beginDate}" pattern="yyyy-MM-dd"/>">
 				<input type="hidden" name="endDate"

@@ -57,11 +57,9 @@
 	float: left;
 }
 
-#imageDiv > a{
+#imageDiv > img{
 	width: 400px;
 	height: 400px;
-	float: left;
-	background-color: lightgray;
 }
 
 #productInfo{
@@ -301,6 +299,8 @@
 	cursor: pointer;
 }
 
+
+
 </style>
 
 <script type="text/javascript" src="/babiyo/resources/js/jquery-3.6.1.js"></script>
@@ -386,12 +386,13 @@ function cartAddBtn(){
 				<form action="../order/order.do" method="post">
 					<input type="hidden" id="productNo" name="orderDetailList[0].productNo" value="${productDto.no}">
 					<div id='imageDiv'>
-						<a href="#"><img alt="${productDto.name} 이미지" src="/babiyo/img/${productImg.STORED_NAME}"></a>	
+						<img alt="${productDto.name} 이미지" src="/babiyo/img/${productImg.STORED_NAME}">
 					</div>
 					
 					<div id='productInfo'>
 						<div id='productTitle'>
 							<span id='productName'>${productDto.name}</span>
+							<input type="hidden" name="orderDetailList[0].productName" value="${productDto.name}">
 							<c:choose>
 							<c:when test="${favoriteCheck}">
 								<img id="favoriteHeart" alt="heart" src="/babiyo/resources/img/heart.png" onclick="favoriteFnc();">

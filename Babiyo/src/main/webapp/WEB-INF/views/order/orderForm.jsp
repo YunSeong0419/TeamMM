@@ -303,7 +303,9 @@ function postFind() {
 			</div>
 
 			<p>위 내용을 확인하였으며 결제에 동의합니다</p>
+			
 			<hr>
+			
 			<input id="orderBtn" type="button" value="결제하기">
 			<input id="backBtn" type="button" value="뒤로가기">
 			

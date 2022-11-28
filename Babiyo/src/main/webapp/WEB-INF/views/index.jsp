@@ -25,12 +25,9 @@
 <input type="text" name="memberId">
 </form>
 
-<c:choose>
-<c:when test="${empty _memberDto_}">
 	<a href="./testLogin.do?memberId=admin">admin</a>
 	<a href="./testLogin.do?memberId=dong">dong</a>
-</c:when>
-<c:otherwise>
+
 <ol>
 	<c:choose>
 	<c:when test="${_memberDto_.grade eq 1}">
@@ -59,13 +56,6 @@
 
 	</c:choose>
 </ol>
-</c:otherwise>
-
-</c:choose>
-
-
-
-
 
 
 </body>
