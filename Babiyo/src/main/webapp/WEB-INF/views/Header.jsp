@@ -25,8 +25,8 @@
 			
 			<c:otherwise>
 				<div id='serviceAreaMemberMenuBar'>
-					<a id='cash' href="#">충전</a>
-					<a id='memberInfo' href="#">내 정보</a>
+					<a id='cash' href="/babiyo/auth/cash/chargeCash.do">충전</a>
+					<a id='memberInfo' href="/babiyo/auth/member/memberInfo.do">내 정보</a>
 					<a id='shoppingBasket' href="#">장바구니</a>
 					<a id='bookMark' href="#">즐겨찾기</a>
 					<a id='logout' href="/babiyo/auth/logout.do">로그아웃</a>

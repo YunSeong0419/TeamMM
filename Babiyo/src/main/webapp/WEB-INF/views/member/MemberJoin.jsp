@@ -115,7 +115,7 @@ $(document).ready(function(){
 				</a>
 			</h1>
 		</div>
-		<form action='./addCtr.do' method='post' enctype="multipart/form-data">
+		<form action='./addCtr.do' method='post'>
 			<div>
 				<h3>아이디</h3>
 				<span> <input class="input_box" type='text' id='mid'

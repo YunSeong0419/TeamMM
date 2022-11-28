@@ -35,7 +35,7 @@ public class MemberController {
 		logger.info("Welcome MemberController login! ");
 		
 		
-		return "auth/LoginForm";
+		return "/auth/LoginForm";
 	}
 	
 	@RequestMapping(value = "/auth/loginCtr.do", method = RequestMethod.POST)
@@ -104,33 +104,14 @@ public class MemberController {
 		return "/member/MemberJoinComplete";
 	}
 	
-//	@RequestMapping(value = "/auth/member/addInterest.do", method = RequestMethod.POST)
-//	public String addInterest(MemberDto memberDto, 
-//		MultipartHttpServletRequest mulRequest, Model model) {
-//		
-//		
-//		String year = mulRequest.getParameter("yy");
-//		String month = mulRequest.getParameter("mm");
-//		String day = mulRequest.getParameter("dd");
-//		String birthdate = year + month + day;
-//		
-//		logger.info(birthdate);
-//			memberDto.setBirthDate(birthdate);
-//		logger.info("Welcome MemberController memberAdd 신규등록 처리! " 
-//			+ memberDto);
-//		
-//		try {
-//			memberService.memberInsertOne(memberDto, mulRequest);
-//		} catch (Exception e) {
-//			// TODO Auto-generated catch block
-//			System.out.println("오랜만에 예외 처리 한다");
-//			System.out.println("파일 문제 예외일 가능성 높음");
-//			e.printStackTrace();
-//		}
-//		
-//		
-//		return "redirect:/auth/member/MemberInterest";
-//	}
+	
+	@RequestMapping(value = "/auth/member/memberInfo.do", method = RequestMethod.GET)
+	public String memberInfo(HttpSession session, Model model) {
+		logger.info("Welcome MemberController memberInfo! ");
+		
+		return "/member/MemberInfo";
+	}
+//	
 //	
 //	// 회원수정 화면으로
 //	@RequestMapping(value = "/member/update.do", method = RequestMethod.GET)

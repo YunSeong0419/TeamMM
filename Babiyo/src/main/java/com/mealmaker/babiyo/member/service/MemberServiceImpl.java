@@ -56,6 +56,13 @@ public class MemberServiceImpl implements MemberService{
 		
 	}
 
+	@Override
+	public MemberDto memberInfo(MemberDto memberDto) {
+		// TODO Auto-generated method stub
+		
+		return memberDao.memberInfo(memberDto);
+	}
+
 	
 		
 //		
@@ -132,36 +139,36 @@ public class MemberServiceImpl implements MemberService{
 
 	
 
-	@Override
-	public List<MemberDto> memberSelectList(String searchOption, String keyword, int start, int end) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Map<String, Object> memberSelectOne(int no) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public int memberUpdateOne(MemberDto memberDto, MultipartHttpServletRequest multipartHttpServletRequest,
-			int fileIdx) throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public void memberDeleteOne(int no) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public int memberSelectTotalCount(String searchOption, String keyword) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+//	@Override
+//	public List<MemberDto> memberSelectList(String searchOption, String keyword, int start, int end) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
+//
+//	@Override
+//	public Map<String, Object> memberSelectOne(int no) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
+//
+//	@Override
+//	public int memberUpdateOne(MemberDto memberDto, MultipartHttpServletRequest multipartHttpServletRequest,
+//			int fileIdx) throws Exception {
+//		// TODO Auto-generated method stub
+//		return 0;
+//	}
+//
+//	@Override
+//	public void memberDeleteOne(int no) {
+//		// TODO Auto-generated method stub
+//		
+//	}
+//
+//	@Override
+//	public int memberSelectTotalCount(String searchOption, String keyword) {
+//		// TODO Auto-generated method stub
+//		return 0;
+//	}
 
 	
 

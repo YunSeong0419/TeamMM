@@ -13,18 +13,23 @@ import com.mealmaker.babiyo.member.model.MemberDto;
 
 public interface MemberService {
 
-	public List<MemberDto> memberSelectList(String searchOption, 
-		String keyword,	int start, int end);
 	public MemberDto memberExist(String id, String password);
 	
 	public void memberInsertOne(MemberDto memberDto);
-	public Map<String, Object> memberSelectOne(int no);
-	
-	public int memberUpdateOne(MemberDto memberDto
-		, MultipartHttpServletRequest multipartHttpServletRequest
-		, int fileIdx) throws Exception;
-	
-	public void memberDeleteOne(int no);
-	public int memberSelectTotalCount(String searchOption, String keyword);
 	void addInterest(InterestDto interestDto);
+	public MemberDto memberInfo(MemberDto memberDto);
+//	public List<MemberDto> memberSelectList(String searchOption, 
+//		String keyword,	int start, int end);
+
+	
+	
+//	public Map<String, Object> memberSelectOne(int no);
+//	
+//	public int memberUpdateOne(MemberDto memberDto
+//		, MultipartHttpServletRequest multipartHttpServletRequest
+//		, int fileIdx) throws Exception;
+//	
+//	public void memberDeleteOne(int no);
+//	public int memberSelectTotalCount(String searchOption, String keyword);
+	
 }
