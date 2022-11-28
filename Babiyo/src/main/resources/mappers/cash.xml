@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mealmaker.babiyo.cash">
+
+<resultMap type="cashDto" id="cashResultMap">
+	<result column="NO" property="no"/>
+	<result column="AMOUNT" property="amount"/>
+	<result column="HISTORY_DATE" property="histroyDate" javaType="java.util.Date"/>
+	<result column="BALANCE" property="balance"/>
+	
+</resultMap>
+<update id="cashUpdateOne" parameterType="memberDto">
+	UPDATE MEMBER
+	SET CASH = CASH + ${cash}
+	WHERE ID = #{id}
+</update>
+</mapper>
