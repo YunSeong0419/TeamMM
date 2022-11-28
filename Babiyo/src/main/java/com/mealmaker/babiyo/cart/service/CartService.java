@@ -10,9 +10,10 @@ public interface CartService {
 
 	void quantityModify(CartDto cartDto);
 
-	void cartAdd(CartDto cartDto, String memberId);
-
 	void cartDelete(CartDto cartDto, String memberId);
 
-	boolean cartDoubleCheck(List<Integer> productList, String memeberId);
+	void cartListAdd(List<Integer> productList, String memberId);
+
+	void cartAdd(int productNo, int quantity, String memberId);
+
 }

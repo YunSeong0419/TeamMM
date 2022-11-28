@@ -38,23 +38,29 @@ public class CartController {
 	}
 	
 	
-	@RequestMapping(value = "/cart/cartAdd.do", method = RequestMethod.POST)
-	public String cartList(@ModelAttribute("_memberDto_") MemberDto memberDto
-			,CartDto cartDto, String backPage ,HttpSession session, Model model) {
-		logger.info("장바구니 추가 {} : {}", cartDto.getCartList(), backPage);
+	@RequestMapping(value = "/cart/cartListAdd.do", method = RequestMethod.POST)
+	@ResponseBody
+	public void cartList(@ModelAttribute("_memberDto_") MemberDto memberDto
+			,@RequestParam(value="productList[]") List<Integer> productList
+			,HttpSession session, Model model) {
+		logger.info("장바구니 추가 상품목록 {}" , productList);
+		
 		String memberId = memberDto.getId();
 		
-		cartService.cartAdd(cartDto, memberId);
+		cartService.cartListAdd(productList, memberId);
+	}
+	
+	@RequestMapping(value = "/cart/cartAdd.do", method = RequestMethod.POST)
+	@ResponseBody
+	public void cartList(@ModelAttribute("_memberDto_") MemberDto memberDto
+			,@RequestParam(value="productNo") int productNo
+			,@RequestParam(value="quantity") int quantity
+			,HttpSession session, Model model) {
+		logger.info("장바구니 추가 상품번호 {}" , productNo);
 		
-		String url = "";
+		String memberId = memberDto.getId();
 		
-		if(backPage.equals("cart")) {
-			url = "redirect:/cart/cartView.do";
-		}else if(backPage.equals("favorite")) {
-			url = "redirect:/favorite/favoriteView.do";
-		}
-		
-		return url;
+		cartService.cartAdd(productNo, quantity, memberId);
 	}
 	
 	
@@ -88,28 +94,16 @@ public class CartController {
 	
 	@RequestMapping(value="/cart/cartModify.do", method=RequestMethod.POST)
 	@ResponseBody
-	public void cartModify(CartDto cartDto, HttpSession session) {
+	public void cartModify(@ModelAttribute("_memberDto_") MemberDto memberDto,
+			CartDto cartDto, HttpSession session) {
 		logger.info("ajax: 장바구니 갯수 수정 {}", cartDto);
 		
-		MemberDto memberDto = (MemberDto) session.getAttribute("_memberDto_");
 		String memberId = memberDto.getId();
-		
 		cartDto.setMemberId(memberId);
 		
 		cartService.quantityModify(cartDto);
 	}
 	
-	@RequestMapping(value="/cart/doubleCheck.do", method=RequestMethod.POST)
-	@ResponseBody
-	public boolean cartDoubleCheck(@ModelAttribute("_memberDto_") MemberDto memberDto,
-			@RequestParam(value="productList[]") List<Integer> productList, HttpSession session) {
-		logger.info("ajax: 장바구니 추가 중복확인", productList);
-		String memberId = memberDto.getId();
-		
-//		 중복값이 있으면 false 없으면 true
-		boolean doubleCheck = cartService.cartDoubleCheck(productList, memberId);
-		
-		return doubleCheck;
-	}
+
 	
 }

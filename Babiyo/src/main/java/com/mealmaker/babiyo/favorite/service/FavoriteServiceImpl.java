@@ -34,18 +34,6 @@ public class FavoriteServiceImpl implements FavoriteService{
 	}
 	
 	@Override
-	public void favoriteAdd(int productNo, String memberId) {
-		// TODO Auto-generated method stub
-		
-		Map<String, Object> paraMap = new HashMap<String, Object>();
-		
-		paraMap.put("productNo", productNo);
-		paraMap.put("memberId", memberId);
-		
-		favoriteDao.favoriteAdd(paraMap);
-	}
-	
-	@Override
 	public List<Map<String, Object>> favoriteList(String memberId) {
 		// TODO Auto-generated method stub
 		List<FavoriteDto> favoriteList = favoriteDao.favoriteList(memberId);
@@ -71,11 +59,31 @@ public class FavoriteServiceImpl implements FavoriteService{
 	public void favoriteDelete(FavoriteDto favoriteDto, String memberId) {
 		// TODO Auto-generated method stub
 		favoriteDto.setMemberId(memberId);
-		favoriteDao.favoriteDelete(favoriteDto);
-
 		
+		favoriteDao.favoriteDelete(favoriteDto);
 	}
 
-
+	@Override
+	public boolean favoriteBtn(String memberId, int productNo) {
+		// TODO Auto-generated method stub
+		
+		FavoriteDto favoriteDto = new FavoriteDto();
+		
+		favoriteDto.setMemberId(memberId);
+		favoriteDto.setProductNo(productNo);
+		
+		String memberIdCheck = favoriteDao.favoriteCheck(favoriteDto);
+		
+		// 즐겨찾기에 있으면 true 없으면 false
+		boolean check = memberId.equals(memberIdCheck);
+		
+		if(check) {
+			favoriteDao.favoriteDelete(favoriteDto);
+		}else {
+			favoriteDao.favoriteAdd(favoriteDto);
+		}
+		
+		return check;
+	}
 
 }

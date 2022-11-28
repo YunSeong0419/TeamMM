@@ -55,7 +55,6 @@ $(function(){
 	});
 	
 	$('#cartAdd').click(function() { // 선택한 품목만 장바구니 담기
-		
 		var checked = $('.check').is(':checked');
 		
 		if(checked == false){ // 하나라도 체크가 되어야지 수행
@@ -63,38 +62,22 @@ $(function(){
 			return;
 		}
 		
-		var selectList = [];
 		var productList = [];
 		
 		$('.check:checked').each(function() {
 			var no = $('.check').index(this); // 체크가 되어있는 인덱스의 번호
-			selectList.push($('.productNo').eq(no));
 			productList.push($('.productNo').eq(no).val());
 		});
 		
 		$.ajax({
 		    type : 'post',           // 타입 (get, post, put 등등)
-		    url : '../cart/doubleCheck.do',           // 요청할 서버url
+		    url : '../cart/cartListAdd.do',        // 요청할 서버url
 		    async : true,            // 비동기화 여부 (default : true)
 		    data : {productList : productList},
-		    success : function(doubleCheck) { // 결과 성공 콜백함수
-		    	if(doubleCheck == true){
-					$.each(selectList, function(i, elt) {
-						var name = 'cartList[' + i + '].productNo'; 
-						elt.attr('name', name); // 체크가 된 제품번호에만 name 태그를 달아줌
-					});
-					
-					$('#favoriteForm').attr('action', '../cart/cartAdd.do');
-					$('#favoriteForm').submit();
-					alert('장바구니에 추가되었습니다');
-		    	}else {
-		    		alert('이미 장바구니에 추가되어있습니다');
-		    	}
+		    success : function() { // 결과 성공 콜백함수
+				alert('장바구니에 추가되었습니다');
 		    }
 		}); // ajax 종료
-		
-		
-
 	});
 	
 	$('#selectDelete').click(function() { // 선택한 품목만 삭제

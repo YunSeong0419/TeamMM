@@ -45,13 +45,12 @@ public class OrderController {
 	}
 	
 	@RequestMapping(value = "/order/order.do", method = RequestMethod.POST)
-	public String order(OrderDetailDto orderDetailDto, CartDto cartDto, Model model) {
+	public String order(OrderDetailDto orderDetailDto, Model model) {
 		logger.info("주문화면 {}", orderDetailDto.getOrderDetailList());
 
 		List<OrderDetailDto> orderDetailList = orderDetailDto.getOrderDetailList();
 		
 		model.addAttribute("orderDetailList", orderDetailList);
-		model.addAttribute("cartDto", cartDto);
 		
 		return "order/orderForm";
 	}

@@ -1,6 +1,7 @@
 package com.mealmaker.babiyo.cart.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,9 +40,22 @@ public class CartDaoImpl implements CartDao {
 	}
 
 	@Override
-	public void cartAdd(CartDto cartDto) {
+	public void cartAdd(Map<String, Object> map) {
 		// TODO Auto-generated method stub
-		sqlSession.insert(namespace + "cartAdd", cartDto);
+		sqlSession.insert(namespace + "cartAdd", map);
+	}
+
+	@Override
+	public List<Integer> cartProductList(String memberId) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList(namespace + "cartProductList", memberId);
+	}
+
+	@Override
+	public void cartAddModify(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		
+		sqlSession.update(namespace + "cartAddModify", map);
 	}
 		
 

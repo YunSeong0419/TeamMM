@@ -17,6 +17,11 @@ ON F.PRODUCT_NO = P.NO
 WHERE MEMBER_ID = #{value}
 </select>
 
+<insert id="favoriteAdd" parameterType="map">
+INSERT INTO FAVORITE(MEMBER_ID, PRODUCT_NO)
+VALUES(#{memberId}, #{productNo})
+</insert>
+
 <delete id="favoriteDelete" parameterType="favoriteDto">
 DELETE FAVORITE
 WHERE MEMBER_ID = #{memberId} AND
@@ -32,9 +37,12 @@ WHERE MEMBER_ID = #{memberId} AND
 </choose>
 </delete>
 
-<insert id="favoriteAdd" parameterType="map">
-INSERT INTO FAVORITE(MEMBER_ID, PRODUCT_NO)
-VALUES(#{memberId}, #{productNo})
-</insert>
+<select id="favoriteCheck" parameterType="favoriteDto" resultType="String">
+SELECT MEMBER_ID
+FROM FAVORITE
+WHERE MEMBER_ID = #{memberId}
+AND PRODUCT_NO = ${productNo}
+</select>
+
 
 </mapper>

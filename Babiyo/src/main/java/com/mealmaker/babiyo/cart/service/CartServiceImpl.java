@@ -1,6 +1,8 @@
 package com.mealmaker.babiyo.cart.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,12 +39,50 @@ public class CartServiceImpl implements CartService{
 	}
 
 	@Override
-	public void cartAdd(CartDto cartDto, String memberId) {
+	public void cartListAdd(List<Integer> productList, String memberId) {
 		// TODO Auto-generated method stub
 		
-		cartDto.setMemberId(memberId);
+		List<Integer> cartList = cartDao.cartProductList(memberId);
 		
-		cartDao.cartAdd(cartDto);
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("memberId", memberId);
+		map.put("quantity", 1);
+		
+		for (int productNo : productList) {
+			
+			map.put("productNo", productNo);
+			
+			boolean doubleCheck = cartList.contains(productNo);
+			
+			if(doubleCheck) {
+				cartDao.cartAddModify(map);
+			}else {
+				cartDao.cartAdd(map);
+			}
+		}
+	}
+	
+	@Override
+	public void cartAdd(int productNo, int quantity, String memberId) {
+		// TODO Auto-generated method stub
+		
+		List<Integer> cartList = cartDao.cartProductList(memberId);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("memberId", memberId);
+		map.put("quantity", quantity);
+		map.put("productNo", productNo);
+		
+		boolean doubleCheck = cartList.contains(productNo);
+		
+		if(doubleCheck) {
+			cartDao.cartAddModify(map);
+		}else {
+			cartDao.cartAdd(map);
+		}
+		
 	}
 
 	@Override
@@ -53,24 +93,5 @@ public class CartServiceImpl implements CartService{
 		cartDao.cartDelete(cartDto);
 	}
 
-	
-	@Override
-	public boolean cartDoubleCheck(List<Integer> productList, String memeberId) {
-		// TODO Auto-generated method stub
-		List<CartDto> cartList = cartDao.cartList(memeberId);
-		
-		for (CartDto cartDto : cartList) {
-			int productNo = cartDto.getProductNo();
-			
-			boolean doubleCheck = productList.contains(productNo);
-			
-			if(doubleCheck) {
-				return false;
-			}
-		}
-		
-		return true;
-	}
-	
 
 }

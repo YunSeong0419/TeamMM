@@ -11,26 +11,28 @@
 <result column="QUANTITY" property="quantity"/>
 </resultMap>
 
-<insert id="cartAdd" parameterType="cartDto">
+<insert id="cartAdd" parameterType="map">
 INSERT INTO CART(MEMBER_ID, PRODUCT_NO, QUANTITY)
-
-<choose>
-	<when test="cartList == null">
-		VALUES(#{memberId},#{productNo},#{quantity})
-	</when>
-	<otherwise>
-		<foreach collection="cartList" item="cart" separator="UNION ALL">
-		SELECT #{memberId},#{cart.productNo},1
-		FROM DUAL
-		</foreach>
-	</otherwise>
-</choose>
+VALUES(#{memberId},#{productNo},#{quantity})
 </insert>
+
+<update id="cartAddModify" parameterType="map">
+UPDATE CART
+SET QUANTITY = QUANTITY + ${quantity}
+WHERE MEMBER_ID = #{memberId}
+AND PRODUCT_NO = #{productNo}
+</update>
 
 <select id="cartList" resultMap="cartResultMap">
 SELECT C.MEMBER_ID, C.PRODUCT_NO, C.QUANTITY, P.NAME, P.PRICE
 FROM CART C JOIN PRODUCT P
 ON C.PRODUCT_NO = P.NO
+WHERE MEMBER_ID = #{memberId}
+</select>
+
+<select id="cartProductList" resultType="int">
+SELECT PRODUCT_NO
+FROM CART
 WHERE MEMBER_ID = #{memberId}
 </select>
 
@@ -44,7 +46,7 @@ PRODUCT_NO = ${cart.productNo}
 
 <update id="quantityModify" parameterType="cartDto">
 UPDATE CART
-SET QUANTITY = #{quantity}
+SET QUANTITY = ${quantity}
 WHERE MEMBER_ID = #{memberId}
 AND PRODUCT_NO = #{productNo}
 </update>

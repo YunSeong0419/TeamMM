@@ -41,9 +41,9 @@ public class ProductDaoImpl implements ProductDao{
 		return sqlSession.insert(namespace + "productRegistration", productDto);
 	}
 
-	//DB에서 관리자 밀키트 상세 퍼오기
+	//DB에서 밀키트 상세정보 조회
 	@Override
-	public ProductDto productAdminDetail(int no) {
+	public ProductDto productDetail(int no) {
 		return sqlSession.selectOne(namespace + "productDetail", no);
 	}
 

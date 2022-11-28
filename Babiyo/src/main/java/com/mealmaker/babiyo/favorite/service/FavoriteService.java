@@ -11,6 +11,6 @@ public interface FavoriteService {
 
 	void favoriteDelete(FavoriteDto favoriteDto, String memberId);
 
-	void favoriteAdd(int productNo, String memberId);
+	boolean favoriteBtn(String memberId, int productNo);
 
 }

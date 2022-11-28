@@ -30,6 +30,7 @@ public class InquiryController {
 	
 	@Resource
 	private MemberDao memberDao;
+	
 	//회원
 	// 문의 게시글 목록
 	@RequestMapping(value = "/inquiry/member.do", method = RequestMethod.GET)

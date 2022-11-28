@@ -12,7 +12,7 @@ public interface ProductDao {
 	//등록
 	public int productRegistration(ProductDto productDto);
 	//관리자 밀키트 상세
-	public ProductDto productAdminDetail(int no);
+	public ProductDto productDetail(int no);
 	//수정	
 	public int productModification(ProductDto productDto);
 	//삭제

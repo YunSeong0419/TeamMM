@@ -17,6 +17,8 @@ import org.springframework.transaction.interceptor.TransactionAspectSupport;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.mealmaker.babiyo.favorite.dao.FavoriteDao;
+import com.mealmaker.babiyo.favorite.model.FavoriteDto;
 import com.mealmaker.babiyo.product.dao.ProductDao;
 import com.mealmaker.babiyo.product.model.ProductDto;
 import com.mealmaker.babiyo.util.FileUtils;
@@ -31,6 +33,9 @@ public class ProductServiceImpl implements ProductService{
 	//이미지 첨삭용 보조프로그램
 	@Resource(name="fileUtils")
 	private FileUtils fileUtils;
+	
+	@Resource
+	private FavoriteDao favoriteDao;
 	
 	@Autowired
 	public ProductDao productDao;
@@ -83,7 +88,7 @@ public class ProductServiceImpl implements ProductService{
 		
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		
-		ProductDto productDto = productDao.productAdminDetail(no);
+		ProductDto productDto = productDao.productDetail(no);
 		Map<String, Object> fileSelectOne = productDao.fileSelectOne(no);
 		
 		resultMap.put("productDto", productDto);
@@ -168,6 +173,33 @@ public class ProductServiceImpl implements ProductService{
 		}
 		
 		return list;
+	}
+
+	
+	//회원 밀키트 상세보기
+	@Override
+	public Map<String, Object> productMemberDetail(String memberId, int productNo) {
+		// TODO Auto-generated method stub
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		ProductDto productDto = productDao.productDetail(productNo);
+		Map<String, Object> imgMap = productDao.fileSelectOne(productNo);
+		
+		FavoriteDto favoriteDto = new FavoriteDto();
+		
+		favoriteDto.setMemberId(memberId);
+		favoriteDto.setProductNo(productNo);
+		
+		String memberIdCheck = favoriteDao.favoriteCheck(favoriteDto);
+		
+		boolean favoriteCheck = memberId.equals(memberIdCheck);
+		
+		map.put("productDto", productDto);
+		map.put("imgMap", imgMap);
+		map.put("favoriteCheck", favoriteCheck);
+		
+		return map;
 	}
 	
 }

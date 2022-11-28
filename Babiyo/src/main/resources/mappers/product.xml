@@ -22,6 +22,7 @@
 	<resultMap type="productDto" id="productResultMap">
 		<id column="NO" property="no"/>
 		<result column="CATEGORY_CODE" property="categoryCode"/>
+		<result column="CATEGORY_NAME" property="categoryName"/>
 		<result column="NAME" property="name"/>
 		<result column="PRICE" property="price"/>
 		<result column="STOCK" property="stock"/>
@@ -55,8 +56,9 @@
 	</insert>
 
 	<select id="productDetail" parameterType="int" resultMap="productResultMap">
-		SELECT NO, CATEGORY_CODE, NAME, PRICE, STOCK, CONTENT
-		FROM PRODUCT
+		SELECT P.NO, P.CATEGORY_CODE, C.NAME CATEGORY_NAME, P.NAME, P.PRICE, P.STOCK, P.CONTENT
+		FROM PRODUCT P JOIN PRODUCT_CATEGORY C
+		ON P.CATEGORY_CODE = C.CODE
 		WHERE NO = #{no} 
 	</select>
 	

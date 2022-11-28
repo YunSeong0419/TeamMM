@@ -28,18 +28,23 @@ public class FavoriteDaoImpl implements FavoriteDao {
 	}
 
 	@Override
+	public void favoriteAdd(FavoriteDto favoriteDto) {
+		// TODO Auto-generated method stub
+		sqlSession.insert(namespace + "favoriteAdd", favoriteDto);
+	}
+	
+	@Override
 	public void favoriteDelete(FavoriteDto favoriteDto) {
 		// TODO Auto-generated method stub
-		
 		sqlSession.delete(namespace + "favoriteDelete", favoriteDto);
-		
 	}
-
-
+	
 	@Override
-	public void favoriteAdd(Map<String, Object> paraMap) {
+	public String favoriteCheck(FavoriteDto favoriteDto) {
 		// TODO Auto-generated method stub
-		sqlSession.insert(namespace + "favoriteAdd", paraMap);
+		return sqlSession.selectOne(namespace + "favoriteCheck", favoriteDto);
 	}
+
+
 	
 }

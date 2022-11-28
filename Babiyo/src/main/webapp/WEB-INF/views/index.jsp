@@ -44,6 +44,8 @@
 	</c:when>
 
 	<c:otherwise>
+	<li><a href="./product/memberDetail.do?productNo=1">밀키트상세</a></li>
+	
 	<li><a href="./favorite/favoriteView.do">즐겨찾기</a></li>
 	
 	<li><a href="./cart/cartView.do">장바구니</a></li>

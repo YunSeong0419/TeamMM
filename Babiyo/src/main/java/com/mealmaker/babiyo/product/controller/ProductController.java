@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.mealmaker.babiyo.member.model.MemberDto;
 import com.mealmaker.babiyo.product.model.ProductDto;
 import com.mealmaker.babiyo.product.service.ProductService;
 import com.mealmaker.babiyo.util.Paging;
@@ -31,9 +32,24 @@ public class ProductController {
 	
 	//오븐 21p 회원-밀키트 상세
 	@RequestMapping(value = "/product/memberDetail.do")
-	public String productMemberDetail(Model model) {
+	public String productMemberDetail(int productNo, HttpSession session, Model model) {
 		logger.info("ProductController productMemberDetail! - {}");
 		//화면구현용
+		
+		MemberDto memberDto = (MemberDto) session.getAttribute("_memberDto_");
+		String memberId = memberDto.getId();
+		
+		Map<String, Object> productMap = productService.productMemberDetail(memberId, productNo);
+		
+		ProductDto productDto = (ProductDto) productMap.get("productDto");
+		@SuppressWarnings("unchecked")
+		Map<String, Object> productImg = (Map<String, Object>) productMap.get("imgMap");
+		boolean favoriteCheck = (boolean) productMap.get("favoriteCheck");
+		
+		model.addAttribute("productDto", productDto);
+		model.addAttribute("productImg", productImg);
+		model.addAttribute("favoriteCheck", favoriteCheck);
+		
 		return "product/memberDetail";
 	}
 	//오븐 56p 관리자-밀키트 관리(목록)
@@ -180,4 +196,7 @@ public class ProductController {
 		
 		return "redirect:/product/list.do";
 	}
+	
+	
+	
 }

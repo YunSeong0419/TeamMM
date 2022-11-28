@@ -11,6 +11,8 @@ public interface FavoriteDao {
 
 	void favoriteDelete(FavoriteDto favoriteDto);
 
-	void favoriteAdd(Map<String, Object> paraMap);
+	String favoriteCheck(FavoriteDto favoriteDto);
+
+	void favoriteAdd(FavoriteDto favoriteDto);
 
 }

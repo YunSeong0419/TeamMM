@@ -38,7 +38,7 @@
 	height: 30px;
 }
 
-.categoryName, .category{
+#categoryName, #category{
 	margin-right: 10px;
 	font-size: 16px;
 }
@@ -49,7 +49,7 @@
 	float: left;
 }
 
-.imageDiv{
+#imageDiv{
 	padding: 0px 25px;
 	width: 450px;
 	height: 400px;
@@ -57,27 +57,27 @@
 	float: left;
 }
 
-.imageDiv > a{
+#imageDiv > a{
 	width: 400px;
 	height: 400px;
 	float: left;
 	background-color: lightgray;
 }
 
-.productInfo{
+#productInfo{
 	width: 450px;
 	height: 400px;
 	float: left;
 }
 
-.productTitle{
+#productTitle{
 	height: 40px;
 	font-size: 30px;
 	font-weight: bold;
 	line-height: 40px;
 }
 
-.productTitle > input{
+#productTitle > input{
 	margin-bottom: 10px;
 	padding: 0px;
 	height: 40px;
@@ -90,50 +90,50 @@
 	vertical-align: middle;
 }
 
-.productName{
+#productName{
 	margin-right: 10px;
 }
 
-.evaluationAndReviewCount{
+#evaluationAndReviewCount{
 	margin: 5px;
 	height: 20px;
 	font-size: 16px;
 	line-height: 20px;	
 }
 
-.inputPurchaseDetail{
+#inputPurchaseDetail{
 	height: 190px;
 	margin-top: 40px
 }
 
-.price{
+#price{
 	margin-left: 10px;
 	height: 25px;
 }
 
-.stock, .quantity{
+#stock, #quantity{
 	margin: 10px 10px;
 	height: 25px;
 }
 
-.priceValue{
+#priceValue{
 	margin-left: 50px;
 	height: 25px;
 	color: #FF0000;
 }
 
-.stockValue{
+#stockValue{
 	margin-left: 25px;
 	height: 25px;
 }
 
-.quantitySelect{
+#quantitySelect{
 	margin-left: 65px;
 	width: 50px;
 	height: 25px;
 }
 
-.totalPrice{
+#totalPrice{
 	margin: 50px 0px 0px 10px;
 	height: 25px;
 	font-size: 16px;
@@ -141,16 +141,16 @@
 	line-height: 25px;
 }
 
-.totalPriceName{
+#totalPriceName{
 	margin-right: 20px;
 	height: 25px;
 }
 
-.productInfoButton{
+#productInfoButton{
 	text-align: center;
 }
 
-.putShoppingCart, .purchaseOrder{
+#putShoppingCart, #purchaseOrder{
 	margin: 20px;
 	width: 150px;
 	height: 50px;
@@ -162,7 +162,7 @@
 	float: left;
 }
 
-.contentTitle, .reviewName{
+#contentTitle, #reviewName{
 	margin: 10px 0px;
 	height: 30px;
 	font-size: 22px;
@@ -170,7 +170,7 @@
 	line-height: 30px;
 }
 
-.content{
+#content{
 	margin: 30px 20px;
 }
 
@@ -180,16 +180,16 @@
 	float: left;
 }
 
-.inlineDiv{
+#inlineDiv{
 	height: 40px;
 	line-height: 40px;
 }
 
-.reviewTitle, .filter, .writeReview{
+#reviewTitle, #filter, #writeReview{
 	float: left;
 }
 
-.shortVerticalLine{
+#shortVerticalLine{
 	margin: 0px 5px;
 	display: inline-block;
 	margin-top:10px;
@@ -198,7 +198,7 @@
 	float: left;
 }
 
-.latest{
+#latest{
 	margin-left: 20px;
 }
 
@@ -211,7 +211,7 @@
 	float: left;
 }
 
-.lowerButton{
+#lowerButton{
 	margin: 0px;
 	border: 0px;
 	width: 300px;
@@ -297,9 +297,76 @@
 	float: left;
 }
 
+#favoriteHeart{
+	cursor: pointer;
+}
+
 </style>
 
 <script type="text/javascript" src="/babiyo/resources/js/jquery-3.6.1.js"></script>
+<script type="text/javascript">
+
+
+function korTrans(price){ // 숫자를 원화시키기 위한 함수
+	return price.toLocaleString('ko-KR') + '  원';
+}
+
+
+function totalPriceFnc(obj){
+	
+	var price = Number($('#priceOrigin').val());
+	
+	var totalPrice = price * $(obj).val();
+	
+	var priceKor = korTrans(totalPrice);
+	
+	$('#totalPriceValue').text(priceKor);
+	
+}
+
+function favoriteFnc(){
+	
+	var productNo = $('#productNo').val();
+	
+	$.ajax({
+	    type : 'post',           // 타입 (get, post, put 등등)
+	    url : '../favorite/favoriteBtn.do',           // 요청할 서버url
+	    async : true,            // 비동기화 여부 (default : true)
+	    data : {productNo: productNo},
+	    success : function(check) { // 결과 성공 콜백함수
+	    	// 즐겨찾기에서 삭제가 됬으면 true 추가됬으면 false
+	    	if(check){
+	    		$('#favoriteHeart').attr('src', '/babiyo/resources/img/heartEmpty.png');
+	    	}else{
+		    	$('#favoriteHeart').attr('src', '/babiyo/resources/img/heart.png');
+	    	}
+	    }
+	}); // ajax 종료
+}
+
+function cartAddBtn(){
+	
+	var productNo = $('#productNo').val();
+	var quantity = $('#quantitySelect').val();
+	
+	$.ajax({
+	    type : 'post',           // 타입 (get, post, put 등등)
+	    url : '../cart/cartAdd.do',        // 요청할 서버url
+	    async : true,            // 비동기화 여부 (default : true)
+	    data : {
+	    	productNo : productNo,
+	    	quantity : quantity
+	    },
+	    success : function() { // 결과 성공 콜백함수
+			alert('장바구니에 추가되었습니다');
+	    }
+	}); // ajax 종료
+}
+
+
+
+</script>
+
 
 </head>
 <body>
@@ -312,148 +379,126 @@
 		<!--여기서 작성 -->
 		<div id='productMemberDetailDiv'>
 			<div id='productCategoryDiv'>
-				<span class='categoryName'>음식 분류</span>
-				<span class='category'>양식</span>
+				<span id='categoryName'>음식 분류</span>
+				<span id='category'>${productDto.categoryName}</span>
 			</div>
 			<div id='productInfoDiv'>
-				<div class='imageDiv'>
-					<a href="#"><img alt="밀키트 이미지" src=""></a>	
-				</div>
-				<div class='productInfo'>
-					<div class='productTitle'>
-						<span class='productName'>봉골레 파스타</span>
-						<input type="button" value="♡">
-					</div>
-					<div class='evaluationAndReviewCount'>
-						☆4.9(2,348)
+				<form action="../order/order.do" method="post">
+					<input type="hidden" id="productNo" name="orderDetailList[0].productNo" value="${productDto.no}">
+					<div id='imageDiv'>
+						<a href="#"><img alt="${productDto.name} 이미지" src="/babiyo/img/${productImg.STORED_NAME}"></a>	
 					</div>
 					
-					<hr class='shortDivisionLine'/>	
+					<div id='productInfo'>
+						<div id='productTitle'>
+							<span id='productName'>${productDto.name}</span>
+							<c:choose>
+							<c:when test="${favoriteCheck}">
+								<img id="favoriteHeart" alt="heart" src="/babiyo/resources/img/heart.png" onclick="favoriteFnc();">
+							</c:when>
+							<c:otherwise>
+								<img id="favoriteHeart" alt="heart" src="/babiyo/resources/img/heartEmpty.png" onclick="favoriteFnc();">
+							</c:otherwise>
+							</c:choose>
+						</div>
 					
-					<div class='inputPurchaseDetail'>
-						<div class='price'>
-							<span class='priceName'>가격: </span>
-							<span class='priceValue'>6,000</span>&nbsp;&nbsp;원
+						<div id='evaluationAndReviewCount'>
+							☆4.9(2,348)
 						</div>
-						<div class='stock'>
-							<span class='stockName'>남은 개수: </span>
-							<span class='stockValue'>100</span>
+					
+						<hr class='shortDivisionLine'/>	
+						
+						<div id='inputPurchaseDetail'>
+							<div id='price'>
+								<span id='priceName'>가격: </span>
+								<span id='priceValue'>
+									<fmt:formatNumber value="${productDto.price}" pattern="#,###"/>&nbsp;&nbsp;원
+								</span>
+								<input type="hidden" id="priceOrigin" name="orderDetailList[0].price" value="${productDto.price}">
+							</div>
+							<div id='stock'>
+								<span id='stockName'>남은 개수: </span>
+								<span id='stockValue'>${productDto.stock}</span>
+							</div>
+							<div id='quantity'>
+								<span id='quantityName'>수량: </span>
+								<select id='quantitySelect' name="orderDetailList[0].quantity" onchange="totalPriceFnc(this);">
+									<c:forEach begin="1" end="${productDto.stock}" var="i">
+										<option value="${i}">${i}</option>
+									</c:forEach>
+								</select>
+							</div>
+							<div id='totalPrice'>
+								<span id='totalPriceName'>총 결제금액: </span>
+								<span id='totalPriceValue'>
+									<fmt:formatNumber value="${productDto.price}" pattern="#,###"/>&nbsp;&nbsp;원	
+								</span>
+							</div>
 						</div>
-						<div class='quantity'>
-							<span class='quantityName'>수량: </span>
-							<select class='quantitySelect'>
-								<option value="1">1
-								<option value="2">2
-								<option value="3">3
-								<option value="4">4
-								<option value="5">5
-								<option value="6">6
-								<option value="7">7
-								<option value="8">8
-								<option value="9">9
-								<option value="10">10
-							</select>
-						</div>
-						<div class='totalPrice'>
-							<span class='totalPriceName'>총 결제금액: </span>
-							<span class='totalPriceValue'>18,000</span>&nbsp;원
+				
+						
+						<hr class='shortDivisionLine'/>
+						
+						<div id='productInfoButton'>
+							<input type="button" value="장바구니 담기" id='putShoppingCart' onclick="cartAddBtn();">
+							<input type="submit" value="주문하기" id='purchaseOrder'>
 						</div>
 					</div>
-					
-					<hr class='shortDivisionLine'/>
-					
-					<div class='productInfoButton'>
-						<input type="button" value="장바구니 담기" class='putShoppingCart'>
-						<input type="button" value="주문하기" class='purchaseOrder'>
-					</div>
-				</div>
+				</form>
 			</div>
 			<div id='productContentDiv'>
-				<div class='contentTitle'>
+				<div id='contentTitle'>
 					<p>설명</p>
 				</div>
 				
 				<hr class='longDivisionLine'/>
 				
-				<div class='content'>
-					여기서 끝이 아니다~~밤대추풋고추생강계피당귀향로타임로즈마리백미흑미오곡잡곡설탕구운소금
-					히말라야소금말돈소금후추대파쪽파양파실파잣은행초콜릿된장콩장쌈장두반장애호박늙은호박단호박
-					딸기양배추파파야두리안등의열대과일등을몽땅찜기에때려넣고50시간푹끓인후여기서끝이아니다
-					돼지고기소고기말고기양고기닭고기꿩고기쥐고기하마고기악어고기코끼리고기개고기물고기
-					불고기바람고기환단고기참치꽁치넙치뭉치면살고흝어지면참다랑어를갈아넣고여기서끝이아니다
-					비린내를제거하기위해월계수청주잭다니엘피노누아와인머루주매화수막걸리커피콩을넣고
-					여기서끝이아니다잡내제거를위해랍스타곰발바닥제비집아토끼발닭모이주머니
-					최고급와규스테이크마이아르겉껍질테운부분으로잡내를제거하고여기서끝이아니다
-					에비양삼다수아이시스아리수보리수빼어날수라싸수아름다울미백미현미흑미별미를넣고여기서끝이아니다
-					여기서 끝이 아니다~~밤대추풋고추생강계피당귀향로타임로즈마리백미흑미오곡잡곡설탕구운소금
-					히말라야소금말돈소금후추대파쪽파양파실파잣은행초콜릿된장콩장쌈장두반장애호박늙은호박단호박
-					딸기양배추파파야두리안등의열대과일등을몽땅찜기에때려넣고50시간푹끓인후여기서끝이아니다
-					돼지고기소고기말고기양고기닭고기꿩고기쥐고기하마고기악어고기코끼리고기개고기물고기
-					불고기바람고기환단고기참치꽁치넙치뭉치면살고흝어지면참다랑어를갈아넣고여기서끝이아니다
-					비린내를제거하기위해월계수청주잭다니엘피노누아와인머루주매화수막걸리커피콩을넣고
-					여기서끝이아니다잡내제거를위해랍스타곰발바닥제비집아토끼발닭모이주머니
-					최고급와규스테이크마이아르겉껍질테운부분으로잡내를제거하고여기서끝이아니다
-					에비양삼다수아이시스아리수보리수빼어날수라싸수아름다울미백미현미흑미별미를넣고여기서끝이아니다
+				<div id='content'>
+					${productDto.content}
 				</div>
 			</div>
-			<div id='reviewDiv'>
-				<div class='inlineDiv'>
-					<div class='reviewTitle'>
-						<span class='reviewName'>리뷰(2,348)</span>
-					</div>
-					<div class='filter'>
-						<span class='latest'>최신순</span>
-					</div>
+			
+			
+<!-- 			<div id='reviewDiv'> -->
+<!-- 				<div class='inlineDiv'> -->
+<!-- 					<div class='reviewTitle'> -->
+<!-- 						<span class='reviewName'>리뷰(2,348)</span> -->
+<!-- 					</div> -->
+<!-- 					<div class='filter'> -->
+<!-- 						<span class='latest'>최신순</span> -->
+<!-- 					</div> -->
 					
-					<div class='shortVerticalLine'></div>
+<!-- 					<div class='shortVerticalLine'></div> -->
 					
-					<div class='filter'>
-						<span class='highRating'>평점 높은 순</span>
-					</div>
-					<div class='writeReview'>
-						<input type="button" value='리뷰 쓰기' class='writeReviewButton'>
-					</div>
-				</div>
+<!-- 					<div class='filter'> -->
+<!-- 						<span class='highRating'>평점 높은 순</span> -->
+<!-- 					</div> -->
+<!-- 					<div class='writeReview'> -->
+<!-- 						<input type="button" value='리뷰 쓰기' class='writeReviewButton'> -->
+<!-- 					</div> -->
+<!-- 				</div> -->
 				
-				<hr class='longDivisionLine'/>
+<!-- 				<hr class='longDivisionLine'/> -->
 				
-				<div class='userEvaluation'>
-					<div class='nickname'>조윤성</div>
-					<div class='wrapStar'>
-						<div class='starRating'>
-						</div>
-					</div>
-					<div class='userUploadImage'>
-						<a href="#"><img alt="밀키트 이미지 " src=""></a>
-						<a href="#"><img alt="밀키트 이미지 " src=""></a>
-						<a href="#"><img alt="밀키트 이미지 " src=""></a>
-						<a href="#"><img alt="밀키트 이미지 " src=""></a>
-					</div>
-					<div class='reviewContent'>
-						오늘은팬더차이나에가서사천식소고기볶음밥을먹었다.
-						윤성씨가쏴서먹었는데칠리탕수육도그렇고정말맛있었다.
-						매워서땀이났지만맛있게매워서좋았다.
-						사장님도예쁘시고가게도멀지않고맛도좋으니가끔가야겠다.
-						보답으로에너지가득한New취향탄생태극전사레드불에너지를사드렸다.
-						근데맛이레드불에그냥음료탄맛이다.
-						이걸4천원받고팔다니양심이있는건지모르겠다.
-						음료수라고생각하면나쁘지않기는하다.
-						내일까지이력서랑자소서써야되니까저녁에안잘용도로는괜찮을것같다.
-						오늘은팬더차이나에가서사천식소고기볶음밥을먹었다.
-						윤성씨가쏴서먹었는데칠리탕수육도그렇고정말맛있었다.
-						매워서땀이났지만맛있게매워서좋았다.
-						사장님도예쁘시고가게도멀지않고맛도좋으니가끔가야겠다.
-						보답으로에너지가득한New취향탄생태극전사레드불에너지를사드렸다.
-						근데맛이레드불에그냥음료탄맛이다.
-						이걸4천원받고팔다니양심이있는건지모르겠다.
-						음료수라고생각하면나쁘지않기는하다.
-						내일까지이력서랑자소서써야되니까저녁에안잘용도로는괜찮을것같다.
-					</div>
-				</div>
-			</div>
-			<div id='lowerButtonDiv'>
-				<input type="submit" value="리뷰 더 보기" class='lowerButton'>	
-			</div>
+<!-- 				<div class='userEvaluation'> -->
+<!-- 					<div class='nickname'>조윤성</div> -->
+<!-- 					<div class='wrapStar'> -->
+<!-- 						<div class='starRating'> -->
+<!-- 						</div> -->
+<!-- 					</div> -->
+<!-- 					<div class='userUploadImage'> -->
+<!-- 						<a href="#"><img alt="밀키트 이미지 " src=""></a> -->
+<!-- 					</div> -->
+<!-- 					<div class='reviewContent'> -->
+<!-- 					</div> -->
+<!-- 				</div> -->
+<!-- 			</div> -->
+<!-- 			<div id='lowerButtonDiv'> -->
+<!-- 				<input type="submit" value="리뷰 더 보기" class='lowerButton'>	 -->
+<!-- 			</div> -->
+
+
+
 		</div>
 		
 		<div id="underPadding"></div>
