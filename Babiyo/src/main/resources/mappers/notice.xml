@@ -31,7 +31,9 @@
 </select>
 
 <!-- 공지 작성 -->
+<insert id="noticeWrite">
 
+</insert>
 
 <!-- 공지 상세 -->
 <select id="noticeSelectOne" parameterType="int"
@@ -54,5 +56,22 @@
 	DELETE NOTICE
 	WHERE NO = ${value}
 </delete>
+
+<!-- 사진 -->
+<select id="fileSelectList" resultMap="noticeImageResultMap"
+ 	parameterType="int" resultType="map">
+	SELECT NO, NOTICE_NO, ORIGINAL_NAME, STORED_NAME 
+	FROM NOTICE_IMAGE
+	WHERE NO = #{noticeNo}
+</select>
+
+<select id="fileSelectStoredFileName" resultMap="noticeImageResultMap"
+	parameterType="int" resultType="map">
+	SELECT NO, STORED_NAME
+	FROM NOTICE_IMAGE
+	WHERE NO = #{noticeNo}
+</select>
+
+
 
 </mapper>

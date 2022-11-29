@@ -1,5 +1,6 @@
 package com.mealmaker.babiyo.inquiry.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -13,11 +14,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.mealmaker.babiyo.inquiry.model.InquiryDto;
 import com.mealmaker.babiyo.inquiry.service.InquiryService;
 import com.mealmaker.babiyo.member.dao.MemberDao;
 import com.mealmaker.babiyo.member.model.MemberDto;
+import com.mealmaker.babiyo.util.Paging;
+import com.mealmaker.babiyo.util.SearchOption;
 
 // 어노테이션 드리븐
 @Controller
@@ -30,7 +34,6 @@ public class InquiryController {
 	
 	@Resource
 	private MemberDao memberDao;
-	
 	//회원
 	// 문의 게시글 목록
 	@RequestMapping(value = "/inquiry/member.do", method = RequestMethod.GET)
@@ -114,15 +117,33 @@ public class InquiryController {
 	// 관리자
 	// 문의 게시글 목록
 	@RequestMapping(value = "/inquiry/admin.do", method = RequestMethod.GET)
-	public String adminInquiry(HttpSession session, Model model) {
+	public String adminInquiry(@RequestParam(defaultValue = "1") int curPage
+			,@RequestParam(defaultValue = "") String search
+			,@RequestParam(defaultValue = "0")int answerState
+			,@RequestParam(defaultValue = "0") int categoryCode
+			, HttpSession session, Model model) {
 		logger.info("Welcome adminInquiryController list! ");
 		
-		MemberDto memberDto = memberDao.memberExist("admin", "123");
-		session.setAttribute("_memberDto_", memberDto);
+		Map<String, Object> map = inquiryService.adminInquiryList(search ,answerState, categoryCode, curPage);
 		
-		List<InquiryDto> adminList = inquiryService.adminInquirySelectList();
-
+		//문의글 리스트
+		@SuppressWarnings("unchecked")
+		List<InquiryDto> adminList = (List<InquiryDto>) map.get("inquiryList");
+		Paging paging = (Paging) map.get("paging");
+		
+		//분류 리스트
+		List<Map<String, Object>> categoryCodeList = inquiryService.categoryCodeList();
+		
+		Map<String, Object> searchMap = new HashMap<String, Object>();
+		
+		searchMap.put("search", search);
+		searchMap.put("answerState", answerState);
+		searchMap.put("categoryCode", categoryCode);
+		
 		model.addAttribute("adminList", adminList);
+		model.addAttribute("categoryCodeList", categoryCodeList);
+		model.addAttribute("paging", paging);
+		model.addAttribute("searchMap", searchMap);
 
 		return "inquiry/adminInquiryListView";
 	}

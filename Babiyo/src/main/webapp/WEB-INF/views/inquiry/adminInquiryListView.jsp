@@ -92,13 +92,20 @@ td {
 <script type="text/javascript">
 	$(function() {
 
-		$('#stateSelect').val($('#stateCode').val());
+		$('#answerSelect').val($('#answerState').val());
+		$('#categorySelect').val($('#categoryCode').val());
 
 	});
 
-	function stateSelectFnc() {
+	function categorySelectFnc() {
 
-		$('#stateForm').submit();
+		$('#filterForm').submit();
+
+	}
+	
+	function answerSelectFnc() {
+
+		$('#filterForm').submit();
 
 	}
 	function backBtn() {
@@ -123,16 +130,24 @@ td {
 				<!--여기서 작성 -->
 				<div id="searchOption">
 					<!-- searchOption div 시작-->
-					<form id="stateForm" action="get">
-						<span>분류</span> <select id="stateSelect" name="stateCode"
-							onchange="stateSelectFnc();">
+					<form id="filterForm" action="./admin.do" method="get">
+						<span>분류</span> 
+						<select id="answerSelect" name="answerState"
+							onchange="answerSelectFnc();">
 							<option value="0">전체</option>
-							<option>완료된 답변</option>
-							<option>대기중 답변</option>
-							<c:forEach items="" var="state">
-								<option value=""></option>
-							</c:forEach>
+							<option value="1">완료된 답변</option>
+							<option value="2">대기중 답변</option>
 						</select>
+						
+						<select id="categorySelect" name="categoryCode"
+							onchange="categorySelectFnc();">
+						<option value="0">전체</option>
+						<c:forEach items="${categoryCodeList}" var="category">
+							<option value="${category.CODE}">${category.NAME}</option>
+						</c:forEach>
+						</select>
+						
+						<input type="text" name="search">
 					</form>
 				</div>
 				<!-- searchOption div 끝-->
@@ -164,7 +179,7 @@ td {
 										<td><a href="./admin/answer.do?no=${inquiryDto.no}">${inquiryDto.title}</a></td>
 										<td><fmt:formatDate pattern="yyyy년MM월dd일 "
 												value="${inquiryDto.createDate}" /></td>
-										<c:choose>
+									<c:choose>
 											<c:when test="${empty inquiryDto.answer}">
 												<td>N</td>
 											</c:when>

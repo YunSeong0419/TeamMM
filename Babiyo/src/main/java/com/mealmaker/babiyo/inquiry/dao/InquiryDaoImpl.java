@@ -1,5 +1,6 @@
 package com.mealmaker.babiyo.inquiry.dao;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.mealmaker.babiyo.inquiry.model.InquiryDto;
+import com.mealmaker.babiyo.util.SearchOption;
 
 @Repository
 public class InquiryDaoImpl implements InquiryDao{
@@ -48,10 +50,35 @@ public class InquiryDaoImpl implements InquiryDao{
 	}
 	
 	//관리자
+	
 	@Override
-	public List<InquiryDto> adminInquirySelectList() {
+	public int adminInquiryCount(String search, int answerState, int categoryCode) {
 		// TODO Auto-generated method stub
-		return sqlSession.selectList(namespace + "adminList");
+		Map<String, Object> paraMap = new HashMap<String, Object>();
+		
+		paraMap.put("search", search);
+		paraMap.put("answerState", answerState);
+		paraMap.put("categoryCode", categoryCode);
+		
+		return sqlSession.selectOne(namespace + "adminInquiryCount", paraMap);
+	}
+	
+	@Override
+	public List<InquiryDto> adminInquiryList(int begin, int end, String search
+			, int answerState, int categoryCode, int curPage) {
+		// TODO Auto-generated method stub
+		
+		Map<String, Object> paraMap = new HashMap<String, Object>();
+		
+		paraMap.put("begin", begin);
+		paraMap.put("end", end);
+		paraMap.put("search", search);
+		paraMap.put("answerState", answerState);
+		paraMap.put("categoryCode", categoryCode);
+		paraMap.put("curPage", curPage);
+		
+		
+		return sqlSession.selectList(namespace + "adminInquiryList", paraMap);
 	}
 	
 	@Override
@@ -71,5 +98,15 @@ public class InquiryDaoImpl implements InquiryDao{
 		// TODO Auto-generated method stub
 		return sqlSession.update(namespace + "adminDeleteOne", inquiryDto);
 	}
+
+	@Override
+	public List<Map<String, Object>> categoryCodeList() {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList(namespace + "inquiryCategoeyList");
+	}
+
+
+	
+
 
 }
