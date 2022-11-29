@@ -6,7 +6,10 @@ import java.util.Map;
 import com.mealmaker.babiyo.review.model.ReviewDto;
 
 public interface ReviewDao {
-
+	//목록
+	List<ReviewDto> reviewList();
+	//목록-리뷰 수
+	public int reviewQuantity(int productNo);
 	//상세
 	List<ReviewDto> reviewDetail();
 	//이미지 첨삭

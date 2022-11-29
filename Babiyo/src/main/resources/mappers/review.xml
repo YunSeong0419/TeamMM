@@ -3,16 +3,48 @@
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mealmaker.babiyo.review">
 
+	<sql id="search">
+		<choose>
+			<when test="searchOption == 'all'">
+				WHERE	MEMBER_ID LIKE '%'||#{keyword}||'%'
+				OR		PRODUCT_NO LIKE '%'||#{keyword}||'%'
+			</when>
+			<otherwise>
+				WHERE	${searchOption} LIKE '%'||#{keyword}||'%'
+			</otherwise>
+		</choose>
+	</sql>
+	
+	<sql id="sort">
+		ORDER BY	${sortOption}
+	</sql>
+	
 	<resultMap type="reviewDto" id="reviewResultMap">
 		<id column="NO" property="no"/>
 		<result column="PRODUCT_NO" property="productNo"/>
+		<result column="PRODUCT_NAME" property="productName"/>
+		<result column="CATEGORY_NAME" property="categoryName"/>
 		<result column="MEMBER_ID" property="memberId"/>
 		<result column="STAR_RATING" property="starRating"/>
 		<result column="CONTENT" property="content"/>
 		<result column="CREATE_DATE" property="createDate"/>
 		<result column="MODIFY_DATE" property="modifyDate"/>
 	</resultMap>
+
+	<select id="reviewList" resultMap="reviewResultMap">
+		SELECT R.NO, R.PRODUCT_NO, C.NAME CATEGORY_NAME, P.NAME PRODUCT_NAME, R.STAR_RATING
+		FROM REVIEW R INNER JOIN PRODUCT_CATEGORY C
+		ON R.PRODUCT_NO = C.CODE
+		LEFT JOIN PRODUCT P
+		ON P.NO = R.PRODUCT_NO
+	</select>
 	
+	<select id="reviewQuantity" resultType="java.lang.Integer" parameterType="map">
+		SELECT COUNT(PRODUCT_NO)
+		FROM REVIEW
+		WHERE PRODUCT_NO = #{productNo}
+	</select>
+
 	<select id="reviewDetail" parameterType="reviewDto" resultMap="reviewResultMap">
 		SELECT NO, PRODUCT_NO, MEMBER_ID, STAR_RATING, CONTENT, CREATE_DATE, MODIFY_DATE
 		FROM REVIEW

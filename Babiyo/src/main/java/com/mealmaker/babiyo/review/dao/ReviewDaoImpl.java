@@ -17,6 +17,20 @@ public class ReviewDaoImpl implements ReviewDao{
 	
 	String namespace = "com.mealmaker.babiyo.review.";
 	
+	//DB에서 리뷰 목록 퍼오기
+	@Override
+	public List<ReviewDto> reviewList() {
+		
+		return sqlSession.selectList(namespace + "reviewList");
+	}
+	
+	//DB에서 리뷰 목록-리뷰 수 퍼오기
+	@Override
+	public int reviewQuantity(int productNo) {
+		
+		return sqlSession.selectOne(namespace + "reviewQuantity", productNo);
+	}
+	
 	//DB에 있는 리뷰 상세 퍼오기
 	@Override
 	public List<ReviewDto> reviewDetail() {
