@@ -52,7 +52,7 @@ public class MemberController {
 			session.setAttribute("_memberDto_", memberDto);
 //			session.setMaxInactiveInterval(60);
 			logger.info("Welcome");
-			viewUrl = "/main/main";
+			viewUrl = "redirect:/main.do";
 		}else {
 			viewUrl = "/auth/LoginFail";
 		}

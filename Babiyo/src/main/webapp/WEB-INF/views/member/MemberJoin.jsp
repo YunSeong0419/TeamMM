@@ -26,7 +26,7 @@ form {
 }
 
 .chk_plz {
-	color: red;
+	color: orange;
 }
 
 .bir_yy {
@@ -72,7 +72,7 @@ form {
 	padding-top: 20px;
 	padding-right: 0;
 	border: none;
-	background: green;
+	background: grey;
 	color: white;
 	font-size: 30px;
 	text-align: center;
@@ -80,24 +80,193 @@ form {
 </style>
 
 <script type="text/javascript">
-	
+
+var chk1 = false; //유효성검사를 위한 변수들
+var chk2 = false;
+var chk3 = false;
+var chk4 = false;
+var chk5 = false;
+var chk6 = false;
+var chk7 = false;
+var chk8 = false;
+var chk9 = false;
+
 $(document).ready(function(){
 	
-	$('.birth').change(function() {
-		var birthday = '';
+		midObj = document.getElementById('mid');
+		idChkObj = document.getElementById('id_plz');
+		pwdObj = document.getElementById('pwd');
+		pwdChkObj = document.getElementById('pwd_plz');
+		chkPwdObj = document.getElementById('chkPwd');
+		chkPwdChkObj = document.getElementById('chkPwd_plz');
+		mnameObj = document.getElementById('mname');
+		nameChkObj = document.getElementById('name_plz');
+		birthChkObj = document.getElementById('birthchk_plz');
+		emailObj = document.getElementById('email');
+		emailChkObj = document.getElementById('mail_plz');
+		phoneObj = document.getElementById('phone');
+		phoneChkObj = document.getElementById('phone_plz');
+		nicknameObj = document.getElementById('nickname');
+		nicknameChkObj = document.getElementById('nickname_plz');
+		allchk = document.getElementById('all_chk');
+		yearObj = document.getElementById('myYear');
+		monthObj = document.getElementById('myMonth');
+		dayObj = document.getElementById('myDay');
+		genderObjList = document.getElementsByClassName('gender');
 		
-		var year = $('#myYear').val();
-		var month = $('#myMonth').val();
-		var day = $('#myDay').val();
+		allchk.addEventListener('click', function(e) {
+			var form = document.forms;
+			
+			if (chk1 == true && chk2 == true && chk3 == true && chk4 == true
+					&& chk5 == true && chk6 == true && chk7 == true && chk8 == true
+					&& chk9 == true) {
+				form[0].submit();
+			}
+		});
 		
-		birthday = year+month+day;
-
-		$('#birthDate').val(birthday);
-	});
-	
-
+		
+		$('.birth').change(function() {
+			var birthday = '';
+			
+			if($('#myYear').val() != null && $('#myMonth').val() != null
+					&& $('#myDay').val() != null){
+				chk8 = true;
+			}
+			
+			var year = $('#myYear').val();
+			var month = $('#myMonth').val();
+			var day = $('#myDay').val();
+			
+			birthday = year+month+day;
+			$('#birthDate').val(birthday);
+			
+		});
+		
+		
+		for (let obj of genderObjList) {
+			obj.addEventListener('change', function(e) {
+				chk9 = true;
+				allChkColor();
+			});
+		}
+		
+		
+		midObj.addEventListener('blur', function() {
+			var spObj = /[`~!@#$%^&*|\\\";:\/?]/;
+			var check_kor = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
+			var check_eng = /[A-Z]/;
+			if (midObj.value == '') {
+				idChkObj.innerHTML = '필수정보입니다';
+			}else if (midObj.value.length < 5 || check_kor.test(midObj.value)
+					|| spObj.test(midObj.value) || check_eng.test(midObj.value)) {
+				idChkObj.innerHTML = '5~20자의 영문 소문자,'
+				+ '숫자와 특수기호(_),(-)만 사용 가능합니다.';
+			}else {
+				idChkObj.innerHTML = '';
+				chk1 = true;
+			}
+			allChkColor();
+		});
+		
+		
+		
+		pwdObj.addEventListener('blur', function() {
+			var spObj = /[`~!@#$%^&*|\\\";:\/?]/;
+			var check_eng = /[a-zA-Z]/;
+			if (pwdObj.value == '') {
+				pwdChkObj.innerHTML = '필수정보입니다';
+			}else if (pwdObj.value.length < 8 || 
+					 !spObj.test(pwdObj.value) || !check_eng.test(pwdObj.value)) {
+				pwdChkObj.innerHTML = '8~16자 영문 대 소문자, 숫자, 특수문자를 사용하세요.';
+			}else {
+				pwdChkObj.innerHTML = '';
+				chk2 = true;
+			}
+			allChkColor();
+			
+		});
+		
+		chkPwdObj.addEventListener('blur', function() {
+			if (chkPwdObj.value == '') {
+				chkPwdChkObj.innerHTML = '필수정보입니다';
+			}else if (pwdObj.value != chkPwdObj.value) {
+				chkPwdChkObj.innerHTML = '비밀번호가 일치하지 않습니다.';
+			}else if (pwdObj.value = chkPwdObj.value) {
+				chkPwdChkObj.innerHTML = '';
+				chk3 = true;
+			}
+			allChkColor();
+		});
+		
+		mnameObj.addEventListener('blur', function() {
+			var spObj = /[`~!@#$%^&*|\\\";:\/? ]/;
+			var check_lang = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣|a-zA-Z]/;
+			var check_mix = /[a-zA-Z]+[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
+			var check_mixTwo = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]+[a-zA-Z]/;
+			var check_num = /[0-9]/;
+			if (mnameObj.value == '') {
+				nameChkObj.innerHTML = '필수정보입니다';
+			}else if(!check_lang.test(mnameObj.value) || check_num.test(mnameObj.value)
+					|| spObj.test(mnameObj.value) || check_mix.test(mnameObj.value)
+					|| check_mixTwo.test(mnameObj.value)){
+				nameChkObj.innerHTML = '한글과 영문 대 소문자를 사용하세요. (특수기호, 공백 사용 불가)';
+			}else {
+				nameChkObj.innerHTML = '';
+				chk4 = true;
+			} 
+			allChkColor();
+		});
+		
+		emailObj.addEventListener('blur', function() {
+			var exptext =  /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/;
+			if (emailObj.value == '') {
+				emailChkObj.innerHTML = '필수정보입니다';
+			}else if(exptext.test(emailObj.value)==false){
+				emailChkObj.innerHTML = '이메일 형식이 올바르지 않습니다';
+			}else{
+				emailChkObj.innerHTML = '';
+				chk5 = true;
+			}
+			allChkColor();
+			
+		});
+		
+		phoneObj.addEventListener('blur', function() {
+			var check_num = /^[0-9]{3}[0-9]{4}[0-9]{4}/;
+			if (phoneObj.value == '') {
+				phoneChkObj.innerHTML = '필수정보입니다';
+			}else if (!check_num.test(phoneObj.value)){
+				phoneChkObj.innerHTML = '핸드폰번호 11자리를 입력해주세요';
+			}else {
+				phoneChkObj.innerHTML = '';
+				chk6 = true;
+			}
+			allChkColor();
+		});
+		
+		nicknameObj.addEventListener('blur', function() {
+			if (nicknameObj.value == '') {
+				nicknameChkObj.innerHTML = '필수정보입니다';
+			}else{
+				nicknameChkObj.innerHTML = '';
+				chk7 = true;
+			}
+			allChkColor();
+		});
 	
 });	
+
+function allChkColor() {
+	
+	if (chk1 == true && chk2 == true && chk3 == true && chk4 == true
+			&& chk5 == true && chk6 == true && chk7 == true && chk8 == true
+			&& chk9 == true) {
+		allchk.style.background = 'orange';
+	}else {
+		allchk.style.background = 'gray';
+	}
+	
+};
 
 
 
@@ -109,13 +278,13 @@ $(document).ready(function(){
 	<div id='wrap'>
 		<div id='header'>
 			<h1>
-				<a href="../auth/LoginForm"> <img
+				<a href="/auth/LoginForm"> <img
 					style="width: 300px; height: 100px;"
 					src="/babiyo/resources/img/logo.png">
 				</a>
 			</h1>
 		</div>
-		<form action='./addCtr.do' method='post'>
+		<form id="addForm" action='./addCtr.do' method='post'>
 			<div>
 				<h3>아이디</h3>
 				<span> <input class="input_box" type='text' id='mid'
@@ -149,10 +318,10 @@ $(document).ready(function(){
 				<h3>이메일</h3>
 				<div>
 					<span> <input style="padding-right: 250px;"
-						class="input_box" type='text' id='email' name='email'
-						placeholder="선택입력">
+						class="input_box" type='text' id='email' name='email'>
 					</span>
 				</div>
+				<p id='mail_plz' class="chk_plz"></p>
 			</div>
 			<div class="bir_wrap">
 				<h3>생년월일</h3>
@@ -209,21 +378,23 @@ $(document).ready(function(){
 			<p id='birthchk_plz' class='chk_plz'></p>
 			<div>
 				<h3>
-					성별 <input type="radio" name="gender" value='남'>남 <input
-						type="radio" name="gender" value='여'>여
+					성별  <input type="radio" class="gender" name="gender" value='남'>남 
+						<input type="radio" class="gender" name="gender" value='여'>여
 				</h3>
 			</div>
 			<div>
 				<h3>휴대폰번호</h3>
-				<input type="text" style="padding-right: 250px;" class="input_box"
-					name="phone">
+				<input type="text" id="phone" style="padding-right: 250px;" class="input_box"
+					name="phone" maxlength="11">
 			</div>
+			<p id='phone_plz' class="chk_plz"></p>
 			<div>
 				<h3>닉네임</h3>
-				<input type="text" style="padding-right: 250px;" class="input_box"
+				<input type="text" id="nickname" style="padding-right: 250px;" class="input_box"
 					name="nickname">
 			</div>
-			<input id='all_chk' type="submit" value='가입하기'>
+			<p id='nickname_plz' class="chk_plz"></p>
+			<input id='all_chk' type="button" value='가입하기'>
 		</form>
 	</div>
 </body>

@@ -4,17 +4,18 @@
 <html>
 <head>
 <meta charset="UTF-8" http-equiv="Refresh" content="3;url=./login.do">
+<script type="text/javascript">
+alert('잘못된 회원정보 입니다.');
+location.href='./login.do';
+
+</script>
 
 <title>로그인 실패</title>
 
 </head>
 
 <body>
-	<p>
-		로그인을 실패하였습니다.
-		이메일 또는 암호가 맞지 않습니다.!<br>
-		잠시 후에 다시 로그인 화면으로 이동합니다.
-	</p>
+	
 	
 </body>
 

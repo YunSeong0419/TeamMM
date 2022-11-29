@@ -7,9 +7,29 @@
 <head>
 <meta charset="UTF-8">
 <title>밀캐시</title>
+<style type="text/css">
+	#infoBox {
+		text-align: center;
+		width: 300px;
+	}
+	
 
+
+</style>
 <link rel="stylesheet" type="text/css" href="/babiyo/resources/css/common.css"/>
 <script type="text/javascript" src="/babiyo/resources/js/jquery-3.6.1.js"></script>
+
+
+<script type="text/javascript">
+
+function moveChargeFnc() {
+	location.href ='../cash/chargeCash.do';
+}
+
+
+
+</script>
+
 
 </head>
 <body>
@@ -24,14 +44,19 @@
 		
 		<div id="middleMainDiv">
 			<div id="sideTitle"></div>
-			<!--여기서 작성 -->
 			<div id="middleDiv">
-				<div id='centerTitle'></div>
 				<!--여기서 작성 -->
-				${_memberDto_.id}님의 보유 밀캐시
-				${_memberDto_.cash}원
-			
-			
+				<div id='infoBox'>
+					<p>${_memberDto_.id}님의 보유 밀캐시</p>
+					<p>${_memberDto_.cash}원</p>
+					
+					<span>
+					<input type="button" id="charge" value="충전" onclick='moveChargeFnc()'>
+					<input type="button" value="충전 내역">	
+					<input type="button" value="사용 내역">
+					</span>
+				</div>
+				
 			
 				<div id="underPadding"></div>
 				
