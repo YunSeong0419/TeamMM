@@ -46,10 +46,12 @@
 					<option value="2">이벤트</option>
 				</select>
 			</div>
+			<c:if test="">
 			<div>
 				기간<input name="eventStartDate" id="eventStartDateId" type="date" value="SYSDATE" readonly="readonly">
 				 ~ <input name="eventEndDate" id="eventEndDateId" type="date">
 			</div>
+			</c:if>
 			<div>      
 				제목 <input name="title" id="titleId" type="text">
 			</div>

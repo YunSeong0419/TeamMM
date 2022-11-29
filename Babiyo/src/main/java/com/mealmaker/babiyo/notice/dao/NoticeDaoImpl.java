@@ -1,12 +1,14 @@
 package com.mealmaker.babiyo.notice.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.mealmaker.babiyo.notice.model.NoticeDto;
+import com.mealmaker.babiyo.notice.model.NoticeImageDto;
 
 @Repository
 public class NoticeDaoImpl implements NoticeDao{
@@ -22,6 +24,12 @@ public class NoticeDaoImpl implements NoticeDao{
 		return sqlSession.selectList(namespace + "noticeList");
 	}
 	
+	@Override
+	public int noticeWrite(NoticeDto noticeDto) {
+		// TODO Auto-generated method stub
+		return 0;
+//		sqlSession.insert(namespace + "noticeWrite", noticeDto, noticeImageDto);
+	}
 	
 	@Override
 	public NoticeDto noticeSelectOne(int no) {
@@ -37,5 +45,21 @@ public class NoticeDaoImpl implements NoticeDao{
 		// TODO Auto-generated method stub
 		 sqlSession.delete(namespace + "noticeDeleteOne", no);
 	}
+
+	@Override
+	public List<Map<String, Object>> fileSelectList(int no) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList(namespace + "fileSelectList", no);
+	}
+
+	@Override
+	public Map<String, Object> fileSelectStoredFileName(int parentSeq) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(namespace + "fileSelectStoredFileName"
+				, parentSeq);
+	}
+
+
+	
 
 }

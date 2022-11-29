@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.mealmaker.babiyo.inquiry.model.InquiryDto;
+import com.mealmaker.babiyo.util.SearchOption;
 
 public interface InquiryService {
 	//회원
@@ -19,7 +20,8 @@ public interface InquiryService {
 	public void inquiryDeleteOne(int no);
 	//관리자
 	//리스트
-	public List<InquiryDto> adminInquirySelectList();
+	public List<Map<String, Object>> categoryCodeList();
+	public Map<String, Object> adminInquiryList(String search, int answerState, int categoryCode, int curPage);
 	//상세
 	public Map<String, Object> adminInquirySelectOne(int no);
 	//문의 답변 , 수정

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.mealmaker.babiyo.notice.model.NoticeDto;
 import com.mealmaker.babiyo.notice.model.NoticeImageDto;
@@ -43,49 +45,56 @@ public class NoticeController {
 	@RequestMapping(value = "/notice/write.do", method = RequestMethod.GET)
 	public String noticeWrite(HttpSession session, Model model) {
 		logger.info("Welcome NoticeController write! ");
-
-		return "notice/adminNoticeWrite";
+		
+		return "notice/noticeWrite";
 	}
 	
 	//공지 게시글 작성
 	@RequestMapping(value = "/notice/writeCtr.do", method = RequestMethod.POST)
-	public String noticeWriteCtr(NoticeDto noticeDto, NoticeImageDto noticeImageDto, Model model) {
+	public String noticeWriteCtr(MultipartHttpServletRequest mulRequest
+			, NoticeDto noticeDto, NoticeImageDto noticeImageDto, Model model) {
 		logger.info("Welcome InquiryMemberController memberWrite 신규 공지 작성! ");
 
-//		noticeService.noticeWrite(noticeDto);
+		try {
+//		noticeService.noticeWrite(noticeDto, mulRequest);
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println("파일문제");
+			e.printStackTrace();
+		}
 
 		return "redirect:/notice/member.do";
 	}
 	
 	
-	//공지 상세 
-	@RequestMapping(value = "/notice/detail.do", method = RequestMethod.GET)
-	public String noticeDetail(int no, HttpSession session, Model model) {
-		logger.info("Welcome NoticeController detail! ");
-
-		Map<String, Object> map = noticeService.noticeSelectOne(no);
-		
-		NoticeDto noticeDto = (NoticeDto) map.get("noticeDto");
-		
-		model.addAttribute("noticeDto", noticeDto);
-		 
-		return "notice/noticeDetail";
-	}
+//	//공지 상세 
+//	@RequestMapping(value = "/notice/detail.do", method = RequestMethod.GET)
+//	public String noticeDetail(int no, HttpSession session, Model model) {
+//		logger.info("Welcome NoticeController detail! ");
+//
+//		Map<String, Object> map = noticeService.noticeSelectOne(no);
+//		
+//		NoticeDto noticeDto = (NoticeDto) map.get("noticeDto");
+//		
+//		model.addAttribute("noticeDto", noticeDto);
+//		 
+//		return "notice/noticeDetail";
+//	}
 	
-	//공지 수정화면으로
-	@RequestMapping(value = "/notice/update.do", method = RequestMethod.GET)
-	public String noticeUpdate(int no, Model model) {
-		logger.info("Welcome NoticeController update! ");
-
-		Map<String, Object> map = noticeService.noticeSelectOne(no);
-		
-		NoticeDto noticeDto = (NoticeDto) map.get("noticeDto");
-		
-		model.addAttribute("noticeDto", noticeDto);
-		 
-		return "notice/noticeUpate";
-	}
-	
+//	//공지 수정화면으로
+//	@RequestMapping(value = "/notice/update.do", method = RequestMethod.GET)
+//	public String noticeUpdate(int no, Model model) {
+//		logger.info("Welcome NoticeController update! ");
+//
+//		Map<String, Object> map = noticeService.noticeSelectOne(no);
+//		
+//		NoticeDto noticeDto = (NoticeDto) map.get("noticeDto");
+//		
+//		model.addAttribute("noticeDto", noticeDto);
+//		 
+//		return "notice/noticeUpate";
+//	}
+//	
 	
 	//공지 수정
 	@RequestMapping(value = "/notice/updateCtr.do", method = RequestMethod.POST)

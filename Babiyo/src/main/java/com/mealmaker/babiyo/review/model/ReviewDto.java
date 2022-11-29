@@ -9,6 +9,8 @@ public class ReviewDto {
 
 	private int no;
 	private int productNo;
+	private String productName;
+	private String categoryName;
 	private String memberId;
 	private int starRating;
 	private String content;

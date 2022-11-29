@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 
 import com.mealmaker.babiyo.inquiry.dao.InquiryDao;
 import com.mealmaker.babiyo.inquiry.model.InquiryDto;
+import com.mealmaker.babiyo.util.Paging;
+import com.mealmaker.babiyo.util.SearchOption;
 
 
 @Service
@@ -64,11 +66,6 @@ public class InquiryServiceImpl implements InquiryService{
 	}
 	
 	//관리자
-	@Override
-	public List<InquiryDto> adminInquirySelectList() {
-		// TODO Auto-generated method stub
-		return inquiryDao.adminInquirySelectList();
-	}
 
 	@Override
 	public Map<String, Object> adminInquirySelectOne(int no) {
@@ -93,6 +90,34 @@ public class InquiryServiceImpl implements InquiryService{
 	public int adminInquiryDeleteOne(InquiryDto inquiryDto) {
 		// TODO Auto-generated method stub
 		return inquiryDao.adminInquiryDeleteOne(inquiryDto);
+	}
+	
+	@Override
+	public List<Map<String, Object>> categoryCodeList() {
+		// TODO Auto-generated method stub
+		return inquiryDao.categoryCodeList();
+	}
+
+	@Override
+	public Map<String, Object> adminInquiryList(String search, int answerState, int categoryCode, int curPage){
+		// TODO Auto-generated method stub
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		int totalCount = inquiryDao.adminInquiryCount(search, answerState, categoryCode);
+		
+		Paging paging = new Paging(totalCount, curPage);
+		
+		int begin = paging.getPageBegin();
+		int end = paging.getPageEnd();
+		
+		List<InquiryDto> inquiryList = inquiryDao.adminInquiryList(begin, end, search, answerState, categoryCode, curPage);
+		
+		map.put("paging", paging);
+		map.put("inquiryList", inquiryList);
+		
+		System.out.println(inquiryList);
+		
+		return map;
 	}
 
 }

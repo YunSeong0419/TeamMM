@@ -35,9 +35,31 @@ public class ReviewServiceImpl implements ReviewService{
 	@Autowired
 	public ReviewDao reviewDao;
 
+	//DAO에서 밀키트 목록 꺼내오게 시키기
+	@Override
+	public List<Map<String, Object>> reviewList() {
+		List<Map<String, Object>> resultList = new ArrayList<>();
+		
+		List<ReviewDto> reviewList = reviewDao.reviewList();
+		
+		for (ReviewDto reviewDto : reviewList) {
+			Map<String, Object> map = new HashMap<String, Object>();
+			
+			int productNo = reviewDto.getProductNo();
+			int reviewQuantity = reviewDao.reviewQuantity(productNo);
+			
+			map.put("reviewDto", reviewDto);
+			map.put("reviewQuantity", reviewQuantity);
+			
+			resultList.add(map);
+		}
+		
+		return resultList;
+	}
+	
 	//DAO에서 리뷰 상세 꺼내오게 시키기
 	@Override
-	public List<Map<String, Object>> reviewDetail() {
+	public List<Map<String, Object>> detail() {
 		List<ReviewDto> reviewDetail = reviewDao.reviewDetail();
 		
 		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
@@ -56,4 +78,38 @@ public class ReviewServiceImpl implements ReviewService{
 		
 		return list;
 	}
+
+
+	@Override
+	public void reviewRegistration(ReviewDto reviewDto, MultipartHttpServletRequest multipartHttpServletRequest)
+			throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Map<String, Object> reviewAdminDetail(int no) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int reviewModification(ReviewDto reviewDto, MultipartHttpServletRequest multipartHttpServletRequest,
+			int fileIdx) throws Exception {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void reviewDelete(int no) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public int reviewTotalCount(String searchOption, String sortOption, String keyword) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }

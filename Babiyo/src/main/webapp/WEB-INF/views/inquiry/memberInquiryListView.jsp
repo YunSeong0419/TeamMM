@@ -143,6 +143,7 @@ td {
 				<!-- searchOption div 끝-->
 
 				<div>
+			<%-- 	 <input type="hidden" name="memberId" value="${inquiryDto.memberId}">  --%>
 					<!-- table div 시작 -->
 					<table id="tableId">
 						<tr>
