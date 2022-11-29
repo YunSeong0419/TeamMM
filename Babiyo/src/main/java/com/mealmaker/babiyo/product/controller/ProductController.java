@@ -34,7 +34,6 @@ public class ProductController {
 	@RequestMapping(value = "/product/memberDetail.do")
 	public String productMemberDetail(int productNo, HttpSession session, Model model) {
 		logger.info("ProductController productMemberDetail! - {}");
-		//화면구현용
 		
 		MemberDto memberDto = (MemberDto) session.getAttribute("_memberDto_");
 		String memberId = memberDto.getId();

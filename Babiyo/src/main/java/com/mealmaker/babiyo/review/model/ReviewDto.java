@@ -12,7 +12,7 @@ public class ReviewDto {
 	private String productName;
 	private String categoryName;
 	private String memberId;
-	private int starRating;
+	private double starRating;
 	private String content;
 	private Date createDate;
 	private Date modifyDate;

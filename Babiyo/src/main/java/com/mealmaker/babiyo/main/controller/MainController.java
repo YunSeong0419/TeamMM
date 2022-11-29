@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.mealmaker.babiyo.product.model.ProductDto;
 import com.mealmaker.babiyo.product.service.ProductService;
 
 @Controller
@@ -27,8 +28,11 @@ public class MainController {
 	public String main(Model model) {
 		logger.info("MainController main! ");
 		
+		List<Map<String, Object>> recommendProductList = productService.recommendProductList();
+
 		List<Map<String, Object>> newProductList = productService.newProductList();
 		
+		model.addAttribute("recommendProductList", recommendProductList);
 		model.addAttribute("newProductList", newProductList);
 			
 		return "main/main";

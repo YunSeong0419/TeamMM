@@ -43,6 +43,10 @@
 	font-size: 16px;
 }
 
+#categoryName{
+	font-weight: bold;
+}
+
 #productInfoDiv{
 	width: 900px;
 	height: 400px;
@@ -50,7 +54,7 @@
 }
 
 #imageDiv{
-	padding: 0px 25px;
+	padding: 0px;
 	width: 450px;
 	height: 400px;
 	text-align: center;
@@ -60,6 +64,7 @@
 #imageDiv > img{
 	width: 400px;
 	height: 400px;
+	float: left;
 }
 
 #productInfo{

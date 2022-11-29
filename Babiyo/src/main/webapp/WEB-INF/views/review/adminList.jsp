@@ -218,17 +218,17 @@
 							<th id='evaluationTh'>평점</th>
 							<th id='quantityTh'>리뷰 수</th>
 						</tr>
-<%-- 							<c:choose> --%>
-<%-- 							<c:when test="${empty reviewList}"> --%>
-<!-- 								<tr> -->
-<!-- 									<td colspan="5"  -->
-<!-- 										style="width: 500px; height: 350px;  -->
-<!-- 										font-size:32px; font-weight: bold; text-align: center;"> -->
-<!-- 										리뷰가 없습니다. -->
-<!-- 									</td> -->
-<!-- 								</tr> -->
-<%-- 							</c:when> --%>
-<%-- 							<c:otherwise> --%>
+							<c:choose>
+							<c:when test="${empty reviewList}">
+								<tr>
+									<td colspan="5" 
+										style="width: 500px; height: 350px; 
+ 										font-size:32px; font-weight: bold; text-align: center;">
+										리뷰가 없습니다.
+									</td>
+								</tr>
+							</c:when>
+							<c:otherwise>
 								<c:forEach var="review" items="${reviewList}"> 
 									<tr>			
 										<td>${review.reviewDto.no}</td>
@@ -237,12 +237,15 @@
 											<a href='#' onclick="pageMoveAdminReviewDetailFnc(${reviewDto.no});">
 												${review.reviewDto.productName}</a>
 										</td>
-										<td>${review.reviewDto.starRating}</td>
+										
+										<td>
+											<fmt:formatNumber value="${review.reviewDto.starRating}" pattern="#.#" />
+										</td>
 										<td>${review.reviewQuantity}</td>
 									</tr>
 								</c:forEach>
-<%-- 							</c:otherwise> --%>
-<%-- 						</c:choose> --%>
+							</c:otherwise>
+						</c:choose>
 					</table>
 				<jsp:include page="/WEB-INF/views/Paging.jsp" />
 				</div>

@@ -45,6 +45,12 @@
 		WHERE PRODUCT_NO = #{productNo}
 	</select>
 
+	<select id="averageGrade" resultType="java.lang.Integer" parameterType="map">
+		SELECT ROUND(AVG(STAR_RATING), 1)
+		FROM REVIEW
+		WHERE PRODUCT_NO = #{productNo}
+	</select>
+	
 	<select id="reviewDetail" parameterType="reviewDto" resultMap="reviewResultMap">
 		SELECT NO, PRODUCT_NO, MEMBER_ID, STAR_RATING, CONTENT, CREATE_DATE, MODIFY_DATE
 		FROM REVIEW

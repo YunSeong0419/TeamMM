@@ -108,4 +108,11 @@ public class ProductDaoImpl implements ProductDao{
 		
 		return sqlSession.selectList(namespace + "newProductList");
 	}
+	
+	//DB에 있는 추천 밀키트 리스트 퍼오기
+	@Override
+	public List<ProductDto> recommendProductList() {
+		
+		return sqlSession.selectList(namespace + "recommendProductList");
+	}
 }

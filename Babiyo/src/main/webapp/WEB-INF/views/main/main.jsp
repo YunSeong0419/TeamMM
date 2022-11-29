@@ -103,7 +103,7 @@
 	font-size: 32px;
 	font-weight: bold;
 	text-align: center;
-	line-height: 300px;
+	line-height: 250px;
 }
 
 #emptyinterestList{
@@ -260,19 +260,19 @@
 			<div class='recommendProductContent'>
 			<div>
 				<c:choose>
-					<c:when test="${empty productList}">
-						<p id='emptyProductList'>
-							등록된 밀키트가 없습니다.
-						</p>
-					</c:when>
-					<c:otherwise>
+ 					<c:when test="${empty productList}">
+ 						<p id='emptyProductList'>
+ 							등록된 밀키트가 없습니다.
+ 						</p>
+ 					</c:when>
+ 					<c:otherwise>
 						<c:when test="${empty interestList}">
-	<!-- 						<form action='/babiyo/auth/member/addInterest.do' method='post'> -->
+							<form action='/babiyo/auth/member/addInterest.do' method='get'>
 								<p id='emptyinterestList'>
 									관심사를 등록해 주시면 밀키트를 추천해 드려요!<br />
 									<input type="submit" value='관심사 등록하러 가기'>
 								</p>
-	<!-- 						</form> -->
+							</form>
 						</c:when>
 						<c:otherwise>
 							<c:forEach var="productDto" items="${productList}"> 
@@ -285,7 +285,7 @@
 										${productDto.name}
 									</div>
 									<div class='recommendProductContentPrice'>>
-										<fmt:formatNumber value="${productDto.price}" pattern="###,###,###" />
+										<fmt:formatNumber value="${productDto.price}" pattern="#,###" />
 									</div>
 								</div>
 							</c:forEach>
@@ -299,29 +299,29 @@
 			<div class='newProductTitle'>
 				<span>신상 밀키트</span>
 			</div>
-			<c:choose>
-				<c:when test="${empty newProductList}">
-					<p id='emptyProductList'>
-						등록된 밀키트가 없습니다.
-					</p>
-				</c:when>
-				<c:otherwise>
-					<c:forEach var="product" items="${newProductList}"> 
-						<div class='newProductContent'>
-							<div class='newProductContentImage'>
-								<a href="#"><img alt="${product.productDto.name}" 
-									src="/babiyo/img/${product.imgMap.STORED_NAME}"></a>					
+	 			<c:choose>
+	 				<c:when test="${empty newProductList}">
+	 					<p id='emptyProductList'>
+	 						등록된 밀키트가 없습니다.
+	 					</p>
+	 				</c:when>
+	 				<c:otherwise>
+						<c:forEach var="product" items="${newProductList}"> 
+							<div class='newProductContent'>
+									<div class='newProductContentImage'>
+											<a href="/babiyo/product/memberDetail.do?productNo=${product.productDto.no}"><img alt="${product.productDto.name}" 
+												src="/babiyo/img/${product.imgMap.STORED_NAME}"></a>
+									</div>
+								<div class='newProductContentName'>
+									${product.productDto.name}
+								</div>
+								<div class='newProductContentPrice'>
+									<fmt:formatNumber value="${product.productDto.price}" pattern="#,###"/> 원
+								</div>
 							</div>
-							<div class='newProductContentName'>
-								${product.productDto.name}
-							</div>
-							<div class='newProductContentPrice'>
-								<fmt:formatNumber value="${product.productDto.price}" pattern="#,###"/> 원
-							</div>
-						</div>
-					</c:forEach>
-				</c:otherwise>
-			</c:choose>
+						</c:forEach>
+ 					</c:otherwise>
+ 				</c:choose>
 			</div>
 		</div>		
 

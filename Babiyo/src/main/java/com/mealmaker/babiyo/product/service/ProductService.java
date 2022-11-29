@@ -26,5 +26,7 @@ public interface ProductService {
 	public int productTotalCount(String searchOption, String sortOption, String keyword);
 	//메인에 신상 밀키트 쏴주기
 	List<Map<String, Object>> newProductList();
+	//메인에 추천 밀키트 쏴주기
+	List<Map<String, Object>> recommendProductList();
 	public Map<String, Object> productMemberDetail(String memberId, int productNo);
 }

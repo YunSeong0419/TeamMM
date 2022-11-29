@@ -26,5 +26,7 @@ public interface ProductDao {
 	public int fileDelete(int parentSeq);
 	//메인에 신상 밀키트 쏴주기
 	List<ProductDto> newProductList();
+	//메인에 추천 밀키트 쏴주기
+	List<ProductDto> recommendProductList();
 }
 
