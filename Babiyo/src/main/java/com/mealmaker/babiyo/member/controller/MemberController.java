@@ -78,30 +78,44 @@ public class MemberController {
 		logger.debug("Welcome MemberController memberAdd! ");
 		
 		
-		return "/member/MemberJoin";
+		return "member/MemberJoin";
 	}
 	
 	@RequestMapping(value = "/auth/member/addCtr.do", method = RequestMethod.POST)
 	public String memberAdd(MemberDto memberDto, Model model) {
 		logger.info("Welcome MemberController memberAdd 신규등록 처리! " 
 				+ memberDto);
-		
 		memberService.memberInsertOne(memberDto);
 		
-		String memberId = memberDto.getId();
-		model.addAttribute("memberId", memberId);
-		
-		return "/member/MemberInterest";
+		return "redirect:/auth/member/addInterest.do";
 	}
 	
 	@RequestMapping(value = "/auth/member/addInterest.do", method = RequestMethod.POST)
+	public String memberAddInterest(String memberId, Model model) {
+		logger.info("Welcome MemberController memberAdd 신규등록 처리! ");
+		
+		model.addAttribute("memberId", memberId);
+		
+		return "member/MemberInterest";
+	}
+	
+	
+	@RequestMapping(value = "/auth/member/addInterestCtr.do", method = RequestMethod.POST)
 	public String addInterest(InterestDto interestDto, HttpSession session, Model model) {
 		logger.info("Welcome InterestController memberAdd 신규등록 처리! ");
 		
 		memberService.addInterest(interestDto);
+		
 		logger.info("last" + interestDto);
 		
-		return "/member/MemberJoinComplete";
+		return "redirect:/auth/member/addComplete.do";
+	}
+	
+	@RequestMapping(value = "/auth/member/addComplete.do", method = RequestMethod.POST)
+	public String addInterest(HttpSession session, Model model) {
+		logger.info("Welcome InterestController memberAdd 신규등록 처리! ");
+		
+		return "member/MemberJoinComplete";
 	}
 	
 	
