@@ -109,7 +109,7 @@
 			</div>	
 			<h3 style="text-align: center;">관심사 선택</h3>
 			<h4 style="text-align: center;">관심사는 고객님께서 원하시는 밀키트를 추천해 드리기 위해서 사용됩니다.</h4>
-			<form  action='./addInterest.do' method='post'>
+			<form  action='./addInterestCtr.do' method='post'>
 			<input type="hidden" name="memberId" value="${memberId}">
 				<div class="bir_wrap">
 					<h3>관심사</h3>

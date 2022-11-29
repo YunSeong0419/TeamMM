@@ -87,10 +87,12 @@ public class MemberController {
 				+ memberDto);
 		memberService.memberInsertOne(memberDto);
 		
-		return "redirect:/auth/member/addInterest.do";
+		String memberId = memberDto.getId();
+		
+		return "redirect:/auth/member/addInterest.do?memberId=" + memberId;
 	}
 	
-	@RequestMapping(value = "/auth/member/addInterest.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/auth/member/addInterest.do", method = RequestMethod.GET)
 	public String memberAddInterest(String memberId, Model model) {
 		logger.info("Welcome MemberController memberAdd 신규등록 처리! ");
 		
@@ -111,7 +113,7 @@ public class MemberController {
 		return "redirect:/auth/member/addComplete.do";
 	}
 	
-	@RequestMapping(value = "/auth/member/addComplete.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/auth/member/addComplete.do", method = RequestMethod.GET)
 	public String addInterest(HttpSession session, Model model) {
 		logger.info("Welcome InterestController memberAdd 신규등록 처리! ");
 		
