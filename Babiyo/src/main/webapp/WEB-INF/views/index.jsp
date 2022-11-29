@@ -25,6 +25,7 @@
 <input type="text" name="memberId">
 </form>
 
+	<a href="./main.do">메인</a>
 	<a href="./testLogin.do?memberId=admin">admin</a>
 	<a href="./testLogin.do?memberId=dong">dong</a>
 

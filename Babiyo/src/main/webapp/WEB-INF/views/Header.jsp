@@ -5,20 +5,14 @@
 <link rel="stylesheet" type="text/css" href="/babiyo/resources/css/common.css"/>
 
 <header>
-	<div style="width: 1200px; margin: auto;">
+	<div style="width: 1200px; height: 100%; margin: auto; border-bottom: 2px solid #FF5E00;">
 	
 	<div id="serviceAreaDiv">
-		<div id='logoDiv'>
-			<a href="/babiyo/index.do">
-			<img id='logo' alt="메인으로 이동" src="/babiyo/resources/img/logo.png">
-			</a>
-		</div>
-		
 		<div id='serviceAreaMenuBar'>
 		<c:choose>
 			<c:when test="${_memberDto_.grade eq 1}">
 				<div id='serviceAreaManagerMenuBar'>
-					<a id='managerInfo' href="#">관리자</a>
+					<a id='managerInfo' href="/babiyo/admin/adminHome.do">관리자</a>
 					<a id='logout' href="/babiyo/auth/logout.do">로그아웃</a>
 				</div>
 			</c:when>
@@ -27,12 +21,18 @@
 				<div id='serviceAreaMemberMenuBar'>
 					<a id='cash' href="/babiyo/auth/cash/chargeCash.do">충전</a>
 					<a id='memberInfo' href="/babiyo/auth/member/memberInfo.do">내 정보</a>
-					<a id='shoppingBasket' href="#">장바구니</a>
-					<a id='bookMark' href="#">즐겨찾기</a>
+					<a id='shoppingBasket' href="/babiyo/cart/cartView.do">장바구니</a>
+					<a id='bookMark' href="/babiyo/favorite/favoriteView.do">즐겨찾기</a>
 					<a id='logout' href="/babiyo/auth/logout.do">로그아웃</a>
 				</div>
 			</c:otherwise>
 		</c:choose>
+		</div>
+	
+		<div id='logoDiv'>
+			<a href="/babiyo/main.do">
+			<img id='logo' alt="메인으로 이동" src="/babiyo/resources/img/logo.png">
+			</a>
 		</div>
 	</div>
 	

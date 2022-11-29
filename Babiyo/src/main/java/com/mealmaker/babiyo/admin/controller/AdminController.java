@@ -26,7 +26,8 @@ public class AdminController {
 	public String login(HttpSession session, Model model) {
 		logger.info("Welcome OrderController login! ");
 		
-		return "inquiry/admin/adminInquiry";
+		
+		return "admin/adminHome";
 	}
 	
 	
