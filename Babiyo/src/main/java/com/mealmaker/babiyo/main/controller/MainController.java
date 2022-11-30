@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,7 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.mealmaker.babiyo.product.model.ProductDto;
+import com.mealmaker.babiyo.member.model.MemberDto;
 import com.mealmaker.babiyo.product.service.ProductService;
 
 @Controller
@@ -25,10 +26,13 @@ public class MainController {
 
 	//오븐 14p, 메인
 	@RequestMapping(value = "/main.do", method = RequestMethod.GET)
-	public String main(Model model) {
+	public String main(HttpSession session ,Model model) {
 		logger.info("MainController main! ");
 		
-		List<Map<String, Object>> recommendProductList = productService.recommendProductList();
+		MemberDto memberDto = (MemberDto)session.getAttribute("_memberDto_");
+		String memberId = memberDto.getId();
+
+		List<Map<String, Object>> recommendProductList = productService.recommendProductList(memberId);
 
 		List<Map<String, Object>> newProductList = productService.newProductList();
 		

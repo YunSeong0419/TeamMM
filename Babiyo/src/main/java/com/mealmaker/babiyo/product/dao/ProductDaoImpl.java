@@ -82,11 +82,11 @@ public class ProductDaoImpl implements ProductDao{
 	}
 
 	//파일 불러오기
-	@Override
 	public Map<String, Object> fileSelectOne(int productNo) {
 		
 		return sqlSession.selectOne(namespace + "fileSelectOne", productNo);
 	}
+
 
 	//파일 저장된 이름 불러오기??
 	@Override
@@ -111,8 +111,14 @@ public class ProductDaoImpl implements ProductDao{
 	
 	//DB에 있는 추천 밀키트 리스트 퍼오기
 	@Override
-	public List<ProductDto> recommendProductList() {
+	public List<ProductDto> recommendProductList(String memberId, int listNo) {
 		
-		return sqlSession.selectList(namespace + "recommendProductList");
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		
+		paramMap.put("memberId", memberId);
+		paramMap.put("listNo", listNo);
+		
+		return sqlSession.selectList(namespace + "recommendProductList", paramMap);
 	}
+
 }

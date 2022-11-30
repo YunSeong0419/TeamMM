@@ -283,7 +283,7 @@ CREATE TABLE review
 	no number NOT NULL,
 	product_no number NOT NULL,
 	member_id varchar2(80) NOT NULL,
-	star_rating number(1,1) DEFAULT 5 NOT NULL,
+	star_rating number(2,1) NOT NULL,
 	content varchar2(4000),
 	create_date date NOT NULL,
 	modify_date date NOT NULL,

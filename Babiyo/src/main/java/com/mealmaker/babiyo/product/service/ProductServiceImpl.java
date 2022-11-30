@@ -177,8 +177,16 @@ public class ProductServiceImpl implements ProductService{
 
 	//DAO에서 추천 밀키트 가져오게 시키기
 	@Override
-	public List<Map<String, Object>> recommendProductList() {
-		List<ProductDto> recommendProductList = productDao.recommendProductList();
+	public List<Map<String, Object>> recommendProductList(String memberId) {
+
+		List<ProductDto> interestListOne = productDao.recommendProductList(memberId, 1);
+		List<ProductDto> interestListTwo = productDao.recommendProductList(memberId, 2);
+		
+		
+		List<ProductDto> recommendProductList = new ArrayList<ProductDto>();
+		
+		recommendProductList.addAll(interestListOne);
+		recommendProductList.addAll(interestListTwo);
 		
 		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
 		
@@ -186,6 +194,7 @@ public class ProductServiceImpl implements ProductService{
 			Map<String, Object> map = new HashMap<String, Object>();
 			
 			int productNo = productDto.getNo();
+			
 			Map<String, Object> imgMap = productDao.fileSelectOne(productNo);
 			
 			map.put("productDto", productDto);
@@ -194,7 +203,7 @@ public class ProductServiceImpl implements ProductService{
 			list.add(map);
 		}
 		
-		return list;
+		return null;
 	}
 	
 	//회원 밀키트 상세보기

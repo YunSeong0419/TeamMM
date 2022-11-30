@@ -11,19 +11,13 @@
 <link rel="stylesheet" type="text/css" href="/babiyo/resources/css/common.css"/>
 
 <style type="text/css">
-
-#middleDiv{
-	min-height: 650px;
-}
-
 #mainPageNoticeAreaDiv{
 	margin: 40px auto 20px auto;
 	width: 1200px;
 	height: 30px;
-/* 	background-color: lightgray; */
 }
 
-.noticeName{
+#noticeName{
 	width: 100px;
 	height: 30px;
 	margin-left: 150px;
@@ -33,7 +27,7 @@
 	line-height: 30px;
 }
 
-.noticeTitle{
+#noticeTitle{
 	width: 550px;
 	height: 30px;
 	padding-left: 30px;
@@ -42,7 +36,7 @@
 	float: left;
 }
 
-.noticeDate{
+#noticeDate{
 	width: 150px;
 	height: 30px;
 	padding-left: 30px;
@@ -52,7 +46,7 @@
 	float: left;
 }
 
-.goToNotice{
+#goToNotice{
 	width: 80px;
 	height: 30px;
 	padding-left: 30px;
@@ -62,7 +56,7 @@
 	text-decoration: none;
 }
 
-.goToNotice > a{
+#goToNotice > a{
 	text-decoration: none;
 	color: #666666;
 }
@@ -73,27 +67,12 @@
 	margin: 0px auto 30px auto;
 	text-align: center;
 	line-height: 300px;
-/* 	background-color: lightgray; */
 }
 
 #emptyEventList{
 	font-size: 32px;
 	font-weight: bold;
-	text-align: center;"
-}
-
-#recommendProductDiv{
-	width: 900px;
-	height: 300px;
-	margin: 0px auto 30px auto;
-/* 	background-color: lightgray; */
-}
-
-.recommendProductTitle{
-	height: 50px;
-	font-size: 18px;
-	font-weight: bold;
-/* 	background-color: gray; */
+	text-align: center;
 }
 
 #emptyProductList{
@@ -106,7 +85,7 @@
 	line-height: 250px;
 }
 
-#emptyinterestList{
+#emptyInterestList{
 	margin-top: 50px;
 	width: 900px;
 	height: 250px;
@@ -116,7 +95,7 @@
 	line-height: 50px;
 }
 
-#emptyinterestList > input{
+#emptyInterestList > p > input{
 	border: 0px;
 	font-size: 20px;
 	color: #FF5E00;  
@@ -124,64 +103,36 @@
 	cursor: pointer;
 }
 
-.recommendProductContent{
-	width: 225px;
-	height: 250px;
-	font-size: 16px;
-	float: left;
-}
-
-.recommendProductContentImage > a{
-	width: 225px;
-	height: 200px;
-	text-align: center;
-	line-height: 200px;
-	float: left;
-}
-
-.recommendProductContentImage > a > img{
-	width: 200px;
-	height: 200px;
-	text-align: center;
-}
-.recommendProductContentName{
-	width: 225px;
-	height: 20px;
-	font-weight: bold;
-	text-align: center;
-	float: left;
-}
-
-.recommendProductContentPrice{
-	width: 225px;
-	height: 20px;
-	text-align: center;
-	float: left;
-}
-
-#newProductDiv{
+.productDiv{
 	width: 900px;
 	height: 300px;
-	margin: 0px auto 30px auto;
-/* 	background-color: lightgray; */
+	margin: 0px auto 30px 150px;
 	float: left;
 }
 
-.newProductTitle{
+.productTitle{
+	margin-left: 15px;
 	height: 50px;
 	font-size: 18px;
 	font-weight: bold;
-/* 	background-color: gray; */
+
 }
 
-.newProductContent{
+.productContentDiv{
+	width: 900px;
+	height: 250px;
+	margin: 0px auto 30px auto;
+		float: left;
+}
+
+.productContent{
 	width: 225px;
 	height: 250px;
 	font-size: 16px;
 	float: left;
 }
 
-.newProductContentImage > a{
+.productContentImage > a{
 	width: 225px;
 	height: 200px;
 	text-align: center;
@@ -189,13 +140,13 @@
 	float: left;
 }
 
-.newProductContentImage > a > img{
+.productContentImage > a > img{
 	width: 200px;
 	height: 200px;
 	text-align: center;
 }
 
-.newProductContentName{
+.productContentName{
 	margin-top: 10px;
 	width: 225px;
 	height: 20px;
@@ -205,7 +156,7 @@
 	float: left;
 }
 
-.newProductContentPrice{
+.productContentPrice{
 	width: 225px;
 	height: 20px;
 	font-size: 12px;
@@ -226,20 +177,21 @@
 
 	<div id="middleDiv">
 		<!--여기서 작성 -->
-<div id='mainPageNoticeAreaDiv'>
-			<div class='noticeName'>
+		<div id='mainPageNoticeAreaDiv'>
+			<div id='noticeName'>
 				<span><strong>공지사항</strong></span>
 			</div>
-			<div class='noticeTitle'>
+			<div id='noticeTitle'>
 				바비요 오픈!
 			</div>
-			<div class='noticeDate'>
+			<div id='noticeDate'>
 				2022-12-07
 			</div>
-			<div class='goToNotice'>
+			<div id='goToNotice'>
 				<a href="#"><strong>더보기</strong></a>
 			</div>
 		</div>
+		
 		<div id='eventBannerDiv'>
 			<c:choose>
 				<c:when test="${empty eventList}">
@@ -253,77 +205,72 @@
 			</c:choose>
 		</div>
 		
-		<div id='recommendProductDiv'>
-			<div class='recommendProductTitle'>
+		<div class='productDiv'>
+			<div class='productTitle'>
 				<span>추천 밀키트</span>
 			</div>
-			<div class='recommendProductContent'>
-			<div>
+			<div class='productContentDiv'>
 				<c:choose>
- 					<c:when test="${empty productList}">
- 						<p id='emptyProductList'>
- 							등록된 밀키트가 없습니다.
- 						</p>
- 					</c:when>
- 					<c:otherwise>
-						<c:when test="${empty interestList}">
-							<form action='/babiyo/auth/member/addInterest.do' method='get'>
-								<p id='emptyinterestList'>
+					<c:when test="${empty recommendProductList}">
+						<form action='/babiyo/auth/member/addInterest.do' method='get'>
+							<div id='emptyInterestList'>
+								<p>
 									관심사를 등록해 주시면 밀키트를 추천해 드려요!<br />
 									<input type="submit" value='관심사 등록하러 가기'>
 								</p>
-							</form>
-						</c:when>
-						<c:otherwise>
-							<c:forEach var="productDto" items="${productList}"> 
-								<div class='recommendProductContent'>
-									<div class='recommendProductContentImage'>
-									
-										<a href="#"><img alt="추천 밀키트 이미지 " src=""></a>					
-									</div>
-									<div class='recommendProductContentName'>
-										${productDto.name}
-									</div>
-									<div class='recommendProductContentPrice'>>
-										<fmt:formatNumber value="${productDto.price}" pattern="#,###" />
-									</div>
+							</div>
+						</form>
+					</c:when>
+					<c:otherwise>
+						<c:forEach var="recommendProductDto" items="${recommendProductList}"> 
+							<div class='productContent'>
+								<div class='productContentImage'>
+									<a href="/babiyo/product/memberDetail.do?productNo=${recommendProductDto.productDto.no}">
+									<img alt="${recommendProductDto.productDto.name}" 
+										src="/babiyo/img/${recommendProductDto.imgMap.STORED_NAME}"></a>
 								</div>
-							</c:forEach>
-						</c:otherwise>
+								<div class='productContentName'>
+									${recommendProductDto.productDto.name}
+								</div>
+								<div class='productContentPrice'>
+									<fmt:formatNumber value="${recommendProductDto.productDto.price}" 
+										pattern="#,###"/> 원
+								</div>
+							</div>
+						</c:forEach>
 					</c:otherwise>
 				</c:choose>
 			</div>
 		</div>
 		
-		<div id='newProductDiv'>
-			<div class='newProductTitle'>
+		<div class='productDiv'>
+			<div class='productTitle'>
 				<span>신상 밀키트</span>
 			</div>
-	 			<c:choose>
-	 				<c:when test="${empty newProductList}">
-	 					<p id='emptyProductList'>
-	 						등록된 밀키트가 없습니다.
-	 					</p>
-	 				</c:when>
-	 				<c:otherwise>
-						<c:forEach var="product" items="${newProductList}"> 
-							<div class='newProductContent'>
-									<div class='newProductContentImage'>
-											<a href="/babiyo/product/memberDetail.do?productNo=${product.productDto.no}"><img alt="${product.productDto.name}" 
-												src="/babiyo/img/${product.imgMap.STORED_NAME}"></a>
-									</div>
-								<div class='newProductContentName'>
-									${product.productDto.name}
-								</div>
-								<div class='newProductContentPrice'>
-									<fmt:formatNumber value="${product.productDto.price}" pattern="#,###"/> 원
-								</div>
+			<c:choose>
+				<c:when test="${empty newProductList}">
+					<p id='emptyProductList'>
+						등록된 밀키트가 없습니다.
+					</p>
+				</c:when>
+				<c:otherwise>
+					<c:forEach var="product" items="${newProductList}"> 
+						<div class='productContent'>
+							<div class='productContentImage'>
+								<a href="/babiyo/product/memberDetail.do?productNo=${product.productDto.no}">
+								<img alt="${product.productDto.name}" src="/babiyo/img/${product.imgMap.STORED_NAME}"></a>
 							</div>
-						</c:forEach>
- 					</c:otherwise>
- 				</c:choose>
-			</div>
-		</div>		
+							<div class='productContentName'>
+								${product.productDto.name}
+							</div>
+							<div class='productContentPrice'>
+								<fmt:formatNumber value="${product.productDto.price}" pattern="#,###"/> 원
+							</div>
+						</div>
+					</c:forEach>
+				</c:otherwise>
+			</c:choose>
+		</div>
 
 		<div id="underPadding"></div>
 		
