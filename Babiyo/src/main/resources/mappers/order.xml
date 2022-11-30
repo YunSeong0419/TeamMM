@@ -49,12 +49,6 @@
 </resultMap>
 
 
-<select id="testLogin" parameterType="String" resultMap="memberResultMap">
-SELECT *
-FROM MEMBER
-WHERE ID = #{value}
-</select>
-
 <select id="lastOrder" resultMap="orderResultMap" parameterType="String">
 SELECT *
 FROM (SELECT NO, RECEIVER_NAME, ADDRESS, ADDRESS_DETAIL, REQUEST, TOTAL_AMOUNT
@@ -168,5 +162,20 @@ SET STATE_CODE = 2
 WHERE NO = ${value}
 </update>
 
+<select id="waitOrderCount" resultType="int">
+SELECT COUNT(*)
+FROM MEMBER_ORDER
+WHERE STATE_CODE = 1
+</select>
+
+<select id="salesChart" resultType="int">
+SELECT NUM
+FROM(SELECT SUM(TOTAL_AMOUNT) NUM, TO_CHAR(ORDER_DATE,'YYYY-MM-DD') day
+FROM MEMBER_ORDER
+WHERE ORDER_DATE > TRUNC(SYSDATE) - 6
+AND STATE_CODE = 2
+GROUP BY TO_CHAR(ORDER_DATE,'YYYY-MM-DD')
+ORDER BY day)
+</select>
 
 </mapper>

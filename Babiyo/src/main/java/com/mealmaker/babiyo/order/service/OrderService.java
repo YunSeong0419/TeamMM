@@ -3,14 +3,11 @@ package com.mealmaker.babiyo.order.service;
 import java.util.List;
 import java.util.Map;
 
-import com.mealmaker.babiyo.member.model.MemberDto;
 import com.mealmaker.babiyo.order.model.OrderDetailDto;
 import com.mealmaker.babiyo.order.model.OrderDto;
 import com.mealmaker.babiyo.util.SearchOption;
 
 public interface OrderService {
-	
-	public List<OrderDto> selectId();
 
 	public int order(OrderDto orderDto, OrderDetailDto orderDetailDto);
 
@@ -27,8 +24,5 @@ public interface OrderService {
 	public Map<String, Object> adminOrderList(SearchOption searchOption, int curPage);
 
 	public void orderAccept(int orderNo);
-
-	public MemberDto testLogin(String memberId);
-
 
 }

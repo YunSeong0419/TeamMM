@@ -9,9 +9,7 @@ public class OrderDto {
 
 	private int no;
 	private String memberId;
-	
 	private Date orderDate;
-	
 	private int totalAmount;
 	private String preview;
 	private int productQuantity;
@@ -23,6 +21,5 @@ public class OrderDto {
 	private String request;
 	private int stateCode;
 	private String stateName;
-	
-	
+
 }

@@ -15,7 +15,6 @@ import org.springframework.stereotype.Service;
 import com.mealmaker.babiyo.cart.dao.CartDao;
 import com.mealmaker.babiyo.cart.model.CartDto;
 import com.mealmaker.babiyo.member.dao.MemberDao;
-import com.mealmaker.babiyo.member.model.MemberDto;
 import com.mealmaker.babiyo.order.dao.OrderDao;
 import com.mealmaker.babiyo.order.model.OrderDetailDto;
 import com.mealmaker.babiyo.order.model.OrderDto;
@@ -25,7 +24,7 @@ import com.mealmaker.babiyo.util.SearchOption;
 @Service
 public class OrderServiceImpl implements OrderService{
 
-	private static final Logger log 
+	private static final Logger log
 		= LoggerFactory.getLogger(OrderServiceImpl.class);
 	
 	
@@ -40,13 +39,6 @@ public class OrderServiceImpl implements OrderService{
 	@Autowired
 	public OrderServiceImpl(OrderDao orderDao) {
 		this.orderDao = orderDao;
-	}
-
-	@Override
-	public List<OrderDto> selectId() {
-		// TODO Auto-generated method stub
-		
-		return orderDao.selectId();
 	}
 
 	@Override
@@ -76,10 +68,7 @@ public class OrderServiceImpl implements OrderService{
 		
 		cartDao.cartDelete(cartDto);
 		
-		
-		
 //		memberDao.cash();
-		
 		
 		return orderNo;
 	}
@@ -165,12 +154,6 @@ public class OrderServiceImpl implements OrderService{
 	public void orderAccept(int orderNo) {
 		// TODO Auto-generated method stub
 		orderDao.orderAccept(orderNo);
-	}
-
-	@Override
-	public MemberDto testLogin(String memberId) {
-		// TODO Auto-generated method stub
-		return orderDao.testLogin(memberId);
 	}
 
 

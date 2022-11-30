@@ -52,8 +52,8 @@
 	<beans:bean id="LoginInterceptor" class="com.mealmaker.babiyo.util.LoginInterceptor"/>
 	<interceptors>
 		<interceptor>
-			<mapping path="/*"/>
-			<exclude-mapping path="/auth/*"/>
+			<mapping path="/**"/>
+			<exclude-mapping path="/auth/**"/>
 			<beans:ref bean="LoginInterceptor"/>
 		</interceptor>
 	</interceptors>
