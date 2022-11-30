@@ -152,6 +152,28 @@ public class ProductServiceImpl implements ProductService{
 
 		return productDao.productTotalCount(searchOption, sortOption, keyword);
 	}
+
+	//DAO에서 카테고리별 밀키트 가져오게 시키기
+	@Override
+	public List<Map<String, Object>> productCategory() {
+		List<ProductDto> productCategory = productDao.productCategory();
+		
+		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
+		
+		for (ProductDto productDto : productCategory) {
+			Map<String, Object> map = new HashMap<String, Object>();
+			
+			int productNo = productDto.getNo();
+			Map<String, Object> imgMap = productDao.fileSelectOne(productNo);
+			
+			map.put("productDto", productDto);
+			map.put("imgMap", imgMap);
+			
+			list.add(map);
+		}
+		
+		return list;
+	}
 	
 	//DAO에서 신상 밀키트 가져오게 시키기
 	@Override
@@ -203,7 +225,7 @@ public class ProductServiceImpl implements ProductService{
 			list.add(map);
 		}
 		
-		return null;
+		return list;
 	}
 	
 	//회원 밀키트 상세보기

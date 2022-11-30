@@ -29,6 +29,15 @@
 		<result column="CONTENT" property="content"/>
 	</resultMap>
 	
+	<select id="productCategory" parameterType="productDto" resultMap="productResultMap">
+		SELECT NO, NAME, PRICE
+		FROM (SELECT ROWNUM, NO, NAME, PRICE
+					FROM PRODUCT
+					WHERE CATEGORY_CODE = #{categoryCode}
+					ORDER BY NO DESC)
+		WHERE <![CDATA[ ROWNUM <= 8 ]]>
+	</select>	
+	
 	<select id="productList" parameterType="map" resultMap="productResultMap">
 		SELECT PL.NO, PL.CATEGORY_CODE, PL.NAME, PL.PRICE, PL.STOCK
 		FROM (

@@ -24,6 +24,8 @@ public interface ProductDao {
 	Map<String, Object> fileSelectOne(int no);
 	public Map<String, Object> fileSelectStoredFileName(int parentSeq);
 	public int fileDelete(int parentSeq);
+	//카테고리에 밀키트 쏴주기
+	List<ProductDto> productCategory();
 	//메인에 신상 밀키트 쏴주기
 	List<ProductDto> newProductList();
 	//메인에 추천 밀키트 쏴주기

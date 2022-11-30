@@ -36,8 +36,11 @@ public class MainController {
 
 		List<Map<String, Object>> newProductList = productService.newProductList();
 		
+		List<Map<String, Object>> productCategory = productService.productCategory();
+		
 		model.addAttribute("recommendProductList", recommendProductList);
 		model.addAttribute("newProductList", newProductList);
+		model.addAttribute("productCategory", productCategory);
 			
 		return "main/main";
 	}

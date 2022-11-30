@@ -222,18 +222,18 @@
 						</form>
 					</c:when>
 					<c:otherwise>
-						<c:forEach var="recommendProductDto" items="${recommendProductList}"> 
+						<c:forEach var="recommend" items="${recommendProductList}"> 
 							<div class='productContent'>
 								<div class='productContentImage'>
-									<a href="/babiyo/product/memberDetail.do?productNo=${recommendProductDto.productDto.no}">
-									<img alt="${recommendProductDto.productDto.name}" 
-										src="/babiyo/img/${recommendProductDto.imgMap.STORED_NAME}"></a>
+									<a href="/babiyo/product/memberDetail.do?productNo=${recommend.productDto.no}">
+									<img alt="${recommend.productDto.name}" 
+										src="/babiyo/img/${recommend.imgMap.STORED_NAME}"></a>
 								</div>
 								<div class='productContentName'>
-									${recommendProductDto.productDto.name}
+									${recommend.productDto.name}
 								</div>
 								<div class='productContentPrice'>
-									<fmt:formatNumber value="${recommendProductDto.productDto.price}" 
+									<fmt:formatNumber value="${recommend.productDto.price}" 
 										pattern="#,###"/> 원
 								</div>
 							</div>

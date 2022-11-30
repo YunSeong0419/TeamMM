@@ -101,7 +101,14 @@ public class ProductDaoImpl implements ProductDao{
 		
 		return sqlSession.delete(namespace + "fileDelete", parentSeq);
 	}
-
+	
+	//DB에 있는 카테고리별 리스트 퍼오기
+	@Override
+	public List<ProductDto> productCategory() {
+		
+		return sqlSession.selectList(namespace + "productCategory");
+	}
+	
 	//DB에 있는 신상 밀키트 리스트 퍼오기
 	@Override
 	public List<ProductDto> newProductList() {
