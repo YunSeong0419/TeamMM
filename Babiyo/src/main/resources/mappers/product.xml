@@ -62,6 +62,18 @@
 		WHERE NO = #{no} 
 	</select>
 	
+	<select id="recommendProductList" parameterType="map" resultMap="productResultMap">
+		SELECT NO, NAME, PRICE
+		FROM (SELECT NO, NAME, PRICE
+			FROM PRODUCT 	
+		    WHERE CATEGORY_CODE = (SELECT CODE 
+		    						FROM INTEREST 
+		    						WHERE MEMBER_ID = #{memberId} 
+		    						AND LIST_NO = #{listNo})
+		    ORDER BY STOCK DESC)
+		WHERE <![CDATA[ ROWNUM <= 2 ]]>
+	</select>
+
 	<select id="newProductList" parameterType="productDto" resultMap="productResultMap">
 		SELECT NO, NAME, PRICE
 		FROM (SELECT NO, NAME, PRICE

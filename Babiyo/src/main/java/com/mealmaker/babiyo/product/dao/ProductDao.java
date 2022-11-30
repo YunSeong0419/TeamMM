@@ -27,6 +27,6 @@ public interface ProductDao {
 	//메인에 신상 밀키트 쏴주기
 	List<ProductDto> newProductList();
 	//메인에 추천 밀키트 쏴주기
-	List<ProductDto> recommendProductList();
+	List<ProductDto> recommendProductList(String memberId, int listNo);
 }
 
