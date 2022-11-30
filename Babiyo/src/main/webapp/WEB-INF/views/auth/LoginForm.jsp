@@ -136,7 +136,8 @@
 						id="boxSizeAjdust2" placeholder="비밀번호">
 					<div>
 						<input type="submit" id="loginBtnSizeAjdust" value="로그인"
-							style="float: left"> <a href = "./member/add.do">
+							style="float: left">
+						<a href = "./member/add.do">
 							<input type="button" id="memberAddBtn" value="회원가입">
 						</a>
 					</div>

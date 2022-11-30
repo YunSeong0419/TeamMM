@@ -11,6 +11,10 @@ public interface MemberDao {
 //	public List<MemberDto> memberSelectList(String searchOption, 
 //		String keyword,	int start, int end);
 	public MemberDto memberExist(String id, String password);
+	public int idCheck(String id);
+	public int emailCheck(String email);
+	public int phoneCheck(String phone);
+	public int nicknameCheck(String nickname);
 	public int memberInsertOne(MemberDto memberDto);
 	public void addInterest(InterestDto interestDto);
 	public MemberDto memberInfo(MemberDto memberDto);
@@ -24,6 +28,10 @@ public interface MemberDao {
 //	public List<Map<String, Object>> fileSelectList(int no);
 //	public Map<String, Object> fileSelectStoredFileName(String parentSeq);
 //	public int fileDelete(String parentSeq);
+	
+	
+	
+	
 	
 	
 }

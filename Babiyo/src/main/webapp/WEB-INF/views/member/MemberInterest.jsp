@@ -92,7 +92,7 @@
 		<script type="text/javascript">
 		
 			function skipInterestFnc() {
-				location.href = '/auth/member/MemberJoinComplete';
+				location.href = './addComplete.do';
 			}
 		</script>
 		

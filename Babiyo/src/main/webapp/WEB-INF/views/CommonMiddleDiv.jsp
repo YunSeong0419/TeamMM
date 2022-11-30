@@ -19,7 +19,7 @@
 			
 			<c:otherwise>
 				<div id='verticalSideMemberMenuBar'>
-					<div><a id='memberInfo' href="/babiyo/auth/member/memberInfo.do">내 정보</a></div>
+					<div><a id='memberInfo' href="/babiyo/member/memberInfo.do">내 정보</a></div>
 					<div><a id='memberOrderList' href="/babiyo/member/orderList.do">주문내역</a></div>
 					<div><a id='memberReviewList' href="#">내 리뷰</a></div>
 					<div><a id='memberInquiryList' href="/babiyo/inquiry/member.do">내 문의</a></div>

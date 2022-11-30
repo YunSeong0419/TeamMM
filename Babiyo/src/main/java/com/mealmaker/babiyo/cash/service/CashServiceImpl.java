@@ -28,11 +28,6 @@ public class CashServiceImpl implements CashService{
 		// TODO Auto-generated method stub
 		cashDao.cashChargeOne(memberDto);
 		
-		
-		
-		
-		
-		
 		return memberDao.memberInfo(memberDto);
 	}
 	

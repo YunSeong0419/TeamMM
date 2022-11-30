@@ -25,12 +25,36 @@
 	WHERE ID = #{id} AND PASSWORD = #{password}
 </select>
 
+<select id="idCheck" parameterType="String" resultType="int">
+	SELECT COUNT(id)
+	FROM MEMBER
+	WHERE ID= #{id}
+</select>
+
+<select id="emailCheck" parameterType="String" resultType="int">
+	SELECT COUNT(email)
+	FROM MEMBER
+	WHERE EMAIL= #{email}
+</select>
+
+<select id="phoneCheck" parameterType="String" resultType="int">
+	SELECT COUNT(phone)
+	FROM MEMBER
+	WHERE PHONE= #{phone}
+</select>
+
+<select id="nicknameCheck" parameterType="String" resultType="int">
+	SELECT COUNT(nickname)
+	FROM MEMBER
+	WHERE NICKNAME= #{nickname}
+</select>
+
 <insert id="memberInsertOne" parameterType="MemberDto">
 	INSERT INTO MEMBER
 	(ID, PASSWORD, NAME, EMAIL, BIRTHDAY, GENDER, PHONE, NICKNAME, CASH
 	, GRADE_CODE, CREATE_DATE, MODIFY_DATE)
 	VALUES(#{id}, #{password}, #{name}, #{email}, #{birthDate}
-	    , #{gender}, #{phone}, #{nickname}, 123, 2, SYSDATE, SYSDATE)
+	    , #{gender}, #{phone}, #{nickname}, 0, 2, SYSDATE, SYSDATE)
 </insert>
 
 <insert id="insertInterest" parameterType="com.mealmaker.babiyo.member.model.InterestDto">

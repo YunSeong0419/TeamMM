@@ -1,3 +1,4 @@
+
 package com.mealmaker.babiyo.member.service;
 
 import java.util.List;
@@ -29,6 +30,34 @@ public class MemberServiceImpl implements MemberService{
 	public MemberDto memberExist(String id, String password) {
 		// TODO Auto-generated method stub
 		return memberDao.memberExist(id, password);
+	}
+	
+	@Override
+	public int idCheck(String id) {
+		int cnt = memberDao.idCheck(id);
+		System.out.println("cnt: " + cnt);
+		return cnt;
+	}	
+	
+	@Override
+	public int emailCheck(String email) {
+		int cnt = memberDao.emailCheck(email);
+		System.out.println("cnt: " + cnt);
+		return cnt;
+	}
+	
+	@Override
+	public int phoneCheck(String phone) {
+		int cnt = memberDao.phoneCheck(phone);
+		System.out.println("cnt: " + cnt);
+		return cnt;
+	}
+	
+	@Override
+	public int nicknameCheck(String nickname) {
+		int cnt = memberDao.nicknameCheck(nickname);
+		System.out.println("cnt: " + cnt);
+		return cnt;
 	}
 
 	@Override

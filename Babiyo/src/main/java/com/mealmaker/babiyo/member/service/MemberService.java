@@ -14,12 +14,20 @@ import com.mealmaker.babiyo.member.model.MemberDto;
 public interface MemberService {
 
 	public MemberDto memberExist(String id, String password);
-	
+	public int idCheck(String id);
+	public int emailCheck(String email);
+	public int phoneCheck(String phone);
+	public int nicknameCheck(String nickname);
 	public void memberInsertOne(MemberDto memberDto);
 	void addInterest(InterestDto interestDto);
 	public MemberDto memberInfo(MemberDto memberDto);
 //	public List<MemberDto> memberSelectList(String searchOption, 
 //		String keyword,	int start, int end);
+	
+	
+	
+
+	
 
 	
 	

@@ -77,6 +77,15 @@ form {
 	font-size: 30px;
 	text-align: center;
 }
+.id_ok{
+color:#008000;
+display: none;
+}
+
+.id_already{
+color:#6A82FB; 
+display: none;
+}
 </style>
 
 <script type="text/javascript">
@@ -93,7 +102,7 @@ var chk9 = false;
 
 $(document).ready(function(){
 	
-		midObj = document.getElementById('mid');
+		midObj = document.getElementById('id');
 		idChkObj = document.getElementById('id_plz');
 		pwdObj = document.getElementById('pwd');
 		pwdChkObj = document.getElementById('pwd_plz');
@@ -148,22 +157,44 @@ $(document).ready(function(){
 				chk9 = true;
 				allChkColor();
 			});
-		}
+		};
 		
 		
-		midObj.addEventListener('blur', function() {
+		midObj.addEventListener('keyup', function() {
 			var spObj = /[`~!@#$%^&*|\\\";:\/?]/;
 			var check_kor = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
 			var check_eng = /[A-Z]/;
+			
 			if (midObj.value == '') {
 				idChkObj.innerHTML = '필수정보입니다';
+				chk1 = false;
 			}else if (midObj.value.length < 5 || check_kor.test(midObj.value)
 					|| spObj.test(midObj.value) || check_eng.test(midObj.value)) {
 				idChkObj.innerHTML = '5~20자의 영문 소문자,'
 				+ '숫자와 특수기호(_),(-)만 사용 가능합니다.';
+				chk1 = false;
 			}else {
-				idChkObj.innerHTML = '';
-				chk1 = true;
+				var id = $('#id').val(); //id값이 "id"인 입력란의 값을 저장
+				
+				$.ajax({
+			        url:'./idCheckCtr.do', //Controller에서 요청 받을 주소
+			        type:'post', //POST 방식으로 전달
+			        data:{id:id},
+			        success:function(cnt){ //컨트롤러에서 넘어온 cnt값을 받는다 
+			        	if(cnt == 0){ //cnt가 1이 아니면(=0일 경우) -> 사용 가능한 아이디
+			        		idChkObj.innerHTML = '사용가능한 아이디 입니다';
+			        		idChkObj.style.color = 'green';
+				        	chk1 = true;
+			            } else { // cnt가 1일 경우 -> 이미 존재하는 아이디
+			            	idChkObj.innerHTML = '이미 존재하는 아이디 입니다';
+			            	idChkObj.style.color = 'orange';
+			            	chk1 = false;
+			            }
+			        },
+			        error:function(){
+			        	console.log(id);
+			        }
+			    });
 			}
 			allChkColor();
 		});
@@ -198,7 +229,7 @@ $(document).ready(function(){
 			allChkColor();
 		});
 		
-		mnameObj.addEventListener('blur', function() {
+		mnameObj.addEventListener('keyup', function() {
 			var spObj = /[`~!@#$%^&*|\\\";:\/? ]/;
 			var check_lang = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣|a-zA-Z]/;
 			var check_mix = /[a-zA-Z]+[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
@@ -217,29 +248,71 @@ $(document).ready(function(){
 			allChkColor();
 		});
 		
-		emailObj.addEventListener('blur', function() {
-			var exptext =  /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/;
+		emailObj.addEventListener('keyup', function() {
+			let emailRull = RegExp(/^([\w\.\_\-])*[a-zA-Z0-9]+([\w\.\_\-])*([a-zA-Z0-9])+([\w\.\_\-])+@([a-zA-Z0-9]+\.)+[a-zA-Z0-9]{2,8}$/);
 			if (emailObj.value == '') {
 				emailChkObj.innerHTML = '필수정보입니다';
-			}else if(exptext.test(emailObj.value)==false){
+				emailChkObj.style.color = 'orange';
+			}else if(emailRull.test(emailObj.value)==false){
 				emailChkObj.innerHTML = '이메일 형식이 올바르지 않습니다';
+				emailChkObj.style.color = 'orange';
 			}else{
-				emailChkObj.innerHTML = '';
-				chk5 = true;
+					var email = $('#email').val(); //id값이 "email"인 입력란의 값을 저장
+				
+				$.ajax({
+			        url:'./emailCheckCtr.do', //Controller에서 요청 받을 주소
+			        type:'post', //POST 방식으로 전달
+			        data:{email:email},
+			        success:function(cnt){ //컨트롤러에서 넘어온 cnt값을 받는다 
+			        	if(cnt == 0){ //cnt가 1이 아니면(=0일 경우) -> 사용 가능한 이메일
+			        		emailChkObj.innerHTML = '사용가능한 이메일 입니다';
+			        		emailChkObj.style.color = 'green';
+				        	chk5 = true;
+			            } else { // cnt가 1일 경우 -> 이미 가입된 이메일
+			            	emailChkObj.innerHTML = '이미 가입된 이메일 입니다';
+			            	emailChkObj.style.color = 'orange';
+			            	chk5 = false;
+			            }
+			        },
+			        error:function(){
+			        	console.log(email);
+			        }
+			    });
 			}
 			allChkColor();
 			
 		});
 		
-		phoneObj.addEventListener('blur', function() {
+		phoneObj.addEventListener('keyup', function() {
 			var check_num = /^[0-9]{3}[0-9]{4}[0-9]{4}/;
 			if (phoneObj.value == '') {
 				phoneChkObj.innerHTML = '필수정보입니다';
+				phoneChkObj.style.color = 'orange';
 			}else if (!check_num.test(phoneObj.value)){
 				phoneChkObj.innerHTML = '핸드폰번호 11자리를 입력해주세요';
+				phoneChkObj.style.color = 'orange';
 			}else {
-				phoneChkObj.innerHTML = '';
-				chk6 = true;
+				var phone = $('#phone').val(); //id값이 "phone"인 입력란의 값을 저장
+				
+				$.ajax({
+			        url:'./phoneCheckCtr.do', //Controller에서 요청 받을 주소
+			        type:'post', //POST 방식으로 전달
+			        data:{phone:phone},
+			        success:function(cnt){ //컨트롤러에서 넘어온 cnt값을 받는다 
+			        	if(cnt == 0){ //cnt가 1이 아니면(=0일 경우) -> 사용 가능한 번호
+			        		phoneChkObj.innerHTML = '사용가능한 번호 입니다';
+			        		phoneChkObj.style.color = 'green';
+				        	chk6 = true;
+			            } else { // cnt가 1일 경우 -> 이미 가입된 번호
+			            	phoneChkObj.innerHTML = '이미 가입된 번호 입니다';
+			            	phoneChkObj.style.color = 'orange';
+			            	chk6 = false;
+			            }
+			        },
+			        error:function(){
+			        	console.log(email);
+			        }
+			    });
 			}
 			allChkColor();
 		});
@@ -247,9 +320,29 @@ $(document).ready(function(){
 		nicknameObj.addEventListener('blur', function() {
 			if (nicknameObj.value == '') {
 				nicknameChkObj.innerHTML = '필수정보입니다';
+				nicknameChkObj.style.color = 'orange';
 			}else{
-				nicknameChkObj.innerHTML = '';
-				chk7 = true;
+				var nickname = $('#nickname').val(); //id값이 "phone"인 입력란의 값을 저장
+				
+				$.ajax({
+			        url:'./nicknameCheckCtr.do', //Controller에서 요청 받을 주소
+			        type:'post', //POST 방식으로 전달
+			        data:{nickname:nickname},
+			        success:function(cnt){ //컨트롤러에서 넘어온 cnt값을 받는다 
+			        	if(cnt == 0){ //cnt가 1이 아니면(=0일 경우) -> 사용 가능한 번호
+			        		nicknameChkObj.innerHTML = '사용가능한 닉네임 입니다';
+			        		nicknameChkObj.style.color = 'green';
+				        	chk7 = true;
+			            } else { // cnt가 1일 경우 -> 이미 가입된 번호
+			            	nicknameChkObj.innerHTML = '이미 가입된 닉네임 입니다';
+			            	nicknameChkObj.style.color = 'orange';
+			            	chk7 = false;
+			            }
+			        },
+			        error:function(){
+			        	console.log(nickname);
+			        }
+			    });
 			}
 			allChkColor();
 		});
@@ -287,7 +380,7 @@ function allChkColor() {
 		<form id="addForm" action='./addCtr.do' method='post'>
 			<div>
 				<h3>아이디</h3>
-				<span> <input class="input_box" type='text' id='mid'
+				<span> <input class="input_box" type='text' id='id'
 					name='id' style="padding-right: 250px;" maxlength="20">
 				</span>
 			</div>

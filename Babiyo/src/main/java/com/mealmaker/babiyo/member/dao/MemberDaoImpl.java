@@ -47,6 +47,38 @@ public class MemberDaoImpl implements MemberDao{
 		
 		return memberDto;
 	}
+	
+	@Override
+	public int idCheck(String id) {
+		// TODO Auto-generated method stub
+		System.out.println(id);
+		return	sqlSession.selectOne(namespace + "idCheck", id);
+		
+	}
+	
+	@Override
+	public int emailCheck(String email) {
+		// TODO Auto-generated method stub
+		System.out.println(email);
+		return	sqlSession.selectOne(namespace + "emailCheck", email);
+		
+	}
+	
+	@Override
+	public int phoneCheck(String phone) {
+		// TODO Auto-generated method stub
+		System.out.println(phone);
+		return	sqlSession.selectOne(namespace + "phoneCheck", phone);
+		
+	}
+	
+	@Override
+	public int nicknameCheck(String nickname) {
+		// TODO Auto-generated method stub
+		System.out.println(nickname);
+		return	sqlSession.selectOne(namespace + "nicknameCheck", nickname);
+		
+	}
 
 	@Override
 	public int memberInsertOne(MemberDto memberDto) {
@@ -68,6 +100,10 @@ public class MemberDaoImpl implements MemberDao{
 		return sqlSession.selectOne(namespace + "memberInfo"
 				, memberDto);
 	}
+
+
+
+	
 	
 	
 

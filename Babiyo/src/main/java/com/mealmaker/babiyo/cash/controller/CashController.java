@@ -27,7 +27,7 @@ public class CashController {
 	@Autowired
 	private CashService cashService;
 	
-	@RequestMapping(value = "/auth/cash/chargeCash.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/cash/chargeCash.do", method = RequestMethod.GET)
 	public String chargeCash(HttpSession session, Model model) {
 		logger.info("Welcome CashController chargeCash! ");
 		
@@ -35,9 +35,9 @@ public class CashController {
 		return "/cash/chargeCash";
 	}
 	
-	@RequestMapping(value = "/auth/cash/chargeCashCtr.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/cash/chargeCashCtr.do", method = RequestMethod.POST)
 	public String memberAdd(MemberDto memberDto, HttpSession session, Model model) {
-		logger.info("Welcome  CashController chargeCashOne! ");
+		logger.info("Welcome  CashController chargeCashOne! " + memberDto.getCash());
 		
 		MemberDto memberDtoSession = cashService.cashChargeOne(memberDto);
 		

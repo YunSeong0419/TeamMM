@@ -1,10 +1,5 @@
 package com.mealmaker.babiyo.member.controller;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -12,9 +7,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.mealmaker.babiyo.member.model.InterestDto;
 import com.mealmaker.babiyo.member.model.MemberDto;
@@ -50,7 +47,6 @@ public class MemberController {
 		String viewUrl = "";
 		if(memberDto != null) {
 			session.setAttribute("_memberDto_", memberDto);
-//			session.setMaxInactiveInterval(60);
 			logger.info("Welcome");
 			viewUrl = "redirect:/main.do";
 		}else {
@@ -65,7 +61,6 @@ public class MemberController {
 	public String logout(HttpSession session, Model model) {
 		logger.info("Welcome MemberController logout! ");
 		
-//		session.removeAttribute("member");
 		session.invalidate();
 		
 		return "redirect:/auth/login.do";
@@ -79,6 +74,38 @@ public class MemberController {
 		
 		
 		return "member/MemberJoin";
+	}
+	
+	@PostMapping("/auth/member/idCheckCtr.do")
+	@ResponseBody
+	public int idCheck(@RequestParam("id") String id) {
+		
+		int cnt = memberService.idCheck(id);
+		return cnt;
+	}
+	
+	@PostMapping("/auth/member/emailCheckCtr.do")
+	@ResponseBody
+	public int emailCheck(@RequestParam("email") String email) {
+		
+		int cnt = memberService.emailCheck(email);
+		return cnt;
+	}
+	
+	@PostMapping("/auth/member/phoneCheckCtr.do")
+	@ResponseBody
+	public int phoneCheck(@RequestParam("phone") String phone) {
+		
+		int cnt = memberService.phoneCheck(phone);
+		return cnt;
+	}
+	
+	@PostMapping("/auth/member/nicknameCheckCtr.do")
+	@ResponseBody
+	public int nicknameCheck(@RequestParam("nickname") String nickname) {
+		
+		int cnt = memberService.nicknameCheck(nickname);
+		return cnt;
 	}
 	
 	@RequestMapping(value = "/auth/member/addCtr.do", method = RequestMethod.POST)
@@ -121,7 +148,7 @@ public class MemberController {
 	}
 	
 	
-	@RequestMapping(value = "/auth/member/memberInfo.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/member/memberInfo.do", method = RequestMethod.GET)
 	public String memberInfo(HttpSession session, Model model) {
 		logger.info("Welcome MemberController memberInfo! ");
 		

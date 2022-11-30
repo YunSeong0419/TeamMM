@@ -11,6 +11,17 @@
 <link rel="stylesheet" type="text/css" href="/babiyo/resources/css/common.css"/>
 <script type="text/javascript" src="/babiyo/resources/js/jquery-3.6.1.js"></script>
 
+<script type="text/javascript">
+
+function inputMoney() {
+	
+	$('#selfInput').val($('#selfIn').val());
+	
+};
+
+
+</script>
+
 </head>
 <body>
 
@@ -62,7 +73,8 @@
 						<tr>
 							<td>
 								<input type="radio" id="selfInput" name="cash" value="">
-								<input type="text" id="selfIn">
+								<input type="number" id="selfIn" min="1" max="1000000"
+								 onchange="inputMoney();">
 							</td>
 						</tr>
 						<tr>
