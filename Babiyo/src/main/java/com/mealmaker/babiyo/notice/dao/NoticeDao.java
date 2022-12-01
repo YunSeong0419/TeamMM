@@ -27,5 +27,5 @@ public interface NoticeDao {
 	public Map<String, Object> fileSelectStoredFileName(int parentSeq);
 	void insertFile(Map<String, Object> map);
 	
-	NoticeDto mainNoticeList();
+	NoticeDto mainLatestNotice();
 }

@@ -24,7 +24,7 @@ public interface NoticeService {
 	public void noticeDeleteOne(int no);
 	
 	//메인에 공지 리스트 가져오기
-	NoticeDto mainNoticeList();
+	NoticeDto mainLatestNotice();
 
 	
 	

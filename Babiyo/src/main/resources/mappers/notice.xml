@@ -136,9 +136,9 @@ VALUES( #{categoryCode}, #{title}, #{content}, SYSDATE, #{eventStartDate}, #{eve
 </delete>
 
 <!-- 메인-공지 노출 -->
-<select id="mainNoticeList" resultMap="noticeResultMap">
-SELECT *
-FROM(SELECT TITLE, CREATE_DATE
+<select id="mainLatestNotice" resultMap="noticeResultMap">
+SELECT NO, TITLE, CREATE_DATE
+FROM(SELECT NO, TITLE, CREATE_DATE
 	FROM NOTICE
 	ORDER BY CREATE_DATE DESC)
 WHERE ROWNUM = 1

@@ -195,8 +195,8 @@
 				</c:when>
 				<c:otherwise>
 					<div id='noticeTitle'>
-						${noticeDto.title}
-						<a href="/babiyo/notice/noticeDetail.do?noticeNo=${noticeDto.no}"></a>
+						<a href="/babiyo/notice/detail.do?no=${noticeDto.no}">
+							${noticeDto.title}</a>
 					</div>
 					<div id='noticeDate'>
 						<fmt:formatDate pattern="yyyy-MM-dd" value="${noticeDto.createDate}" />

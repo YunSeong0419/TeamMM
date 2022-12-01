@@ -39,7 +39,7 @@ public class MainController {
 
 		List<Map<String, Object>> recommendProductList = productService.recommendProductList(memberId);
 		List<Map<String, Object>> newProductList = productService.newProductList();
-		NoticeDto noticeDto = noticeService.mainNoticeList();
+		NoticeDto noticeDto = noticeService.mainLatestNotice();
 		
 		model.addAttribute("noticeDto", noticeDto);
 		model.addAttribute("recommendProductList", recommendProductList);

@@ -133,9 +133,9 @@ public class NoticeServiceImpl implements NoticeService{
 
 	//메인에  공지 리스트 가져오게 시키기
 	@Override
-	public NoticeDto mainNoticeList() {
-		NoticeDto mainNoticeList = noticeDao.mainNoticeList();
+	public NoticeDto mainLatestNotice() {
+		NoticeDto mainLatestNotice = noticeDao.mainLatestNotice();
 			
-		return mainNoticeList;
+		return mainLatestNotice;
 	}
 }

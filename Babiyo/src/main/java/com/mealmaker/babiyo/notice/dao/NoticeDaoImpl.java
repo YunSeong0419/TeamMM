@@ -87,9 +87,9 @@ public class NoticeDaoImpl implements NoticeDao{
 	}
 
 	@Override
-	public NoticeDto mainNoticeList() {
+	public NoticeDto mainLatestNotice() {
 		
-		return sqlSession.selectOne(namespace + "mainNoticeList");
+		return sqlSession.selectOne(namespace + "mainLatestNotice");
 	}
 
 
