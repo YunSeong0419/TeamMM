@@ -14,14 +14,36 @@
 <result column="NAME" property="name"/>
 </resultMap>
 
+<!-- 카테고리 리스트 -->
+<select id="inquiryCategoeyList" resultType="map">
+SELECT CODE, NAME
+FROM INQUIRY_CATEGORY
+</select>
+
 <!-- 회원 -->
+
+<!-- 필터 -->
+<select id="memberInquiryCount" parameterType="map" resultType="int">
+	SELECT COUNT(*)
+	FROM INQUIRY
+	WHERE MEMBER_ID = #{memberId}
+	<choose>
+	<when test="answerState == 1">AND ANSWER IS NOT NULL</when>
+	<when test="answerState == 2">AND ANSWER IS NULL</when>
+	</choose>
+	<if test="categoryCode != 0">AND CATEGORY_CODE = ${categoryCode}</if>
+</select>
+
 <!-- 문의 리스트 -->
-<select id="inquirytList" resultMap="inquiryResultMap">
-	SELECT  I.NO, C.NAME, I.TITLE, I.ANSWER, I.CREATE_DATE, I.MEMBER_ID
+<select id="inquirytList" parameterType="map" resultMap="inquiryResultMap">
+	SELECT *
+	FROM(SELECT ROWNUM R, NO, MEMBER_ID, CATEGORY_CODE, TITLE, CONTENT, CREATE_DATE, ANSWER
+	FROM( SELECT  I.NO, C.NAME, I.TITLE, I.ANSWER, I.CREATE_DATE, I.MEMBER_ID, i.content, i.category_code
 	FROM INQUIRY I INNER JOIN INQUIRY_CATEGORY C
 	ON C.CODE = I.CATEGORY_CODE
-	<!-- WHERE I.MEMBER_ID = #{memberId}  -->
-	ORDER BY I.NO DESC
+	WHERE I.MEMBER_ID = #{memberId}
+	ORDER BY I.NO DESC))
+	WHERE R BETWEEN ${begin} AND ${end}
 </select>
 
 <!-- 문의 상세 -->
@@ -57,13 +79,8 @@
 </delete>
 
 <!-- 관리자 -->
-<!-- 카테고리 리스트 -->
-<select id="inquiryCategoeyList" resultType="map">
-SELECT CODE, NAME
-FROM INQUIRY_CATEGORY
-</select>
 
-<!-- 검색 -->
+<!-- 검색, 필터 -->
 <select id="adminInquiryCount" parameterType="map" resultType="int">
 SELECT COUNT(*)
 FROM INQUIRY
@@ -92,7 +109,7 @@ FROM(SELECT I.NO, C.NAME, I.TITLE, I.CONTENT, I.ANSWER, I.CATEGORY_CODE ,I.CREAT
 	</choose>
 	<if test="categoryCode != 0">AND CATEGORY_CODE = ${categoryCode}</if>
 	</where>
-	ORDER BY I.NO))
+	ORDER BY I.NO DESC))
 	WHERE R BETWEEN ${begin} AND ${end}
 </select>
 

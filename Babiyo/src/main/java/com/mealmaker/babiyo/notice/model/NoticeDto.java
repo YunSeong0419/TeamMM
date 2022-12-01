@@ -16,10 +16,9 @@ public class NoticeDto {
 	private String title;
 	private String content;
 	private int hit;
-	@DateTimeFormat(pattern = "yyyy년MM월dd일")
 	private Date createDate;
-	@DateTimeFormat(pattern = "yyyy년MM월dd일")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date eventStartDate;
-	@DateTimeFormat(pattern = "yyyy년MM월dd일")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date eventEndDate;
 }

@@ -20,9 +20,33 @@ public class InquiryDaoImpl implements InquiryDao{
 	String namespace = "com.mealmaker.babiyo.inquiry.";
 	//회원
 	@Override
-	public List<InquiryDto> inquirySelectList() {
+	public int memberInquiryCount(String memberId, int answerState, int categoryCode) {
 		// TODO Auto-generated method stub
-		return sqlSession.selectList(namespace +"inquirytList");
+		Map<String, Object> paraMap = new HashMap<String, Object>();
+		
+		paraMap.put("memberId", memberId);
+		paraMap.put("answerState", answerState);
+		paraMap.put("categoryCode", categoryCode);
+
+		return sqlSession.selectOne(namespace + "memberInquiryCount", paraMap);
+	}
+
+	@Override
+	public List<InquiryDto> inquiryList(int begin, int end, String memberId, int answerState, int categoryCode,
+			int curPage) {
+		// TODO Auto-generated method stub
+		
+		Map<String, Object> paraMap = new HashMap<String, Object>();
+		
+		paraMap.put("begin", begin);
+		paraMap.put("end", end);
+		paraMap.put("memberId", memberId);
+		paraMap.put("answerState", answerState);
+		paraMap.put("categoryCode", categoryCode);
+		paraMap.put("curPage", curPage);
+		
+		
+		return sqlSession.selectList(namespace + "inquiryList", paraMap);
 	}
 	
 	@Override
@@ -104,9 +128,6 @@ public class InquiryDaoImpl implements InquiryDao{
 		// TODO Auto-generated method stub
 		return sqlSession.selectList(namespace + "inquiryCategoeyList");
 	}
-
-
-	
 
 
 }

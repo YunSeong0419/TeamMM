@@ -10,6 +10,7 @@ import lombok.Data;
 @Data
 public class SearchOption {
 	
+	private String searchOption;
 	private String search;
 	private String sort;
 	private int stateCode;

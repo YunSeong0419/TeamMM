@@ -128,16 +128,43 @@ td {
 				<!--여기서 작성 -->
 				<div id="searchOption">
 					<!-- searchOption div 시작-->
-					<form id="stateForm" action="get">
+					<form id="stateForm" action=./list.do method="get">
 						<span>분류</span> <select id="stateSelect" name="stateCode"
 							onchange="stateSelectFnc();">
 							<option value="0">전체</option>
-							<option>진행중인 이벤트</option>
-							<option>끝난 이벤트</option>
-							<option>공지</option>
+							<option value="1">공지</option>
+							<option value="2">진행중인 이벤트</option>
+							<option value="3">끝난 이벤트</option>
 						</select>
 					</form>
 				</div>
+				
+				<form action="./list.do" method="get">
+		<select name="searchOption">
+			<c:choose>
+				<c:when test="${searchMap.search =='all'}">
+					<option value="all" selected="selected">전체</option>
+					<option value="title">제목</option>
+					<option value="content">내용</option>
+				</c:when>
+					<c:when test="${searchMap.search =='title'}">
+					<option value="all">전체</option>
+					<option value="title" selected="selected">제목</option>
+					<option value="content">내용</option>
+				</c:when>
+					<c:when test="${searchMap.search =='content'}">
+					<option value="all">전체</option>
+					<option value="title">제목</option>
+					<option value="content" selected="selected">내용</option>
+				</c:when>
+			</c:choose>
+		</select>
+		
+		<input type="text" name="search" value="${searchMap.search}">
+			
+		<input type="submit" value="검색">
+	
+	</form>
 				<!-- searchOption div 끝-->
 
 				<div>
@@ -163,9 +190,17 @@ td {
 								<c:forEach var="noticeDto" items="${noticeList}">
 									<tr>
 										<td>${noticeDto.no}</td>
-										<td>${noticeDto.categoryName}</td>
+										
+										<c:choose>
+											<c:when test="${noticeDto.categoryCode eq 1}">
+ 												<td> 공지</td> 
+											</c:when>
+											<c:otherwise>
+												<td>이벤트</td> 
+											</c:otherwise>
+										</c:choose>
 										<td><a href="./detail.do?no=${noticeDto.no}">${noticeDto.title}</a></td>
-										<td><fmt:formatDate pattern="yyyy년MM월dd일 "
+										<td><fmt:formatDate pattern="yyyy-MM-dd "
 												value="${noticeDto.createDate}" /></td>
 										<td>${noticeDto.hit}</td>		
 									</tr>
@@ -185,6 +220,12 @@ td {
 				</c:if>
 
 				<jsp:include page="/WEB-INF/views/Paging.jsp" />
+				
+			<form id="pagingForm">
+				<input type="hidden" id="curPage" name="curPage" value="${paging.curPage}">
+				<input type="hidden" id="stateCode" name="stateCode" value="${searchOption.stateCode}">
+				<input type="hidden" name="search" value="${searchOption.search}">
+			</form>
 
 				<div id="underPadding"></div>
 				<!--underPadding-->

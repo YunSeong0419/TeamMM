@@ -8,8 +8,10 @@ import com.mealmaker.babiyo.util.SearchOption;
 
 public interface InquiryService {
 	//회원
+	//카테고리 분류
+	public List<Map<String, Object>> categoryCodeList();
 	//리스트
-	public List<InquiryDto> inquirySelectList();
+	public Map<String, Object> inquiryList(String memberId, int answerState, int categoryCode, int curPage);
 	//작성
 	public int inquiryWrite(InquiryDto inquiryDto);
 	//상세
@@ -20,7 +22,6 @@ public interface InquiryService {
 	public void inquiryDeleteOne(int no);
 	//관리자
 	//리스트
-	public List<Map<String, Object>> categoryCodeList();
 	public Map<String, Object> adminInquiryList(String search, int answerState, int categoryCode, int curPage);
 	//상세
 	public Map<String, Object> adminInquirySelectOne(int no);

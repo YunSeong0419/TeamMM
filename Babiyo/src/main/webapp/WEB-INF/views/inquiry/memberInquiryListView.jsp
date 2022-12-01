@@ -90,26 +90,32 @@ td {
 	src="/babiyo/resources/js/jquery-3.6.1.js"></script>
 
 <script type="text/javascript">
-	$(function() {
+$(function() {
 
-		$('#stateSelect').val($('#stateCode').val());
-
+	$('#answerSelect').val($('#answerState').val());
+	$('#categorySelect').val($('#categoryCode').val());
 	});
 
-	function stateSelectFnc() {
+function categorySelectFnc() {
 
-		$('#stateForm').submit();
+	$('#filterForm').submit();
 
 	}
-	function backBtn() {
 
-		location.href = "#"
+
+function answerSelectFnc() {
+
+	$('#filterForm').submit();
+
 	}
+function backBtn() {
 
-	function writeBtn() {
-
-		location.href = "./member/write.do"
+	location.href = "#"
 	}
+function writeBtn() {
+
+	location.href = "./member/write.do"
+}
 </script>
 </head>
 <body>
@@ -128,15 +134,22 @@ td {
 				<!--여기서 작성 -->
 				<div id="searchOption">
 					<!-- searchOption div 시작-->
-					<form id="stateForm" action="get">
-						<span>분류</span> <select id="stateSelect" name="stateCode"
-							onchange="stateSelectFnc();">
+					<form id="filterForm" action="./member.do" method="get">
+						<span>답변여부</span> 
+						<select id="answerSelect" name="answerState"
+							onchange="answerSelectFnc();">
 							<option value="0">전체</option>
-							<option>완료된 답변</option>
-							<option>대기중 답변</option>
-							<c:forEach items="" var="state">
-								<option value=""></option>
-							</c:forEach>
+							<option value="1">완료된 답변</option>
+							<option value="2">대기중 답변</option>
+						</select>
+						
+						<span>분류</span>
+						<select id="categorySelect" name="categoryCode"
+							onchange="categorySelectFnc();">
+						<option value="0">전체</option>
+						<c:forEach items="${categoryCodeList}" var="category">
+							<option value="${category.CODE}">${category.NAME}</option>
+						</c:forEach>
 						</select>
 					</form>
 				</div>
@@ -153,9 +166,9 @@ td {
 							<th id="createTh">작성일</th>
 							<th id="answerTh">답변</th>
 						</tr>
-
+						
 						<c:choose>
-							<c:when test="${empty inquiryList}">
+							<c:when test="${empty memberList}">
 								<tr>
 									<td colspan="5"
 										style="width: 900px; height: 350px; font-weight: bold; text-align: center;">
@@ -163,10 +176,23 @@ td {
 								</tr>
 							</c:when>
 							<c:otherwise>
-								<c:forEach var="inquiryDto" items="${inquiryList}">
+								<c:forEach var="inquiryDto" items="${memberList}">
 									<tr>
 										<td>${inquiryDto.no}</td>
-										<td>${inquiryDto.name}</td>
+										<c:choose>
+											<c:when test="${inquiryDto.categoryCode eq 1}">
+ 												<td>주문</td> 
+											</c:when>
+											<c:when test="${inquiryDto.categoryCode eq 2}">
+												<td>밀키트</td> 
+											</c:when>
+											<c:when test="${inquiryDto.categoryCode eq 3}">
+ 												<td>회원</td> 
+											</c:when>
+											<c:otherwise>
+												<td>기타</td> 
+											</c:otherwise>
+										</c:choose> 
 										<td><a href="./member/detail.do?no=${inquiryDto.no}">${inquiryDto.title}</a></td>
 										<td><fmt:formatDate pattern="yyyy년MM월dd일 "
 												value="${inquiryDto.createDate}" /></td>
@@ -189,12 +215,19 @@ td {
 				<div id="backBtn">
 					<input type="button" value="뒤로가기" onclick="backBtn()">
 				</div>
-
+				
 				<div id="writeBtn">
 					<input type="button" value="문의작성" onclick="writeBtn()">
 				</div>
 
 				<jsp:include page="/WEB-INF/views/Paging.jsp" />
+				
+			<form id="pagingForm">
+				<input type="hidden" id="curPage" name="curPage" value="${paging.curPage}">
+				<input type="hidden" id="answerState" name="answerState" value="${searchMap.answerState}">
+				<input type="hidden" id="categoryCode" name="categoryCode" value="${searchMap.categoryCode}">
+				<input type="hidden" id="memberId" name="memberId" value="${searchMap.memberId}">
+			</form>
 
 				<div id="underPadding"></div>
 				<!--underPadding-->

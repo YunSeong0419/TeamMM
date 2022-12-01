@@ -45,25 +45,25 @@ function modifytBtn(no) {
 				<input type="hidden" name="no" value="${noticeDto.no}">
 				<div>분류<input type="text" name="categoryName" id="divisionId"
 						value="${noticeDto.categoryName}"readonly></div>
-				<c:if test="${noticeDto.categoryCode eq 2}">
+				<c:if test="${noticeDto.categoryName eq '이벤트'}">
 					<div>
 						기간<input type="text" name="eventStartDate" id="eventStartDate"
-							value="<fmt:formatDate pattern='yyyy년MM월dd일 ' value='${noticeDto.eventStartDate}'/>"
+							value="<fmt:formatDate pattern='yyyy-MM-dd ' value='${noticeDto.eventStartDate}'/>"
 							readonly>~
 						<input type="text" name="eventEndDate" id="eventEndDate"
-							value="<fmt:formatDate pattern='yyyy년MM월dd일 ' value='${noticeDto.eventEndDate}'/>"
+							value="<fmt:formatDate pattern='yyyy-MM-dd ' value='${noticeDto.eventEndDate}'/>"
 							readonly>
 					</div> 
-				</c:if>
+				</c:if> 
 				<div>제목<input type="text" name="title" id="title"
 						 value="${noticeDto.title}" readonly></div>
 				<div>작성일<input type="text" name="createDate" id="createDate"
-						 value="<fmt:formatDate pattern='yyyy년MM월dd일 ' value='${noticeDto.createDate}'/>" readonly></div>
+						 value="<fmt:formatDate pattern='yyyy-MM-dd ' value='${noticeDto.createDate}'/>" readonly></div>
 				<div>조회수<input type="text" name="hit" id="hit"
 						 value="${noticeDto.hit}" readonly></div>
 				<div>내용<input type="text" name="content" id="content"
 						 value="${noticeDto.content}" readonly></div>
-				<div>이미지</div>
+				<div><img alt="" src="/babiyo/img/${noticeImg.STORED_NAME}"></div>
 				<div><input id="backDiv" type="button" value="뒤로가기" onclick="backBtn()"></div>
 				<c:if test="${_memberDto_.grade eq 1}">
 				<div><input id="modifytId"  type="button" value="수정하기" onclick="modifytBtn(${noticeDto.no})"></div>
