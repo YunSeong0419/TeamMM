@@ -98,6 +98,12 @@ public class MemberServiceImpl implements MemberService{
 		return memberDao.memberInfo(memberDto);
 	}
 
+	@Override
+	public void memberUpdateOne(MemberDto memberDto) {
+		// TODO Auto-generated method stub
+		memberDao.memberUpdateOne(memberDto);
+	}
+
 	
 
 	

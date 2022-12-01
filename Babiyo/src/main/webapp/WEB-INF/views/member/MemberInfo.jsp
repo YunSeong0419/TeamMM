@@ -40,7 +40,11 @@
 
 function moveChargeFnc() {
 	location.href ='../cash/chargeCash.do';
-}
+};
+
+function updateInfoFnc() {
+	location.href ='./memberUpdate.do';
+};
 
 
 

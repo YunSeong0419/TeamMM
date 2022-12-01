@@ -73,6 +73,18 @@
 	FROM MEMBER
 	WHERE ID = #{id}
 </select>
+
+<update id="memberUpdateOne" parameterType="memberDto">
+UPDATE MEMBER
+SET PASSWORD = #{password},
+NAME = #{name},
+EMAIL = #{email},
+PHONE = #{phone},
+GENDER = #{gender},
+NICKNAME = #{nickname},
+MODIFY_DATE = SYSDATE
+WHERE ID = #{id}
+</update>
 	
 
 </mapper>

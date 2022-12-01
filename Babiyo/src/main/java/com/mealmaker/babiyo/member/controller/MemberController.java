@@ -152,6 +152,26 @@ public class MemberController {
 	}
 	
 	
+	@RequestMapping(value = "/member/memberUpdate.do", method = RequestMethod.GET)
+	public String memberUpdate(HttpSession session, Model model) {
+		logger.info("Welcome MemberController memberUpdate! ");
+		List<Map<String, Object>> categoryCodeList = memberService.categoryCodeList();
+		model.addAttribute("categoryCodeList", categoryCodeList);
+		
+		return "/member/MemberUpdate";
+	}
+	
+	@RequestMapping(value = "/member/memberUpdateCtr.do", method = RequestMethod.POST)
+	public String memberUpdateOne(MemberDto memberDto, Model model) {
+		logger.info("Welcome MemberController memberAdd 신규등록 처리! " 
+				+ memberDto);
+		memberService.memberUpdateOne(memberDto);
+		
+		String memberId = memberDto.getId();
+		
+		return "redirect:/auth/member/addInterest.do?memberId=" + memberId;
+	}
+	
 	@RequestMapping(value = "/member/memberInfo.do", method = RequestMethod.GET)
 	public String memberInfo(HttpSession session, Model model) {
 		logger.info("Welcome MemberController memberInfo! ");

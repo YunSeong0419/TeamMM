@@ -107,6 +107,13 @@ public class MemberDaoImpl implements MemberDao{
 				, memberDto);
 	}
 
+	@Override
+	public void memberUpdateOne(MemberDto memberDto) {
+		// TODO Auto-generated method stub
+		sqlSession.update(namespace + "memberUpdateOne"
+				, memberDto);
+	}
+
 	
 
 

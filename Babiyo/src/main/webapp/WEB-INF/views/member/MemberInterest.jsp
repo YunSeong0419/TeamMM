@@ -121,11 +121,6 @@
  								<option disabled selected>선택해주세요</option>
  								<c:forEach items="${categoryCodeList}" var="interest">
 								<option value="${interest.CODE}">${interest.NAME}</option>
-<!-- 							<option value="01">한식</option> -->
-<!-- 							<option value="02">중식</option> -->
-<!-- 							<option value="03">일식</option> -->
-<!-- 							<option value="04">양식</option> -->
-<!-- 							<option value="05">동남아</option> -->
 							</c:forEach>
  							</select>
 					</div>

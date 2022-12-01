@@ -22,8 +22,10 @@ public interface MemberService {
 	public List<Map<String, Object>> categoryCodeList();
 	void addInterest(InterestDto interestDto);
 	public MemberDto memberInfo(MemberDto memberDto);
+	public void memberUpdateOne(MemberDto memberDto);
 //	public List<MemberDto> memberSelectList(String searchOption, 
 //		String keyword,	int start, int end);
+	
 	
 	
 	
