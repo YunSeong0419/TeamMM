@@ -33,10 +33,9 @@
 		SELECT NO, NAME, PRICE
 		FROM (SELECT ROWNUM, NO, NAME, PRICE
 					FROM PRODUCT
-					WHERE CATEGORY_CODE = #{categoryCode}
 					ORDER BY NO DESC)
 		WHERE <![CDATA[ ROWNUM <= 8 ]]>
-	</select>	
+	</select>
 	
 	<select id="productList" parameterType="map" resultMap="productResultMap">
 		SELECT PL.NO, PL.CATEGORY_CODE, PL.NAME, PL.PRICE, PL.STOCK
@@ -48,7 +47,7 @@
 	                <include refid="search"></include>
 					<include refid="sort"></include>) P
 		) PL
-		WHERE PL.RNUM BETWEEN #{start} AND #{end} 
+		WHERE PL.RNUM BETWEEN #{start} AND #{end}
 	</select>
 	
 	<insert id="productRegistration" parameterType="productDto" 

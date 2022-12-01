@@ -17,6 +17,12 @@
 	height: 30px;
 }
 
+#emptyMainNoticeList{
+	font-size: 32px;
+	font-weight: bold;
+	text-align: center;
+}
+
 #noticeName{
 	width: 100px;
 	height: 30px;
@@ -181,14 +187,24 @@
 			<div id='noticeName'>
 				<span><strong>공지사항</strong></span>
 			</div>
-			<div id='noticeTitle'>
-				바비요 오픈!
-			</div>
-			<div id='noticeDate'>
-				2022-12-07
-			</div>
+			<c:choose>
+				<c:when test="${empty noticeDto}">
+					<p id='emptyMainNoticeList'>
+						공지가 없습니다.
+					</p>
+				</c:when>
+				<c:otherwise>
+					<div id='noticeTitle'>
+						${noticeDto.title}
+						<a href="/babiyo/notice/noticeDetail.do?noticeNo=${noticeDto.no}"></a>
+					</div>
+					<div id='noticeDate'>
+						<fmt:formatDate pattern="yyyy-MM-dd" value="${noticeDto.createDate}" />
+					</div>
+				</c:otherwise>
+			</c:choose>
 			<div id='goToNotice'>
-				<a href="#"><strong>더보기</strong></a>
+				<a href="/babiyo/notice/list.do"><strong>더보기</strong></a>
 			</div>
 		</div>
 		

@@ -119,7 +119,7 @@
 	width: 450px;
 }
 
-.stock, .stockVariationBox{
+.stock, .stockBox{
 	width: 50px;
 	text-align: center;
 	float: right;
@@ -187,96 +187,22 @@
 				<div id='filterAndSearch'>
 					<div id='sortBox'>
 						<p class='filterBoxName'>정렬</p> 
-						<form action='./list.do' method='post' class='filterBoxClassificationForm'>
+						<form action='./adminList.do' method='post' class='filterBoxClassificationForm'>
 							<select name='sortOption' class='filterBoxClassification'>
-								<c:choose>
-									<c:when test="${sortMap.sortOption == 'STOCK ASC'}">
-										<option value='STOCK ASC' selected='selected'>재고 ↑</option>
-										<option value='STOCK DESC'>재고 ↓</option>
-										<option value='NAME ASC'>이름 ↑</option>
-										<option value='NAME DESC'>이름 ↓</option>
-										<option value='PRICE ASC'>가격 ↑</option>
-										<option value='PRICE DESC'>가격 ↓</option>
-										<option value='REGISTRATION ASC'>등록 ↑</option>
-										<option value='REGISTRATION DESC'>등록 ↓</option>
-									</c:when>
-									<c:when test="${sortMap.sortOption == 'STOCK DESC'}">
-										<option value='STOCK ASC'>재고 ↑</option>
-										<option value='STOCK DESC' selected='selected'>재고 ↓</option>
-										<option value='NAME ASC'>이름 ↑</option>
-										<option value='NAME DESC'>이름 ↓</option>
-										<option value='PRICE ASC'>가격 ↑</option>
-										<option value='PRICE DESC'>가격 ↓</option>
-										<option value='REGISTRATION ASC'>등록 ↑</option>
-										<option value='REGISTRATION DESC'>등록 ↓</option>
-									</c:when>
-									<c:when test="${sortMap.sortOption == 'NAME ASC'}">
-										<option value='STOCK ASC'>재고 ↑</option>
-										<option value='STOCK DESC'>재고 ↓</option>
-										<option value='NAME ASC' selected='selected'>이름 ↑</option>
-										<option value='NAME DESC'>이름 ↓</option>
-										<option value='PRICE ASC'>가격 ↑</option>
-										<option value='PRICE DESC'>가격 ↓</option>
-										<option value='REGISTRATION ASC'>등록 ↑</option>
-										<option value='REGISTRATION DESC'>등록 ↓</option>
-									</c:when>
-									<c:when test="${sortMap.sortOption == 'NAME ASC'}">
-										<option value='STOCK ASC'>재고 ↑</option>
-										<option value='STOCK DESC'>재고 ↓</option>
-										<option value='NAME ASC'>이름 ↑</option>
-										<option value='NAME DESC' selected='selected'>이름 ↓</option>
-										<option value='PRICE ASC'>가격 ↑</option>
-										<option value='PRICE DESC'>가격 ↓</option>
-										<option value='REGISTRATION ASC'>등록 ↑</option>
-										<option value='REGISTRATION DESC'>등록 ↓</option>
-									</c:when>
-									<c:when test="${sortMap.sortOption == 'PRICE ASC'}">
-										<option value='STOCK ASC'>재고 ↑</option>
-										<option value='STOCK DESC'>재고 ↓</option>
-										<option value='NAME ASC'>이름 ↑</option>
-										<option value='NAME DESC'>이름 ↓</option>
-										<option value='PRICE ASC' selected='selected'>가격 ↑</option>
-										<option value='PRICE DESC'>가격 ↓</option>
-										<option value='REGISTRATION ASC'>등록 ↑</option>
-										<option value='REGISTRATION DESC'>등록 ↓</option>
-									</c:when>
-									<c:when test="${sortMap.sortOption == 'PRICE DESC'}">
-										<option value='STOCK ASC'>재고 ↑</option>
-										<option value='STOCK DESC'>재고 ↓</option>
-										<option value='NAME ASC'>이름 ↑</option>
-										<option value='NAME DESC'>이름 ↓</option>
-										<option value='PRICE ASC'>가격 ↑</option>
-										<option value='PRICE DESC' selected='selected'>가격 ↓</option>
-										<option value='REGISTRATION ASC'>등록 ↑</option>
-										<option value='REGISTRATION DESC'>등록 ↓</option>
-									</c:when>
-									<c:when test="${sortMap.sortOption == 'REGISTRATION ASC'}">
-										<option value='STOCK ASC'>재고 ↑</option>
-										<option value='STOCK DESC'>재고 ↓</option>
-										<option value='NAME ASC'>이름 ↑</option>
-										<option value='NAME DESC'>이름 ↓</option>
-										<option value='PRICE ASC'>가격 ↑</option>
-										<option value='PRICE DESC'>가격 ↓</option>
-										<option value='REGISTRATION ASC' selected='selected'>등록 ↑</option>
-										<option value='REGISTRATION DESC'>등록 ↓</option>
-									</c:when>
-									<c:when test="${sortMap.sortOption == 'REGISTRATION DESC'}">
-										<option value='STOCK ASC'>재고 ↑</option>
-										<option value='STOCK DESC'>재고 ↓</option>
-										<option value='NAME ASC'>이름 ↑</option>
-										<option value='NAME DESC'>이름 ↓</option>
-										<option value='PRICE ASC'>가격 ↑</option>
-										<option value='PRICE DESC'>가격 ↓</option>
-										<option value='REGISTRATION ASC'>등록 ↑</option>
-										<option value='REGISTRATION DESC' selected='selected'>등록 ↓</option>
-									</c:when>
-								</c:choose>
+								<option value='STOCK ASC'>재고 ↑</option>
+								<option value='STOCK DESC'>재고 ↓</option>
+								<option value='NAME ASC'>이름 ↑</option>
+								<option value='NAME DESC'>이름 ↓</option>
+								<option value='PRICE ASC'>가격 ↑</option>
+								<option value='PRICE DESC'>가격 ↓</option>
+								<option value='REGISTRATION ASC'>등록 ↑</option>
+								<option value='REGISTRATION DESC'>등록 ↓</option>
 							</select>
 						</form>
 					</div>
 					<div id='searchBox'>
 						<p class='filterBoxName'>검색</p> 
-						<form action='./list.do' method='post' class='filterBoxClassificationForm'>
+						<form action='./adminList.do' method='post' class='filterBoxClassificationForm'>
 							<select name='searchOption' class='filterBoxClassification'>
 								<c:choose>
 									<c:when test="${searchMap.searchOption == 'all'}">
@@ -332,8 +258,8 @@
 											</a>
 										</td>
 										<td>${productDto.price}</td>
-										<td>${productDto.stock}<input type="text" name='stockVariation' 
-											value='' class='stockVariationBox'></td>
+										<td><input type="text" value='${productDto.stock}'
+												 class='stockBox'></td>
 										<td><input type="checkbox" class='checkboxes'></td>
 									</tr>
 								</c:forEach>
@@ -342,7 +268,7 @@
 					</table>
 					<div id='tableLowerButtonDiv'>
 						<input type="button" value="밀키트 등록" class='productListbutton' 
-							onclick="location.href='./registration.do'">
+							onclick="location.href='./adminRegistration.do'">
 						<input type="button" value="재고 수정" class='productListbutton' 
 							onclick="stockBatchModificationFnc();">
 					</div>

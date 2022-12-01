@@ -158,7 +158,7 @@ public class ProductServiceImpl implements ProductService{
 	public List<Map<String, Object>> productCategory() {
 		List<ProductDto> productCategory = productDao.productCategory();
 		
-		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
+		List<Map<String, Object>> categoryList = new ArrayList<Map<String,Object>>();
 		
 		for (ProductDto productDto : productCategory) {
 			Map<String, Object> map = new HashMap<String, Object>();
@@ -169,10 +169,10 @@ public class ProductServiceImpl implements ProductService{
 			map.put("productDto", productDto);
 			map.put("imgMap", imgMap);
 			
-			list.add(map);
+			categoryList.add(map);
 		}
 		
-		return list;
+		return categoryList;
 	}
 	
 	//DAO에서 신상 밀키트 가져오게 시키기

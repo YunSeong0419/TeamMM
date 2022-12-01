@@ -179,7 +179,7 @@
 			<div id="sideTitle"></div>
 			<!--여기서 작성 -->
 			<div id='productRegistrationDiv'>
-				<form action='./modificationCtr.do' method='post' enctype="multipart/form-data">
+				<form action='./adminModificationCtr.do' method='post' enctype="multipart/form-data">
   					<input type="hidden" name='no' value='${productDto.no}'> 
 				<div id='imageDiv'>
 					<div>

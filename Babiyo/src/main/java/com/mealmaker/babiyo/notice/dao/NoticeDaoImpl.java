@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.mealmaker.babiyo.notice.model.NoticeDto;
-import com.mealmaker.babiyo.notice.model.NoticeImageDto;
 import com.mealmaker.babiyo.util.SearchOption;
 
 @Repository
@@ -85,6 +84,12 @@ public class NoticeDaoImpl implements NoticeDao{
 	public void noticeDeleteOne(int no) {
 		// TODO Auto-generated method stub
 		 sqlSession.delete(namespace + "noticeDeleteOne", no);
+	}
+
+	@Override
+	public NoticeDto mainNoticeList() {
+		
+		return sqlSession.selectOne(namespace + "mainNoticeList");
 	}
 
 

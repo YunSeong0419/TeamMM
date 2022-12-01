@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.mealmaker.babiyo.member.model.MemberDto;
+import com.mealmaker.babiyo.notice.model.NoticeDto;
+import com.mealmaker.babiyo.notice.service.NoticeService;
 import com.mealmaker.babiyo.product.service.ProductService;
 
 @Controller
@@ -23,6 +25,9 @@ public class MainController {
 
 	@Resource
 	private ProductService productService;
+	
+	@Resource
+	private NoticeService noticeService;
 
 	//오븐 14p, 메인
 	@RequestMapping(value = "/main.do", method = RequestMethod.GET)
@@ -33,23 +38,13 @@ public class MainController {
 		String memberId = memberDto.getId();
 
 		List<Map<String, Object>> recommendProductList = productService.recommendProductList(memberId);
-
 		List<Map<String, Object>> newProductList = productService.newProductList();
+		NoticeDto noticeDto = noticeService.mainNoticeList();
 		
-		List<Map<String, Object>> productCategory = productService.productCategory();
-		
+		model.addAttribute("noticeDto", noticeDto);
 		model.addAttribute("recommendProductList", recommendProductList);
 		model.addAttribute("newProductList", newProductList);
-		model.addAttribute("productCategory", productCategory);
 			
 		return "main/main";
-	}
-	
-	//오븐 15p, 헤더-밀키트 카테고리
-	@RequestMapping(value = "/category.do", method = RequestMethod.GET)
-	public String productCategory(Model model) {
-		logger.info("MainController category! ");
-
-		return "main/category";
 	}
 }

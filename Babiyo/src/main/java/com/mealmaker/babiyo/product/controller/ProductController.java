@@ -30,8 +30,20 @@ public class ProductController {
 	@Autowired
 	private ProductService productService;
 	
+	//오븐 15p, 헤더-밀키트 카테고리
+	@RequestMapping(value = "/product/category.do", method = RequestMethod.GET)
+	public String productCategory(Model model) {
+		logger.info("MainController category! ");
+
+		List<Map<String, Object>> productCategory = productService.productCategory();
+		
+		model.addAttribute("productCategory", productCategory);
+		
+		return "product/category";
+	}
+	
 	//오븐 21p 회원-밀키트 상세
-	@RequestMapping(value = "/product/memberDetail.do")
+	@RequestMapping(value = "/product/detail.do")
 	public String productMemberDetail(int productNo, HttpSession session, Model model) {
 		logger.info("ProductController productMemberDetail! - {}");
 		
@@ -49,10 +61,10 @@ public class ProductController {
 		model.addAttribute("productImg", productImg);
 		model.addAttribute("favoriteCheck", favoriteCheck);
 		
-		return "product/memberDetail";
+		return "product/detail";
 	}
 	//오븐 56p 관리자-밀키트 관리(목록)
-	@RequestMapping(value = "/product/list.do", method = {RequestMethod.GET, RequestMethod.POST})
+	@RequestMapping(value = "/product/adminList.do", method = {RequestMethod.GET, RequestMethod.POST})
 	public String productList(@RequestParam(defaultValue = "1") int curPage
 			, @RequestParam(defaultValue = "all") String searchOption
 			, @RequestParam(defaultValue = "STOCK ASC") String sortOption
@@ -82,19 +94,19 @@ public class ProductController {
 		model.addAttribute("sortMap", searchAndSortMap);
 		model.addAttribute("paging", paging);
 		
-		return "product/productList";
+		return "admin/product/adminProductList";
 	}
 	
 	//오븐 56p 관리자-밀키트 관리-밀키트 등록으로 가기
-	@RequestMapping(value = "/product/registration.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/product/adminRegistration.do", method = RequestMethod.GET)
 	public String productRegistration(Model model) {
 		logger.info("ProductController productRegistration!");
 		
-		return "product/registration";
+		return "admin/product/adminProductRegistration";
 	}
 
 	//오븐 57p 관리자-밀키트 관리-밀키트 등록
-	@RequestMapping(value = "/product/registrationCtr.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/product/adminRegistrationCtr.do", method = RequestMethod.POST)
 	public String productRegistration(ProductDto productDto, 
 		MultipartHttpServletRequest multipartHttpServletRequest, Model model) {
 		logger.info("ProductController productRegistration 밀키트 등록 완료!" + productDto);
@@ -104,7 +116,7 @@ public class ProductController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "redirect:/product/list.do";
+		return "redirect:/product/adminList.do";
 	}
 	
 	//오븐 58p 관리자-밀키트 관리-밀키트 상세
@@ -130,11 +142,11 @@ public class ProductController {
 		model.addAttribute("fileList", fileList);
 		model.addAttribute("prevMap", prevMap);
 		
-		return "product/adminDetail";
+		return "admin/product/adminProductDetail";
 	}
 
 	//오븐 58p 관리자-밀키트 관리-밀키트 상세-밀키트 수정으로 가기
-	@RequestMapping(value = "/product/modification.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/product/adminModification.do", method = RequestMethod.GET)
 	public String productModification(int no, Model model) {
 		logger.debug("ProductController productModification!" + no);
 		
@@ -148,11 +160,11 @@ public class ProductController {
 		model.addAttribute("productDto", productDto);
 		model.addAttribute("fileList", fileList);
 		
-		return "product/modification";
+		return "admin/product/adminProductModification";
 	}
 
 	//오븐 58p 관리자-밀키트 관리-밀키트 상세-밀키트 수정
-	@RequestMapping(value = "/product/modificationCtr.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/product/adminModificationCtr.do", method = RequestMethod.POST)
 	public String productModificationCtr(HttpSession session, ProductDto productDto
 		, @RequestParam(value = "fileIdx", defaultValue = "-1") int fileIdx
 		, MultipartHttpServletRequest multipartHttpServletRequest, Model model) {
@@ -183,7 +195,7 @@ public class ProductController {
 				session.setAttribute("_productDto_", proofModificationDto);
 			}
 		}
-		return "product/modificationSuccess";
+		return "admin/product/adminProductModificationSuccess";
 	}
 	
 	//오븐 58p 관리자-밀키트 관리-밀키트 상세-밀키트 삭제
@@ -193,7 +205,7 @@ public class ProductController {
 		
 		productService.productDelete(no);
 		
-		return "redirect:/product/list.do";
+		return "redirect:/product/adminList.do";
 	}
 	
 	

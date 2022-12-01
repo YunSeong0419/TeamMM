@@ -38,7 +38,7 @@
 	
 	<div id='categoryMenuBar'>
 		<div>
-			<a id='mealKit' href="/babiyo/category.do">밀키트</a>
+			<a id='mealKit' href="/babiyo/product/category.do">밀키트</a>
 		</div>
 		
 		<div class='categoryVerticalLine'></div>

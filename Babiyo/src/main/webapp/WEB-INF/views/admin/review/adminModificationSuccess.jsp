@@ -9,7 +9,7 @@
 <script type="text/javascript">
 	alert('수정됐어용ㅎㅎ');
 	
-	location.href = '/babiyo/product/list.do';
+	location.href = '/babiyo/review/adminDetail.do';
 </script>
 
 </head>

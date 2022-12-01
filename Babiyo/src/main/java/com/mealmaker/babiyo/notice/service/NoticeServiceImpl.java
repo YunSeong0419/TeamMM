@@ -1,5 +1,6 @@
 package com.mealmaker.babiyo.notice.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -130,4 +131,11 @@ public class NoticeServiceImpl implements NoticeService{
 		noticeDao.noticeDeleteOne(no);
 	}
 
+	//메인에  공지 리스트 가져오게 시키기
+	@Override
+	public NoticeDto mainNoticeList() {
+		NoticeDto mainNoticeList = noticeDao.mainNoticeList();
+			
+		return mainNoticeList;
+	}
 }

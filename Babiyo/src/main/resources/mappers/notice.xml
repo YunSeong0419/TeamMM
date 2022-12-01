@@ -134,4 +134,14 @@ VALUES( #{categoryCode}, #{title}, #{content}, SYSDATE, #{eventStartDate}, #{eve
 	DELETE FROM NOTICE
 	WHERE NO = #{no}
 </delete>
+
+<!-- 메인-공지 노출 -->
+<select id="mainNoticeList" resultMap="noticeResultMap">
+SELECT *
+FROM(SELECT TITLE, CREATE_DATE
+	FROM NOTICE
+	ORDER BY CREATE_DATE DESC)
+WHERE ROWNUM = 1
+</select>
+
 </mapper>
