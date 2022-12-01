@@ -10,11 +10,13 @@
 <result column="PRICE" property="productPrice"/>
 </resultMap>
 
-<select id="favoriteList" parameterType="String" resultMap="favoriteResultMap">
-SELECT F.MEMBER_ID, F.PRODUCT_NO, P.NAME, P.PRICE
-FROM FAVORITE F JOIN PRODUCT P
-ON F.PRODUCT_NO = P.NO
-WHERE MEMBER_ID = #{value}
+<select id="favoriteList" parameterType="map" resultMap="favoriteResultMap">
+SELECT *
+FROM (SELECT F.MEMBER_ID, F.PRODUCT_NO, P.NAME, P.PRICE, ROWNUM RNUM
+	FROM FAVORITE F JOIN PRODUCT P
+	ON F.PRODUCT_NO = P.NO
+	WHERE F.MEMBER_ID = #{memberId})
+WHERE RNUM BETWEEN ${begin} AND ${end}
 </select>
 
 <insert id="favoriteAdd" parameterType="map">
@@ -42,6 +44,12 @@ SELECT MEMBER_ID
 FROM FAVORITE
 WHERE MEMBER_ID = #{memberId}
 AND PRODUCT_NO = ${productNo}
+</select>
+
+<select id="totalCount" parameterType="String" resultType="int">
+SELECT COUNT(*)
+FROM FAVORITE
+WHERE MEMBER_ID = #{value}
 </select>
 
 

@@ -1,6 +1,7 @@
 package com.mealmaker.babiyo.cart.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
@@ -72,9 +73,9 @@ public class CartController {
 		MemberDto memberDto = (MemberDto) session.getAttribute("_memberDto_");
 		String memberId= memberDto.getId();
 		
-		List<CartDto> list = cartService.cartList(memberId);
+		List<Map<String, Object>> cartList = cartService.cartList(memberId);
 		
-		model.addAttribute("cartList", list);
+		model.addAttribute("cartList", cartList);
 		
 		return "cart/cartList";
 	}

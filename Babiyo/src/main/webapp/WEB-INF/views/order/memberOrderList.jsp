@@ -28,31 +28,30 @@ table{
 }
 
 #orderDateTh{
-	width: 120px;
+	width: 200px;
 	height: 30px;
 }
 #orderNoTh{
-	width: 100px;
-}
-#productNameTh{
-	width: 500px;
-}
-#totalAmountTh{
-	width: 100px;
-}
-#orderStateTh{
-	width: 50px;
-}
-#btnTh{
 	width: 80px;
 }
+#productNameTh{
+	width: 370px;
+}
+#totalAmountTh{
+	width: 120px;
+}
+#orderStateTh{
+	width: 80px;
+}
+#btnTh{
+	width: 100px;
+}
 
-.orderDateTd, .orderNoTd, .orderStateTd, .btnTd{
+.orderDateTd, .orderStateTd, .btnTd{
 	text-align: center;
 }
 
-.totalAmountTd{
-	padding-right: 5px;
+.totalAmountTd, .orderNoTd{
 	text-align: right;
 }
 
@@ -63,6 +62,7 @@ table{
 td{
 	height: 30px;
 	border-bottom: 1px solid gray;
+	padding: 0px 10px;
 }
 
 #detailLink{
@@ -72,6 +72,14 @@ td{
 
 #searchOption{
 	margin: 5px 50px;
+}
+
+
+.inputBox{
+	line-height: 35px;
+	height: 35px;
+	border: 1px solid black;
+	border-radius: 5px;
 }
 
 
@@ -118,7 +126,7 @@ function stateSelectFnc(){
 			<div id="searchOption">
 				<form id="stateForm" method="get">
 					<span>상태</span>
-					<select id="stateSelect" name="stateCode" onchange="stateSelectFnc();">
+					<select id="stateSelect" name="stateCode" class="inputBox" onchange="stateSelectFnc();">
 					<option value="0">전체</option>
 					<c:forEach items="${stateList}" var="state">
 					<option value="${state.CODE}">${state.NAME}</option>
@@ -139,7 +147,7 @@ function stateSelectFnc(){
 					<c:when test="true">
 					<c:forEach items="${orderList}" var="order">
 					<tr>
-						<td class="orderDateTd"><fmt:formatDate value="${order.orderDate}"/></td>
+						<td class="orderDateTd"><fmt:formatDate value="${order.orderDate}" pattern="yyyy-MM-dd hh:mm:ss"/></td>
 						<td class="orderNoTd">${order.no}</td>
 						<td class="productNameTd"><a id="detailLink" href="../order/detail.do?orderNo=${order.no}">
 							${order.preview}

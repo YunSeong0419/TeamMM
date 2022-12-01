@@ -83,7 +83,7 @@ header{
 /* header end */
 
 #middleDiv{
-	min-height: 600px;
+	min-height: 650px;
 	width: 1200px;
 	margin: auto;
 }
@@ -244,5 +244,6 @@ nav > ul > li > a:hover {
     font-weight: bold;
     margin: 0px;
 }
+
 
 

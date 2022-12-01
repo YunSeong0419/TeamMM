@@ -1,8 +1,11 @@
 package com.mealmaker.babiyo.cart.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.annotation.Resource;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,6 +14,8 @@ import org.springframework.stereotype.Service;
 
 import com.mealmaker.babiyo.cart.dao.CartDao;
 import com.mealmaker.babiyo.cart.model.CartDto;
+import com.mealmaker.babiyo.favorite.model.FavoriteDto;
+import com.mealmaker.babiyo.product.dao.ProductDao;
 
 @Service
 public class CartServiceImpl implements CartService{
@@ -20,15 +25,35 @@ public class CartServiceImpl implements CartService{
 	
 	private final CartDao cartDao;
 	
+	@Resource
+	private ProductDao productDao;
+	
 	@Autowired
 	public CartServiceImpl(CartDao cartDao) {
 		this.cartDao = cartDao;
 	}
 
 	@Override
-	public List<CartDto> cartList(String memberId) {
+	public List<Map<String, Object>> cartList(String memberId) {
 		// TODO Auto-generated method stub
-		return cartDao.cartList(memberId);
+		
+		List<CartDto> cartList = cartDao.cartList(memberId);
+		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
+		
+		for (CartDto cartDto : cartList) {
+			Map<String, Object> map = new HashMap<String, Object>();
+			
+			int no = cartDto.getProductNo();
+			
+			Map<String, Object> imgMap = productDao.fileSelectOne(no);
+				
+			map.put("cartDto", cartDto);
+			map.put("imgMap", imgMap);
+				
+			list.add(map);
+		}
+		
+		return list;
 	}
 
 

@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import com.mealmaker.babiyo.favorite.dao.FavoriteDao;
 import com.mealmaker.babiyo.favorite.model.FavoriteDto;
 import com.mealmaker.babiyo.product.dao.ProductDao;
+import com.mealmaker.babiyo.util.Paging;
 
 @Service
 public class FavoriteServiceImpl implements FavoriteService{
@@ -34,9 +35,10 @@ public class FavoriteServiceImpl implements FavoriteService{
 	}
 	
 	@Override
-	public List<Map<String, Object>> favoriteList(String memberId) {
+	public List<Map<String, Object>> favoriteList(String memberId, int begin, int end) {
 		// TODO Auto-generated method stub
-		List<FavoriteDto> favoriteList = favoriteDao.favoriteList(memberId);
+
+		List<FavoriteDto> favoriteList = favoriteDao.favoriteList(memberId, begin, end);
 		
 		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
 		
@@ -84,6 +86,12 @@ public class FavoriteServiceImpl implements FavoriteService{
 		}
 		
 		return check;
+	}
+
+	@Override
+	public int totalCount(String memberId) {
+		// TODO Auto-generated method stub
+		return favoriteDao.totalCount(memberId);
 	}
 
 }

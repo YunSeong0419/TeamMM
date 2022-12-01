@@ -14,7 +14,12 @@
 <style type="text/css">
 .favorite{
 	float: left;
-	margin: 10px;
+	margin: 5px;
+}
+#allCheckContainer{
+	width: 950px;
+	margin: auto;
+	padding-left: 20px;
 }
 
 .productImgContainer{
@@ -34,13 +39,25 @@
 }
 
 #favoriteContainer{
-	width: 1050px;
-	min-height: 550px;
-	padding: 0px 20px;
+	width: 950px;
+	height: 500px;
+	margin: auto;
 }
 
 #btnContainer{
+	text-align: center;
 	clear:both;
+	margin-bottom: 30px;
+}
+
+#cartAdd, #selectDelete{
+	width: 100px;
+	height: 40px;
+	border: 0px;
+	border-radius: 5px;
+	background-color: #FF5E00;
+	font-weight: bold;
+	color: white;
 }
 
 
@@ -108,10 +125,6 @@ $(function(){
 	
 });
 
-function selectProductFnc(no) {
-	
-	alert('미구현');
-}
 
 </script>
 
@@ -129,7 +142,7 @@ function selectProductFnc(no) {
 		<div id="middleMainDiv">
 			<div id="sideTitle"></div>
 				
-			<div>
+			<div id="allCheckContainer">
 				<input type="checkbox" id="allCheck">전체선택	
 			</div>
 				
@@ -139,9 +152,11 @@ function selectProductFnc(no) {
 							<c:when test="${!empty favoriteList}">
 								<c:forEach items="${favoriteList}" var="list" varStatus="status">
 									<div class="favorite">
-										<div class="productImgContainer" onclick="selectProductFnc(${list.favoriteDto.productNo});">
-											<img class="productImg" alt="${list.favoriteDto.productName}"
-													src="/babiyo/img/${list.imgMap.STORED_NAME}">
+										<div class="productImgContainer">
+											<a href="/babiyo/product/detail.do?productNo=${list.favoriteDto.productNo}">
+												<img class="productImg" alt="${list.favoriteDto.productName}"
+														src="/babiyo/img/${list.imgMap.STORED_NAME}">
+											</a>
 										</div>
 										<span class="productName">
 											<input type="checkbox" class="check" id="check${status.index}"> 
@@ -163,6 +178,10 @@ function selectProductFnc(no) {
 				</div>
 				
 				<input type="hidden" name="backPage" value="favorite">
+			</form>
+			
+			<form id="pagingForm">
+				<input type="hidden" id="curPage" name="curPage" value="${paging.curPage}">
 			</form>
 			
 			<jsp:include page="/WEB-INF/views/Paging.jsp"/>

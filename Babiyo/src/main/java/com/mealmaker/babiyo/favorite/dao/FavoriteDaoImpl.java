@@ -1,6 +1,8 @@
 package com.mealmaker.babiyo.favorite.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,9 +23,15 @@ public class FavoriteDaoImpl implements FavoriteDao {
 	}
 
 	@Override
-	public List<FavoriteDto> favoriteList(String memberId) {
+	public List<FavoriteDto> favoriteList(String memberId, int begin, int end) {
 		// TODO Auto-generated method stub
-		return sqlSession.selectList(namespace + "favoriteList", memberId);
+		Map<String, Object> paraMap = new HashMap<String, Object>();
+		
+		paraMap.put("memberId", memberId);
+		paraMap.put("begin", begin);
+		paraMap.put("end", end);
+		
+		return sqlSession.selectList(namespace + "favoriteList", paraMap);
 	}
 
 	@Override
@@ -42,6 +50,12 @@ public class FavoriteDaoImpl implements FavoriteDao {
 	public String favoriteCheck(FavoriteDto favoriteDto) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne(namespace + "favoriteCheck", favoriteDto);
+	}
+
+	@Override
+	public int totalCount(String memberId) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(namespace + "totalCount", memberId);
 	}
 
 

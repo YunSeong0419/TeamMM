@@ -1,5 +1,6 @@
 package com.mealmaker.babiyo.order.controller;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
@@ -139,6 +140,9 @@ public class OrderController {
 		
 		List<Map<String, Object>> stateList = orderService.orderStateList();
 		
+		LocalDate today = LocalDate.now();
+		
+		model.addAttribute("today", today);
 		model.addAttribute("paging", paging);
 		model.addAttribute("orderList", orderList);
 		model.addAttribute("stateList", stateList);

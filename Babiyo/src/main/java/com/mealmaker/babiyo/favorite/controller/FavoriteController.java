@@ -24,6 +24,7 @@ import com.mealmaker.babiyo.favorite.model.FavoriteDto;
 import com.mealmaker.babiyo.favorite.service.FavoriteService;
 import com.mealmaker.babiyo.member.dao.MemberDao;
 import com.mealmaker.babiyo.member.model.MemberDto;
+import com.mealmaker.babiyo.util.Paging;
 
 @Controller
 @SessionAttributes("_memberDto_")
@@ -43,13 +44,22 @@ public class FavoriteController {
 
 	@RequestMapping(value="/favorite/favoriteView.do", method = RequestMethod.GET)
 	public String favoritList(@ModelAttribute("_memberDto_")MemberDto memberDto,
+			@RequestParam(defaultValue = "1")int curPage,
 			HttpSession session , Model model) {
 		logger.info("즐겨찾기 목록 보기 {}", memberDto);
 		String memberId = memberDto.getId();
 		
-		List<Map<String, Object>> favoriteList = favoriteService.favoriteList(memberId);
+		int totalCount = favoriteService.totalCount(memberId);
+		
+		Paging paging = new Paging(totalCount, curPage);
+		
+		int begin = paging.getPageBegin();
+		int end = paging.getPageEnd();
+		
+		List<Map<String, Object>> favoriteList = favoriteService.favoriteList(memberId, begin, end);
 		
 		model.addAttribute("favoriteList", favoriteList);
+		model.addAttribute("paging", paging);
 		
 		return "favorite/favoriteList";
 	}

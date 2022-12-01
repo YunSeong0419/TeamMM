@@ -12,9 +12,98 @@
 <script type="text/javascript" src="/babiyo/resources/js/jquery-3.6.1.js"></script>
 
 <style type="text/css">
-.orderList{
-	border: 2px solid #FF5E00;
+
+table{
+	border-collapse: collapse;
 }
+
+#orderList{
+	margin-top: 10px;
+	min-height: 400px;
+}
+
+#orderListTable{
+	margin: auto;
+}
+#firstRow{
+	background-color: #E0E0E0;
+}
+
+#orderDateTh{
+	width: 200px;
+	height: 30px;
+}
+#orderNoTh{
+	width: 80px;
+}
+#orderMemberIdTh{
+	width: 150px;
+}
+#productNameTh{
+	width: 320px;
+}
+#totalAmountTh{
+	width: 120px;
+}
+#orderStateTh{
+	width: 80px;
+}
+
+.orderDateTd, .orderStateTd, .btnTd, .orderMemberIdTd{
+	text-align: center;
+}
+
+.orderNoTd, .totalAmountTd{
+	text-align: right;
+}
+
+
+
+td{
+	height: 30px;
+	border-bottom: 1px solid gray;
+	padding: 0px 10px;
+}
+
+#detailLink{
+	color: black;
+	text-decoration: none;
+}
+
+#searchOption{
+	margin: 5px 50px;
+}
+
+#periodSelect{
+	margin-left: 20px;
+}
+
+#searchKeword{
+	float: right;
+}
+
+#stateCodeSel{
+	width: 60px;
+}
+
+#search{
+	width: 150px;
+}
+
+#beginDate, #endDate{
+	width: 100px;
+}
+
+.inputBox{
+	line-height: 35px;
+	height: 35px;
+	border: 1px solid black;
+	border-radius: 5px;
+}
+
+
+
+
 </style>
 
 <script type="text/javascript">
@@ -31,44 +120,42 @@ $(function(){
 		var beginDate = new Date(beginDateObj.val());
 		var endDate = new Date(endDateObj.val());
 		
-		var date = endDate.getTime() - beginDate.getTime();
+		var period = endDate.getTime() - beginDate.getTime();
 		
 		//시작날짜가 끝나는 날짜보다 커지지 못하게 max설정
 		beginDateObj.attr('max', $('#endDate').val());
 		
 		//끝나는 날짜가 시작날짜보다 적어질 경우 시작날짜를 끝나는 날짜를 한달 전으로 만듬
-		if(date < 0){
+		if(period < 0){
+				
+			var year = endDate.getFullYear();
+			var month = endDate.getMonth();
+			var date = endDate.getDate();
+				
+			var lastDate = new Date(year, month, 0).getDate();
 			
-			var str = endDate.getFullYear() + '-';
-			
-			if(endDate.getMonth() - 1 < 10){
-				str += '0' + (endDate.getMonth() - 1) + '-';
-			}else {
-				str += endDate.getMonth() - 1 + '-';
-			} 
-			
-			if(endDate.getDate() < 10){
-				str += '0' + endDate.getDate();
-			}else {
-				str += endDate.getDate();
+			if(date > lastDate){ // 한달전의 말일이 작으면 말일로 맞춰줌
+				date = lastDate;
 			}
 			
-			beginDateObj.val(str);
+			if(month == 0){ // 1월일때 년도를 1년 줄임
+				year = year - 1;
+				month = 12;
+			}
+			
+			if(month < 10){ // 10보다 작을경우 0을 넣어줌 ex) 4 > 04
+				month = '0' + month;
+			}
+			if(date < 10){
+				date = '0' + date;
+			}
+			
+			var beginDateStr = year + '-' + month + '-' + date;
+			beginDateObj.val(beginDateStr);
+			
 		}
 		
-	});
-	
-	$('.stateColor').each(function(i, element) {
-		
-		var state = $(this).text();
-		
-		if(state == '완료'){
-			$(this).css("color", "green");
-		}else if(state == '대기'){
-			$(this).css("color", "blue");
-		}else if(state == '취소'){
-			$(this).css("color", "red");
-		}
+		stateSelectFnc();
 		
 	});
 	
@@ -95,71 +182,85 @@ function stateSelectFnc(){
 			<div id="sideTitle"></div>
 			
 			<form id="searchOption" method="get">
-				<div>
-					기간 선택
-					<input type="date" name="beginDate" id="beginDate" max="<fmt:formatDate value="${searchOption.endDate}" pattern="yyyy-MM-dd"/>"
-						value="<fmt:formatDate value="${searchOption.beginDate}" pattern="yyyy-MM-dd"/>"> ~ 
-					<input type="date" name="endDate" id="endDate" max="<fmt:formatDate value="${today}" pattern="yyyy-MM-dd"/>"
-						value="<fmt:formatDate value="${searchOption.endDate}" pattern="yyyy-MM-dd"/>">
-				</div>
-				<div>
-				상태
-				<select id="stateCodeSel" name="stateCode" onchange="stateSelectFnc();">
-					<option value="0">전체</option>
-					<c:forEach items="${stateList}" var="state">
-					<option value="${state.CODE}">${state.NAME}</option>
-					</c:forEach>
-				</select>
-				회원 검색<input type="text" name="search" value="${searchOption.search}"><input type="submit" value="검색">
+				<div id="searchOptionContainer">
+					<span>
+						<strong>상태</strong>
+						<select id="stateCodeSel" class="inputBox" name="stateCode" onchange="stateSelectFnc();">
+							<option value="0">전체</option>
+							<c:forEach items="${stateList}" var="state">
+							<option value="${state.CODE}">${state.NAME}</option>
+							</c:forEach>
+						</select>
+					</span>
+					<span id="periodSelect">
+						<strong>기간 선택</strong>
+						<input type="date" name="beginDate" id="beginDate" class="inputBox" onchange="stateSelectFnc();"
+							max="<fmt:formatDate value="${searchOption.endDate}" pattern="yyyy-MM-dd"/>"
+							value="<fmt:formatDate value="${searchOption.beginDate}" pattern="yyyy-MM-dd"/>">
+						 ~ 
+						<input type="date" name="endDate" id="endDate" class="inputBox"	max="${today}"
+							value="<fmt:formatDate value="${searchOption.endDate}" pattern="yyyy-MM-dd"/>">
+					</span>
+					<span id="searchKeword">
+						<strong>회원 검색</strong>
+						<input type="text" name="search" id="search" class="inputBox" value="${searchOption.search}">
+						<input type="submit" value="검색">
+					</span>
 				</div>
 			</form>
 			
-			<div>
-				<c:choose>
-				<c:when test="${!empty orderList}">
-				<c:forEach items="${orderList}" var="order">
-				<div class="orderList">
-					<div>
-						<span>주문번호</span>
-						<span>${order.no}</span>
-					</div>
-					<div>
-						<span>회원</span>
-						<span>${order.memberId}</span>
-					</div>
-					<div>
-						<span>품목</span>
-						<span><a href="../order/detail.do?orderNo=${order.no}">${order.preview}
-						<c:if test="${order.productQuantity ne 1}"> 외 ${order.productQuantity-1}개</c:if>
-						</a>
-						</span>
-					</div>
-					<div>
-						<span>상태</span>
-						<span class="stateColor">${order.stateName}</span>
-					</div>
-					<div>
-						<span>날짜</span>
-						<span> <fmt:formatDate value="${order.orderDate}"/></span>
-					</div>
-				</div>
-				</c:forEach>
-				</c:when>
-				<c:otherwise>
+			
+			<div id="orderList">
+				<table id="orderListTable">
+					<tr id="firstRow">
+						<th id="orderDateTh">주문일자</th>
+						<th id="orderNoTh">주문번호</th>
+						<th id="orderMemberIdTh">회원아이디</th>
+						<th id="productNameTh">상품명</th>
+						<th id="totalAmountTh">결제금액</th>
+						<th id="orderStateTh">상태</th>
+					</tr>
 					
+					<c:choose>
+					<c:when test="true">
+					<c:forEach items="${orderList}" var="order">
+					<tr>
+						<td class="orderDateTd"><fmt:formatDate value="${order.orderDate}" pattern="yyyy-MM-dd hh:mm:ss"/></td>
+						<td class="orderNoTd">${order.no}</td>
+						<td class="orderMemberIdTd">${order.memberId}</td>
+						<td class="productNameTd"><a id="detailLink" href="../order/detail.do?orderNo=${order.no}">
+							${order.preview}
+							<c:choose>
+								<c:when test="${order.productQuantity gt 1}">
+								 외 ${order.productQuantity-1}건
+								</c:when>
+							</c:choose>
+							</a>
+						</td>
+						<td class="totalAmountTd"><fmt:formatNumber pattern="#,###" value="${order.totalAmount}"/>원</td>
+						<td class="orderStateTd">${order.stateName}</td>
+						
+					</tr>
+					</c:forEach>
+					</c:when>
+					<c:otherwise>
+					<tr><td colspan="5">
 					<c:choose>
 						<c:when test="${searchOption.search ne ''}">
 							${searchOption.search}님의 주문목록이 존재하지 않습니다
 						</c:when>
-						
 						<c:otherwise>
 							주문목록을 조회할 수 없습니다
 						</c:otherwise>
 					</c:choose>
+					</td></tr>
+					</c:otherwise>
+					</c:choose>
+					
+				</table>
 				
-				</c:otherwise>
-				</c:choose>
 			</div>
+			
 		
 			<jsp:include page="/WEB-INF/views/Paging.jsp"/>
 			

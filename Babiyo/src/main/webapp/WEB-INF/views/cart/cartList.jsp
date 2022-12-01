@@ -15,7 +15,6 @@
 
 #cartTableDiv{
 	width: 950px;
-	min-height: 380px;
 	margin: 0px auto;
 }
 
@@ -34,6 +33,11 @@
 .nameTd{
 	padding-left: 20px;
 }
+
+#imgTh{
+	width: 130px;	
+}
+
 #priceTh{
 	width: 100px;
 }
@@ -58,12 +62,18 @@
 	text-align: center;
 }
 
+.imgTd{
+	width: 130px;
+	height: 130px;
+}
+
 table{
 	border-collapse: collapse;
 }
 
 #firstRow{
-	background-color: #E0E0E0;
+	background-color: #FF5E00;
+	color: #fff;
 }
 
 #cartListTable{
@@ -75,20 +85,33 @@ table{
 }
 
 #orderBtnDiv{
-	width: 200px;
-	height: 40px;
+	text-align: center;
 	margin: auto;
 	margin-top: 30px;
 }
 
-#selectOrder{
-	width: 200px;
+#selectOrder, #selectDelete{
+	width: 100px;
 	height: 40px;
+	border: 0px;
+	border-radius: 5px;
+	background-color: #FF5E00;
+	font-weight: bold;
+	color: white;
 }
+
+
 #tableUnder{
 	width: 950px;
 	margin: auto;
 }
+
+#productImg{
+	width: 120px;
+	height: 120px;
+}
+
+
 
 
 </style>
@@ -102,13 +125,17 @@ $(function(){
 			$(this).val(99);
 		}
 	
+		if($(this).val() < 1){
+			$(this).val(1);
+		}
+	
 		var no = $('.quantity').index(this);	// 이벤트가 일어난 클래스 인덱스 찾기
 		var quantity = Number($(this).val());	// 변경한 갯수
 		
 		var productNo = $('.productNo').eq(no).val();	// 제품번호
 		
 		$.ajax({
-		    type : 'post',           // 타입 (get, post, put 등등)
+		    type : 'post',           // 타입 (get, post, put 등등)	
 		    url : './cartModify.do',           // 요청할 서버url
 		    async : true,            // 비동기화 여부 (default : true)
 		    data : {
@@ -238,37 +265,48 @@ function totalTrans(){ // 체크한 주문금액을 반영해주는 함수
 				<form id="cartForm" method="post">
 					<table id="cartListTable">
 						<tr id="firstRow">
-							<th id="checkTh"><input type="checkbox" id="allCheck"></th><th id="nameTh">상품명</th>
-							<th id="priceTh">가격</th><th id="quantityTh">수량</th><th id="sumTh">상품금액</th>
+							<th id="checkTh"><input type="checkbox" id="allCheck"></th>
+							<th id="imgTh"></th>
+							<th id="nameTh">상품명</th>
+							<th id="priceTh">가격</th>
+							<th id="quantityTh">수량</th>
+							<th id="sumTh">상품금액</th>
 						</tr>
 						<c:choose>
 						<c:when test="${!empty cartList}">
 						<c:forEach items="${cartList}" var="cart">
 						<tr>
 							<td class="checkTd"><input type="checkbox" class="check"></td>
-							<td class="nameTd">${cart.productName}</td>
+							<td class="imgTd">
+								<a href="/babiyo/product/detail.do?productNo=${cart.cartDto.productNo}">
+									<img id="productImg" alt="${cart.cartDto.productName}" src="/babiyo/img/${cart.imgMap.STORED_NAME}">
+								</a>
+							</td>
+							<td class="nameTd">${cart.cartDto.productName}</td>
 							<td class="priceTd">
-								<fmt:formatNumber pattern="#,###">${cart.productPrice}</fmt:formatNumber>원
+								<fmt:formatNumber pattern="#,###">${cart.cartDto.productPrice}</fmt:formatNumber>원
 							</td>
 							<td class="quantityTd">
-								<input class="quantity" type="number" min="1" max="99" value="${cart.quantity}">
+								<input class="quantity" type="number" min="1" max="99" value="${cart.cartDto.quantity}">
 							</td>
 							<td class="sumTd">
-								<fmt:formatNumber pattern="#,###">${cart.productPrice * cart.quantity}</fmt:formatNumber>원
+								<fmt:formatNumber pattern="#,###">${cart.cartDto.productPrice * cart.cartDto.quantity}</fmt:formatNumber>원
 							</td>
 						</tr>
 						<div>
-							<input type="hidden" value="${cart.productNo}" class="productNo">
-							<input type="hidden" value="${cart.productName}" class="productName">
-							<input type="hidden" value="${cart.productPrice}" class="price">
-							<input type="hidden" value="${cart.productPrice * cart.quantity}" class="sumPrice">
+							<input type="hidden" value="${cart.cartDto.productNo}" class="productNo">
+							<input type="hidden" value="${cart.cartDto.productName}" class="productName">
+							<input type="hidden" value="${cart.cartDto.productPrice}" class="price">
+							<input type="hidden" value="${cart.cartDto.productPrice * cart.cartDto.quantity}" class="sumPrice">
 						</div>
 						</c:forEach>
 						</c:when>
 						
 						<c:otherwise>
 						<tr>
-							<td colspan="5" style="text-align: center;"><span>장바구니가 비었습니다</span></td>
+							<td colspan="6" style="text-align: center; height: 130px; font-size: 25px;">
+								<strong>장바구니가 비었습니다</strong>
+							</td>
 						</tr>
 						</c:otherwise>
 						</c:choose>
@@ -279,12 +317,13 @@ function totalTrans(){ // 체크한 주문금액을 반영해주는 함수
 			</div>
 			
 			<div id="tableUnder">
-				<input type="button" value="선택항목 삭제" id="selectDelete">
+				
 				<span id="totalAmountText">주문금액: 0원</span>
 			</div>
 			<input type="hidden" id="totalAmount" name="totalAmount" value="">
 			
 			<div id="orderBtnDiv">
+				<input type="button" value="선택항목 삭제" id="selectDelete">
 				<input type="button" value="주문하기" id="selectOrder">
 			</div>
 		
