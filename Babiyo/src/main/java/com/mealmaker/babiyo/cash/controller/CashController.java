@@ -43,7 +43,7 @@ public class CashController {
 		
 		session.setAttribute("_memberDto_", memberDtoSession);
 		
-		return "/member/MemberInfo";
+		return "/member/MemberCash";
 	}
 	
 }

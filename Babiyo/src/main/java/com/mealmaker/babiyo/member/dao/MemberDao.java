@@ -16,6 +16,7 @@ public interface MemberDao {
 	public int phoneCheck(String phone);
 	public int nicknameCheck(String nickname);
 	public int memberInsertOne(MemberDto memberDto);
+	public List<Map<String, Object>> categoryCodeList();
 	public void addInterest(InterestDto interestDto);
 	public MemberDto memberInfo(MemberDto memberDto);
 //	public MemberDto memberSelectOne(int no);
@@ -28,6 +29,7 @@ public interface MemberDao {
 //	public List<Map<String, Object>> fileSelectList(int no);
 //	public Map<String, Object> fileSelectStoredFileName(String parentSeq);
 //	public int fileDelete(String parentSeq);
+	
 	
 	
 	

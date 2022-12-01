@@ -68,6 +68,7 @@
 			padding-top: 20px;
 			padding-right: 10px;
 			border: none;
+			border-radius: 12px;
 			background: orange;
 			color: white;
 			font-size: 30px;
@@ -81,6 +82,7 @@
 			padding-top: 20px;
 			padding-right: 10px;
 			border: none;
+			border-radius: 12px;
 			background: orange;
 			color: white;
 			font-size: 30px;
@@ -116,24 +118,30 @@
 					<div class="bir_yy">
 							<input type="hidden" name="interestList[0].listNo" value="1">
  							<select id='myYear' class='birth' name='interestList[0].categoryCode'>
- 								<option disabled selected></option>
- 								<option value="01">한식</option>
-								<option value="02">중식</option>
-								<option value="03">일식</option>
-								<option value="04">양식</option>
-								<option value="05">동남아</option>
+ 								<option disabled selected>선택해주세요</option>
+ 								<c:forEach items="${categoryCodeList}" var="interest">
+								<option value="${interest.CODE}">${interest.NAME}</option>
+<!-- 							<option value="01">한식</option> -->
+<!-- 							<option value="02">중식</option> -->
+<!-- 							<option value="03">일식</option> -->
+<!-- 							<option value="04">양식</option> -->
+<!-- 							<option value="05">동남아</option> -->
+							</c:forEach>
  							</select>
 					</div>
 					<h3>관심사</h3>
 					<div class="bir_yy">
 						<input type="hidden" name="interestList[1].listNo" value="2">
 						<select id='myYear' class='birth' name='interestList[1].categoryCode'>
-							<option disabled selected></option>
-							<option value="01">한식</option>
-							<option value="02">중식</option>
-							<option value="03">일식</option>
-							<option value="04">양식</option>
-							<option value="05">동남아</option>
+							<option disabled selected>선택해주세요</option>
+							<c:forEach items="${categoryCodeList}" var="interest">
+								<option value="${interest.CODE}">${interest.NAME}</option>
+<!-- 							<option value="01">한식</option> -->
+<!-- 							<option value="02">중식</option> -->
+<!-- 							<option value="03">일식</option> -->
+<!-- 							<option value="04">양식</option> -->
+<!-- 							<option value="05">동남아</option> -->
+							</c:forEach>
 						</select>
 					</div>
 				</div>	

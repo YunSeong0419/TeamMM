@@ -6,11 +6,27 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>밀캐시</title>
+<title>${_memberDto_.id}님 어서오세요</title>
 <style type="text/css">
 	#infoBox {
 		text-align: center;
-		width: 300px;
+		width: 950px;
+	}
+	
+	table {
+	border: 1px solid black;
+	border-radius: 12px;
+	margin: auto;
+	}
+	
+	th {
+	border-collapse: collapse;
+	border-bottom: 1px solid black;
+	border-right: 1px solid black;
+	}
+	
+	td {
+	margin-top: 20px;
 	}
 	
 
@@ -47,17 +63,20 @@ function moveChargeFnc() {
 			<div id="middleDiv">
 				<!--여기서 작성 -->
 				<div id='infoBox'>
-					<p>${_memberDto_.id}님의 보유 밀캐시</p>
-					<p>${_memberDto_.cash}원</p>
-					
-					<span>
-					<input type="button" id="charge" value="충전" onclick='moveChargeFnc()'>
-					<input type="button" value="충전 내역">	
-					<input type="button" value="사용 내역">
-					</span>
-				</div>
+					<table>
+						<tr>
+							<th>주문횟수</th><th>문의</th><th>내가 쓴 리뷰</th><th>즐겨찾기</th><th>캐쉬</th>
+						</tr>
+						<tr>
+							<td>건</td><td>건</td><td>건</td><td>개</td><td><a href="./memberCash.do">${_memberDto_.cash}원</a></td>
+						</tr>
+					</table>	
 				
-			
+				<p>
+					<input type="button" value="내 정보 수정" onclick="updateInfoFnc();">
+					<input type="button" value="회원 탈퇴" onclick="deleteInfoFnc();">
+				</p>
+				</div>
 				<div id="underPadding"></div>
 				
 			</div>

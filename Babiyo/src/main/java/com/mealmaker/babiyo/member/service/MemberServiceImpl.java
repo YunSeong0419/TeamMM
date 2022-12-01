@@ -84,6 +84,12 @@ public class MemberServiceImpl implements MemberService{
 		}
 		
 	}
+	
+	@Override
+	public List<Map<String, Object>> categoryCodeList() {
+		// TODO Auto-generated method stub
+		return memberDao.categoryCodeList();
+	}
 
 	@Override
 	public MemberDto memberInfo(MemberDto memberDto) {
@@ -91,6 +97,8 @@ public class MemberServiceImpl implements MemberService{
 		
 		return memberDao.memberInfo(memberDto);
 	}
+
+	
 
 	
 		

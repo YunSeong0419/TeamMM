@@ -88,6 +88,12 @@ public class MemberDaoImpl implements MemberDao{
 	}
 	
 	@Override
+	public List<Map<String, Object>> categoryCodeList() {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList(namespace + "categoryCodeList");
+	}
+	
+	@Override
 	public void addInterest(InterestDto interestDto) {
 		// TODO Auto-generated method stub
 		sqlSession.insert(namespace + "insertInterest"
@@ -100,6 +106,8 @@ public class MemberDaoImpl implements MemberDao{
 		return sqlSession.selectOne(namespace + "memberInfo"
 				, memberDto);
 	}
+
+	
 
 
 

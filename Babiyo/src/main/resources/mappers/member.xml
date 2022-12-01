@@ -62,6 +62,11 @@
    	VALUES(#{memberId}, #{listNo}, #{categoryCode})
 </insert>
 
+<select id="categoryCodeList" resultType="map">
+	SELECT CODE,NAME
+	FROM PRODUCT_CATEGORY
+</select>
+
 <select id="memberInfo" parameterType="memberDto" resultMap="memberResultMap">
 	SELECT ID, NAME, EMAIL, BIRTHDAY, GENDER, PHONE, NICKNAME
 		, CASH, GRADE_CODE, CREATE_DATE, MODIFY_DATE

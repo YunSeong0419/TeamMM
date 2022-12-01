@@ -19,10 +19,12 @@ public interface MemberService {
 	public int phoneCheck(String phone);
 	public int nicknameCheck(String nickname);
 	public void memberInsertOne(MemberDto memberDto);
+	public List<Map<String, Object>> categoryCodeList();
 	void addInterest(InterestDto interestDto);
 	public MemberDto memberInfo(MemberDto memberDto);
 //	public List<MemberDto> memberSelectList(String searchOption, 
 //		String keyword,	int start, int end);
+	
 	
 	
 	

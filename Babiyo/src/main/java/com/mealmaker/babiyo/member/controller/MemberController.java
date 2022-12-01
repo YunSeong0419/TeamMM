@@ -1,5 +1,8 @@
 package com.mealmaker.babiyo.member.controller;
 
+import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -122,7 +125,8 @@ public class MemberController {
 	@RequestMapping(value = "/auth/member/addInterest.do", method = RequestMethod.GET)
 	public String memberAddInterest(String memberId, Model model) {
 		logger.info("Welcome MemberController memberAdd 신규등록 처리! ");
-		
+		List<Map<String, Object>> categoryCodeList = memberService.categoryCodeList();
+		model.addAttribute("categoryCodeList", categoryCodeList);
 		model.addAttribute("memberId", memberId);
 		
 		return "member/MemberInterest";
@@ -153,6 +157,13 @@ public class MemberController {
 		logger.info("Welcome MemberController memberInfo! ");
 		
 		return "/member/MemberInfo";
+	}
+	
+	@RequestMapping(value = "/member/memberCash.do", method = RequestMethod.GET)
+	public String memberCash(HttpSession session, Model model) {
+		logger.info("Welcome MemberController memberInfo! ");
+		
+		return "/member/MemberCash";
 	}
 //	
 //	

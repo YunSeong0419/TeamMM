@@ -317,7 +317,7 @@ $(document).ready(function(){
 			allChkColor();
 		});
 		
-		nicknameObj.addEventListener('blur', function() {
+		nicknameObj.addEventListener('keyup', function() {
 			if (nicknameObj.value == '') {
 				nicknameChkObj.innerHTML = '필수정보입니다';
 				nicknameChkObj.style.color = 'orange';
