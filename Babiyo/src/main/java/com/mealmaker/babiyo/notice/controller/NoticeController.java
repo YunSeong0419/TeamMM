@@ -1,5 +1,6 @@
 package com.mealmaker.babiyo.notice.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -14,11 +15,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.mealmaker.babiyo.notice.model.NoticeDto;
 import com.mealmaker.babiyo.notice.model.NoticeImageDto;
 import com.mealmaker.babiyo.notice.service.NoticeService;
+import com.mealmaker.babiyo.util.Paging;
+import com.mealmaker.babiyo.util.SearchOption;
 
 // 어노테이션 드리븐
 @Controller
@@ -31,12 +35,20 @@ public class NoticeController {
 	//관리자
 	//공지 게시판
 	@RequestMapping(value = "/notice/list.do", method = RequestMethod.GET)
-	public String noticeList(HttpSession session, Model model) {
+	public String noticeList(@RequestParam(defaultValue = "1") int curPage
+			,SearchOption searchOption, HttpSession session, Model model) {
 		logger.info("Welcome NoticeController list! ");
 		
-		List<NoticeDto> noticeList = noticeService.noticeSelectList();
+		Map<String, Object> map = noticeService.noticeList(searchOption, curPage);
 		
-		model.addAttribute("noticeList" ,noticeList);
+		// 리스트
+		@SuppressWarnings("unchecked")
+		List<NoticeDto> noticeList = (List<NoticeDto>) map.get("noticeList");
+		Paging paging = (Paging) map.get("paging");
+		
+		model.addAttribute("noticeList", noticeList);
+		model.addAttribute("paging", paging);
+		model.addAttribute("searchOption", searchOption);
 
 		return "notice/noticeListView";
 	}
@@ -52,49 +64,51 @@ public class NoticeController {
 	//공지 게시글 작성
 	@RequestMapping(value = "/notice/writeCtr.do", method = RequestMethod.POST)
 	public String noticeWriteCtr(MultipartHttpServletRequest mulRequest
-			, NoticeDto noticeDto, NoticeImageDto noticeImageDto, Model model) {
-		logger.info("Welcome InquiryMemberController memberWrite 신규 공지 작성! ");
+			, NoticeDto noticeDto, Model model) throws Exception {
+		logger.info("Welcome NoticeController WriteCtr 신규 공지 작성! ");
 
-		try {
-//		noticeService.noticeWrite(noticeDto, mulRequest);
-		} catch (Exception e) {
-			// TODO: handle exception
-			System.out.println("파일문제");
-			e.printStackTrace();
-		}
-
-		return "redirect:/notice/member.do";
+		noticeService.noticeWrite(noticeDto, mulRequest);
+	
+		return "redirect:/notice/list.do";
 	}
 	
 	
-//	//공지 상세 
-//	@RequestMapping(value = "/notice/detail.do", method = RequestMethod.GET)
-//	public String noticeDetail(int no, HttpSession session, Model model) {
-//		logger.info("Welcome NoticeController detail! ");
-//
-//		Map<String, Object> map = noticeService.noticeSelectOne(no);
-//		
-//		NoticeDto noticeDto = (NoticeDto) map.get("noticeDto");
-//		
-//		model.addAttribute("noticeDto", noticeDto);
-//		 
-//		return "notice/noticeDetail";
-//	}
+	//공지 상세 
+	@RequestMapping(value = "/notice/detail.do", method = RequestMethod.GET)
+	public String noticeDetail(int no, HttpSession session, Model model) {
+		logger.info("Welcome NoticeController detail! ");
+
+		Map<String, Object> map = noticeService.noticeSelectOne(no);
+		
+		NoticeDto noticeDto = (NoticeDto) map.get("noticeDto");
+		@SuppressWarnings("unchecked")
+		Map<String, Object> noticeImg = (Map<String, Object>) map.get("imgMap");
+		
+		model.addAttribute("noticeDto", noticeDto);
+		model.addAttribute("noticeImg", noticeImg);
+		 
+		return "notice/noticeDetail";
+	}
 	
-//	//공지 수정화면으로
-//	@RequestMapping(value = "/notice/update.do", method = RequestMethod.GET)
-//	public String noticeUpdate(int no, Model model) {
-//		logger.info("Welcome NoticeController update! ");
-//
-//		Map<String, Object> map = noticeService.noticeSelectOne(no);
-//		
-//		NoticeDto noticeDto = (NoticeDto) map.get("noticeDto");
-//		
-//		model.addAttribute("noticeDto", noticeDto);
-//		 
-//		return "notice/noticeUpate";
-//	}
-//	
+	//공지 수정화면으로
+	@RequestMapping(value = "/notice/update.do", method = RequestMethod.GET)
+	public String noticeUpdate(int no, Model model) {
+		logger.info("Welcome NoticeController update! ");
+
+		Map<String, Object> map = noticeService.noticeSelectOne(no);
+		
+		NoticeDto noticeDto = (NoticeDto) map.get("noticeDto");
+		
+		model.addAttribute("noticeDto", noticeDto);
+		@SuppressWarnings("unchecked")
+		Map<String, Object> noticeImg = (Map<String, Object>) map.get("imgMap");
+		
+		model.addAttribute("noticeDto", noticeDto);
+		model.addAttribute("noticeImg", noticeImg); 
+		
+		return "notice/noticeUpate";
+	}
+	
 	
 	//공지 수정
 	@RequestMapping(value = "/notice/updateCtr.do", method = RequestMethod.POST)

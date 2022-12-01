@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>문의 작성</title>
+<title>공지 작성</title>
 
 <style type="text/css">
 #contentsId{
@@ -38,20 +38,19 @@
 		<div id="middleMainDiv">
 			<div id="sideTitle"></div>
 			<!--여기서 작성 -->
-			<form action="./writeCtr.do" method="post">
+			<form action="./writeCtr.do" method="post" enctype="multipart/form-data">
 			<div>
 				분류 
 				<select name="categoryCode" id="divisionId">
-					<option value="1" selected>공지</option>
+					<option value="1">공지</option>
 					<option value="2">이벤트</option>
 				</select>
 			</div>
-			<c:if test="">
-			<div>
-				기간<input name="eventStartDate" id="eventStartDateId" type="date" value="SYSDATE" readonly="readonly">
+			
+			<div id="eventDateId">
+				기간<input name="eventStartDate" id="eventStartDateId" type="date">
 				 ~ <input name="eventEndDate" id="eventEndDateId" type="date">
 			</div>
-			</c:if>
 			<div>      
 				제목 <input name="title" id="titleId" type="text">
 			</div>
@@ -65,7 +64,7 @@
 			<input id="backDiv" type="button" value="뒤로가기" onclick="backBtn()"> 
 			<input id="submitDiv"  type="submit" value="작성">
 
-		</form>
+			</form>
 		
 			<div id="underPadding"></div>
 			

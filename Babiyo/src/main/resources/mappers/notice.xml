@@ -14,6 +14,7 @@
 <result column="EVENT_START_DATE" property="eventStartDate"/>
 <result column="EVENT_END_DATE" property="eventEndDate"/>
 </resultMap>
+
 <resultMap type="noticeImageDto" id="noticeImageResultMap">
 <id column="NO" property="no"/>
 <result column="NOTICE_NO" property="noticeNo"/>
@@ -21,19 +22,97 @@
 <result column="STORED_NAME" property="storedName"/>
 </resultMap>
 
+	<sql id="search">
+		<if test="searchOption != null">
+		<choose>
+		<!-- 검색 옵션이 전체 검색일 경우  -->
+		<when test="searchOption == 'all'">
+			(TITLE LIKE '%'||#{search}||'%'	OR CONTENT LIKE '%'||#{search}||'%')
+		</when>
+		<!-- 전체 검색이 아닌 경우  -->
+		<otherwise>
+			${searchOption} LIKE '%'||#{search}||'%'
+		</otherwise>
+		</choose>
+		</if>
+	</sql>
+	
+	<sql id="stateCode">
+	<if test="stateCode != 0">
+	<choose>
+	<when test="stateCode == 1">AND CATEGORY_CODE = 1</when>
+<!-- 	진행중인 이벤트 -->
+	<when test="stateCode == 2">
+		AND CATEGORY_CODE = 2
+		AND <![CDATA[EVENT_START_DATE <= SYSDATE]]> 
+		AND <![CDATA[EVENT_END_DATE >= SYSDATE]]>
+	</when>
+<!-- 	종료된 이벤트 -->
+	<when test="stateCode == 3">
+		AND CATEGORY_CODE = 2
+		AND <![CDATA[EVENT_END_DATE < SYSDATE]]>
+	</when>
+	</choose>
+	</if>
+	</sql>
+
 <!-- 관리자 -->
-<!-- 공지 리스트 -->
-<select id="noticeList" resultMap="noticeResultMap">
-	SELECT  N.NO, C.NAME, N.TITLE, N.CREATE_DATE, N.HIT
-	FROM NOTICE N INNER JOIN NOTICE_CATEGORY C
-	ON N.CATEGORY_CODE = C.CODE
-	ORDER BY N.NO DESC 
+
+<select id="noticeCount" parameterType="com.mealmaker.babiyo.util.SearchOption" resultType="int">
+	SELECT COUNT(*)
+	FROM NOTICE
+	<where>
+	<include refid="search"/>
+	<include refid="stateCode"/>
+	</where>
+	
 </select>
 
-<!-- 공지 작성 -->
-<insert id="noticeWrite">
+<!-- 공지 리스트 -->
+<select id="noticeList" parameterType="map" resultMap="noticeResultMap">
+	SELECT *
+	FROM(SELECT ROWNUM R, NO, CATEGORY_CODE, TITLE, CONTENT, HIT, CREATE_DATE, EVENT_START_DATE, EVENT_END_DATE
+	FROM(SELECT N.NO, C.NAME, N.TITLE, N.CREATE_DATE, N.HIT, N.EVENT_START_DATE, N.EVENT_END_DATE, N.CONTENT, N.CATEGORY_CODE
+	FROM NOTICE N INNER JOIN NOTICE_CATEGORY C
+	ON N.CATEGORY_CODE = C.CODE
+	<where>
+		<include refid="search"/>
+		<include refid="stateCode"/>
+	</where>
+	ORDER BY N.NO DESC))
+    WHERE R BETWEEN ${begin} AND ${end}
+</select>
 
+<!-- 공지 사진 -->
+<insert id="insertFile" parameterType="map">
+	INSERT INTO NOTICE_IMAGE
+	VALUE(NOTICE_NO, ORIGINAL_NAME, STORED_NAME)
+	VALUES(#{parentSeq}, #{original_file_name}, #{stored_file_name})
 </insert>
+<!-- 공지 작성 -->
+<insert id="noticeWrite" parameterType="NoticeDto"
+useGeneratedKeys="true" keyProperty="no">
+<selectKey keyProperty="no" resultType="int" order="AFTER">
+	SELECT SEQ_NOTICE_NO.CURRVAL
+	FROM DUAL
+</selectKey>
+INSERT INTO NOTICE
+VALUE(CATEGORY_CODE, TITLE, CONTENT, CREATE_DATE, EVENT_START_DATE, EVENT_END_DATE)
+VALUES( #{categoryCode}, #{title}, #{content}, SYSDATE, #{eventStartDate}, #{eventEndDate})
+</insert>
+
+<!-- 사진 -->
+<select id="fileSelectOne" parameterType="int" resultType="map">
+		SELECT NO, ORIGINAL_NAME, STORED_NAME
+		FROM NOTICE_IMAGE
+		WHERE NOTICE_NO = #{value}
+</select>
+
+<select id="fileSelectStoredFileName" parameterType="int" resultType="map">
+		SELECT NO, STORED_NAME
+		FROM NOTICE_IMAGE
+		WHERE NO = #{no}
+</select>
 
 <!-- 공지 상세 -->
 <select id="noticeSelectOne" parameterType="int"
@@ -50,28 +129,9 @@
 <!-- 공지 수정 -->
 
 
-
 <!-- 공지 삭제 -->
 <delete id="noticeDeleteOne" parameterType="int">
-	DELETE NOTICE
-	WHERE NO = ${value}
+	DELETE FROM NOTICE
+	WHERE NO = #{no}
 </delete>
-
-<!-- 사진 -->
-<select id="fileSelectList" resultMap="noticeImageResultMap"
- 	parameterType="int" resultType="map">
-	SELECT NO, NOTICE_NO, ORIGINAL_NAME, STORED_NAME 
-	FROM NOTICE_IMAGE
-	WHERE NO = #{noticeNo}
-</select>
-
-<select id="fileSelectStoredFileName" resultMap="noticeImageResultMap"
-	parameterType="int" resultType="map">
-	SELECT NO, STORED_NAME
-	FROM NOTICE_IMAGE
-	WHERE NO = #{noticeNo}
-</select>
-
-
-
 </mapper>

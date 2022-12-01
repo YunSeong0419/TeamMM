@@ -37,12 +37,37 @@ public class InquiryController {
 	//회원
 	// 문의 게시글 목록
 	@RequestMapping(value = "/inquiry/member.do", method = RequestMethod.GET)
-	public String memberInquiry(HttpSession session, Model model) {
+	public String memberInquiry(@RequestParam(defaultValue = "1") int curPage
+			,@RequestParam(defaultValue = "0")int answerState
+			,@RequestParam(defaultValue = "0") int categoryCode
+			, HttpSession session, Model model) {
 		logger.info("Welcome InquiryMemberController list! ");
 
-		List<InquiryDto> inquiryList = inquiryService.inquirySelectList();
-
-		model.addAttribute("inquiryList", inquiryList);
+		MemberDto memberDto = (MemberDto) session.getAttribute("_memberDto_"); 
+		String memberId = memberDto.getId();
+		
+		Map<String, Object> map = inquiryService.inquiryList(memberId, answerState, categoryCode, curPage);
+		
+		//문의글 리스트
+		@SuppressWarnings("unchecked")
+		List<InquiryDto> memberList = (List<InquiryDto>) map.get("inquiryList");
+		Paging paging = (Paging) map.get("paging");
+		
+		//분류 리스트
+		List<Map<String, Object>> categoryCodeList = inquiryService.categoryCodeList();
+		
+		System.out.println(categoryCodeList);
+		
+		Map<String, Object> searchMap = new HashMap<String, Object>();
+		
+		searchMap.put("memberId", memberId);
+		searchMap.put("answerState", answerState);
+		searchMap.put("categoryCode", categoryCode);
+		
+		model.addAttribute("memberList", memberList);
+		model.addAttribute("categoryCodeList", categoryCodeList);
+		model.addAttribute("paging", paging);
+		model.addAttribute("searchMap", searchMap);
 
 		return "inquiry/memberInquiryListView";
 	}

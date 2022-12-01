@@ -5,12 +5,15 @@ import java.util.Map;
 
 import com.mealmaker.babiyo.notice.model.NoticeDto;
 import com.mealmaker.babiyo.notice.model.NoticeImageDto;
+import com.mealmaker.babiyo.util.SearchOption;
 
 
 public interface NoticeDao {
 	//관리자
+	//분류
+	int noticeCount(SearchOption searchOption);
 	//리스트
-	public List<NoticeDto> noticeSelectList();
+	List<NoticeDto> noticeList(int begin, int end, SearchOption searchOption, int curPage);
 	//작성
 	public int noticeWrite(NoticeDto noticeDto);
 	//상세
@@ -20,7 +23,7 @@ public interface NoticeDao {
 	//삭제
 	public void noticeDeleteOne(int no);
 	//이미지 파일 리스트
-	public List<Map<String, Object>> fileSelectList(int no);
-	
+	Map<String, Object> fileSelectOne(int no);
 	public Map<String, Object> fileSelectStoredFileName(int parentSeq);
+	void insertFile(Map<String, Object> map);
 }

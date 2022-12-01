@@ -94,7 +94,6 @@ td {
 
 		$('#answerSelect').val($('#answerState').val());
 		$('#categorySelect').val($('#categoryCode').val());
-
 	});
 
 	function categorySelectFnc() {
@@ -102,6 +101,7 @@ td {
 		$('#filterForm').submit();
 
 	}
+	
 	
 	function answerSelectFnc() {
 
@@ -131,7 +131,7 @@ td {
 				<div id="searchOption">
 					<!-- searchOption div 시작-->
 					<form id="filterForm" action="./admin.do" method="get">
-						<span>분류</span> 
+						<span>답변여부</span> 
 						<select id="answerSelect" name="answerState"
 							onchange="answerSelectFnc();">
 							<option value="0">전체</option>
@@ -139,6 +139,7 @@ td {
 							<option value="2">대기중 답변</option>
 						</select>
 						
+						<span>분류</span>
 						<select id="categorySelect" name="categoryCode"
 							onchange="categorySelectFnc();">
 						<option value="0">전체</option>
@@ -146,8 +147,8 @@ td {
 							<option value="${category.CODE}">${category.NAME}</option>
 						</c:forEach>
 						</select>
-						
-						<input type="text" name="search">
+						작성자
+						<input id="searchId" type="text" name="search">
 					</form>
 				</div>
 				<!-- searchOption div 끝-->
@@ -159,6 +160,7 @@ td {
 							<th id="numTh">번호</th>
 							<th id="categoryTh">분류</th>
 							<th id="titleTh">문의제목</th>
+							<th id="memberTh">작성자</th>
 							<th id="createTh">작성일</th>
 							<th id="answerTh">답변</th>
 						</tr>
@@ -175,11 +177,25 @@ td {
 								<c:forEach var="inquiryDto" items="${adminList}">
 									<tr>
 										<td>${inquiryDto.no}</td>
-										<td>${inquiryDto.name}</td>
+										<c:choose>
+											<c:when test="${inquiryDto.categoryCode eq 1}">
+ 												<td>주문</td> 
+											</c:when>
+											<c:when test="${inquiryDto.categoryCode eq 2}">
+												<td>밀키트</td> 
+											</c:when>
+											<c:when test="${inquiryDto.categoryCode eq 3}">
+ 												<td>회원</td> 
+											</c:when>
+											<c:otherwise>
+												<td>기타</td> 
+											</c:otherwise>
+										</c:choose> 
 										<td><a href="./admin/answer.do?no=${inquiryDto.no}">${inquiryDto.title}</a></td>
+										<td>${inquiryDto.memberId}</td>
 										<td><fmt:formatDate pattern="yyyy년MM월dd일 "
 												value="${inquiryDto.createDate}" /></td>
-									<c:choose>
+										<c:choose>
 											<c:when test="${empty inquiryDto.answer}">
 												<td>N</td>
 											</c:when>
@@ -200,7 +216,14 @@ td {
 				</div>
 
 				<jsp:include page="/WEB-INF/views/Paging.jsp" />
-
+				
+			<form id="pagingForm">
+				<input type="hidden" id="curPage" name="curPage" value="${paging.curPage}">
+				<input type="hidden" id="answerState" name="answerState" value="${searchMap.answerState}">
+				<input type="hidden" id="categoryCode" name="categoryCode" value="${searchMap.categoryCode}">
+				<input type="hidden" name="search" value="${searchMap.search}">
+			</form>
+				
 				<div id="underPadding"></div>
 				<!--underPadding-->
 
