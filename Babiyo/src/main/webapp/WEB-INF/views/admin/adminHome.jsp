@@ -36,16 +36,110 @@
 
 <script type="text/javascript">
 $(function(){
+	
+	$.ajax({
+	    type : 'post',           // 타입 (get, post, put 등등)
+	    url : './salesChart.do',           // 요청할 서버url
+	    async : true,            // 비동기화 여부 (default : true)
+	    success : function(data) { // 결과 성공 콜백함수
+	    	
+	    	const ctx = document.getElementById('salse').getContext('2d');
 
-	const ctx = document.getElementById('myChart').getContext('2d');
-
-	const myChart = new Chart(ctx, {
-	    type: 'bar',
+	    	const myChart = new Chart(ctx, {
+	    	    type: 'bar',
+	    	    data: {
+	    	        labels: ['6일전', '5일전', '4일전', '3일전', '2일전', '1일전', '오늘'],
+	    	        datasets: [{
+	    	            label: '일일 매출',
+	    	            data: data,
+	    	            backgroundColor: [
+	    	                'rgba(255, 99, 132, 0.2)',
+	    	                'rgba(54, 162, 235, 0.2)',
+	    	                'rgba(255, 206, 86, 0.2)',
+	    	                'rgba(75, 192, 192, 0.2)',
+	    	                'rgba(153, 102, 255, 0.2)',
+	    	                'rgba(255, 159, 64, 0.2)'
+	    	            ],
+	    	            borderColor: [
+	    	                'rgba(255, 99, 132, 1)',
+	    	                'rgba(54, 162, 235, 1)',
+	    	                'rgba(255, 206, 86, 1)',
+	    	                'rgba(75, 192, 192, 1)',
+	    	                'rgba(153, 102, 255, 1)',
+	    	                'rgba(255, 159, 64, 1)'
+	    	            ],
+	    	            borderWidth: 1
+	    	        }]
+	    	    },
+	    	    options: {
+	    	    	responsive: false,
+	    	    	plugins: {
+	    	    		legend: {
+	    	    			display: false
+	    	    		}
+	    	    	},
+	    	        scales: {
+	    	            y: {
+	    	                beginAtZero: true
+	    	            }
+	    	        }
+	    	    }
+	    	});
+	    	
+	    	
+	    	
+	    }
+	}); // ajax 종료
+	
+const ctx3 = document.getElementById('salseVolume').getContext('2d');
+	
+	const myChart3 = new Chart(ctx3, {
+	    type: 'line',
 	    data: {
-	        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+	        labels: ['6일전', '5일전', '4일전', '3일전', '2일전', '1일전', '오늘'],
 	        datasets: [{
-	            label: '# of Votes',
-	            data: [12, 19, 3, 5, 2, 3],
+	            label: '봉골레파스타',
+	            data: [12, 19, 3, 5, 2, 3, 2],
+	            backgroundColor: [
+	                'rgba(255, 99, 132, 0.2)',
+	                'rgba(54, 162, 235, 0.2)',
+	                'rgba(255, 206, 86, 0.2)',
+	                'rgba(75, 192, 192, 0.2)',
+	                'rgba(153, 102, 255, 0.2)',
+	                'rgba(255, 159, 64, 0.2)'
+	            ],
+	            borderColor: [
+	                'rgba(255, 99, 132, 1)',
+	                'rgba(54, 162, 235, 1)',
+	                'rgba(255, 206, 86, 1)',
+	                'rgba(75, 192, 192, 1)',
+	                'rgba(153, 102, 255, 1)',
+	                'rgba(255, 159, 64, 1)'
+	            ],
+	            borderWidth: 1
+	        },{
+	            label: '까르보나라',
+	            data: [1, 22, 3, 14, 12, 18],
+	            backgroundColor: [
+	                'rgba(255, 99, 132, 0.2)',
+	                'rgba(54, 162, 235, 0.2)',
+	                'rgba(255, 206, 86, 0.2)',
+	                'rgba(75, 192, 192, 0.2)',
+	                'rgba(153, 102, 255, 0.2)',
+	                'rgba(255, 159, 64, 0.2)'
+	            ],
+	            borderColor: [
+	                'rgba(255, 99, 132, 1)',
+	                'rgba(54, 162, 235, 1)',
+	                'rgba(255, 206, 86, 1)',
+	                'rgba(75, 192, 192, 1)',
+	                'rgba(153, 102, 255, 1)',
+	                'rgba(255, 159, 64, 1)'
+	            ],
+	            borderWidth: 1
+	        },{
+	            label: '로제파스타',
+	            data: [30, 12, 24, 10, 2, 18],
 	            backgroundColor: [
 	                'rgba(255, 99, 132, 0.2)',
 	                'rgba(54, 162, 235, 0.2)',
@@ -66,6 +160,7 @@ $(function(){
 	        }]
 	    },
 	    options: {
+	    	responsive: false,
 	        scales: {
 	            y: {
 	                beginAtZero: true
@@ -115,7 +210,8 @@ $(function(){
 			
 			
 			
-			<canvas id="myChart" style="width:800px; height:300px;"></canvas>
+			<canvas id="salse" style="width: 1000px; height: 200px; float: left;"></canvas>
+			<canvas id="salseVolume" style="width: 1000px; height: 200px;"></canvas>
 		
 		
 			<div id="underPadding"></div>

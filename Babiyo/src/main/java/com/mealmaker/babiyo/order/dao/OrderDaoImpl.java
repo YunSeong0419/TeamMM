@@ -8,7 +8,6 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.mealmaker.babiyo.member.model.MemberDto;
 import com.mealmaker.babiyo.order.model.OrderDetailDto;
 import com.mealmaker.babiyo.order.model.OrderDto;
 import com.mealmaker.babiyo.util.SearchOption;
@@ -21,12 +20,6 @@ public class OrderDaoImpl implements OrderDao {
 
 	String namespace = "com.mealmaker.babiyo.order.";
 	
-	@Override
-	public List<OrderDto> selectId() {
-		// TODO Auto-generated method stub
-		
-		return sqlSession.selectList(namespace + "selectMember");
-	}
 
 	@Override
 	public void order(OrderDto orderDto) {
@@ -131,12 +124,19 @@ public class OrderDaoImpl implements OrderDao {
 		sqlSession.update(namespace + "orderAccept", orderNo);
 	}
 
+
 	@Override
-	public MemberDto testLogin(String memberId) {
+	public int waitOrderCount() {
 		// TODO Auto-generated method stub
-		return sqlSession.selectOne(namespace + "testLogin", memberId);
+		return sqlSession.selectOne(namespace + "waitOrderCount");
 	}
 
-	
+
+	@Override
+	public List<Integer> salesChart() {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList(namespace + "salesChart");
+	}
+
 	
 }

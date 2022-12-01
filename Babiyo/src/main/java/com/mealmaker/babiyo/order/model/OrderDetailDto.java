@@ -13,7 +13,7 @@ public class OrderDetailDto {
 	private String productName;
 	private int quantity;
 	private int price;
-	
+
 	private List<OrderDetailDto> orderDetailList;
-	
+
 }

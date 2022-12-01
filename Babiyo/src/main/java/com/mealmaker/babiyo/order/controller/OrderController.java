@@ -173,22 +173,4 @@ public class OrderController {
 		return "order/memberOrderList";
 	}
 	
-	@RequestMapping(value = "/testLogin.do", method = {RequestMethod.GET, RequestMethod.POST})
-	public String memberOrderList(String memberId, HttpSession session, Model model) {
-		logger.info("테스트 로그인");
-		
-		MemberDto memberDto = orderService.testLogin(memberId);
-		
-		model.addAttribute("_memberDto_", memberDto);
-		
-		return "redirect:/index.do";
-	}
-	
-	@RequestMapping(value = "/index.do", method = RequestMethod.GET)
-	public String memberOrderList(HttpSession session, Model model) {
-		logger.info("테스트 로그인");
-
-		return "index";
-	}
-	
 }
