@@ -17,10 +17,15 @@
 	height: 30px;
 }
 
-#emptyMainNoticeList{
-	font-size: 32px;
+#emptyMainNotice{
+	margin: 0px;
+	padding-left: 30px;
+	width: 700px;
+	height: 30px;
+	font-size: 16px;
 	font-weight: bold;
-	text-align: center;
+	line-height: 30px;
+	float: left;
 }
 
 #noticeName{
@@ -40,6 +45,12 @@
 	line-height: 30px;
 	font-size: 14px;
 	float: left;
+}
+
+#noticeTitle > a{
+	color: #000000;
+	text-decoration: none;
+	cursor: pointer;
 }
 
 #noticeDate{
@@ -189,7 +200,7 @@
 			</div>
 			<c:choose>
 				<c:when test="${empty noticeDto}">
-					<p id='emptyMainNoticeList'>
+					<p id='emptyMainNotice'>
 						공지가 없습니다.
 					</p>
 				</c:when>

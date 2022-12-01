@@ -36,7 +36,7 @@
 	line-height: 68px;
 }
 
-#productCategoryName > a{
+#productCategoryName > span{
 	color: #4A4A4A;
 	padding: 10px 30px;
 	margin: 0px auto;
@@ -44,6 +44,7 @@
 	font-weight: bold;
 	text-align: left;
 	text-decoration: none;
+	cursor: pointer;
 }
 
 #searchBox{
@@ -86,9 +87,11 @@
 }
 
 .productContentName{
+	margin-top: 10px;
 	width: 225px;
 	height: 20px;
 	font-weight: bold;
+	font-size: 14px;
 	text-align: center;
 	float: left;
 }
@@ -97,6 +100,7 @@
 	width: 225px;
 	height: 20px;
 	text-align: center;
+	font-size: 12px;
 	clear: both;
 }
 
@@ -115,12 +119,15 @@
 	<div id="middleDiv">
 		<!--여기서 작성 -->
 		<div id='productCategoryName'>
-			<a href="#">한식</a>
-			<a href="#">중식</a>
-			<a href="#">일식</a>
-			<a href="#">양식</a>
-			<a href="#">분식</a>
-			<a href="#">아시안</a>
+<%-- 		<c:choose> --%>
+<%-- 			<c:when test="${classificationAndSearchMap.classification == 'all'}"> --%>
+			<span onclick="allClassificationFnc">전체</span>
+			<span onclick="allClassificationFnc">한식</span>
+			<span onclick="allClassificationFnc">중식</span>
+			<span onclick="allClassificationFnc">일식</span>
+			<span onclick="allClassificationFnc">양식</span>
+			<span onclick="allClassificationFnc">분식</span>
+			<span onclick="allClassificationFnc">아시안</span>
 		</div>
 		
 		<hr />
@@ -142,7 +149,7 @@
 						<div class='category'>
 							<div class='productContent'>
 								<div class='productContentImage'>
-									<a href="/babiyo/product/memberDetail.do?productNo=${category.productDto.no}">
+									<a href="/babiyo/product/detail.do?productNo=${category.productDto.no}">
 										<img alt="${category.productDto.name}" 
 											src="/babiyo/img/${category.imgMap.STORED_NAME}"></a>				
 								</div>
@@ -150,7 +157,7 @@
 									${category.productDto.name}
 								</div>
 								<div class='productContentPrice'>	
-									<fmt:formatNumber value="${recommend.productDto.price}" pattern="#,###"/> 원
+									<fmt:formatNumber value="${category.productDto.price}" pattern="#,###"/> 원
 								</div>
 							</div>
 						</div>

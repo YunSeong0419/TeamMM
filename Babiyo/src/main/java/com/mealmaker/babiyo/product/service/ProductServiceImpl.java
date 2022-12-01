@@ -143,6 +143,7 @@ public class ProductServiceImpl implements ProductService{
 	@Override
 	public void productDelete(int no) {
 		
+		productDao.fileDelete(no);
 		productDao.productDelete(no);		
 	}
 	
@@ -155,8 +156,8 @@ public class ProductServiceImpl implements ProductService{
 
 	//DAO에서 카테고리별 밀키트 가져오게 시키기
 	@Override
-	public List<Map<String, Object>> productCategory() {
-		List<ProductDto> productCategory = productDao.productCategory();
+	public List<Map<String, Object>> productCategory(String classification, String keyword) {
+		List<ProductDto> productCategory = productDao.productCategory(classification, keyword);
 		
 		List<Map<String, Object>> categoryList = new ArrayList<Map<String,Object>>();
 		

@@ -104,9 +104,14 @@ public class ProductDaoImpl implements ProductDao{
 	
 	//DB에 있는 카테고리별 리스트 퍼오기
 	@Override
-	public List<ProductDto> productCategory() {
+	public List<ProductDto> productCategory(String classification, String keyword) {
 		
-		return sqlSession.selectList(namespace + "productCategory");
+		Map<String, Object> map = new HashMap<>();
+		
+		map.put("classification", classification);
+		map.put("keyword", keyword);
+		
+		return sqlSession.selectList(namespace + "productCategory", map);
 	}
 	
 	//DB에 있는 신상 밀키트 리스트 퍼오기

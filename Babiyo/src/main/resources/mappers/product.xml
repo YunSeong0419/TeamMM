@@ -19,6 +19,17 @@
 		ORDER BY	${sortOption}
 	</sql>
 	
+	<sql id="categoryCode">
+		<choose>
+			<when test="classification == 'all'">
+				WHERE CATEGORY_CODE = CATEGORY_CODE
+			</when>
+			<otherwise>
+				WHERE CATEGORY_CODE = ${categoryCode}
+			</otherwise>
+		</choose>
+	</sql>
+	
 	<resultMap type="productDto" id="productResultMap">
 		<id column="NO" property="no"/>
 		<result column="CATEGORY_CODE" property="categoryCode"/>
@@ -33,10 +44,11 @@
 		SELECT NO, NAME, PRICE
 		FROM (SELECT ROWNUM, NO, NAME, PRICE
 					FROM PRODUCT
+					<include refid="categoryCode"></include>
 					ORDER BY NO DESC)
 		WHERE <![CDATA[ ROWNUM <= 8 ]]>
 	</select>
-	
+		
 	<select id="productList" parameterType="map" resultMap="productResultMap">
 		SELECT PL.NO, PL.CATEGORY_CODE, PL.NAME, PL.PRICE, PL.STOCK
 		FROM (
