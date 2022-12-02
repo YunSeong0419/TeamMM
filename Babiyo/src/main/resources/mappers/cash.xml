@@ -10,9 +10,9 @@
 	<result column="BALANCE" property="balance"/>
 	
 </resultMap>
-<update id="cashUpdateOne" parameterType="memberDto">
+<update id="cashUpdateOne" parameterType="map">
 	UPDATE MEMBER
 	SET CASH = CASH + ${cash}
-	WHERE ID = #{id}
+	WHERE ID = #{memberId}
 </update>
 </mapper>

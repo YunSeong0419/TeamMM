@@ -26,7 +26,11 @@ public class CashServiceImpl implements CashService{
 	@Override
 	public MemberDto cashChargeOne(MemberDto memberDto) {
 		// TODO Auto-generated method stub
-		cashDao.cashChargeOne(memberDto);
+		
+		String memberId = memberDto.getId();
+		int cash = memberDto.getCash();
+		
+		cashDao.cashUpdateOne(memberId, cash);
 		
 		return memberDao.memberInfo(memberDto);
 	}

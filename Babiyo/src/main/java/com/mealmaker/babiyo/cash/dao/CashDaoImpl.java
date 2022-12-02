@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.mealmaker.babiyo.member.model.InterestDto;
 import com.mealmaker.babiyo.member.model.MemberDto;
+import com.mealmaker.babiyo.order.model.OrderDto;
 
 @Repository
 public class CashDaoImpl implements CashDao{
@@ -20,12 +21,15 @@ public class CashDaoImpl implements CashDao{
 	String namespace = "com.mealmaker.babiyo.cash.";
 	
 	@Override
-	public void cashChargeOne(MemberDto memberDto) {
+	public void cashUpdateOne(String memberId, int cash) {
 		// TODO Auto-generated method stub
-		 sqlSession.update(namespace + "cashUpdateOne"
-			, memberDto);
+		Map<String, Object> paraMap = new HashMap<String, Object>();
+		
+		paraMap.put("memberId", memberId);
+		paraMap.put("cash", cash);
+		
+		sqlSession.update(namespace + "cashUpdateOne", paraMap);
 	}
 
-	
 
 }
