@@ -74,6 +74,17 @@ public class ProductDaoImpl implements ProductDao{
 		return sqlSession.selectOne(namespace + "productTotalCount", map);
 	}
 
+	@Override
+	public int categoryCount(String keyword, int categoryCode) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("keyword", keyword);
+		map.put("categoryCode", categoryCode);
+		
+		return sqlSession.selectOne(namespace + "categoryCount", map);
+	}
+
 	//파일 삽입
 	@Override
 	public void insertFile(Map<String, Object> map) {
@@ -102,16 +113,25 @@ public class ProductDaoImpl implements ProductDao{
 		return sqlSession.delete(namespace + "fileDelete", parentSeq);
 	}
 	
+	//DB에 있는 카테고리 정보 퍼오기
+	@Override
+	public List<Map<String, Object>> productCategory() {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList(namespace + "productCategory");
+	}
+	
 	//DB에 있는 카테고리별 리스트 퍼오기
 	@Override
-	public List<ProductDto> productCategory(String classification, String keyword) {
+	public List<ProductDto> categoryList(int categoryCode, String keyword, int begin, int end) {
 		
 		Map<String, Object> map = new HashMap<>();
 		
-		map.put("classification", classification);
+		map.put("categoryCode", categoryCode);
 		map.put("keyword", keyword);
+		map.put("begin", begin);
+		map.put("end", end);
 		
-		return sqlSession.selectList(namespace + "productCategory", map);
+		return sqlSession.selectList(namespace + "categoryList", map);
 	}
 	
 	//DB에 있는 신상 밀키트 리스트 퍼오기
@@ -132,5 +152,4 @@ public class ProductDaoImpl implements ProductDao{
 		
 		return sqlSession.selectList(namespace + "recommendProductList", paramMap);
 	}
-
 }

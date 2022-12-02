@@ -6,9 +6,9 @@ import java.io.Serializable;
 public class Paging implements Serializable {
 
 	// 페이지당 게시물 수
-	public static final int PAGE_SCALE = 10;
+	public int PAGE_SCALE = 10;
 	// 블럭당 페이지수
-	public static final int BLOCK_SCALE = 10;
+	public int BLOCK_SCALE = 10;
 
 	private int curPage; // 현재 페이지 위치
 	
@@ -31,6 +31,18 @@ public class Paging implements Serializable {
 		curBlock = 1;
 		this.curPage = curPage;
 
+		
+		setTotCount(totalCount);
+		setPageRange();
+		setTotBlock();
+		setBlockRange();
+	}
+	
+	public Paging(int totalCount, int curPage, int PAGE_SCALE, int BLOCK_SCALE) {
+		this.PAGE_SCALE = PAGE_SCALE;
+		this.BLOCK_SCALE = BLOCK_SCALE;
+		curBlock = 1;
+		this.curPage = curPage;
 		
 		setTotCount(totalCount);
 		setPageRange();

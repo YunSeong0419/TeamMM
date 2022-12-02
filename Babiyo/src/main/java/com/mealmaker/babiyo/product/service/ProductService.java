@@ -24,8 +24,12 @@ public interface ProductService {
 	public void productDelete(int no);
 	//???
 	public int productTotalCount(String searchOption, String sortOption, String keyword);
+	//???
+	int categoryCount(String keyword, int categoryCode);
+	//카테고리 정보 가져오기
+	public List<Map<String, Object>> productCategory();
 	//카테고리 리스트 쏴주기
-	List<Map<String, Object>> productCategory(String classification, String keyword);
+	List<Map<String, Object>> categoryList(int categoryCode, String keyword, int begin, int end);
 	//메인에 신상 밀키트 쏴주기
 	List<Map<String, Object>> newProductList();
 	//메인에 추천 밀키트 쏴주기

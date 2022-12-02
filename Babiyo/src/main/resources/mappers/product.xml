@@ -20,14 +20,9 @@
 	</sql>
 	
 	<sql id="categoryCode">
-		<choose>
-			<when test="classification == 'all'">
-				WHERE CATEGORY_CODE = CATEGORY_CODE
-			</when>
-			<otherwise>
-				WHERE CATEGORY_CODE = ${categoryCode}
-			</otherwise>
-		</choose>
+		<if test="categoryCode != 0">
+			WHERE CATEGORY_CODE = ${categoryCode}
+		</if>
 	</sql>
 	
 	<resultMap type="productDto" id="productResultMap">
@@ -40,13 +35,26 @@
 		<result column="CONTENT" property="content"/>
 	</resultMap>
 	
-	<select id="productCategory" parameterType="productDto" resultMap="productResultMap">
+	
+	<select id="productCategory" resultType="map">
+	SELECT CODE, NAME
+	FROM PRODUCT_CATEGORY
+	</select>
+	
+	<select id="categoryList" parameterType="map" resultMap="productResultMap">
 		SELECT NO, NAME, PRICE
-		FROM (SELECT ROWNUM, NO, NAME, PRICE
-					FROM PRODUCT
-					<include refid="categoryCode"></include>
-					ORDER BY NO DESC)
-		WHERE <![CDATA[ ROWNUM <= 8 ]]>
+		FROM (
+				SELECT ROWNUM RNUM, NO, NAME, PRICE
+					FROM (
+							SELECT NO, NAME, PRICE
+							FROM PRODUCT
+							WHERE NAME LIKE '%'||#{keyword}||'%'
+							<if test="categoryCode != 0">
+							AND CATEGORY_CODE = ${categoryCode}
+							</if>
+							ORDER BY NO DESC)
+		)
+		WHERE RNUM BETWEEN #{begin} AND #{end}
 	</select>
 		
 	<select id="productList" parameterType="map" resultMap="productResultMap">
@@ -125,6 +133,17 @@
 		<include refid="search"></include>
 	</select>
 
+	<select id="categoryCount" resultType="int" parameterType="map">
+		SELECT COUNT(*)
+		FROM PRODUCT
+		<where>
+		NAME LIKE '%' || #{keyword} || '%'
+		<if test="categoryCode != 0">
+		AND CATEGORY_CODE = ${categoryCode}
+		</if>
+		</where>
+	</select>
+
 	<insert id="insertFile" parameterType="map">
 		INSERT INTO PRODUCT_IMAGE
 		(NO, PRODUCT_NO, ORIGINAL_NAME, STORED_NAME)
@@ -151,5 +170,7 @@
 		DELETE FROM PRODUCT_IMAGE
 		WHERE NO = #{no}
 	</delete>
+	
+	
 	
 </mapper>

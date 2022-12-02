@@ -33,20 +33,34 @@ public class ProductController {
 	//오븐 15p, 헤더-밀키트 카테고리
 	@RequestMapping(value = "/product/category.do", method = RequestMethod.GET)
 	public String productCategory(@RequestParam(defaultValue = "1") int curPage
-			, @RequestParam(defaultValue = "all") String classification
-			, @RequestParam(defaultValue = "") String keyword, Model model) {
-		logger.info("ProductController category! curPage: {}, classification: {}");
+			, @RequestParam(defaultValue = "") String keyword
+			, @RequestParam(defaultValue = "0")int categoryCode
+			, Model model) {
+		logger.info("ProductController category! curPage: {}, categoryCode: {}", curPage, categoryCode);
 		logger.info("keyword: {}", keyword);
 		
-		List<Map<String, Object>> productCategory = productService.productCategory(classification, keyword);
+		//카테고리 목록을 불러옴
+		List<Map<String, Object>> productCategory = productService.productCategory();
 		
-		Map<String, Object> classificationAndSearchMap = new HashMap<>();
+		int categoryCount = productService.categoryCount(keyword, categoryCode);	
 		
-		classificationAndSearchMap.put("classification", classification);	
-		classificationAndSearchMap.put("keyword", keyword);
+		Paging paging = new Paging(categoryCount, curPage, 8, 10);
 		
-		model.addAttribute("classificationAndSearchMap", classificationAndSearchMap);
+		int begin = paging.getPageBegin();
+		int end = paging.getPageEnd();
+		
+		//선택된 카테고리의 상품을 불러옴
+		List<Map<String, Object>> categoryList = productService.categoryList(categoryCode, keyword, begin, end);
+		//검색
+		Map<String, Object> searchMap = new HashMap<>();
+		
+		searchMap.put("categoryCode", categoryCode);
+		searchMap.put("keyword", keyword);
+		
+		model.addAttribute("paging", paging);
 		model.addAttribute("productCategory", productCategory);
+		model.addAttribute("categoryList", categoryList);
+		model.addAttribute("searchMap", searchMap);
 		
 		return "product/category";
 	}

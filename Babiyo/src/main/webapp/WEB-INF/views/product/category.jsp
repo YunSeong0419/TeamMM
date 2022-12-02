@@ -49,9 +49,21 @@
 
 #searchBox{
 	width: 900px;
-	height: 50px;
+	height: 35px;
 	margin: 20px auto;
 	text-align: right;
+}
+
+#searchBoxInput{
+	width: 150px;
+	height: 35px;
+	padding-top: 2px;
+}
+
+#searchBoxBtn{
+	padding-bottom: 3px;
+	width: 50px;
+	height: 35px;
 }
 
 #productDiv{
@@ -103,10 +115,18 @@
 	font-size: 12px;
 	clear: both;
 }
-
 </style>
 
 <script type="text/javascript" src="/babiyo/resources/js/jquery-3.6.1.js"></script>
+<script type="text/javascript">
+function categorySelect(code){
+	$('#categoryCode').val(code);
+	
+	$('#categoryForm').submit();
+}
+
+</script>
+
 
 </head>
 
@@ -119,33 +139,34 @@
 	<div id="middleDiv">
 		<!--여기서 작성 -->
 		<div id='productCategoryName'>
-<%-- 		<c:choose> --%>
-<%-- 			<c:when test="${classificationAndSearchMap.classification == 'all'}"> --%>
-			<span onclick="allClassificationFnc">전체</span>
-			<span onclick="allClassificationFnc">한식</span>
-			<span onclick="allClassificationFnc">중식</span>
-			<span onclick="allClassificationFnc">일식</span>
-			<span onclick="allClassificationFnc">양식</span>
-			<span onclick="allClassificationFnc">분식</span>
-			<span onclick="allClassificationFnc">아시안</span>
+			<span onclick="categorySelect(0);">전체</span>
+			<c:forEach  var="productCategory" items="${productCategory}">
+				<span onclick="categorySelect(${productCategory.CODE});">${productCategory.NAME}</span>
+			</c:forEach>
 		</div>
+		
+		<form id="categoryForm" method="get">
+			<input type="hidden" id="categoryCode" name="categoryCode">
+		</form>
 		
 		<hr />
 		
 		<div id='searchBox'>
-			<input type="text" style="width: 150px; height: 36px;">
-			<input type="button" value='검색' style="width: 50px; height: 36px;">
+			<form id="searchForm" action="./category.do" method="get">
+				<input type="hidden" name="categoryCode" value="${searchMap.categoryCode}">
+				<input type="text" id='searchBoxInput' name="keyword" value="${searchMap.keyword}">
+				<input type="submit" value='검색' name="searchBoxBtn" id='searchBoxBtn'>
+			</form>
 		</div>
-
 		<div id='productDiv'>
 			<c:choose>
-				<c:when test="${empty productCategory}">
+				<c:when test="${empty categoryList}">
 					<div id='emptyProductCategory'>
 						<p>등록된 밀키트가 없습니다.</p>
 					</div>
 				</c:when>
 				<c:otherwise>
-					<c:forEach var="category" items="${productCategory}"> 
+					<c:forEach var="category" items="${categoryList}"> 
 						<div class='category'>
 							<div class='productContent'>
 								<div class='productContentImage'>
@@ -166,6 +187,13 @@
 			</c:choose>	
 		</div>
 		<jsp:include page="/WEB-INF/views/Paging.jsp" />		
+		
+		<form id="pagingForm">
+			<input type="hidden" id="curPage" name="curPage" value="${paging.curPage}">
+			<input type="hidden" id="categoryCode" name="categoryCode" value="${searchMap.categoryCode}">
+			<input type="hidden" name="keyword" value="${searchMap.keyword}">
+		</form>
+		
 		<div id="underPadding"></div>
 	</div> <!--middleDiv 끝 -->
 

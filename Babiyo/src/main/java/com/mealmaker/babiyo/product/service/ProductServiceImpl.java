@@ -19,9 +19,11 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.mealmaker.babiyo.favorite.dao.FavoriteDao;
 import com.mealmaker.babiyo.favorite.model.FavoriteDto;
+import com.mealmaker.babiyo.inquiry.model.InquiryDto;
 import com.mealmaker.babiyo.product.dao.ProductDao;
 import com.mealmaker.babiyo.product.model.ProductDto;
 import com.mealmaker.babiyo.util.FileUtils;
+import com.mealmaker.babiyo.util.Paging;
 
 @Service
 public class ProductServiceImpl implements ProductService{
@@ -147,21 +149,37 @@ public class ProductServiceImpl implements ProductService{
 		productDao.productDelete(no);		
 	}
 	
-	//???
+	//검색옵션, 분류 있는 애들의 개수 계산
 	@Override
 	public int productTotalCount(String searchOption, String sortOption, String keyword) {
 
 		return productDao.productTotalCount(searchOption, sortOption, keyword);
 	}
+	
+	//카테고리 페이지에서의 개수 계산
+	@Override
+	public int categoryCount(String keyword, int categoryCode) {
 
+		return productDao.categoryCount(keyword, categoryCode);
+	}
+
+	//DAO에서 카테고리 정보 가져오게 시키기
+	@Override
+	public List<Map<String, Object>> productCategory() {
+		
+		return productDao.productCategory();
+	}
+	
 	//DAO에서 카테고리별 밀키트 가져오게 시키기
 	@Override
-	public List<Map<String, Object>> productCategory(String classification, String keyword) {
-		List<ProductDto> productCategory = productDao.productCategory(classification, keyword);
+	public List<Map<String, Object>> categoryList(int categoryCode, String keyword, int begin, int end) {
 		
-		List<Map<String, Object>> categoryList = new ArrayList<Map<String,Object>>();
+
+		List<ProductDto> categoryList = productDao.categoryList(categoryCode, keyword, begin, end);
 		
-		for (ProductDto productDto : productCategory) {
+		List<Map<String, Object>> productCategory = new ArrayList<Map<String,Object>>();
+		
+		for (ProductDto productDto : categoryList) {
 			Map<String, Object> map = new HashMap<String, Object>();
 			
 			int productNo = productDto.getNo();
@@ -170,10 +188,10 @@ public class ProductServiceImpl implements ProductService{
 			map.put("productDto", productDto);
 			map.put("imgMap", imgMap);
 			
-			categoryList.add(map);
+			productCategory.add(map);
 		}
 		
-		return categoryList;
+		return productCategory;
 	}
 	
 	//DAO에서 신상 밀키트 가져오게 시키기
@@ -254,5 +272,4 @@ public class ProductServiceImpl implements ProductService{
 		
 		return map;
 	}
-	
 }
