@@ -171,7 +171,7 @@ public class MemberController {
 		
 		return "redirect:/auth/member/addInterest.do?memberId=" + memberId;
 	}
-	
+	// 회원정보
 	@RequestMapping(value = "/member/memberInfo.do", method = RequestMethod.GET)
 	public String memberInfo(HttpSession session, Model model) {
 		logger.info("Welcome MemberController memberInfo! ");
@@ -185,41 +185,19 @@ public class MemberController {
 		
 		return "/member/MemberCash";
 	}
-//	
-//	
-//	// 회원수정 화면으로
-//	@RequestMapping(value = "/member/update.do", method = RequestMethod.GET)
-//	public String memberUpdate(int no, Model model) {
-//		logger.debug("Welcome MemberController memberUpdate! " + no);
-//		
-//		Map<String, Object> map = memberService.memberSelectOne(no);
-//		
-//		MemberDto memberDto = (MemberDto)map.get("memberDto");
-//		List<Map<String, Object>> fileList 
-//			= (List<Map<String, Object>>) map.get("fileList");
-//		
-//		model.addAttribute("memberDto", memberDto);
-//		model.addAttribute("fileList", fileList);
-//		
-//		return "member/MemberUpdateForm";
-//	}
-//
-//	// 회원수정
+
+	// 회원수정
 //	@RequestMapping(value = "/member/updateCtr.do"
 //		, method = RequestMethod.POST)
 //	public String memberUpdateCtr(HttpSession session,
-//		MemberDto memberDto
-//		, @RequestParam(value = "fileIdx", defaultValue = "-1") int fileIdx
-//		, MultipartHttpServletRequest multipartHttpServletRequest
-//		, Model model) {
-//		logger.info("Welcome MemberController memberUpdateCtr {} :: {}" 
-//		 , memberDto, fileIdx);
+//		MemberDto memberDto, Model model) {
+//		logger.info("Welcome MemberController memberUpdateCtr {}" 
+//		 , memberDto);
 //		
 //		int resultNum = 0; 
 //			
 //		try {
-//			resultNum = memberService.memberUpdateOne(memberDto
-//				, multipartHttpServletRequest, fileIdx);
+//			resultNum = memberService.memberUpdateOne(memberDto);
 //		} catch (Exception e) {
 //			e.printStackTrace();
 //		}
@@ -233,9 +211,11 @@ public class MemberController {
 //			if(sessionMemberDto.getId() == memberDto.getId()) {
 //				MemberDto newMemberDto = new MemberDto();
 //				
-//				newMemberDto.setId(memberDto.getId());
 //				newMemberDto.setEmail(memberDto.getEmail());
 //				newMemberDto.setName(memberDto.getName());
+//				newMemberDto.setGender(memberDto.getGender());
+//				newMemberDto.setBirthDate(memberDto.getBirthDate());
+//				newMemberDto.setPassword(memberDto.getPassword());
 //				
 //				session.removeAttribute("_memberDto_");
 //				
@@ -244,7 +224,7 @@ public class MemberController {
 //		}
 //		
 //		
-//		return "common/sucessPage";
+//		return "/member/memberInfo.do";
 //	}
 //	
 //	// 회원탈퇴

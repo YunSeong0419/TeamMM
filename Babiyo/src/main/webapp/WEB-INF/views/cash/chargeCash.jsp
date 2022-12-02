@@ -1,15 +1,59 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>제목입력해주세요</title>
+<title>캐시 충전</title>
 
-<link rel="stylesheet" type="text/css" href="/babiyo/resources/css/common.css"/>
-<script type="text/javascript" src="/babiyo/resources/js/jquery-3.6.1.js"></script>
+<style type="text/css">
+#selfIn {
+	width: 70%;
+}
+
+#btnWrap {
+	text-align: center;
+}
+
+.choice {
+	width: 10%;
+}
+
+form {
+	width: 900px;
+	height: 200px;
+	margin: auto;
+}
+
+table {
+	text-align: center;
+	width: 100%;
+	height: 100%;
+	border: 1px solid black;
+	border-collapse: collapse;
+}
+
+th {
+	border: 1px solid black;
+	color: white;
+	background: orange;
+}
+
+td {
+	border: 1px solid black;
+}
+
+span {
+	width: 30%;
+}
+</style>
+
+<link rel="stylesheet" type="text/css"
+	href="/babiyo/resources/css/common.css" />
+<script type="text/javascript"
+	src="/babiyo/resources/js/jquery-3.6.1.js"></script>
 
 <script type="text/javascript">
 
@@ -17,7 +61,26 @@ function inputMoney() {
 	
 	$('#selfInput').val($('#selfIn').val());
 	
+	choiceCash(event);
 };
+
+function choiceCash(event) {
+	const point = parseInt(event.target.value); 
+	
+	if(!!point){
+		document.getElementById('choicePoint').innerHTML = 
+		    '충전 : ' + point + '원';
+		document.getElementById('afterPoint').innerHTML =
+			'충전 후 : ' + (point + ${_memberDto_.cash}) + '원';
+	}else {
+		document.getElementById('choicePoint').innerHTML = '';
+		document.getElementById('afterPoint').innerHTML = '';
+	}
+	};
+	
+function moveBackFnc() {
+	location.href = '../member/memberCash.do';
+}
 
 
 </script>
@@ -25,79 +88,93 @@ function inputMoney() {
 </head>
 <body>
 
-<div id="rootDiv">
+	<div id="rootDiv">
 
-	<jsp:include page="/WEB-INF/views/Header.jsp" />
+		<jsp:include page="/WEB-INF/views/Header.jsp" />
 
-	<div id="middleDiv">
-	
-		<jsp:include page="/WEB-INF/views/CommonMiddleDiv.jsp" />
-		
-		<div id="middleMainDiv">
-			<div id="sideTitle"></div>
-			<!--여기서 작성 -->
-		
-			
-			
-			<form id='memberDetailForm' action="./chargeCashCtr.do" method="post">
+		<div id="middleDiv">
+
+			<jsp:include page="/WEB-INF/views/CommonMiddleDiv.jsp" />
+
+			<div id="middleMainDiv">
+				<div id="sideTitle"></div>
+				<!--여기서 작성 -->
+
+
+
+				<form id='memberDetailForm' action="./chargeCashCtr.do"
+					method="post">
 					<input type="hidden" name="id" value="${_memberDto_.id}">
 					<table>
 						<tr>
-							<th>충전금액</th><th>상세설명</th><th>가입일</th><th></th>
+							<th></th>
+							<th>충전금액</th>
+							<th>상세설명</th>
 						</tr>
 						<tr>
-							<td>
-							<input type="radio" name="cash" value="5000">5000원
-							</td>
+							<td class="choice"><input type="radio" name="cash"
+								value="5000" onclick="choiceCash(event)"></td>
+							<td>5000원</td>
+							<td></td>
 						</tr>
 						<tr>
-							<td>
-							<input type="radio" name="cash" value="10000">10000원
-							</td>
+							<td class="choice"><input type="radio" name="cash"
+								value="10000" onclick="choiceCash(event)"></td>
+							<td>10000원</td>
+							<td></td>
 						</tr>
 						<tr>
-							<td>
-							<input type="radio" name="cash" value="20000">20000원
-							</td>
+							<td class="choice"><input type="radio" name="cash"
+								value="20000" onclick="choiceCash(event)"></td>
+							<td>20000원</td>
+							<td></td>
 						</tr>
 						<tr>
-							<td>
-							<input type="radio" name="cash" value="50000">50000원
-							</td>
+							<td class="choice"><input type="radio" name="cash"
+								value="50000" onclick="choiceCash(event)"></td>
+							<td>50000원</td>
+							<td></td>
 						</tr>
 						<tr>
-							<td>
-							<input type="radio" name="cash" value="100000">100000원
-							</td>
+							<td class="choice"><input type="radio" name="cash"
+								value="100000" onclick="choiceCash(event)"></td>
+							<td>100000원</td>
+							<td></td>
 						</tr>
 						<tr>
-							<td>
-								<input type="radio" id="selfInput" name="cash" value="">
-								<input type="number" id="selfIn" min="1" max="1000000"
-								 onchange="inputMoney();">
-							</td>
-						</tr>
-						<tr>
-							<td>
-							<input type="submit" value="충전하기">
-							<input type="button" value="뒤로가기">
-							</td>
+							<td class="choice"><input type="radio" id="selfInput"
+								name="cash" value="" onclick="choiceCash(event)"></td>
+							<td>직접입력</td>
+							<td><input type="number" id="selfIn" min="1" max="1000000"
+								placeholder="충전금액을 입력해주세요" onkeyup="inputMoney();"></td>
 						</tr>
 					</table>
+					<div id="pointView">
+						<span id='choicePoint'></span>
+						<span>보유 포인트 : ${_memberDto_.cash}원</span>
+						<span id='afterPoint'></span>
+					</div>
+					<div id='btnWrap'>
+						<input type="submit" value="충전하기">
+						 <input type="button" value="뒤로가기" onclick="moveBackFnc();">
+					</div>
 				</form>
-		
-		
-		
-		
-			<div id="underPadding"></div>
-			
-		</div> <!--middelMain 끝 -->
-	
-	</div> <!--middleDiv 끝 -->
 
-	<jsp:include page="/WEB-INF/views/Footer.jsp" />
 
-</div> <!-- rootDiv 끝 -->
+
+
+				<div id="underPadding"></div>
+
+			</div>
+			<!--middelMain 끝 -->
+
+		</div>
+		<!--middleDiv 끝 -->
+
+		<jsp:include page="/WEB-INF/views/Footer.jsp" />
+
+	</div>
+	<!-- rootDiv 끝 -->
 
 
 </body>

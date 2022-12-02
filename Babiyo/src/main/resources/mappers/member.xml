@@ -76,14 +76,14 @@
 
 <update id="memberUpdateOne" parameterType="memberDto">
 UPDATE MEMBER
-SET PASSWORD = #{password},
-NAME = #{name},
-EMAIL = #{email},
-PHONE = #{phone},
-GENDER = #{gender},
-NICKNAME = #{nickname},
-MODIFY_DATE = SYSDATE
-WHERE ID = #{id}
+		SET PASSWORD = #{password},
+			NAME = #{name},
+			EMAIL = #{email},
+			PHONE = #{phone},
+			GENDER = #{gender},
+			NICKNAME = #{nickname},
+			MODIFY_DATE = SYSDATE
+		WHERE ID = #{id}
 </update>
 	
 

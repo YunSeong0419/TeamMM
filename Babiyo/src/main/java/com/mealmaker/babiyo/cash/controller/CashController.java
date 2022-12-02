@@ -36,14 +36,14 @@ public class CashController {
 	}
 	
 	@RequestMapping(value = "/cash/chargeCashCtr.do", method = RequestMethod.POST)
-	public String memberAdd(MemberDto memberDto, HttpSession session, Model model) {
+	public String cashAdd(MemberDto memberDto, HttpSession session, Model model) {
 		logger.info("Welcome  CashController chargeCashOne! " + memberDto.getCash());
 		
 		MemberDto memberDtoSession = cashService.cashChargeOne(memberDto);
 		
 		session.setAttribute("_memberDto_", memberDtoSession);
 		
-		return "/member/MemberCash";
+		return "redirect:/member/memberCash.do";
 	}
 	
 }
