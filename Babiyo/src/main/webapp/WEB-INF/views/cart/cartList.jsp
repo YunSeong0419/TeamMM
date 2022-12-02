@@ -72,7 +72,7 @@ table{
 }
 
 #firstRow{
-	background-color: #FF5E00;
+	background-color: #FF9436;
 	color: #fff;
 }
 
@@ -95,7 +95,7 @@ table{
 	height: 40px;
 	border: 0px;
 	border-radius: 5px;
-	background-color: #FF5E00;
+	background-color: #FF9436;
 	font-weight: bold;
 	color: white;
 }
@@ -109,6 +109,10 @@ table{
 #productImg{
 	width: 120px;
 	height: 120px;
+}
+
+#totalAmountText{
+	font-weight: bold;
 }
 
 

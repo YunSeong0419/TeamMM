@@ -5,7 +5,7 @@
 <link rel="stylesheet" type="text/css" href="/babiyo/resources/css/common.css"/>
 
 <header>
-	<div style="width: 1200px; height: 100%; margin: auto; border-bottom: 2px solid #FF5E00;">
+	<div style="width: 1200px; height: 100%; margin: auto;">
 	
 	<div id="serviceAreaDiv">
 		<div id='serviceAreaMenuBar'>

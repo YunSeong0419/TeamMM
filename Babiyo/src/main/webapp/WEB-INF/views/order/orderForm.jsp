@@ -28,7 +28,7 @@
 	width: 550px;
 	height: 500px;
 	padding: 30px;
-	border: 1px solid black;
+	border: 2px solid #FF9436;
 	border-radius: 20px;
 	float: left;
 }
@@ -44,11 +44,30 @@
 
 .receiverInfo {
 	display: inline-block;
-	width: 200px;
+	width: 100px;
+	font-weight: bold;
+	text-align: justify;
+	line-height: 0;
 }
 
+.receiverInfo:before{
+	width: 100%;
+	display: inline-block;
+	content: "";
+}
+
+.receiverInfo:after{
+	width: 100%;
+	display: inline-block;
+	content: "";
+}
+
+
 .receiverInput {
-	width: 270px;
+	margin-left: 30px;
+	height: 35px;
+	width: 340px;
+	line-height: 35px;
 }
 
 .receiverInfoDiv {
@@ -59,14 +78,24 @@
 	width: 80px;
 }
 
+#receiverForm{
+	width: 490px;
+	height: 440px;
+}
+
+#requestDiv{
+}
+
 #requestInfo {
+	margin-top: 8px;
 	float: left;
 }
 
 #requestText {
 	resize: none;
-	margin-left: 6px;
-	height: 200px;
+	height: 130px;
+	line-height: 20px;
+	margin-left: 36px;
 }
 
 #paymentInfoDiv {
@@ -104,6 +133,7 @@
 	float: right;
 	text-align: right;
 }
+
 .mealkitPrice{
 	margin-left: 20px;
 	text-align: right;
@@ -111,15 +141,26 @@
 	float: right;
 }
 
-
-
 #orderBtn, #backBtn{
 	width:240px;
 	height:40px;
+	font-weight: bold;
+	border: 0px;
+	border-radius: 5px;
+	background-color: #FF9436;
+	color: #fff;
 }
 
 #backBtn{
 	margin-left: 12px;
+}
+
+ul > li {
+	margin: 5px 0;
+}
+
+#confirm{
+	font-size: 13px;
 }
 
 </style>
@@ -133,7 +174,7 @@ $(document).ready(function(){
 		totalAmount += Number($(element).val()) * Number($('.quantity').eq(i).val());
 	});
 	
-	var htmlStr = totalAmount.toLocaleString('ko-KR') + '원';
+	var htmlStr = totalAmount.toLocaleString('ko-KR') + ' 원';
 	
 	$('#totalAmount').val(totalAmount);
 	$('#totalAmountMoney').html(htmlStr);
@@ -236,30 +277,30 @@ function postFind() {
 
 			<form action="./orderCtr.do" method="post" id="receiverForm">
 				<div class="receiverInfoDiv">
-					<span class="receiverInfo">받으시는 분 성함</span>
+					<span class="receiverInfo">받 는 사 람</span>
 					<input type="text" name="receiverName" id="receiverName" class="receiverInput"
 						 value="${_memberDto_.name}">
 				</div>
 				<div class="receiverInfoDiv">
-					<span class="receiverInfo">받으시는 분 연락처</span>
+					<span class="receiverInfo">전 화 번 호</span>
 					<input type="text" name="receiverPhone" id="receiverPhone" class="receiverInput" 
 						value="${_memberDto_.phone}">
 				</div>
 				<div class="receiverInfoDiv">
-					<span class="receiverInfo">우편번호</span> 
+					<span class="receiverInfo">우 편 번 호</span> 
 					<input type="text" name="post" id="post" class="receiverInput" readonly="readonly">
 					<input type="button" onclick="postFind();" value="우편번호 찾기">
 				</div>
 				<div class="receiverInfoDiv">
-					<span class="receiverInfo">배송지 입력</span> 
+					<span class="receiverInfo">주 소</span> 
 					<input type="text" name="address" id="address" class="receiverInput" readonly="readonly">
 				</div>
 				<div class="receiverInfoDiv">
-					<span class="receiverInfo">상세주소</span>
+					<span class="receiverInfo">상 세 주 소</span>
 					<input type="text" name="addressDetail" id="addressDetail" class="receiverInput">
 				</div>
-				<div class="receiverInfoDiv">
-					<span id="requestInfo" class="receiverInfo">배송 시 요청사항</span>
+				<div id="requestDiv" class="receiverInfoDiv">
+					<span id="requestInfo" class="receiverInfo">요 청 사 항</span>
 					<textarea name="request" id="requestText" class="receiverInput"></textarea>
 				</div>
 				
@@ -283,9 +324,9 @@ function postFind() {
 				<ul id="mealkitUl">
 					<c:forEach items="${orderDetailList}" var="list">
 						<li>
-							<span class="mealkitName">${list.productName}</span>
+							<span class="mealkitName"><strong>${list.productName}</strong></span>
 							<span class="mealkitPrice">
-								<fmt:formatNumber pattern="#,###">${list.price * list.quantity}</fmt:formatNumber>원
+								<fmt:formatNumber pattern="#,###">${list.price * list.quantity}</fmt:formatNumber> 원
 							</span>
 							<span class="mealkitQuantity">${list.quantity}개</span>
 						</li>
@@ -295,14 +336,14 @@ function postFind() {
 			<div>
 				<p>
 					<span id="balanceName">보유금액</span>
-					<span id="balanceMoney"><fmt:formatNumber pattern="#,###">${_memberDto_.cash}</fmt:formatNumber>원</span>
+					<span id="balanceMoney"><strong><fmt:formatNumber pattern="#,###">${_memberDto_.cash}</fmt:formatNumber> 원</strong></span>
 				</p>
 				<p>
-					<span id="totalAmountName">결제금액</span> <span id="totalAmountMoney"></span>
+					<span id="totalAmountName">결제금액</span> <strong><span id="totalAmountMoney"></span></strong>
 				</p>
 			</div>
 
-			<p>위 내용을 확인하였으며 결제에 동의합니다</p>
+			<p id="confirm">위 내용을 확인하였으며 결제에 동의합니다</p>
 			
 			<hr>
 			

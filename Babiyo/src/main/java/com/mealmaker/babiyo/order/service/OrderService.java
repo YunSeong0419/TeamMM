@@ -24,5 +24,7 @@ public interface OrderService {
 	public Map<String, Object> adminOrderList(SearchOption searchOption, int curPage);
 
 	public void orderAccept(int orderNo);
+	
+	public void cashUpdate(OrderDto orderDto);
 
 }

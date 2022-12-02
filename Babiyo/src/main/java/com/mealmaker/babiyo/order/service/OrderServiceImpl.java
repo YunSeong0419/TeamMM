@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 
 import com.mealmaker.babiyo.cart.dao.CartDao;
 import com.mealmaker.babiyo.cart.model.CartDto;
-import com.mealmaker.babiyo.member.dao.MemberDao;
+import com.mealmaker.babiyo.cash.dao.CashDao;
 import com.mealmaker.babiyo.order.dao.OrderDao;
 import com.mealmaker.babiyo.order.model.OrderDetailDto;
 import com.mealmaker.babiyo.order.model.OrderDto;
@@ -31,7 +31,7 @@ public class OrderServiceImpl implements OrderService{
 	private final OrderDao orderDao;
 	
 	@Resource 
-	private MemberDao memberDao;
+	private CashDao cashDao;
 	
 	@Resource
 	private CartDao cartDao;
@@ -48,12 +48,14 @@ public class OrderServiceImpl implements OrderService{
 		orderDao.order(orderDto);
 		
 		int orderNo = orderDto.getNo();
+		
+		String memeberId = orderDto.getMemberId();
 		orderDetailDto.setOrderNo(orderNo);
 		
 		orderDao.orderDetail(orderDetailDto);
 		
 		CartDto cartDto = new CartDto();
-		cartDto.setMemberId(orderDto.getMemberId());
+		cartDto.setMemberId(memeberId);
 		
 		List<CartDto> cartList = new ArrayList<CartDto>();
 		
@@ -68,7 +70,7 @@ public class OrderServiceImpl implements OrderService{
 		
 		cartDao.cartDelete(cartDto);
 		
-//		memberDao.cash();
+		cashUpdate(orderDto);
 		
 		return orderNo;
 	}
@@ -156,5 +158,20 @@ public class OrderServiceImpl implements OrderService{
 		orderDao.orderAccept(orderNo);
 	}
 
+	@Override
+	public void cashUpdate(OrderDto orderDto) {
+		// TODO Auto-generated method stub
+		String memberId = orderDto.getMemberId();
+		int totalAmount = orderDto.getTotalAmount();
+		
+		// 유저의 돈을 뺌
+		cashDao.cashUpdateOne(memberId, totalAmount * -1);
+		
+		// 받은돈을 증가시킴
+		cashDao.cashUpdateOne("admin", totalAmount);
+	}
+
+
+	
 
 }

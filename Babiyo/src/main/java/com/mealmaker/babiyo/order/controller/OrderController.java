@@ -66,6 +66,11 @@ public class OrderController {
 		
 		orderService.order(orderDto, orderDetailDto);
 		
+		int balance = memberDto.getCash() - orderDto.getTotalAmount();
+		memberDto.setCash(balance);
+		
+		model.addAttribute("_memberDto_", memberDto);
+		
 		return "redirect:/order/complete.do";
 	}
 	
