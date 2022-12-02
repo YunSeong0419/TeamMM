@@ -120,6 +120,9 @@ hr{
 }
 
 #verticalSideMenuBarArea > div > div > a{
+	display: inline-block;
+	width: 100px;
+	height: 40px;
 	color: #F6F6F6;
 	font-size: 18px;
 	font-weight: bold;
@@ -128,8 +131,9 @@ hr{
 }
 
 #verticalSideMenuBarArea > div > div > a:hover{
-	color: #4C4C4C;
-	font-size: 20px;
+	color: #000000;
+	font-size: 19px;
+	border-bottom: 2px solid #fff;
 }
 
 #sideTitle{
