@@ -34,7 +34,8 @@ public class NoticeController {
 	//공지 게시판
 	@RequestMapping(value = "/notice/list.do", method = RequestMethod.GET)
 	public String noticeList(@RequestParam(defaultValue = "1") int curPage
-			,SearchOption searchOption, HttpSession session, Model model) {
+			, SearchOption searchOption
+			, HttpSession session, Model model) {
 		logger.info("Welcome NoticeController list! ");
 		
 		Map<String, Object> map = noticeService.noticeList(searchOption, curPage);

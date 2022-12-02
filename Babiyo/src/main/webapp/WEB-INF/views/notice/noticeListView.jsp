@@ -90,6 +90,14 @@ td {
 	src="/babiyo/resources/js/jquery-3.6.1.js"></script>
 
 <script type="text/javascript">
+
+$(document).ready(function(){
+	
+	console.log($('#searchMapId').val());
+	
+	$('#searchId').val($('#searchMapId').val());
+	
+});
 	$(function() {
 
 		$('#stateSelect').val($('#stateCode').val());
@@ -140,25 +148,27 @@ td {
 				</div>
 				
 				<form action="./list.do" method="get">
-		<select name="searchOption">
-			<c:choose>
-				<c:when test="${searchMap.search =='all'}">
-					<option value="all" selected="selected">전체</option>
-					<option value="title">제목</option>
-					<option value="content">내용</option>
-				</c:when>
-					<c:when test="${searchMap.search =='title'}">
-					<option value="all">전체</option>
-					<option value="title" selected="selected">제목</option>
-					<option value="content">내용</option>
-				</c:when>
-					<c:when test="${searchMap.search =='content'}">
-					<option value="all">전체</option>
-					<option value="title">제목</option>
-					<option value="content" selected="selected">내용</option>
-				</c:when>
-			</c:choose>
-		</select>
+			<input type="hidden" id="searchMapId" value="${searchMap.search}"> 
+			<select name="searchOption" id="searchId">
+				<c:choose>
+					<c:when test="${searchMap.search =='all'}">
+						<option value="all" selected>전체</option>
+						<option value="title">제목</option>
+						<option value="content">내용</option>
+					</c:when>
+						<c:when test="${searchMap.search =='title'}">
+						<option value="all">전체</option>
+						<option value="title" selected="selected">제목</option>
+						<option value="content">내용</option>
+					</c:when>
+						<c:when test="${searchMap.search =='content'}">
+						<option value="all">전체</option>
+						<option value="title">제목</option>
+						<option value="content" selected="selected">내용</option>
+					</c:when>
+				</c:choose> 
+				</select>
+	
 		
 		<input type="text" name="search" value="${searchMap.search}">
 			
@@ -225,6 +235,7 @@ td {
 				<input type="hidden" id="curPage" name="curPage" value="${paging.curPage}">
 				<input type="hidden" id="stateCode" name="stateCode" value="${searchOption.stateCode}">
 				<input type="hidden" name="search" value="${searchOption.search}">
+				<input type="hidden" name="searchOption" value="${searchOption.searchOption}">
 			</form>
 
 				<div id="underPadding"></div>

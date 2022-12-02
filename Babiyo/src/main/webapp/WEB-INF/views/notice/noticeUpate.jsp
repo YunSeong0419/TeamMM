@@ -6,15 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<c:choose>
-	<c:when test="${_memberDto_.grade eq 1}">
-		<title>공지 수정</title>	
-	</c:when>
-	<c:otherwise>
-		<title>공지 상세</title>	
-	</c:otherwise>
-</c:choose>
-	
+<title>공지 수정</title>	
 
 <style type="text/css">
 
