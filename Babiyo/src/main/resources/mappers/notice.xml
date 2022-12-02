@@ -90,7 +90,7 @@
 	VALUES(#{parentSeq}, #{original_file_name}, #{stored_file_name})
 </insert>
 <!-- 공지 작성 -->
-<insert id="noticeWrite" parameterType="NoticeDto"
+<insert id="noticeWrite" parameterType="noticeDto"
 useGeneratedKeys="true" keyProperty="no">
 <selectKey keyProperty="no" resultType="int" order="AFTER">
 	SELECT SEQ_NOTICE_NO.CURRVAL
@@ -103,13 +103,13 @@ VALUES( #{categoryCode}, #{title}, #{content}, SYSDATE, #{eventStartDate}, #{eve
 
 <!-- 사진 -->
 <select id="fileSelectOne" parameterType="int" resultType="map">
-		SELECT NO, ORIGINAL_NAME, STORED_NAME
+		SELECT NO, ORIGINAL_NAME, STORED_NAME, NOTICE_NO
 		FROM NOTICE_IMAGE
 		WHERE NOTICE_NO = #{value}
 </select>
 
 <select id="fileSelectStoredFileName" parameterType="int" resultType="map">
-		SELECT NO, STORED_NAME
+		SELECT NO, ORIGINAL_NAME, STORED_NAME, NOTICE_NO
 		FROM NOTICE_IMAGE
 		WHERE NO = #{no}
 </select>
@@ -118,7 +118,7 @@ VALUES( #{categoryCode}, #{title}, #{content}, SYSDATE, #{eventStartDate}, #{eve
 <select id="noticeSelectOne" parameterType="int"
 	resultMap="noticeResultMap">
 	SELECT C.NAME, N.EVENT_START_DATE, N.EVENT_END_DATE, N.HIT, N.TITLE, N.CREATE_DATE
-    ,I.ORIGINAL_NAME, N.CONTENT, N.NO 
+    ,I.ORIGINAL_NAME, N.CONTENT, N.NO, N.CATEGORY_CODE
 	FROM NOTICE N INNER JOIN NOTICE_CATEGORY C
 	ON N.CATEGORY_CODE = C.CODE
 	LEFT JOIN NOTICE_IMAGE I 
@@ -127,7 +127,28 @@ VALUES( #{categoryCode}, #{title}, #{content}, SYSDATE, #{eventStartDate}, #{eve
 </select>
 
 <!-- 공지 수정 -->
+<update id="noticeUpdate" parameterType="noticeDto">
+	UPDATE NOTICE
+	SET
+	TITLE = #{title}
+	,CONTENT = #{content}
+	,CATEGORY_CODE = #{categoryCode} 
+	,EVENT_START_DATE = #{eventStartDate}
+	,EVENT_END_DATE = #{eventEndDate}
+	WHERE NO = #{no}
+</update>
 
+<update id="noticeHitPlus" parameterType="noticeDto">
+	UPDATE NOTICE
+	SET HIT = HIT + 1
+	WHERE NO = #{no}
+</update>
+
+<!-- 파일삭제 -->
+<delete id="fileDelete" parameterType="int">
+		DELETE FROM NOTICE_IMAGE
+		WHERE NOTICE_NO = ${value}
+</delete>
 
 <!-- 공지 삭제 -->
 <delete id="noticeDeleteOne" parameterType="int">

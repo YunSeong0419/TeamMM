@@ -1,17 +1,15 @@
 package com.mealmaker.babiyo.notice.controller;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -75,16 +73,17 @@ public class NoticeController {
 	
 	//공지 상세 
 	@RequestMapping(value = "/notice/detail.do", method = RequestMethod.GET)
-	public String noticeDetail(int no, HttpSession session, Model model) {
+	public String noticeDetail(NoticeDto noticeDto, int no, HttpSession session, Model model) {
 		logger.info("Welcome NoticeController detail! ");
 
+		noticeService.noticeHitPlus(noticeDto);	
 		Map<String, Object> map = noticeService.noticeSelectOne(no);
 		
-		NoticeDto noticeDto = (NoticeDto) map.get("noticeDto");
+		NoticeDto noticeDto2 = (NoticeDto) map.get("noticeDto");
 		@SuppressWarnings("unchecked")
 		Map<String, Object> noticeImg = (Map<String, Object>) map.get("imgMap");
 		
-		model.addAttribute("noticeDto", noticeDto);
+		model.addAttribute("noticeDto", noticeDto2);
 		model.addAttribute("noticeImg", noticeImg);
 		 
 		return "notice/noticeDetail";
@@ -111,13 +110,26 @@ public class NoticeController {
 	
 	
 	//공지 수정
-	@RequestMapping(value = "/notice/updateCtr.do", method = RequestMethod.POST)
-	public String noticeUpdateCtr(NoticeDto noticeDto, Model model) {
-		logger.info("Welcome NoticeController update! ");
+	@RequestMapping(value = "/notice/updateCtr.do", method = {RequestMethod.GET ,RequestMethod.POST})
+	public String noticeUpdateCtr(HttpSession session, NoticeDto noticeDto
+			, @RequestParam(defaultValue = "-1") int imgNo
+			, MultipartHttpServletRequest mulRequest
+			, Model model) {
+		logger.info("Welcome NoticeController updateCtr! imgNo : {} , {} ", imgNo , noticeDto);
+		
+		
+		int resultNum = 0; 
+			
+		try {
+			resultNum = noticeService.noticeUpdate(imgNo, noticeDto, mulRequest);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
-//		noticeService.noticeUpdate(noticeDto);
-		 
-		return "redirect:/notice/detail.do";
+		int noticeNo = noticeDto.getNo();
+	
+		return "redirect:/notice/detail.do?no=" + noticeNo;
 	}
 	
 	//공지 게시글 삭제

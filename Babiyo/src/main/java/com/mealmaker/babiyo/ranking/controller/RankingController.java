@@ -1,5 +1,7 @@
 package com.mealmaker.babiyo.ranking.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -10,7 +12,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.mealmaker.babiyo.order.service.OrderService;
+
+//import com.mealmaker.babiyo.ranking.service.RankingService;
 
 // 어노테이션 드리븐
 @Controller
@@ -20,12 +23,20 @@ public class RankingController {
 		= LoggerFactory.getLogger(RankingController.class);
 	
 //	@Autowired
-//	private OrderService orderService;
+//	private RankingService rankingService;
 	
 	@RequestMapping(value = "/ranking.do", method = RequestMethod.GET)
 	public String ranking(HttpSession session, Model model) {
 		logger.info("Welcome OrderController login! ");
-		
+		//List<RankingDto>toDayList = rankingService.toDayList();
+		//List<RankingDto>weeklyList = rankingService.weeklyList();
+		//List<RankingDto>manList = rankingService.manList();
+		//List<RankingDto>womanList = rankingService.womanList();
+			
+		//model.addAttribute("toDayList", toDayList);
+		//model.addAttribute("weeklyList", weeklyList);
+		//model.addAttribute("manList", manList);
+		//model.addAttribute("womanList", womanList);
 		return "ranking/ranking";
 	}
 

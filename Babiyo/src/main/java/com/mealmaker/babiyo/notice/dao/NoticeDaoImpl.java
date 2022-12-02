@@ -64,9 +64,9 @@ public class NoticeDaoImpl implements NoticeDao{
 	}
 	
 	@Override
-	public Map<String, Object> fileSelectStoredFileName(int parentSeq) {
+	public Map<String, Object> fileSelectStoredFileName(int no) {
 
-		return sqlSession.selectOne(namespace + "fileSelectStoredFileName", parentSeq);
+		return sqlSession.selectOne(namespace + "fileSelectStoredFileName", no);
 	}
 
 
@@ -77,19 +77,35 @@ public class NoticeDaoImpl implements NoticeDao{
 		return sqlSession.selectOne(namespace + "fileSelectOne", no);
 	}
 	
-	
-	
-	
-	@Override
-	public void noticeDeleteOne(int no) {
-		// TODO Auto-generated method stub
-		 sqlSession.delete(namespace + "noticeDeleteOne", no);
-	}
-
 	@Override
 	public NoticeDto mainLatestNotice() {
 		
 		return sqlSession.selectOne(namespace + "mainLatestNotice");
+	}
+
+	@Override
+	public int noticeUpdate(NoticeDto noticeDto) {
+		// TODO Auto-generated method stub
+		return sqlSession.update(namespace + "noticeUpdate", noticeDto);
+	}
+	
+	@Override
+	public int noticeHitPlus(NoticeDto noticeDto) {
+		// TODO Auto-generated method stub
+		return sqlSession.update(namespace + "noticeHitPlus", noticeDto);
+	}
+
+
+	@Override
+	public int fileDelete(int parentSeq) {
+		// TODO Auto-generated method stub
+		return sqlSession.delete(namespace + "fileDelete", parentSeq);
+	}
+
+	@Override
+	public void noticeDeleteOne(int no) {
+		// TODO Auto-generated method stub
+		 sqlSession.delete(namespace + "noticeDeleteOne", no);
 	}
 
 

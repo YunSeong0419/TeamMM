@@ -48,7 +48,7 @@ public class FileUtils {
 				originalFileExtension = originalFileName.substring(
 					originalFileName.lastIndexOf("."));
 				storedFileName = CommonUtils.getRandomString() 
-					+ originalFileExtension;
+						+ originalFileExtension;
 				
 				
 				file = new File(filePath, storedFileName);
@@ -73,9 +73,11 @@ public class FileUtils {
 		throws Exception{
 //		ctrl+alt+h: call 메서드 찾아감
 
-		String storedFileName = (String)tempFileMap.get("STORED_FILE_NAME");
+		String storedFileName = (String)tempFileMap.get("STORED_NAME");
 		// 여기서 부터 설명해주자 
 		File file = new File(filePath + "/" + storedFileName);
+		
+		// 파일을 만드는게 아닌 주소만 불러옴
 		
 		if(file.exists()) {
 			file.delete();

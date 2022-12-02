@@ -24,32 +24,38 @@
 <script type="text/javascript" src="/babiyo/resources/js/jquery-3.6.1.js"></script>
 
 <script type="text/javascript">
-function backBtn(no){
+$(document).ready(function(){
+	$("#delete").on('click', function(e){ // 삭제 버튼
+		e.preventDefault();
+	
+		deleteFileFnc();
+	});
+	
+	console.log($('#categoryCode').val());
+	
+	$('#divisionId').val($('#categoryCode').val());
+});
+
+function deleteFileFnc() {
+	var obj = $('#fileContent');
+	
+	var htmlStr = "";
+	
+	htmlStr += '사진 <input name="file" id="imageId" type="file">';
+	htmlStr += '<a href="#this" id="" onclick="deleteFileFnc();">삭제</a>';
+	
+	obj.html(htmlStr);
+}
+
+function pageMoveBeforeFnc(no){
 	location.href = './detail.do?no=' + no;
 }
 
-function deleteBtn(no){
+
+function pageMoveDeleteFnc(no){
 	var url = "./deleteCtr.do?no=" + no;
 	location.href = url;
 }
-window.onload = function() {
-	today = new Date();
-	console.log("today.toISOString() >>>" + today.toISOString());
-	today = today.toISOString().slice(0, 10);
-	console.log("today >>>> " + today);
-	bir = document.getElementById("todaybirthday");
-	bir.value = today;
-	
-	today = new Date();
-	console.log("today.toISOString() >>>" + today.toISOString());
-	today = today.toISOString().slice(0, 10);
-	console.log("today >>>> " + today);
-	bir = document.getElementById("todaybirthday");
-	bir.value = today;
-	
-}
-
-
 </script>
 </head>
 <body>
@@ -65,34 +71,66 @@ window.onload = function() {
 		<div id="middleMainDiv">
 			<div id="sideTitle"></div>
 			<!--여기서 작성 -->
-			<form action="./updateCtr.do" method="POST">
-			<input type="hidden" name="no" value="${noticeDto.no}">
-				<div>분류<input type="text" name="categoryName" id="divisionId"
-						value="${noticeDto.categoryName}"></div>
+			
+			<form action="./updateCtr.do" method="post" enctype="multipart/form-data">
+			
+				<input type="hidden" name="no" value="${noticeDto.no}">
+				<input type="hidden" id="categoryCode" value="${noticeDto.categoryCode}">
+				<div>분류
+					<select name="categoryCode" id="divisionId">
+						<option value="1">공지</option>
+						<option value="2">이벤트</option>
+					</select>
+				</div>
+						
 				 <c:if test="${noticeDto.categoryName eq '이벤트'}"> 
 					<div>
-						   <input type="hidden" value="<fmt:formatDate pattern='yyyy-MM-dd '
-						    value='${noticeDto.eventStartDate}'/>">
-						   <input type="hidden" value="<fmt:formatDate pattern='yyyy-MM-dd '
-						    value='${noticeDto.eventEndDate}'/>">
-						기간<input type="date" name="eventStartDate" id="eventStartDate"value="">
-						~<input type="text" name="eventEndDate" id="eventEndDate" value="">
+						기간<input type="date" name="eventStartDate" id="eventStartDate" 
+						value="<fmt:formatDate pattern='yyyy-MM-dd' value='${noticeDto.eventStartDate}'/>">
+						~ <input type="date" name="eventEndDate" id="eventEndDate" 
+						value="<fmt:formatDate pattern='yyyy-MM-dd' value='${noticeDto.eventEndDate}'/>">
 					</div> 
 				 </c:if> 
 				<div>제목<input type="text" name="title" id="title"
-						 value="${noticeDto.title}"></div>
-				<div>작성일<input type="text" name="createDate" id="createDate"
-						 value="<fmt:formatDate pattern='yyyy년MM월dd일 ' value='${noticeDto.createDate}'/>" ></div>
-				<div>조회수<input type="text" name="hit" id="hit"
-						 value="${noticeDto.hit}" ></div>
-				<div>내용<input type="text" name="content" id="content"
-						 value="${noticeDto.content}"></div>
-				<div><img alt="" src="/babiyo/img/${noticeImg.STORED_NAME}"></div>
-				<div><input id="backDiv" type="button" value="뒤로가기" onclick="backBtn(${noticeDto.no})"></div>
+					value="${noticeDto.title}">
+				</div>
+				<div>작성일<input type="text" id="createDate"
+					value="<fmt:formatDate pattern='yyyy년MM월dd일' value='${noticeDto.createDate}'/>"  readonly="readonly"></div>
+				<div>
+					조회수<input type="text" id="hit" value="${noticeDto.hit}" readonly="readonly">
+				</div>
+				<div>
+					내용<input type="text" name="content" id="content" value="${noticeDto.content}">
+				</div>
+				
+				<div>
+					<div id='fileContent'>
+						이미지<br>
+						<c:choose>		
+						<c:when test="${!empty noticeImg}">
+						<div>
+							<input type="hidden" name="imgNo" value="${noticeImg.NO}">
+							<img alt="image not found" src="/babiyo/img/${noticeImg.STORED_NAME}">
+								${noticeImg.ORIGINAL_NAME}
+							<a href="#this" id="delete">삭제</a>
+						</div>
+						</c:when>
+						<c:otherwise>
+							사진 <input name="file" id="imageId" type="file">
+							<a href="#this" id="delete">삭제</a>
+						</c:otherwise>  
+						</c:choose>
+					</div>	
+				</div>
+				
+				<div>
+					<input id="backDiv" type="button" value="뒤로가기" onclick="pageMoveBeforeFnc(${noticeDto.no});">
+				</div>
 				<c:if test="${_memberDto_.grade eq 1}">
-				<div><input id="modifytId"  type="button" value="수정하기" onclick="modifytBtn(${noticeDto.no})"></div>
-				<div><input id="deleteDiv" type="button" value="삭제하기" onclick="deleteBtn(${noticeDto.no})"></div>
+					<div><input id="modifytId"  type="submit" value="수정하기"></div>
+					<div><input id="deleteDiv" type="button" value="삭제하기" onclick="pageMoveDeleteFnc(${noticeDto.no});"></div>
 				</c:if>
+				
 			</form>
 			<div id="underPadding"></div>
 			

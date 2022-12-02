@@ -7,7 +7,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 import lombok.Data;
 
 @Data
-
 public class NoticeDto {
 	
 	private int no;
@@ -21,4 +20,6 @@ public class NoticeDto {
 	private Date eventStartDate;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date eventEndDate;
+	
+	
 }

@@ -19,13 +19,12 @@ public interface NoticeService {
 	//상세
 	public Map<String, Object> noticeSelectOne(int no);
 	//수정
-	
+	public int noticeUpdate(int no, NoticeDto noticeDto
+	, MultipartHttpServletRequest mulRequest) throws Exception;
+	//조회수
+	public int noticeHitPlus(NoticeDto noticeDto);
 	//삭제
 	public void noticeDeleteOne(int no);
-	
 	//메인에 공지 리스트 가져오기
 	NoticeDto mainLatestNotice();
-
-	
-	
 }
