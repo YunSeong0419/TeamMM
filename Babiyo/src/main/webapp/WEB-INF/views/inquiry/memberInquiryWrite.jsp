@@ -9,9 +9,53 @@
 <title>문의 작성</title>
 
 <style type="text/css">
+span{
+	font-weight: bold;
+}
+
+#boxDiv{
+	margin-left: 50px;
+}
+
+#categoryId{
+	margin-left: 20px;
+	width: 100px;
+	height: 35px;
+	border-radius: 5px;
+}
+
+#titleId{
+	margin:10px 0px 0px 20px;
+	width: 842px;
+	height: 40px;
+}
+
 #contentsId{
+	margin-top:10px;
 	width: 900px;
 	height: 350px;
+}
+
+#inputBtn{
+	width: 850px;
+	height:20px; 
+	margin: 30px 0px 50px 50px;
+}
+
+.backBtn {
+	margin-left: 390px;
+}
+
+.sumbitBtn {
+	float: right;
+}
+
+.backBtn, .sumbitBtn{
+	border-radius: 3px;
+	border-color: #E0E0E0;
+	height: 25px;
+	background-color: #E0E0E0;
+	cursor: pointer;
 }
 </style>
 
@@ -37,11 +81,11 @@
 		<div id="middleMainDiv">
 			<div id="sideTitle"></div>
 			<!--여기서 작성 -->
-		
+		<div  id="boxDiv">
 			<form action="./writeCtr.do" method="post">
-			<div>
-				분류 
-				<select name="categoryCode" id="divisionId">
+			<div id="filterDiv">
+				<span>분류</span> 
+				<select name="categoryCode" id="categoryId">
 					<option value="1" selected>주문</option>
 					<option value="2">밀키트</option>
 					<option value="3">회원</option>
@@ -50,18 +94,20 @@
 			</div>
 
 			<div>
-				제목 <input name="title" id="titleId" type="text" placeholder="제목">
+				<span>제목 </span>
+				<input name="title" id="titleId" type="text" placeholder="제목">
 			</div>
 			<div id="contentsDiv">
-				내용<br> 
+				<span>내용 </span><br>
 				<textarea name="content" id="contentsId"></textarea>
 			</div>
-			<input type="hidden" name="memberId" value="${_memberDto_.id}"> 
-			<input id="backDiv" type="button" value="뒤로가기" onclick="backBtn()"> 
-			<input id="submitDiv"  type="submit" value="작성">
-
+			<input type="hidden" name="memberId" value="${_memberDto_.id}">
+			<div id="inputBtn"> 
+			<input class="backBtn" type="button" value="뒤로가기" onclick="backBtn()"> 
+			<input class="sumbitBtn"  type="submit" value="작성">
+			</div>
 		</form>
-		
+		</div>
 			<div id="underPadding"></div>
 			
 		</div> <!--middelMain 끝 -->

@@ -10,77 +10,110 @@
 
 <style type="text/css">
 table {
-	border: 1px solid black;
 	border-collapse: collapse;
-	width: 900px;
-	height: 350px;
 }
 
-th, td {
-	height: 31px;
+td{
+	height: 30px;
+	border-bottom: 1px solid gray;
+	padding: 0px 10px;
 }
 
-th {
-	border: 1px solid black;
-	background: #EAEAEA;
-	font-size: 14px;
-	color: #373737;
+a{
+	text-decoration: none;
+	color: black;
 }
 
-td {
-	border: 1px solid black;
-	text-align: center;
-	font-size: 14px;
+span{
+	font-weight: bold;
+	margin-right: 20px;
 }
 
-#stateSelect {
+#filterDiv{
+	margin: auto;
+	width: 920px;
+}
+
+#divisionId{
+	margin-left: 10px;
+}
+
+#YesNo{
+	line-height: 35px;
+}
+
+ #YesNo,#answerSelect{
+ float: right;
+} 
+ 
+#answerSelect{
+	margin-right: 80px;
+} 
+
+#categorySelect, #answerSelect{
 	width: 100px;
-	height: 40px;
-	border-radius: 6px;
-	margin: 0px 0px 10px 74px;
+	height: 35px;
+	border-radius: 5px;
+	margin: 0px 5px 10px 10px;
 }
 
-#tableId {
+#inquiryList{
+	margin-top: 5px;
+	min-height: 400px;
+}
+
+#inquiryListTable{
 	margin: auto;
 }
 
-#numTh {
-	width: 30px;
+#firstRow{
+	background-color: #E0E0E0;
 }
 
-;
-#categoryTh {
+#inquiryNoTh {
+	width: 50px;
+}
+
+#inquiryCategoryTh {
 	width: 134px;
 }
 
-;
 #titleTh {
-	width: 583px;
+	width: 503px;
 }
 
-;
 #createTh {
-	width: 101px;
+	width: 161px;
 }
 
-;
 #answerTh {
 	width: 52px;
 }
 
-;
-#formDiv {
-	float: left;
-	margin-left: 10px;
+.inquiryCategoryTd, .answerTd{
+	text-align: center;
 }
 
-#backBtn {
-	margin: 35px 500px;
+#inputBtn{
+	width: 920px;
+	height:20px; 
+	margin: 0px 0px 50px 50px;
 }
 
-#writeBtn {
+.backBtn {
+	margin-left: 410px;
+}
+
+.writeBtn {
 	float: right;
-	margin-right: 70px;
+}
+
+.backBtn, .writeBtn{
+	border-radius: 3px;
+	border-color: #E0E0E0;
+	height: 25px;
+	background-color: #E0E0E0;
+	cursor: pointer;
 }
 </style>
 
@@ -101,7 +134,6 @@ function categorySelectFnc() {
 	$('#filterForm').submit();
 
 	}
-
 
 function answerSelectFnc() {
 
@@ -132,18 +164,10 @@ function writeBtn() {
 			<div id="middleMainDiv">
 				<div id="sideTitle"></div>
 				<!--여기서 작성 -->
-				<div id="searchOption">
+				<div id="filterDiv">
 					<!-- searchOption div 시작-->
 					<form id="filterForm" action="./member.do" method="get">
-						<span>답변여부</span> 
-						<select id="answerSelect" name="answerState"
-							onchange="answerSelectFnc();">
-							<option value="0">전체</option>
-							<option value="1">완료된 답변</option>
-							<option value="2">대기중 답변</option>
-						</select>
-						
-						<span>분류</span>
+						<span id="divisionId">분류</span>
 						<select id="categorySelect" name="categoryCode"
 							onchange="categorySelectFnc();">
 						<option value="0">전체</option>
@@ -151,17 +175,23 @@ function writeBtn() {
 							<option value="${category.CODE}">${category.NAME}</option>
 						</c:forEach>
 						</select>
+						
+						<select id="answerSelect" name="answerState"
+							onchange="answerSelectFnc();">
+							<option value="0">전체</option>
+							<option value="1">완료된 답변</option>
+							<option value="2">대기중 답변</option>
+						</select>
+						<span id="YesNo">답변여부</span> 						
 					</form>
 				</div>
-				<!-- searchOption div 끝-->
 
-				<div>
-			<%-- 	 <input type="hidden" name="memberId" value="${inquiryDto.memberId}">  --%>
+				<div id="inquiryList">
 					<!-- table div 시작 -->
-					<table id="tableId">
-						<tr>
-							<th id="numTh">번호</th>
-							<th id="categoryTh">분류</th>
+					<table id="inquiryListTable">
+						<tr id="firstRow">
+							<th id="inquiryNoTh">번호</th>
+							<th id="inquiryCategoryTh">분류</th>
 							<th id="titleTh">문의제목</th>
 							<th id="createTh">작성일</th>
 							<th id="answerTh">답변</th>
@@ -181,27 +211,27 @@ function writeBtn() {
 										<td>${inquiryDto.no}</td>
 										<c:choose>
 											<c:when test="${inquiryDto.categoryCode eq 1}">
- 												<td>주문</td> 
+ 												<td class="inquiryCategoryTd">주문</td> 
 											</c:when>
 											<c:when test="${inquiryDto.categoryCode eq 2}">
-												<td>밀키트</td> 
+												<td class="inquiryCategoryTd">밀키트</td> 
 											</c:when>
 											<c:when test="${inquiryDto.categoryCode eq 3}">
- 												<td>회원</td> 
+ 												<td class="inquiryCategoryTd">회원</td> 
 											</c:when>
 											<c:otherwise>
-												<td>기타</td> 
+												<td class="inquiryCategoryTd">기타</td> 
 											</c:otherwise>
 										</c:choose> 
 										<td><a href="./member/detail.do?no=${inquiryDto.no}">${inquiryDto.title}</a></td>
-										<td><fmt:formatDate pattern="yyyy년MM월dd일 "
+										<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm "
 												value="${inquiryDto.createDate}" /></td>
 										<c:choose>
 											<c:when test="${empty inquiryDto.answer}">
-												<td>N</td>
+												<td class="answerTd">N</td>
 											</c:when>
 											<c:otherwise>
-												<td>Y</td>
+												<td class="answerTd">Y</td>
 											</c:otherwise>
 										</c:choose>
 									</tr>
@@ -212,12 +242,9 @@ function writeBtn() {
 				</div>
 				<!--table div끝 -->
 
-				<div id="backBtn">
-					<input type="button" value="뒤로가기" onclick="backBtn()">
-				</div>
-				
-				<div id="writeBtn">
-					<input type="button" value="문의작성" onclick="writeBtn()">
+				<div id="inputBtn">
+					<input class="backBtn" type="button" value="뒤로가기" onclick="backBtn()">
+					<input class="writeBtn" type="button" value="문의작성" onclick="writeBtn()">
 				</div>
 
 				<jsp:include page="/WEB-INF/views/Paging.jsp" />

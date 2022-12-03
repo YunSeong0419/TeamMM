@@ -7,7 +7,81 @@
 <head>
 <meta charset="UTF-8">
 <title>내가 한 문의</title>		
+<style type="text/css">
+input{
+	border-radius: 5px;
+}
 
+#boxDiv{
+	margin-left: 50px;
+}
+
+span{
+	font-weight: bold;
+	margin-right: 20px;
+}
+
+#titleDiv, #contentDiv, #answerDiv{
+	margin-top: 13px;
+}
+
+#divisionId{
+	width: 120px;
+	height: 32px;
+}
+
+#createDateSpan{
+	margin-left: 20px;
+}
+
+#createDateId{
+	width: 145px;
+	height: 32px;
+}
+
+#titleId{
+	width: 600px;
+	height: 32px;
+}
+
+#contentId{
+	margin-top:10px;
+	width: 900px;
+	height: 180px;
+}
+
+#answerId{
+	margin-top:10px;
+	width: 900px;
+	height: 180px;
+}
+
+#btnDiv{
+	width: 900px;
+	margin-top: 25px;
+}
+
+.backBtn, .modifytBtn, .deleteBtn{
+	border-radius: 3px;
+	border-color: #E0E0E0;
+	height: 25px;
+	background-color: #E0E0E0;
+	cursor: pointer;
+}
+
+.backBtn{
+	margin-left: 390px;
+}
+
+.modifytBtn{
+	float: right;
+	margin-right: 20px;
+}
+
+.deleteBtn{
+	float: right;
+}
+</style>
 <link rel="stylesheet" type="text/css" href="/babiyo/resources/css/common.css"/>
 <script type="text/javascript" src="/babiyo/resources/js/jquery-3.6.1.js"></script>
 
@@ -42,40 +116,46 @@
 		<div id="middleMainDiv">
 			<div id="sideTitle"></div>
 			<!--여기서 작성 -->
-			
+			<div id="boxDiv">
 			<div>
-				분류<input type="text" name="categoryCode" id="divisionId"
+				<span>분류</span>
+				<input type="text" name="categoryCode" id="divisionId"
 				 value="${inquiryDto.name}" readonly>
+		
+				<span id="createDateSpan">작성일</span>
+				<input type="text" name="createDate" id="createDateId"
+				 value="<fmt:formatDate pattern='yyyy-MM-dd HH:mm' value='${inquiryDto.createDate}'/>" readonly>
 			</div>
 			
-			<div>
-				작성일<input type="text" name="createDate" id=""
-				 value="<fmt:formatDate pattern='yyyy년MM월dd일 ' value='${inquiryDto.createDate}'/>" readonly>
-			</div>
-			
-			<div>
-				제목 <input type="text" name="title" id=""
+			<div id="titleDiv">
+				<span>제목</span>
+				<input type="text" name="title" id="titleId"
 				 value="${inquiryDto.title}" readonly>
 			</div>
 
-			<div>
-				내용<br><input type="text" name="content" id=""
+			<div id="contentDiv">
+				<span>내용</span><br>
+				<input type="text" name="content" id="contentId"
 				 value="${inquiryDto.content}" readonly>
 			</div>
 
 			<c:if test="${!empty inquiryDto.answer}">
-			<div>
-				답변<br><input type="text" name="answer" id=""
+			<div id="answerDiv">
+				<span>답변</span><br>
+				<input type="text" name="answer" id="answerId"
 				 value="${inquiryDto.answer}" readonly>
 			</div>	
 			</c:if>
-			
-			<input id="backId" type="button" value="뒤로가기" onclick="backBtn()"> 
-			<input id="deleteId" type="button" value="삭제하기" onclick="deleteBtn(${inquiryDto.no})">
+			<div id="btnDiv">
+			<input class="backBtn" type="button" value="뒤로가기" onclick="backBtn()"> 
+			<input class="deleteBtn" type="button" value="삭제하기" onclick="deleteBtn(${inquiryDto.no})">
 			
 			<c:if test="${empty inquiryDto.answer}">
-			<input id="modifytId"  type="button" value="수정하기" onclick="modifytBtn(${inquiryDto.no})">
+				<input class="modifytBtn"  type="button" value="수정하기" onclick="modifytBtn(${inquiryDto.no})">
 			</c:if>
+			
+			</div>
+			</div><!-- 박스div 끝 -->
 			<div id="underPadding"></div>
 			
 		</div> <!--middelMain 끝 -->

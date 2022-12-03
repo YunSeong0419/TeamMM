@@ -9,7 +9,79 @@
 <title>회원 문의 상세</title>		
 
 <style type="text/css">
+input{
+	border-radius: 5px;
+}
 
+#boxDiv{
+	margin-left: 50px;
+}
+
+span{
+	font-weight: bold;
+	margin-right: 20px;
+}
+
+#titleDiv, #contentDiv, #answerDiv{
+	margin-top: 13px;
+}
+
+#divisionId{
+	width: 120px;
+	height: 32px;
+}
+
+#createDateSpan{
+	margin-left: 20px;
+}
+
+#createDateId{
+	width: 145px;
+	height: 32px;
+}
+
+#titleId{
+	width: 600px;
+	height: 32px;
+}
+
+#contentId{
+	margin-top:10px;
+	width: 900px;
+	height: 180px;
+}
+
+#answerId{
+	margin-top:10px;
+	width: 900px;
+	height: 180px;
+}
+
+#btnDiv{
+	width: 900px;
+	margin-top: 25px;
+}
+
+.backBtn, .modifytBtn, .deleteBtn{
+	border-radius: 3px;
+	border-color: #E0E0E0;
+	height: 25px;
+	background-color: #E0E0E0;
+	cursor: pointer;
+}
+
+.backBtn{
+	margin-left: 390px;
+}
+
+.modifytBtn{
+	float: right;
+	margin-right: 20px;
+}
+
+.deleteBtn{
+	float: right;
+}
 </style>
 
 <link rel="stylesheet" type="text/css" href="/babiyo/resources/css/common.css"/>
@@ -60,31 +132,37 @@ function formSubmit() {
 				<input type="hidden" name="no" value="${inquiryDto.no}">
 				<input type="hidden" name="categoryCode" value="${inquiryDto.categoryCode}">
 				<div>
-					작성자<input type="text" name="memberId" id="memberId"
+					<span>작성자</span>
+					<input type="text" name="memberId" id="memberId"
 					 value="${inquiryDto.memberId}" readonly>
 				</div>
 				<div>
-					작성일<input type="text" name="createDate" id="createDateId"
+					<span>작성일</span>
+					<input type="text" name="createDate" id="createDateId"
 					 value="<fmt:formatDate pattern='yyyy년MM월dd일 ' value='${inquiryDto.createDate}'/>"readonly>
 				</div>
 				<div>
-					분류<input type="text" name="name" id="divisionId"
+					<span>분류</span>
+					<input type="text" name="name" id="divisionId"
 					 value="${inquiryDto.name}" readonly>
 				</div>
 				<div>
-					제목 <input type="text" name="title" id="title"
+					<span>제목</span>
+					<input type="text" name="title" id="title"
 					 value="${inquiryDto.title}" readonly>
 				</div>
 				<div>
-					내용<br><input type="text" name="content" id="content"
+					<span>내용</span><br>
+					<input type="text" name="content" id="content"
 					 value="${inquiryDto.content}" readonly>
 				</div>
 				
 				<div>
-					답변<br><input type="text" name="answer" id="answer"
+					<span>답변</span><br>
+					<input type="text" name="answer" id="answer"
 					 value="${inquiryDto.answer}" >
 				</div>
-				
+				<div id="btnDiv">
 				<input id="backDiv" type="button" value="뒤로가기" onclick="backBtn()"> 
 				<c:choose>
 					<c:when test="${!empty inquiryDto.answer}">
@@ -95,6 +173,7 @@ function formSubmit() {
 						<input id="answerId" type="submit" value="답변하기">
 					</c:otherwise>
 				</c:choose>	
+				</div>
 			</form>
 			<div id="underPadding"></div>
 			
