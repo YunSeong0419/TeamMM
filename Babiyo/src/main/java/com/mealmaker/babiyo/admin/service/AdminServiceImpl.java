@@ -25,10 +25,10 @@ public class AdminServiceImpl implements AdminService {
 		Map<String, Integer> map = new HashMap<String, Integer>();
 		
 		int orderCount = orderDao.waitOrderCount();
-//		int reviewCount = inquiryDao.waitReviewCount();
+//		int inquiryCount = inquiryDao.waitInquiryCount();
 		
 		map.put("orderCount", orderCount);
-//		map.put("reviewCount", reviewCount);
+//		map.put("inquiryCount", inquiryCount);
 		
 		return map;
 	}

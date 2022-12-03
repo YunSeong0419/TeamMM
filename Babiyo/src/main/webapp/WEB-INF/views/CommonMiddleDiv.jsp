@@ -2,6 +2,13 @@
     pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
+<script type="text/javascript">
+
+
+
+
+</script>
+
 <div id='verticalSideMenuBarArea'>
  	<c:choose>
 		<c:when test="${_memberDto_.grade eq 1}">

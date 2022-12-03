@@ -34,7 +34,7 @@ public class AdminController {
 	
 	@RequestMapping(value = "/admin/adminHome.do", method = RequestMethod.GET)
 	public String adminHome(HttpSession session, Model model) {
-		logger.info("Welcome OrderController login! ");
+		logger.info("관리자 화면");
 		//주문과 문의 대기 갯수
 		Map<String, Integer> countMap = adminService.waitCount();
 		//일주일동안 하루매출 금액 리스트
@@ -48,8 +48,7 @@ public class AdminController {
 	@ResponseBody
 	public List<Integer> ajaxSalesChart() {
 		List<Integer> salesList = adminService.salesChart();
-
-		System.out.println(salesList);
+		logger.info("ajax: 주간 매출금액 리스트 가져오기");
 		
 		return salesList;
 	}

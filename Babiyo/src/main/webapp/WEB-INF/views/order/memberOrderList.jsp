@@ -24,7 +24,8 @@ table{
 	margin: auto;
 }
 #firstRow{
-	background-color: #E0E0E0;
+	background-color: #FF9436;
+	color: #fff;
 }
 
 #orderDateTh{
@@ -144,7 +145,7 @@ function stateSelectFnc(){
 					</tr>
 					
 					<c:choose>
-					<c:when test="true">
+					<c:when test="${!empty orderList}">
 					<c:forEach items="${orderList}" var="order">
 					<tr>
 						<td class="orderDateTd"><fmt:formatDate value="${order.orderDate}" pattern="yyyy-MM-dd hh:mm:ss"/></td>
@@ -176,7 +177,9 @@ function stateSelectFnc(){
 					</c:when>
 					<c:otherwise>
 					<tr>
-						<td colspan="6">조회할 주문이 없습니다</td>
+						<td colspan="6" style="text-align: center; height: 300px; font-size: 25px;">
+						<strong>조회할 주문이 없습니다</strong>
+						</td>
 					</tr>
 					</c:otherwise>
 					</c:choose>

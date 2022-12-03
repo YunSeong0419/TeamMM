@@ -17,24 +17,73 @@
 	width: 400px;
 	margin: auto;
 	border: 2px solid black;
-	border-radius: 20px;
+	border-radius: 10px;
 }
 
 #orderState, #inquiryState{
 	width: 200px;
-	height: 150px;
+	height: 80px;
 }
 #orderState{
 	float: left;
+	border-right: 1px solid black;
 }
 
 #inquiryState{
-	margin-left: 200px;
+	margin-left: 198px;
+	border-left: 1px solid black;
+}
+
+.stateTitle{
+	height: 30px;
+	line-height: 30px;
+	text-align: center;
+	border-bottom: 2px solid black;
+}
+
+.stateContent{
+	height: 50px;
+	line-height: 50px;
+	text-align: center;
+}
+
+.stateCount{
+	display: inline-block;
+	width: 120px;
+}
+
+a{
+	text-decoration: none;
+	color: black;
 }
 
 </style>
 
 <script type="text/javascript">
+
+var today = new Date();
+
+let year = today.getFullYear();
+let month = today.getMonth();
+let day = today.getDate();
+
+var dateList = [];
+
+for (var i = 0; i < 7; i++) {
+	
+	var week = new Date(year, month, day + (i - 6));
+	
+	let weekDay = week.getDate();
+	
+	if(weekDay < 10){
+		weekDay = '0' + weekDay;
+	}
+	
+	var str = week.getFullYear() + '-' + (week.getMonth()+1) + '-' + weekDay;
+	
+	dateList.push(str);
+}
+
 $(function(){
 	
 	$.ajax({
@@ -48,7 +97,7 @@ $(function(){
 	    	const myChart = new Chart(ctx, {
 	    	    type: 'bar',
 	    	    data: {
-	    	        labels: ['6일전', '5일전', '4일전', '3일전', '2일전', '1일전', '오늘'],
+	    	        labels: dateList,
 	    	        datasets: [{
 	    	            label: '일일 매출',
 	    	            data: data,
@@ -96,7 +145,7 @@ const ctx3 = document.getElementById('salseVolume').getContext('2d');
 	const myChart3 = new Chart(ctx3, {
 	    type: 'line',
 	    data: {
-	        labels: ['6일전', '5일전', '4일전', '3일전', '2일전', '1일전', '오늘'],
+	        labels: dateList,
 	        datasets: [{
 	            label: '봉골레파스타',
 	            data: [12, 19, 3, 5, 2, 3, 2],
@@ -191,27 +240,29 @@ const ctx3 = document.getElementById('salseVolume').getContext('2d');
 			
 			<div id="stateContainer">
 				<div id="orderState">
-					<span>
-					밀키트주문
-					</span>
-					<span>
-					건
-					</span>
+					<div class="stateTitle">
+						<span><strong>밀키트주문</strong></span>
+					</div>
+					<div class="stateContent">
+						<span class="stateCount"><a href="#">${countMap.orderCount}</a></span>
+						<span>건</span>
+					</div>
 				</div>
 				<div id="inquiryState">
-					<span>
-					문의
-					</span>
-					<span>
-					건
-					</span>
+					<div class="stateTitle">
+						<span><strong>문의</strong></span>
+					</div>
+					<div class="stateContent">
+						<span class="stateCount"><a>${countMap.inquiryCount}</a></span>
+						<span>건</span>
+					</div>
 				</div>
 			</div>
 			
 			
 			
-			<canvas id="salse" style="width: 1000px; height: 200px; float: left;"></canvas>
-			<canvas id="salseVolume" style="width: 1000px; height: 200px;"></canvas>
+			<canvas id="salse" style="width: 800px; height: 200px; margin: 50px auto"></canvas>
+			<canvas id="salseVolume" style="width: 800px; height: 200px; margin: 50px auto"></canvas>
 		
 		
 			<div id="underPadding"></div>

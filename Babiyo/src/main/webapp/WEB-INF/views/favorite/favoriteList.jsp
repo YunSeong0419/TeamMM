@@ -12,6 +12,11 @@
 <script type="text/javascript" src="/babiyo/resources/js/jquery-3.6.1.js"></script>
 
 <style type="text/css">
+#middleDiv hr{
+	margin: 10px 0px;
+	height: 3px;
+}
+
 .favorite{
 	float: left;
 	margin: 5px;
@@ -19,8 +24,8 @@
 #allCheckContainer{
 	width: 950px;
 	margin: auto;
-	padding-left: 20px;
 }
+
 
 .productImgContainer{
 	width: 180px;
@@ -45,6 +50,8 @@
 }
 
 #btnContainer{
+	margin: auto;
+	width: 950px;
 	text-align: center;
 	clear:both;
 	margin-bottom: 30px;
@@ -144,6 +151,7 @@ $(function(){
 				
 			<div id="allCheckContainer">
 				<input type="checkbox" id="allCheck">전체선택	
+				<hr>
 			</div>
 				
 			<form id="favoriteForm" method="post">
@@ -173,6 +181,7 @@ $(function(){
 				</div>
 				
 				<div id="btnContainer">
+					<hr>
 					<input type="button" value="장바구니 담기" id="cartAdd">
 					<input type="button" value="선택 삭제" id="selectDelete">
 				</div>

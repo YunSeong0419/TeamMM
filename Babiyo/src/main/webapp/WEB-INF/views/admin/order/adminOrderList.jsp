@@ -26,7 +26,8 @@ table{
 	margin: auto;
 }
 #firstRow{
-	background-color: #E0E0E0;
+	background-color: #FF9436;
+	color: #fff;
 }
 
 #orderDateTh{

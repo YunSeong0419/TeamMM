@@ -614,11 +614,11 @@ values('dong', '123', '이동현', 'dong@test.com', TO_DATE('19960325')
     , '남', '01055553333', '동현', 100000, 2, sysdate, sysdate);
 
 insert into product(CATEGORY_CODE, NAME, PRICE, STOCK, CONTENT)
-values(1, '봉골레파스타', 6000, 100, '아주 맛있는 봉골레파스타!');
+values(4, '봉골레파스타', 6000, 100, '아주 맛있는 봉골레파스타!');
 insert into product(CATEGORY_CODE, NAME, PRICE, STOCK, CONTENT)
-values(1, '까르보나라', 8000, 100, '아주 맛있는 까르보나라!');
+values(4, '까르보나라', 8000, 100, '아주 맛있는 까르보나라!');
 insert into product(CATEGORY_CODE, NAME, PRICE, STOCK, CONTENT)
-values(1, '로제파스타', 7000, 100, '아주 맛있는 로제파스타!');
+values(4, '로제파스타', 7000, 100, '아주 맛있는 로제파스타!');
 
 
 INSERT INTO PRODUCT_IMAGE(PRODUCT_NO, ORIGINAL_NAME, STORED_NAME)

@@ -115,7 +115,9 @@ table{
 	font-weight: bold;
 }
 
-
+#cartListTable td{
+	border-bottom: 1px solid #FF9436;
+}
 
 
 </style>

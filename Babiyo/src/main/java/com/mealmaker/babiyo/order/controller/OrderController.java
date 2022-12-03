@@ -153,7 +153,7 @@ public class OrderController {
 		model.addAttribute("stateList", stateList);
 		model.addAttribute("searchOption", searchOption);
 		
-		return "order/adminOrderList";
+		return "admin/order/adminOrderList";
 	}
 	
 	@RequestMapping(value = "/member/orderList.do", method = RequestMethod.GET)
