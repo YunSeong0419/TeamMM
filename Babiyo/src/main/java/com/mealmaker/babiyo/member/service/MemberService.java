@@ -23,8 +23,10 @@ public interface MemberService {
 	void addInterest(InterestDto interestDto);
 	public MemberDto memberInfo(MemberDto memberDto);
 	public void memberUpdateOne(MemberDto memberDto);
+	public void UpdateInterest(InterestDto interestDto);
 //	public List<MemberDto> memberSelectList(String searchOption, 
 //		String keyword,	int start, int end);
+	
 	
 	
 	

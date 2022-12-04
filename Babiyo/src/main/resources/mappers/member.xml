@@ -76,7 +76,7 @@
 
 <update id="memberUpdateOne" parameterType="memberDto">
 UPDATE MEMBER
-		SET PASSWORD = #{password},
+		SET<if test="password != ''">PASSWORD = #{password},</if> 
 			NAME = #{name},
 			EMAIL = #{email},
 			PHONE = #{phone},
@@ -84,6 +84,13 @@ UPDATE MEMBER
 			NICKNAME = #{nickname},
 			MODIFY_DATE = SYSDATE
 		WHERE ID = #{id}
+</update>
+
+<update id="UpdateInterest" parameterType="com.mealmaker.babiyo.member.model.InterestDto">
+	UPDATE INTEREST
+	SET 	 
+    CODE = #{categoryCode}
+    WHERE MEMBER_ID = #{memberId} AND LIST_NO = #{listNo}
 </update>
 	
 

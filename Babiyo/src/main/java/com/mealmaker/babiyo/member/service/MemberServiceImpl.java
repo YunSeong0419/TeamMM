@@ -104,6 +104,12 @@ public class MemberServiceImpl implements MemberService{
 		memberDao.memberUpdateOne(memberDto);
 	}
 
+	@Override
+	public void UpdateInterest(InterestDto interestDto) {
+		// TODO Auto-generated method stub
+		memberDao.UpdateInterest(interestDto);
+	}
+
 	
 
 	
