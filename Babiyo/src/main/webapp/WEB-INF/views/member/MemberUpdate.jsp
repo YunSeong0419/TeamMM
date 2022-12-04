@@ -122,7 +122,7 @@ select {
 									</select>년 <select id='myMonth' class='birth'>
 											<option disabled selected>
 												<fmt:formatDate value="${_memberDto_.birthDate}"
-													pattern="mm" />
+													pattern="MM" />
 											</option>
 											<option value="01">1</option>
 											<option value="02">2</option>
@@ -155,7 +155,7 @@ select {
 								</tr>
 								<tr>
 									<td class="option">성별</td>
-									<td><select>
+									<td><select id="gender" name="gender">
 											<option disabled="disabled">${_memberDto_.gender}</option>
 											<option value="남">남</option>
 											<option value="여">여</option>
@@ -206,9 +206,9 @@ select {
 								</tr>
 								<tr>
 									<td class="option">관심사2</td>
-									<input type="hidden" name="interestList[0].listNo" value="1">
+									<input type="hidden" name="interestList[1].listNo" value="2">
 									<td><select id='myYear' class='birth'
-										name='interestList[0].categoryCode'>
+										name='interestList[1].categoryCode'>
 											<option disabled selected>선택</option>
 											<c:forEach items="${categoryCodeList}" var="interest">
 												<option value="${interest.CODE}">${interest.NAME}</option>

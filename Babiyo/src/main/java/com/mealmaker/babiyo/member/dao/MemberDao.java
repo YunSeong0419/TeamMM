@@ -20,6 +20,7 @@ public interface MemberDao {
 	public void addInterest(InterestDto interestDto);
 	public MemberDto memberInfo(MemberDto memberDto);
 	public void memberUpdateOne(MemberDto memberDto);
+	public void UpdateInterest(InterestDto interestDto);
 //	public MemberDto memberSelectOne(int no);
 //	int memberUpdateOne(MemberDto memberDto);
 //	
@@ -30,6 +31,7 @@ public interface MemberDao {
 //	public List<Map<String, Object>> fileSelectList(int no);
 //	public Map<String, Object> fileSelectStoredFileName(String parentSeq);
 //	public int fileDelete(String parentSeq);
+	
 	
 	
 	

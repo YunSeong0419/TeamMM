@@ -9,17 +9,21 @@
 <title>${_memberDto_.id}님 어서오세요</title>
 <style type="text/css">
 	#infoBox {
+		width: 800px;
 		text-align: center;
+	}
+	#btnWrap{
+	margin: auto;
 	}
 	table {
 	text-align: center;
-	margin-left: 350px;
+	margin-left: 300px;
 	border: 1px solid black;
 	border-radius: 12px;
 	padding: 50px;
 }
-	#btnWrap{
-	text-align: center;
+	input{
+	width: 10%;
 	}
 	
 

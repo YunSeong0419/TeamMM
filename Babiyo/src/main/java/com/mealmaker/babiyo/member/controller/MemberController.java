@@ -1,5 +1,6 @@
 package com.mealmaker.babiyo.member.controller;
 
+import java.io.Console;
 import java.util.List;
 import java.util.Map;
 
@@ -162,15 +163,30 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value = "/member/memberUpdateCtr.do", method = RequestMethod.POST)
-	public String memberUpdateOne(MemberDto memberDto, Model model) {
-		logger.info("Welcome MemberController memberAdd 신규등록 처리! " 
+	public String memberUpdateOne(MemberDto memberDto, Model model
+			, InterestDto interestDto) {
+		logger.info("Welcome MemberController memberUpdate!" 
 				+ memberDto);
 		memberService.memberUpdateOne(memberDto);
-		
 		String memberId = memberDto.getId();
+		interestDto.setMemberId(memberId);
+		model.addAttribute("interestDto", interestDto);
+		System.out.println(interestDto);
+		memberService.UpdateInterest(interestDto);
 		
-		return "redirect:/auth/member/addInterest.do?memberId=" + memberId;
+		
+		return "/member/MemberUpdate";
 	}
+	
+//	@RequestMapping(value = "/member/UpdateInterestCtr.do", method = RequestMethod.POST)
+//	public String UpdateInterest(InterestDto interestDto, Model model) {
+//		logger.info("Welcome MemberController memberAdd 신규등록 처리! " 
+//				+ interestDto);
+//		memberService.UpdateInterest(interestDto);
+//		
+//		return "/member/MemberUpdate";
+//	}
+	
 	// 회원정보
 	@RequestMapping(value = "/member/memberInfo.do", method = RequestMethod.GET)
 	public String memberInfo(HttpSession session, Model model) {
