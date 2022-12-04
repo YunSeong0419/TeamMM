@@ -30,8 +30,8 @@
 	width: 1000px;
 	margin-top: 80px;
 	margin-left: 100px;
-	border-top: 2px solid #FF5E00;
-	border-bottom: 2px solid #FF5E00;
+	border-top: 2px solid #FF9436;
+	border-bottom: 2px solid #FF9436;
 }
 
 
@@ -46,7 +46,7 @@
 
 #paymentInfo{
 	margin-left: 500px;
-	border-left: 2px solid #FF5E00;
+	border-left: 2px solid #FF9436;
 }
 
 #receiverInfoTitle, #paymentInfoTitle{
@@ -75,6 +75,11 @@
 	width: 200px;
 	height: 40px;
 	margin: 20px 10px;
+	border: 0px;
+	border-radius: 5px;
+	background-color: #FF9436;
+	font-weight: bold;
+	color: white;
 }
 .moneyText{
 	font-weight: bold;
@@ -95,6 +100,12 @@
 function orderDetailFnc(no){
 
 	location.href = './detail.do?orderNo=' + no ;
+	
+}
+
+function newOrderFnc(){
+	
+	location.href = '/babiyo/product/category.do'
 	
 }
 
@@ -131,13 +142,13 @@ function orderDetailFnc(no){
 		<div id="paymentInfo">
 			<p id="paymentInfoTitle">결제 정보</p>
 			<div id="totalAmountDiv">
-				<span class="moneyText">주문금액</span>
-				<span class="moneySpan"><fmt:formatNumber pattern="#,###">${orderDto.totalAmount}</fmt:formatNumber>원</span>
+				<span class="moneyText">주문 금액</span>
+				<span class="moneySpan"><fmt:formatNumber pattern="#,###">${orderDto.totalAmount}</fmt:formatNumber> 원</span>
 			</div>
 			<hr>
 			<div>
 				<span class="moneyText">결제후 보유금액</span>
-				<span class="moneySpan"><fmt:formatNumber pattern="#,###">${_memberDto_.cash}</fmt:formatNumber>원</span>
+				<span class="moneySpan"><fmt:formatNumber pattern="#,###">${_memberDto_.cash}</fmt:formatNumber> 원</span>
 			</div>
 		</div>
 		
@@ -145,7 +156,7 @@ function orderDetailFnc(no){
 	
 	<div id="btnDiv">
 		<input id="orderDetailViewBtn" type="button" value="상세내역 보기" onclick="orderDetailFnc(${orderDto.no});">
-		<input id="orderAddBtn" type="button" value="추가 주문하기">
+		<input id="orderAddBtn" type="button" value="추가 주문하기" onclick="newOrderFnc();">
 	</div>
 	
 	<div id="underPadding"></div>

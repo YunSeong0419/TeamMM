@@ -24,28 +24,12 @@
 <resultMap type="orderDetailDto" id="orderDetailResultMap">
 <id column="NO" property="no"/>
 <result column="ORDER_NO" property="orderNo"/>
+<result column="ORDER_DATE" property="orderDate" javaType="java.util.Date"/>
+<result column="MEMBER_ID" property="memberId"/>
 <result column="PRODUCT_NO" property="productNo"/>
 <result column="PRODUCT_NAME" property="productName"/>
 <result column="QUANTITY" property="quantity"/>
 <result column="PRICE" property="price"/>
-</resultMap>
-
-<resultMap type="memberDto" id="memberResultMap">
-		<id column="ID" property="id"/>
-		<result column="PASSWORD" property="password"/>
-		<result column="NAME" property="name"/>
-		<result column="EMAIL" property="email"/>
-		<result column="BIRTHDAY" property="birthDate"
-			javaType="java.util.Date"/>
-		<result column="GENDER" property="gender"/>
-		<result column="PHONE" property="phone"/>
-		<result column="NICKNAME" property="nickname"/>
-		<result column="CASH" property="cash"/>
-		<result column="GRADE_CODE" property="grade"/>
-		<result column="CREATE_DATE" property="createDate"
-			javaType="java.util.Date"/>
-		<result column="MODIFY_DATE" property="modifyDate"
-			javaType="java.util.Date"/>
 </resultMap>
 
 
@@ -176,6 +160,16 @@ WHERE ORDER_DATE > TRUNC(SYSDATE) - 6
 AND STATE_CODE = 2
 GROUP BY TO_CHAR(ORDER_DATE,'YYYY-MM-DD')
 ORDER BY day)
+</select>
+
+<select id="orderDetailView" parameterType="com.mealmaker.babiyo.util.SearchOption"
+	 resultMap="orderDetailResultMap">
+SELECT *
+FROM ORDER_DETAIL D JOIN MEMBER_ORDER O
+ON D.ORDER_NO = O.NO
+WHERE O.ORDER_DATE BETWEEN #{beginDate} AND #{endDate}+1
+<if test="search != ''">AND ${searchOption} LIKE '%'||#{search}||'%'</if>
+ORDER BY ${sort}
 </select>
 
 </mapper>

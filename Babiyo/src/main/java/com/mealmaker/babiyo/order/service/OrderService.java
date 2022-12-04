@@ -27,4 +27,6 @@ public interface OrderService {
 	
 	public void cashUpdate(OrderDto orderDto);
 
+	public List<OrderDetailDto> salesView(SearchOption searchOption);
+
 }

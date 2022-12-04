@@ -17,15 +17,26 @@
 	height: 3px;
 }
 
-.favorite{
-	float: left;
-	margin: 5px;
-}
 #allCheckContainer{
 	width: 950px;
 	margin: auto;
 }
 
+
+#favoriteContainer{
+	width: 950px;
+	height: 460px;
+	border-top: 3px solid #FF9436;
+	border-bottom: 3px solid #FF9436;
+	margin: 10px auto;
+	font-size: 0;
+}
+
+.favorite{
+	display: inline-block;
+	margin: 10px 5px;
+	font-size: 16px;
+}
 
 .productImgContainer{
 	width: 180px;
@@ -43,18 +54,11 @@
 	text-align: center;
 }
 
-#favoriteContainer{
-	width: 950px;
-	height: 500px;
-	margin: auto;
-}
-
 #btnContainer{
-	margin: auto;
 	width: 950px;
 	text-align: center;
-	clear:both;
-	margin-bottom: 30px;
+	margin: 20px auto 40px auto;
+	clear: both;
 }
 
 #cartAdd, #selectDelete{
@@ -65,6 +69,14 @@
 	background-color: #FF9436;
 	font-weight: bold;
 	color: white;
+}
+
+#emptyFavorit{
+	display: block;
+	margin-top: 200px;
+	text-align: center;
+	font-size: 25px;
+	font-weight: bold;
 }
 
 
@@ -150,8 +162,8 @@ $(function(){
 			<div id="sideTitle"></div>
 				
 			<div id="allCheckContainer">
-				<input type="checkbox" id="allCheck">전체선택	
-				<hr>
+				<input type="checkbox" id="allCheck">
+				<label for="allCheck">전체선택</label>
 			</div>
 				
 			<form id="favoriteForm" method="post">
@@ -175,13 +187,12 @@ $(function(){
 								</c:forEach>
 							</c:when>
 							<c:otherwise>
-								즐겨찾기가 없습니다
+								<div id="emptyFavorit">즐겨찾기가 없습니다</div>
 							</c:otherwise>
 						</c:choose>
 				</div>
 				
 				<div id="btnContainer">
-					<hr>
 					<input type="button" value="장바구니 담기" id="cartAdd">
 					<input type="button" value="선택 삭제" id="selectDelete">
 				</div>

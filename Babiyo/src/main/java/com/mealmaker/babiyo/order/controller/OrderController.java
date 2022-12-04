@@ -182,4 +182,15 @@ public class OrderController {
 		return "order/memberOrderList";
 	}
 	
+	@RequestMapping(value = "/admin/sales.do", method = RequestMethod.GET)
+	public String sales(@RequestParam(defaultValue = "1") int curPage
+			, SearchOption searchOption
+			, HttpSession session, Model model) {
+		logger.info("관리자 매출관리");
+		
+		orderService.salesView(searchOption);
+		
+		return "admin/order/sales";
+	}
+	
 }

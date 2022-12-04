@@ -83,8 +83,6 @@
 	height: 440px;
 }
 
-#requestDiv{
-}
 
 #requestInfo {
 	margin-top: 8px;
@@ -106,7 +104,7 @@
 
 
 #mealkitListDiv{
-	min-height: 280px;
+	min-height: 250px;
 
 } 
 
@@ -333,6 +331,9 @@ function postFind() {
 					</c:forEach>
 				</ul>
 			</div>
+			
+			<hr>
+			
 			<div>
 				<p>
 					<span id="balanceName">보유금액</span>

@@ -17,7 +17,7 @@
 				<div><a id='memberManagement' href="#">회원 관리</a></div>
 				<div><a id='mealkitManagement' href="/babiyo/product/adminList.do">밀키트 관리</a></div>
 				<div><a id='orderManagement' href="/babiyo/admin/orderList.do">주문 관리</a></div>
-				<div><a id='salesManagement' href="#">매출 관리</a></div>
+				<div><a id='salesManagement' href="/babiyo/admin/sales.do">매출 관리</a></div>
 				<div><a id='reviewManagement' href="#">리뷰 관리</a></div>
 				<div><a id='noticeManagement' href="/babiyo/notice/list.do">공지 관리</a></div>
 				<div><a id='inquiryManagement' href="/babiyo/inquiry/admin.do">문의 관리</a></div>

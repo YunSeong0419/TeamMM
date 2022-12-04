@@ -23,10 +23,6 @@ import com.mealmaker.babiyo.util.SearchOption;
 
 @Service
 public class OrderServiceImpl implements OrderService{
-
-	private static final Logger log
-		= LoggerFactory.getLogger(OrderServiceImpl.class);
-	
 	
 	private final OrderDao orderDao;
 	
@@ -169,6 +165,14 @@ public class OrderServiceImpl implements OrderService{
 		
 		// 받은돈을 증가시킴
 		cashDao.cashUpdateOne("admin", totalAmount);
+	}
+
+	@Override
+	public List<OrderDetailDto> salesView(SearchOption searchOption) {
+		// TODO Auto-generated method stub
+		
+		
+		return orderDao.orderDetailList(searchOption);
 	}
 
 

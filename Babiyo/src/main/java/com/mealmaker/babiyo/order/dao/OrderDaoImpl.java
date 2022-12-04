@@ -138,5 +138,12 @@ public class OrderDaoImpl implements OrderDao {
 		return sqlSession.selectList(namespace + "salesChart");
 	}
 
+
+	@Override
+	public List<OrderDetailDto> orderDetailList(SearchOption searchOption) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList(namespace + "orderDetailList" , searchOption);
+	}
+
 	
 }

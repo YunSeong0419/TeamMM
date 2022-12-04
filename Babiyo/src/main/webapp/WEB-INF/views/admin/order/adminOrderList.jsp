@@ -61,7 +61,7 @@ table{
 
 
 td{
-	height: 30px;
+	height: 35px;
 	border-bottom: 1px solid gray;
 	padding: 0px 10px;
 }
@@ -223,7 +223,7 @@ function stateSelectFnc(){
 					</tr>
 					
 					<c:choose>
-					<c:when test="true">
+					<c:when test="${!empty orderList}">
 					<c:forEach items="${orderList}" var="order">
 					<tr>
 						<td class="orderDateTd"><fmt:formatDate value="${order.orderDate}" pattern="yyyy-MM-dd hh:mm:ss"/></td>
@@ -245,13 +245,14 @@ function stateSelectFnc(){
 					</c:forEach>
 					</c:when>
 					<c:otherwise>
-					<tr><td colspan="5">
+					<tr><td colspan="5" style="height: 350px; text-align: center; font-weight: bold;
+								font-size: 25px;">
 					<c:choose>
 						<c:when test="${searchOption.search ne ''}">
-							${searchOption.search}님의 주문목록이 존재하지 않습니다
+							${searchOption.search}님의 주문 조회 내용이 없습니다
 						</c:when>
 						<c:otherwise>
-							주문목록을 조회할 수 없습니다
+							조회 내용이 없습니다
 						</c:otherwise>
 					</c:choose>
 					</td></tr>

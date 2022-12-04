@@ -61,7 +61,7 @@ table{
 }
 
 td{
-	height: 30px;
+	height: 35px;
 	border-bottom: 1px solid gray;
 	padding: 0px 10px;
 }
@@ -177,8 +177,8 @@ function stateSelectFnc(){
 					</c:when>
 					<c:otherwise>
 					<tr>
-						<td colspan="6" style="text-align: center; height: 300px; font-size: 25px;">
-						<strong>조회할 주문이 없습니다</strong>
+						<td colspan="6" style="text-align: center; height: 350px; font-size: 25px;">
+						<strong>조회 내용이 없습니다</strong>
 						</td>
 					</tr>
 					</c:otherwise>

@@ -15,12 +15,12 @@
 
 #receiverDiv {
 	position: relative;
+	margin-left: 50px;
 	box-sizing: border-box;
-	margin-left: 40px;
- 	width: 550px;
-	height: 450px;
+	width: 550px;
+	height: 500px;
 	padding: 30px;
-	border: 1px solid black;
+	border: 2px solid #FF9436;
 	border-radius: 20px;
 	float: left;
 }
@@ -37,11 +37,30 @@
 
 .receiverInfo {
 	display: inline-block;
-	width: 200px;
+	width: 100px;
+	font-weight: bold;
+	text-align: justify;
+	line-height: 0;
 }
 
+.receiverInfo:before{
+	width: 100%;
+	display: inline-block;
+	content: "";
+}
+
+.receiverInfo:after{
+	width: 100%;
+	display: inline-block;
+	content: "";
+}
+
+
 .receiverInput {
-	width: 270px;
+	margin-left: 30px;
+	height: 35px;
+	width: 340px;
+	line-height: 35px;
 }
 
 .receiverInfoDiv {
@@ -49,13 +68,15 @@
 }
 
 #requestInfo {
+	margin-top: 8px;
 	float: left;
 }
 
 #requestText {
 	resize: none;
-	margin-left: 6px;
-	height: 150px;
+	height: 130px;
+	line-height: 20px;
+	margin-left: 36px;
 }
 
 #paymentInfoDiv {
@@ -65,7 +86,7 @@
 }
 
 #mealkitListDiv{
-	min-height: 230px;
+	min-height: 150px;
 
 } 
 
@@ -74,16 +95,14 @@
 	padding: 0px;
 }
 
-#mealkitListP,#balanceName,#totalAmountName{
+#mealkitListP, #stateName, #orderDateName, #totalAmountName{
 	margin: 0px;
 	font-weight: bold;
 }
 
-#balanceMoney, #totalAmountMoney{
-	float: right
-}
-
-.mealkitName{
+#balanceMoney, #stateValue, #orderDateValue, #totalAmountMoney{
+	float: right;
+	font-weight: bold;
 }
 
 .mealkitQuantity{
@@ -101,6 +120,11 @@
 	margin-top: 10px;
 	width: 350px;
 	height: 40px;
+	font-weight: bold;
+	border: 0px;
+	border-radius: 5px;
+	background-color: #FF9436;
+	color: #fff;
 }
 
 
@@ -163,32 +187,32 @@ function acceptFnc(no){
 	
 				<form action="./orderCtr.do" method="post" id="receiverForm">
 					<div class="receiverInfoDiv">
-						<span class="receiverInfo">받으시는 분 성함</span>
+						<span class="receiverInfo">받 는 사 람</span>
 						<input type="text" name="receiverName" class="receiverInput" value="${orderMap.orderDto.receiverName}"
 							readonly="readonly">
 					</div>
 					<div class="receiverInfoDiv">
-						<span class="receiverInfo">받으시는 분 연락처</span>
+						<span class="receiverInfo">전 화 번 호</span>
 						<input type="text" name="receiverPhone" class="receiverInput" value="${orderMap.orderDto.receiverPhone}"
 							readonly="readonly">
 					</div>
 					<div class="receiverInfoDiv">
-						<span class="receiverInfo">우편번호</span>
+						<span class="receiverInfo">우 편 번 호</span>
 						<input type="text" name="post" class="receiverInput" value="${orderMap.orderDto.post}"
 							readonly="readonly">
 					</div>
 					<div class="receiverInfoDiv">
-						<span class="receiverInfo">배송지 입력</span>
+						<span class="receiverInfo">주 소</span>
 						<input type="text" name="address" class="receiverInput" value="${orderMap.orderDto.address}"
 							readonly="readonly">
 					</div>
 					<div class="receiverInfoDiv">
-						<span class="receiverInfo">상세주소</span>
+						<span class="receiverInfo">상 세 주 소</span>
 						<input type="text" name="addressDetail" class="receiverInput" value="${orderMap.orderDto.addressDetail}"
 							readonly="readonly">
 					</div>
 					<div class="receiverInfoDiv">
-						<span id="requestInfo" class="receiverInfo">배송 시 요청사항</span>
+						<span id="requestInfo" class="receiverInfo">요 청 사 항</span>
 						<textarea name="request" id="requestText" class="receiverInput"
 							readonly="readonly">${orderMap.orderDto.request}</textarea>
 					</div>
@@ -203,9 +227,9 @@ function acceptFnc(no){
 					<ul id="mealkitUl">
 						<c:forEach items="${orderMap.orderDetailList}" var="mealkit">
 							<li>
-								<span class="mealkitName">${mealkit.productName}</span>
+								<span class="mealkitName"><strong>${mealkit.productName}</strong></span>
 								<span class="mealkitPrice">
-								<fmt:formatNumber pattern="#,###">${mealkit.price * mealkit.quantity}</fmt:formatNumber>원
+								<fmt:formatNumber pattern="#,###">${mealkit.price * mealkit.quantity}</fmt:formatNumber> 원
 								</span>
 								<span class="mealkitQuantity">${mealkit.quantity}개</span>
 							</li>
@@ -216,22 +240,24 @@ function acceptFnc(no){
 				<hr>
 				
 				<div>
-					<div>
+					<p>
 						<span id="totalAmountName">총 결제금액</span>
-						<span id="totalAmountMoney"><fmt:formatNumber pattern="#,###" value="${orderMap.orderDto.totalAmount}"/>원</span>
-					</div>
+						<span id="totalAmountMoney"><fmt:formatNumber pattern="#,###" value="${orderMap.orderDto.totalAmount}"/> 원</span>
+					</p>
 					
-					<div>
-						<span id="balanceName">상태</span>
-						<span id="balanceMoney">${orderMap.orderDto.stateName}</span>
-					</div>
+					<p>
+						<span id="stateName">상태</span>
+						<span id="stateValue">${orderMap.orderDto.stateName}</span>
+					</p>
 					 
-					<div>
-						<span id="balanceName">주문날짜</span>
-						<span id="balanceMoney"><fmt:formatDate value="${orderMap.orderDto.orderDate}"/></span>
-					</div>
+					<p>
+						<span id="orderDateName">주문날짜</span>
+						<span id="orderDateValue"><fmt:formatDate value="${orderMap.orderDto.orderDate}"/></span>
+					</p>
 					
 				</div>
+				
+				<hr>
 				
 				<c:choose>
 				<c:when test="${orderMap.orderDto.stateName eq '완료'}">
