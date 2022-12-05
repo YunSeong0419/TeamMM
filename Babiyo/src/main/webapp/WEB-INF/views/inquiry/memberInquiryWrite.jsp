@@ -66,6 +66,25 @@ span{
 	function backBtn() {
 		location.href = "../member.do"
 	}
+	
+	function formSubmit() {
+		
+		if (frm.title.value == "") {
+			alert("제목을 입력하세요.");
+			frm.title.focus();
+			
+			return false;
+		}
+		
+		if (frm.content.value == "") {
+			alert("내용을 입력하세요.");
+			frm.content.focus();
+			
+			return false;
+		}
+		
+	};
+	
 </script>
 </head>
 <body>
@@ -82,7 +101,7 @@ span{
 			<div id="sideTitle"></div>
 			<!--여기서 작성 -->
 		<div  id="boxDiv">
-			<form action="./writeCtr.do" method="post">
+			<form name="frm" action="./writeCtr.do" method="post" onsubmit="return formSubmit();">
 			<div id="filterDiv">
 				<span>분류</span> 
 				<select name="categoryCode" id="categoryId">

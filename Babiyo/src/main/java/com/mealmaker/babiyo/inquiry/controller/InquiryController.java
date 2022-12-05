@@ -56,8 +56,6 @@ public class InquiryController {
 		//분류 리스트
 		List<Map<String, Object>> categoryCodeList = inquiryService.categoryCodeList();
 		
-		System.out.println(categoryCodeList);
-		
 		Map<String, Object> searchMap = new HashMap<String, Object>();
 		
 		searchMap.put("memberId", memberId);
@@ -96,7 +94,7 @@ public class InquiryController {
 	// 문의 게시글 작성
 	@RequestMapping(value = "/inquiry/member/writeCtr.do", method = RequestMethod.POST)
 	public String memberWriteCtr(InquiryDto inquiryDto, MemberDto memberDto, Model model) {
-		logger.info("Welcome InquiryMemberController memberWrite 신규 문의 작성! " + inquiryDto);
+		logger.info("Welcome InquiryMemberController memberWrite 신규 문의 작성! ");
 
 		inquiryService.inquiryWrite(inquiryDto);
 
@@ -120,7 +118,7 @@ public class InquiryController {
 	// 문의 게시글 수정
 	@RequestMapping(value = "/inquiry/member/updateCtr.do", method = RequestMethod.POST)
 	public String memberUpdateCtr(InquiryDto inquiryDto, Model model) {
-		logger.info("Welcome InquiryMemberController updateCtr! ");
+		logger.info("Welcome InquiryMemberController updateCtr! {}", inquiryDto);
 		
 		inquiryService.inquiryUpdateOne(inquiryDto);
 		

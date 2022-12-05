@@ -73,7 +73,7 @@ public class InquiryServiceImpl implements InquiryService{
 	@Override
 	public int inquiryUpdateOne(InquiryDto inquiryDto) {
 		// TODO Auto-generated method stub
-		
+		System.out.println(inquiryDto);
 		return inquiryDao.inquiryUpdateOne(inquiryDto);
 	}
 	

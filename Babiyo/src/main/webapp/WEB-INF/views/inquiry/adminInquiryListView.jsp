@@ -34,14 +34,24 @@ span{
 	width: 960px;
 }
 
+.memberCL{
+	margin-left: 10px;
+}
+
+#searchId{
+	height: 35px;
+	border-radius: 5px;
+	
+}
+
 #YesNo{
 	line-height: 35px;
 }
 
-#YesNo,#answerSelect{
+#YesNo, #answerSelect{
  	float: right;
 } 
- 
+
 #answerSelect{
 	margin-right: 80px;
 } 
@@ -56,6 +66,7 @@ span{
 #memberId{
  margin-left: 350px;
 }
+
 #inquiryList{
 	margin-top: 5px;
 	min-height: 400px;
@@ -175,7 +186,7 @@ span{
 							<option value="2">대기중 답변</option>
 						</select>
 						<span id="YesNo">답변여부</span> 
-						<span>작성자</span>
+						<span class="memberCL">작성자</span>
 						<input id="searchId" type="text" name="search">
 					</form>
 				</div>
