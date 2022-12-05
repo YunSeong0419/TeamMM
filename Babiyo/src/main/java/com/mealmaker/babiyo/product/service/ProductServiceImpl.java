@@ -20,10 +20,12 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.mealmaker.babiyo.favorite.dao.FavoriteDao;
 import com.mealmaker.babiyo.favorite.model.FavoriteDto;
 import com.mealmaker.babiyo.inquiry.model.InquiryDto;
+import com.mealmaker.babiyo.notice.model.NoticeDto;
 import com.mealmaker.babiyo.product.dao.ProductDao;
 import com.mealmaker.babiyo.product.model.ProductDto;
 import com.mealmaker.babiyo.util.FileUtils;
 import com.mealmaker.babiyo.util.Paging;
+import com.mealmaker.babiyo.util.SearchOption;
 
 @Service
 public class ProductServiceImpl implements ProductService{
@@ -44,10 +46,23 @@ public class ProductServiceImpl implements ProductService{
 	
 	//DAO에서 밀키트 목록 꺼내오게 시키기
 	@Override
-	public List<ProductDto> productList(String searchOption, String sortOption, 
-		String keyword, int start, int end) {
+	public Map<String, Object> adminProductList(SearchOption searchOption, SearchOption sort, int curPage) {
 		
-		return productDao.productList(searchOption, sortOption, keyword, start, end);
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+//		int totalCount = productDao.productTotalCount(searchOption, sort);
+
+//		Paging paging = new Paging(totalCount, curPage);
+		
+//		int begin = paging.getPageBegin();
+//		int end = paging.getPageEnd();
+//		
+//		List<ProductDto> productList = productDao.productList(searchOption, sort, begin, end);
+//		
+//		map.put("productList", productList);
+//		map.put("paging", paging);
+		
+		return map;
 	}
 
 	//DAO에 밀키트 등록하게 시키기
@@ -249,7 +264,7 @@ public class ProductServiceImpl implements ProductService{
 	
 	//회원 밀키트 상세보기
 	@Override
-	public Map<String, Object> productMemberDetail(String memberId, int productNo) {
+	public Map<String, Object> productDetail(String memberId, int productNo) {
 		// TODO Auto-generated method stub
 		
 		Map<String, Object> map = new HashMap<String, Object>();

@@ -26,4 +26,5 @@ public interface ReviewService {
 	public void reviewDelete(int no);
 	//???
 	public int reviewTotalCount(String searchOption, String sortOption, String keyword);
+	public int reviewQuantity(int productNo);
 }

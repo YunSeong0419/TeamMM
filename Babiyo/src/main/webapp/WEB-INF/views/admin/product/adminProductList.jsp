@@ -57,7 +57,7 @@
 	float: left;
 }
 
-.inputBox{
+#inputBox{
 	margin-top: 10px;
 	width: 200px;
 	height: 30px;
@@ -100,22 +100,22 @@
 	font-size: 14px;
 }
 
-.tableHeadTr > th{
+#tableHeadTr > th{
 	border: 1px solid black;
 	background: #EAEAEA;
 	color: #373737;
 	font-weight: bold;
 }
-
-.numberTh, .checkBoxTh{ 
+						
+#numberTh, #checkBoxTh{ 
  	width: 60px; 
 } 
 
-.classificationTh, .priceTh{
+#classificationTh, #priceTh{
 	width: 100px;
 }
 
-.productNameTh{
+#productNameTh{
 	width: 450px;
 }
 
@@ -139,7 +139,6 @@
 
 <script type="text/javascript" src="/babiyo/resources/js/jquery-3.6.1.js"></script>
 
-
 <script type="text/javascript">
 	function pageMoveProductAdminDetailFnc(no) {
 		
@@ -155,27 +154,21 @@
 		pagingFormObj.submit();
 	}
 	
-// 	function stockBatchModificationFnc() {
-		
-// 	}					틀 다 잡아놓고 나중에 하자
+	$(function(){	
+		$('#allCheck').change(function() { // 전체선택 기능
+			var checked = $(this).is(':checked');
+			$('.check').prop('checked', checked);
+		});	
+	});
 	
-// 	function productBatchDeleteFnc() {
-// 		var wholePageCheckObj = document.getElementById('wholePageCheck');
+	$(document).ready(function(){
 		
-// 		wholePageCheckObj.addEventListener('change', () )
+		$('#searchId').val($('#searchMapId').val());
 		
-// 		var url = "./deleteCtr.do?no=" + no;
-// 			if(wholePageCheckObj.checked == 'checked') {
-// 				//
-// 				location.href = url;
-// 			}
-			
-// 		var checkSelectDeleteObj = document.getElementsByClassName('checkboxes');
-// 			if(checkSelectDeleteObj.checked == 'checked')
-				
-// 				location.href = url;
-// 			}		
-// 	}
+	});
+
+//		선택 재고 일괄 수정 기능
+// 		function stockBatchModificationFnc() {
 
 </script>
 
@@ -210,42 +203,44 @@
 							</select>
 						</form>
 					</div>
+			
 					<div id='searchBox'>
 						<p class='filterBoxName'>검색</p> 
-						<form action='./adminList.do' method='post' class='filterBoxClassificationForm'>
-							<select name='searchOption' class='filterBoxClassification'>
+						<form action='./adminList.do' method='get' class='filterBoxClassificationForm'>
+							<input type="hidden" id="searchMapId" value="${searchMap.search}"> 
+							<select name='searchOption' id='searchId' class='filterBoxClassification'>
 								<c:choose>
-									<c:when test="${searchMap.searchOption == 'all'}">
+									<c:when test="${searchMap.search == 'all'}">
 										<option value='all' selected='selected'>전체</option>
 										<option value='name'>이름</option>
-										<option value='${categoryCode.name}'>분류</option>
+										<option value='classification'>분류</option>
 									</c:when>
-									<c:when test="${searchMap.searchOption == 'name'}">
+									<c:when test="${searchMap.search == 'name'}">
 										<option value='all'>전체</option>
 										<option value='name' selected='selected'>이름</option>
-										<option value='${categoryCode.name}'>분류</option>
+										<option value='classification'>분류</option>
 									</c:when>
-									<c:when test="${searchMap.searchOption == 'classification'}">
+									<c:when test="${searchMap.search == 'classification'}">
 										<option value='all'>전체</option>
 										<option value='name'>이름</option>
-										<option value='${categoryCode.name}' selected='selected'>분류</option>
+										<option value='classification' selected='selected'>분류</option>
 									</c:when>
 								</c:choose>
 							</select>
-							<input type='text' class='inputBox' name='keyword' value="${searchMap.keyword}">
+							<input type='text' id='inputBox' name='search' value="${searchMap.search}">
 							<input type='submit' value="검색" class='productListbutton'>
 						</form>
 					</div>
 				</div>
 				<div id='tableDiv'>
 					<table id='productManagementTable'>
-						<tr class='tableHeadTr'>
-							<th class='numberTh'>번호</th>
-							<th class='classificationTh'>분류</th>
-							<th class='productNameTh'>밀키트 품명</th>
-							<th class='priceTh'>가격</th>
-							<th class='stockTh'>재고</th>
-							<th class='checkBoxTh'><input type="checkbox" id='wholePageCheckObj'></th>
+						<tr id='tableHeadTr'>
+							<th id='numberTh'>번호</th>
+							<th id='classificationTh'>분류</th>
+							<th id='productNameTh'>밀키트 품명</th>
+							<th id='priceTh'>가격</th>
+							<th id='stockTh'>재고</th>
+							<th id='checkBoxTh'><input type="checkbox" id='allCheck'></th>
 						</tr>
 							<c:choose>
 							<c:when test="${empty productList}">
@@ -272,7 +267,7 @@
 										</td>
 										<td><input type="text" value='${productDto.stock}'
 												 class='stockBox'></td>
-										<td><input type="checkbox" class='checkboxes'></td>
+										<td><input type="checkbox" class='check'></td>
 									</tr>
 								</c:forEach>
 							</c:otherwise>

@@ -57,6 +57,15 @@ public class ReviewServiceImpl implements ReviewService{
 		return resultList;
 	}
 	
+	//DAO에서 리뷰 수 꺼내오게 시키기
+	@Override
+	public int reviewQuantity(int productNo) {
+		
+		int reviewQuantity = reviewDao.reviewQuantity(productNo);
+		
+		return reviewQuantity;
+	}
+	
 	//DAO에서 리뷰 상세 꺼내오게 시키기
 	@Override
 	public List<Map<String, Object>> detail() {

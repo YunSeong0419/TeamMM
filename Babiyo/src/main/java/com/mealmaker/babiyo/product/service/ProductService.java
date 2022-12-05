@@ -6,11 +6,11 @@ import java.util.Map;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.mealmaker.babiyo.product.model.ProductDto;
+import com.mealmaker.babiyo.util.SearchOption;
 
 public interface ProductService {
 	//목록
-	public List<ProductDto> productList(String searchOption, String sortOption,
-		String keyword,	int start, int end);
+	public Map<String, Object> adminProductList(SearchOption searchOption, SearchOption sort, int curPage);
 	//등록
 	public void productRegistration(ProductDto productDto
 		, MultipartHttpServletRequest multipartHttpServletRequest) throws Exception;
@@ -34,5 +34,5 @@ public interface ProductService {
 	List<Map<String, Object>> newProductList();
 	//메인에 추천 밀키트 쏴주기
 	List<Map<String, Object>> recommendProductList(String memberId);
-	public Map<String, Object> productMemberDetail(String memberId, int productNo);
+	public Map<String, Object> productDetail(String memberId, int productNo);
 }

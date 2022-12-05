@@ -80,8 +80,8 @@
 		</selectKey>
 		
 		INSERT INTO PRODUCT
-		VALUE(NO, CATEGORY_CODE, NAME, PRICE, STOCK, CONTENT)
-		VALUES(#{no}, #{categoryCode}, #{name}, #{price}, #{stock}, #{content})
+		VALUE(CATEGORY_CODE, NAME, PRICE, STOCK, CONTENT)
+		VALUES(#{categoryCode}, #{name}, #{price}, #{stock}, #{content})
 	</insert>
 
 	<select id="productDetail" parameterType="int" resultMap="productResultMap">
@@ -147,22 +147,22 @@
 
 	<insert id="insertFile" parameterType="map">
 		INSERT INTO PRODUCT_IMAGE
-		(NO, PRODUCT_NO, ORIGINAL_NAME, STORED_NAME)
+		VALUE(PRODUCT_NO, ORIGINAL_NAME, STORED_NAME)
 		VALUES
-		(#{no}, #{product_no}, #{original_name}, #{stored_name})
+		(#{parentSeq}, #{original_file_name}, #{stored_file_name})
 	</insert>
 
 
 	<!-- 상품이미지 DB -->
 	
 	<select id="fileSelectOne" parameterType="int" resultType="map">
-		SELECT NO, ORIGINAL_NAME, STORED_NAME
+		SELECT NO, ORIGINAL_NAME, STORED_NAME, PRODUCT_NO
 		FROM PRODUCT_IMAGE
 		WHERE PRODUCT_NO = #{value}
 	</select>
 
 	<select id="fileSelectStoredFileName" parameterType="int" resultType="map">
-		SELECT NO, STORED_NAME
+		SELECT NO, ORIGINAL_NAME, STORED_NAME, PRODUCT_NO
 		FROM PRODUCT_IMAGE
 		WHERE NO = #{no}
 	</select>

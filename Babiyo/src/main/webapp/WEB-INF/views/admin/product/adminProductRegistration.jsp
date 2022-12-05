@@ -147,7 +147,7 @@
 						<p class='smallpTagName'>밀키트 사진</p>
 					</div>
 					<div>
-						<input type="file" name='file' class='insertFileButton'>
+						<input type="file" name='originalName' class='insertFileButton'>
 						<input type="button" value='-' class='deleteFileButton' onclick="fileDeleteFnc();">
 					</div>
 				</div>

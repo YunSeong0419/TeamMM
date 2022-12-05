@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.mealmaker.babiyo.product.model.ProductDto;
+import com.mealmaker.babiyo.util.SearchOption;
 
 @Repository
 public class ProductDaoImpl implements ProductDao{
@@ -20,18 +21,17 @@ public class ProductDaoImpl implements ProductDao{
 	
 	//DB에서 밀키트 목록 퍼오기
 	@Override
-	public List<ProductDto> productList(String searchOption, String sortOption
-		, String keyword, int start, int end) {
+	public List<ProductDto> productList(SearchOption searchOption, SearchOption sort, int begin, int end) {
 	
-		Map<String, Object> map = new HashMap<>();
+//		Map<String, Object> paramMap = new HashMap<>();
+//		
+//		paramMap.put("searchOption", searchOption);
+//		paramMap.put("searchOption", sort);
+//		paramMap.put("begin", begin);+++++++++++++++++++++++++++++++++++++++++++++++++++
+//		paramMap.put("end", end);
 		
-		map.put("searchOption", searchOption);
-		map.put("sortOption", sortOption);
-		map.put("keyword", keyword);
-		map.put("start", start);
-		map.put("end", end);
-		
-		return sqlSession.selectList(namespace + "productList", map);
+//		return sqlSession.selectList(namespace + "productList", paramMap);
+		return null;
 	}
 	
 	//DB에 밀키트 등록

@@ -409,7 +409,7 @@ function cartAddBtn(){
 						</div>
 					
 						<div id='evaluationAndReviewCount'>
-							☆4.9(2,348)
+							☆4.9(${reviewDto})
 						</div>
 					
 						<hr class='shortDivisionLine'/>	
@@ -465,43 +465,43 @@ function cartAddBtn(){
 			</div>
 			
 			
-<!-- 			<div id='reviewDiv'> -->
-<!-- 				<div class='inlineDiv'> -->
-<!-- 					<div class='reviewTitle'> -->
-<!-- 						<span class='reviewName'>리뷰(2,348)</span> -->
-<!-- 					</div> -->
-<!-- 					<div class='filter'> -->
-<!-- 						<span class='latest'>최신순</span> -->
-<!-- 					</div> -->
+			<div id='reviewDiv'>
+				<div class='inlineDiv'>
+					<div class='reviewTitle'>
+						<span class='reviewName'>리뷰(2,348)</span>
+					</div>
+					<div class='filter'>
+						<span class='latest'>최신순</span>
+					</div>
 					
-<!-- 					<div class='shortVerticalLine'></div> -->
+					<div class='shortVerticalLine'></div>
 					
-<!-- 					<div class='filter'> -->
-<!-- 						<span class='highRating'>평점 높은 순</span> -->
-<!-- 					</div> -->
-<!-- 					<div class='writeReview'> -->
-<!-- 						<input type="button" value='리뷰 쓰기' class='writeReviewButton'> -->
-<!-- 					</div> -->
-<!-- 				</div> -->
+					<div class='filter'>
+						<span class='highRating'>평점 높은 순</span>
+					</div>
+					<div class='writeReview'>
+						<input type="button" value='리뷰 쓰기' class='writeReviewButton'>
+					</div>
+				</div>
 				
-<!-- 				<hr class='longDivisionLine'/> -->
+				<hr class='longDivisionLine'/>
 				
-<!-- 				<div class='userEvaluation'> -->
-<!-- 					<div class='nickname'>조윤성</div> -->
-<!-- 					<div class='wrapStar'> -->
-<!-- 						<div class='starRating'> -->
-<!-- 						</div> -->
-<!-- 					</div> -->
-<!-- 					<div class='userUploadImage'> -->
-<!-- 						<a href="#"><img alt="밀키트 이미지 " src=""></a> -->
-<!-- 					</div> -->
-<!-- 					<div class='reviewContent'> -->
-<!-- 					</div> -->
-<!-- 				</div> -->
-<!-- 			</div> -->
-<!-- 			<div id='lowerButtonDiv'> -->
-<!-- 				<input type="submit" value="리뷰 더 보기" class='lowerButton'>	 -->
-<!-- 			</div> -->
+				<div class='userEvaluation'>
+					<div class='nickname'>조윤성</div>
+					<div class='wrapStar'>
+						<div class='starRating'>
+						</div>
+					</div>
+					<div class='userUploadImage'>
+						<a href="#"><img alt="밀키트 이미지 " src=""></a>
+					</div>
+					<div class='reviewContent'>
+					</div>
+				</div>
+			</div>
+			<div id='lowerButtonDiv'>
+				<input type="submit" value="리뷰 더 보기" class='lowerButton'>	
+			</div>
 
 
 

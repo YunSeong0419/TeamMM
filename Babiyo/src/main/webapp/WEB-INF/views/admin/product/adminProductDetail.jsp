@@ -13,7 +13,7 @@
 <style type="text/css">
 #productModificationDiv{
 	margin: 0px auto;
-	width: 1050px;
+	width: 900px;
 	min-height: 550px;
 	float: left;
 }
@@ -22,20 +22,24 @@
 	width: 250px;
 	height: 250px;
 	margin-left: 80px;
-  	background-color: #EAEAEA; 
+/*   	background-color: #EAEAEA;  */
 	float: left;
 }
 
+#image > img{
+	width: 200px;
+	height: 200px;
+	
+}
 .insertFileButton{
 	width: 200px;
 	float: left;
 }
 
 #upperInsertDataDiv{
-	margin-top: 20px;
-	margin-left: 40px;
-	width: 680px;
-	height: 230px;	
+	margin-top: 30px;
+	width: 530px;
+	height: 220px;	
 	float: left;
 }
 
@@ -90,7 +94,7 @@
 	margin-top: 30px;
 	margin-left: 80px;
 	width: 970px;
-	height: 280px;
+	min-height: 200px;
 	float: left;
 }
 
@@ -103,7 +107,7 @@
 
 #lowerButtonDiv{
 	margin-top: 10px;
-	width: 1050px;
+	width: 900px;
 	height: 50px;	
 	line-height: 50px;
 	text-align: center;
@@ -165,11 +169,11 @@
 				<form action='adminModification.do' method='get'>
  					<input type="hidden" name='no' value='${productDto.no}'>
 				<div id='imageDiv'>
-					<div>
+					<div id='imageName'>
 						<p class='smallpTagName'>밀키트 사진</p>
 					</div>
-					<div>
-						<input type="file" name='file' class='insertFileButton'>
+					<div id='image'>
+						<img alt='${productDto.name}' src="/babiyo/img/${productImg.STORED_NAME}">
 					</div>
 				</div>
 				<div id='upperInsertDataDiv'>
@@ -179,16 +183,20 @@
 					</div>
 					<div class='insertDataDiv'>
 						<p class='pTagName'>가격</p>
-						<span class='dataSpace'>${productDto.price}</span>
+						<span class='dataSpace'>
+							<fmt:formatNumber value="${productDto.price}" pattern="#,###"/> 원
+						</span>
 					</div>
 					<div class='classificationDiv'>
 						<p class='sidePTagName'>분류</p>
 						<span id='classification' class='horizonDataSpace'>
-							${productDto.categoryCode}</span>
+							${productDto.categoryName}</span>
 					</div>
 					<div class='stockDiv'>
 						<p class='sidePTagName'>재고</p>
-						<span class='horizonDataSpace'>${productDto.stock}</span>
+						<span class='horizonDataSpace'>
+							<fmt:formatNumber value="${productDto.stock}" pattern="#,###"/> 개
+						</span>
 					</div>
 				</div>
 				<div id='contentDiv'>

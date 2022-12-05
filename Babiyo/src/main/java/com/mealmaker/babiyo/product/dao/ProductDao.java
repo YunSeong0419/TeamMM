@@ -4,11 +4,11 @@ import java.util.List;
 import java.util.Map;
 
 import com.mealmaker.babiyo.product.model.ProductDto;
+import com.mealmaker.babiyo.util.SearchOption;
 
 public interface ProductDao {
 	//목록	
-	public List<ProductDto> productList(String searchOption, String sortOption,
-			String keyword,	int start, int end);
+	public List<ProductDto> productList(SearchOption searchOption, SearchOption sort, int begin, int end);
 	//등록
 	public int productRegistration(ProductDto productDto);
 	//관리자 밀키트 상세

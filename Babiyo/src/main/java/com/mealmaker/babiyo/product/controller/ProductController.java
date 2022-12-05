@@ -17,9 +17,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.mealmaker.babiyo.member.model.MemberDto;
+import com.mealmaker.babiyo.order.model.OrderDto;
 import com.mealmaker.babiyo.product.model.ProductDto;
 import com.mealmaker.babiyo.product.service.ProductService;
+import com.mealmaker.babiyo.review.model.ReviewDto;
+import com.mealmaker.babiyo.review.service.ReviewService;
 import com.mealmaker.babiyo.util.Paging;
+import com.mealmaker.babiyo.util.SearchOption;
 
 @Controller
 public class ProductController {
@@ -29,6 +33,9 @@ public class ProductController {
 
 	@Autowired
 	private ProductService productService;
+	
+	@Autowired
+	private ReviewService reviewService;
 	
 	//오븐 15p, 헤더-밀키트 카테고리
 	@RequestMapping(value = "/product/category.do", method = RequestMethod.GET)
@@ -67,13 +74,16 @@ public class ProductController {
 	
 	//오븐 21p 회원-밀키트 상세
 	@RequestMapping(value = "/product/detail.do")
-	public String productMemberDetail(int productNo, HttpSession session, Model model) {
-		logger.info("ProductController productMemberDetail! - {}");
+	public String productDetail(int productNo, HttpSession session, Model model) {
+		logger.info("ProductController productDetail! - {}");
 		
 		MemberDto memberDto = (MemberDto) session.getAttribute("_memberDto_");
 		String memberId = memberDto.getId();
 		
-		Map<String, Object> productMap = productService.productMemberDetail(memberId, productNo);
+		Map<String, Object> productMap = productService.productDetail(memberId, productNo);
+		
+//		Map<String, Object> reviewMap = reviewService.review
+		int reviewDto = reviewService.reviewQuantity(productNo);
 		
 		ProductDto productDto = (ProductDto) productMap.get("productDto");
 		@SuppressWarnings("unchecked")
@@ -81,41 +91,61 @@ public class ProductController {
 		boolean favoriteCheck = (boolean) productMap.get("favoriteCheck");
 		
 		model.addAttribute("productDto", productDto);
+		model.addAttribute("reviewDto", reviewDto);
 		model.addAttribute("productImg", productImg);
 		model.addAttribute("favoriteCheck", favoriteCheck);
 		
 		return "product/detail";
 	}
-	//오븐 56p 관리자-밀키트 관리(목록)
-	@RequestMapping(value = "/product/adminList.do", method = {RequestMethod.GET, RequestMethod.POST})
-	public String productList(@RequestParam(defaultValue = "1") int curPage
-			, @RequestParam(defaultValue = "all") String searchOption
-			, @RequestParam(defaultValue = "STOCK ASC") String sortOption
-			, @RequestParam(defaultValue = "") String keyword
-			, Model model) {
-		logger.info("ProductController productList! curPage: {}, searchOption: {}"
-				, curPage, searchOption);
-		logger.info("sortOption: {}, keyword: {}", sortOption, keyword);		
 	
-		int totalCount = 
-			productService.productTotalCount(searchOption, sortOption, keyword);
+	//오븐 58p 관리자-밀키트 관리-밀키트 상세
+	@RequestMapping(value = "/product/adminDetail.do")
+	public String productAdminDetail(int no , @RequestParam(defaultValue = "1") int curPage
+			, String searchOption, String sortOption, String keyword, Model model) {
+		logger.info("ProductController productAdminDetail! - {}", no);
 		
-		Paging paging = new Paging(totalCount, curPage);
-		int start = paging.getPageBegin();
-		int end = paging.getPageEnd();
+		Map<String, Object> map = productService.productAdminDetail(no);
 		
-		List<ProductDto> productList = 
-			productService.productList(searchOption, sortOption, keyword, start, end);
-
-		Map<String, Object> searchAndSortMap = new HashMap<>();
-
-		searchAndSortMap.put("searchOption", searchOption);
-		searchAndSortMap.put("sortOption", sortOption);
-		searchAndSortMap.put("keyword", keyword);
+		ProductDto productDto = (ProductDto) map.get("productDto");
+		@SuppressWarnings("unchecked")
+		Map<String, Object> productImg = (Map<String, Object>) map.get("fileSelectOne");
+		
+		List<Map<String, Object>> fileList 
+		= (List<Map<String, Object>>) map.get("fileList");
+		
+		Map<String, Object> prevMap = new HashMap<>();
+		prevMap.put("curPage", curPage);
+		prevMap.put("searchOption", searchOption);
+		prevMap.put("sortOption", sortOption);
+		prevMap.put("keyword", keyword);
+		
+		
+		model.addAttribute("productDto", productDto);
+		model.addAttribute("productImg", productImg);
+		model.addAttribute("fileList", fileList);
+		model.addAttribute("prevMap", prevMap);
+		
+		return "admin/product/adminProductDetail";
+	}
+	
+	//오븐 56p 관리자-밀키트 관리(목록)
+	@RequestMapping(value = "/product/adminList.do", method = RequestMethod.GET)
+	public String adminProductList(@RequestParam(defaultValue = "1") int curPage
+			, @RequestParam(defaultValue = "all") SearchOption searchOption
+			, @RequestParam(defaultValue = "STOCK DESC") SearchOption sort, Model model) {
+		logger.info("ProductController adminProductList! curPage: {}, searchOption: {}", curPage, searchOption);
+		logger.info("sortOption: {}", sort);		
+		
+		Map<String, Object> map = productService.adminProductList(searchOption, sort, curPage);
+		
+		@SuppressWarnings("unchecked")
+		List<ProductDto> productList = (List<ProductDto>) map.get("productList");
+		
+		Paging paging = (Paging) map.get("paging");
 		
 		model.addAttribute("productList", productList);
-		model.addAttribute("searchMap", searchAndSortMap);
-		model.addAttribute("sortMap", searchAndSortMap);
+		model.addAttribute("searchOption", searchOption);
+		model.addAttribute("sort", sort);
 		model.addAttribute("paging", paging);
 		
 		return "admin/product/adminProductList";
@@ -143,32 +173,6 @@ public class ProductController {
 		return "redirect:/product/adminList.do";
 	}
 	
-	//오븐 58p 관리자-밀키트 관리-밀키트 상세
-	@RequestMapping(value = "/product/adminDetail.do")
-	public String productAdminDetail(int no , @RequestParam(defaultValue = "1") int curPage
-			, String searchOption, String sortOption, String keyword, Model model) {
-		logger.info("ProductController productAdminDetail! - {}", no);
-		
-		Map<String, Object> map = productService.productAdminDetail(no);
-	
-		ProductDto productDto = (ProductDto) map.get("productDto");
-	
-		List<Map<String, Object>> fileList 
-			= (List<Map<String, Object>>) map.get("fileList");
-		
-		Map<String, Object> prevMap = new HashMap<>();
-		prevMap.put("curPage", curPage);
-		prevMap.put("searchOption", searchOption);
-		prevMap.put("sortOption", sortOption);
-		prevMap.put("keyword", keyword);
-		
-		model.addAttribute("productDto", productDto);
-		model.addAttribute("fileList", fileList);
-		model.addAttribute("prevMap", prevMap);
-		
-		return "admin/product/adminProductDetail";
-	}
-
 	//오븐 58p 관리자-밀키트 관리-밀키트 상세-밀키트 수정으로 가기
 	@RequestMapping(value = "/product/adminModification.do", method = RequestMethod.GET)
 	public String productModification(int no, Model model) {
