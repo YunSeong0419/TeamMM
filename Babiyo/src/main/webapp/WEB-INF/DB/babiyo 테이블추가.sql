@@ -14,6 +14,7 @@ DROP TRIGGER TRI_review_image_no;
 DROP TRIGGER TRI_review_no;
 
 
+
 /* Drop Tables */
 
 DROP TABLE cart CASCADE CONSTRAINTS;
@@ -137,8 +138,9 @@ CREATE TABLE interest
 (
 	member_id varchar2(80) NOT NULL,
 	list_no varchar2(20) NOT NULL,
-	code number NOT NULL,
-	UNIQUE (member_id, list_no)
+	code number,
+	UNIQUE (member_id, list_no),
+	UNIQUE (member_id, code)
 );
 
 
@@ -272,7 +274,7 @@ CREATE TABLE product_image
 (
 	no number NOT NULL,
 	product_no number NOT NULL,
-	original_name varchar2(200) NOT NULL,
+	orginal_name varchar2(200) NOT NULL,
 	stored_name varchar2(200) NOT NULL,
 	PRIMARY KEY (no)
 );
@@ -283,7 +285,7 @@ CREATE TABLE review
 	no number NOT NULL,
 	product_no number NOT NULL,
 	member_id varchar2(80) NOT NULL,
-	star_rating number(2,1) NOT NULL,
+	star_rating number(2,1) DEFAULT 5 NOT NULL,
 	content varchar2(4000),
 	create_date date NOT NULL,
 	modify_date date NOT NULL,
