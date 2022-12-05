@@ -40,16 +40,14 @@ public class ProductController {
 	//오븐 15p, 헤더-밀키트 카테고리
 	@RequestMapping(value = "/product/category.do", method = RequestMethod.GET)
 	public String productCategory(@RequestParam(defaultValue = "1") int curPage
-			, @RequestParam(defaultValue = "") String keyword
-			, @RequestParam(defaultValue = "0")int categoryCode
-			, Model model) {
-		logger.info("ProductController category! curPage: {}, categoryCode: {}", curPage, categoryCode);
-		logger.info("keyword: {}", keyword);
+			,SearchOption searchOption, Model model) {
+		logger.info("ProductController category! curPage: {}", curPage);
+		logger.info("searchOption: {}", searchOption);
 		
 		//카테고리 목록을 불러옴
 		List<Map<String, Object>> productCategory = productService.productCategory();
 		
-		int categoryCount = productService.categoryCount(keyword, categoryCode);	
+		int categoryCount = productService.categoryCount(searchOption);	
 		
 		Paging paging = new Paging(categoryCount, curPage, 8, 10);
 		
@@ -57,17 +55,12 @@ public class ProductController {
 		int end = paging.getPageEnd();
 		
 		//선택된 카테고리의 상품을 불러옴
-		List<Map<String, Object>> categoryList = productService.categoryList(categoryCode, keyword, begin, end);
+		List<Map<String, Object>> categoryList = productService.categoryList(searchOption, begin, end);
 		//검색
-		Map<String, Object> searchMap = new HashMap<>();
-		
-		searchMap.put("categoryCode", categoryCode);
-		searchMap.put("keyword", keyword);
 		
 		model.addAttribute("paging", paging);
 		model.addAttribute("productCategory", productCategory);
 		model.addAttribute("categoryList", categoryList);
-		model.addAttribute("searchMap", searchMap);
 		
 		return "product/category";
 	}
@@ -99,53 +92,36 @@ public class ProductController {
 	}
 	
 	//오븐 58p 관리자-밀키트 관리-밀키트 상세
-	@RequestMapping(value = "/product/adminDetail.do")
-	public String productAdminDetail(int no , @RequestParam(defaultValue = "1") int curPage
-			, String searchOption, String sortOption, String keyword, Model model) {
+	@RequestMapping(value = "/product/adminDetail.do", method = RequestMethod.GET)
+	public String productAdminDetail(int no, Model model) {
 		logger.info("ProductController productAdminDetail! - {}", no);
 		
 		Map<String, Object> map = productService.productAdminDetail(no);
 		
 		ProductDto productDto = (ProductDto) map.get("productDto");
+		
 		@SuppressWarnings("unchecked")
-		Map<String, Object> productImg = (Map<String, Object>) map.get("fileSelectOne");
-		
-		List<Map<String, Object>> fileList 
-		= (List<Map<String, Object>>) map.get("fileList");
-		
-		Map<String, Object> prevMap = new HashMap<>();
-		prevMap.put("curPage", curPage);
-		prevMap.put("searchOption", searchOption);
-		prevMap.put("sortOption", sortOption);
-		prevMap.put("keyword", keyword);
-		
+		Map<String, Object> productImg = (Map<String, Object>) map.get("imgMap");
 		
 		model.addAttribute("productDto", productDto);
 		model.addAttribute("productImg", productImg);
-		model.addAttribute("fileList", fileList);
-		model.addAttribute("prevMap", prevMap);
 		
 		return "admin/product/adminProductDetail";
 	}
 	
 	//오븐 56p 관리자-밀키트 관리(목록)
-	@RequestMapping(value = "/product/adminList.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/product/adminList.do", method = {RequestMethod.GET, RequestMethod.POST})
 	public String adminProductList(@RequestParam(defaultValue = "1") int curPage
-			, @RequestParam(defaultValue = "all") SearchOption searchOption
-			, @RequestParam(defaultValue = "STOCK DESC") SearchOption sort, Model model) {
+			,SearchOption searchOption, Model model) {
 		logger.info("ProductController adminProductList! curPage: {}, searchOption: {}", curPage, searchOption);
-		logger.info("sortOption: {}", sort);		
 		
-		Map<String, Object> map = productService.adminProductList(searchOption, sort, curPage);
+		Map<String, Object> map = productService.adminProductList(searchOption, curPage);
 		
 		@SuppressWarnings("unchecked")
 		List<ProductDto> productList = (List<ProductDto>) map.get("productList");
-		
 		Paging paging = (Paging) map.get("paging");
 		
 		model.addAttribute("productList", productList);
-		model.addAttribute("searchOption", searchOption);
-		model.addAttribute("sort", sort);
 		model.addAttribute("paging", paging);
 		
 		return "admin/product/adminProductList";

@@ -16,7 +16,6 @@
 	width: 1050px;
 	min-height: 550px;
 	text-align: center;
-	/* 	background-color: #EAEAEA; */
 	float: left;
 }
 
@@ -27,41 +26,53 @@
 }
 
 #sortBox{
+	width: 150px;
 	height: 50px;
 	float: left;
 }
 
-#searchBox{
-	height: 50px;
-	float: right;
-}
-
-.filterBoxName{
-	margin: auto 20px auto 0px;	
-	line-height: 50px;
+#sortBoxName{
+	margin: auto 10px auto 0px;	
+	line-height: 55px;
 	font-size: 18px;
 	font-weight: bold;
 	float: left;
 }
 
-.filterBoxClassificationForm{
- 	line-height: 50px; 
+#sort{
+	margin-top: 10px;
+	margin-right: 10px;
+	border-radius: 5px;	
+	width: 80px;
+	height: 35px;
+}
+
+#searchBox{
+	width: 420px;
+	height: 50px;
+	float: right;
+}
+
+#searchBoxName{
+	margin: auto 10px auto 0px;	
+	line-height: 55px;
+	font-size: 18px;
+	font-weight: bold;
 	float: left;
 }
 
-.filterBoxClassification{
+#searchOption{
 	margin-top: 10px;
-	margin-right: 10px;	
+	margin-right: 10px;
+	border-radius: 5px;	
 	width: 80px;
-	height: 30px;
-	float: left;
+	height: 35px;
 }
 
 #inputBox{
 	margin-top: 10px;
 	width: 200px;
-	height: 30px;
-	float: left;
+	height: 35px;
 }
 
 #tableLowerButtonDiv{
@@ -73,12 +84,29 @@
 	float: left;
 }
 
+#productListShortbutton{
+	margin-top: 10px;
+	margin-left: 10px;
+	width: 60px;
+	height: 35px;
+	border: 0px;
+	border-radius: 5px;
+	color: #fff;
+	background-color: #FF9436;
+	font-size: 16px;
+	float: right;
+}
+
 .productListbutton{
 	margin-top: 10px;
 	margin-left: 10px;
-	width: 80px;
-	height: 28px;
-	font-size: 12px;
+	width: 100px;
+	height: 35px;
+	border: 0px;
+	border-radius: 5px;
+	color: #fff;
+	background-color: #FF9436;
+	font-size: 16px;
 	float: right;
 }
 
@@ -90,20 +118,22 @@
 	width: 900px;
 	margin-left: 80px;
 	margin-bottom: 5px;
-	border: 1px solid black;
 	border-collapse: collapse;
 }
 
 #productManagementTable > th, tr, td{
-	border: 1px solid black;
-	height: 35px;
+	height: 30px;
 	font-size: 14px;
 }
 
+#productManagementTable > tr, td{
+	border-bottom: 1px solid black;
+}
+
 #tableHeadTr > th{
-	border: 1px solid black;
-	background: #EAEAEA;
-	color: #373737;
+	background: #FF9436;
+	color: #fff;
+	font-size: 16px;
 	font-weight: bold;
 }
 						
@@ -154,19 +184,21 @@
 		pagingFormObj.submit();
 	}
 	
-	$(function(){	
+	
+	$(function(){ //document.ready랑 같음
+		
+		if($('#sortValue').val()){
+			$('#sort').val($('#sortValue').val());
+		}
+	
+		$('#searchOption').val($('#searchOptionValue').val());
+		
 		$('#allCheck').change(function() { // 전체선택 기능
 			var checked = $(this).is(':checked');
 			$('.check').prop('checked', checked);
 		});	
 	});
 	
-	$(document).ready(function(){
-		
-		$('#searchId').val($('#searchMapId').val());
-		
-	});
-
 //		선택 재고 일괄 수정 기능
 // 		function stockBatchModificationFnc() {
 
@@ -188,49 +220,31 @@
 			<!--여기서 작성 -->
 			<div id='productManagementDiv'>
 				<div id='filterAndSearch'>
-					<div id='sortBox'>
-						<p class='filterBoxName'>정렬</p> 
-						<form action='./adminList.do' method='post' class='filterBoxClassificationForm'>
-							<select name='sortOption' class='filterBoxClassification'>
+					<form method='post'>
+						<div id='sortBox'>
+							<p id='sortBoxName'>정렬</p> 
+							<select name='sort' id="sort">
 								<option value='STOCK ASC'>재고 ↑</option>
 								<option value='STOCK DESC'>재고 ↓</option>
-								<option value='NAME ASC'>이름 ↑</option>
-								<option value='NAME DESC'>이름 ↓</option>
+								<option value='P.NAME ASC'>이름 ↑</option>
+								<option value='P.NAME DESC'>이름 ↓</option>
 								<option value='PRICE ASC'>가격 ↑</option>
 								<option value='PRICE DESC'>가격 ↓</option>
 								<option value='REGISTRATION ASC'>등록 ↑</option>
 								<option value='REGISTRATION DESC'>등록 ↓</option>
 							</select>
-						</form>
-					</div>
-			
-					<div id='searchBox'>
-						<p class='filterBoxName'>검색</p> 
-						<form action='./adminList.do' method='get' class='filterBoxClassificationForm'>
-							<input type="hidden" id="searchMapId" value="${searchMap.search}"> 
-							<select name='searchOption' id='searchId' class='filterBoxClassification'>
-								<c:choose>
-									<c:when test="${searchMap.search == 'all'}">
-										<option value='all' selected='selected'>전체</option>
-										<option value='name'>이름</option>
-										<option value='classification'>분류</option>
-									</c:when>
-									<c:when test="${searchMap.search == 'name'}">
-										<option value='all'>전체</option>
-										<option value='name' selected='selected'>이름</option>
-										<option value='classification'>분류</option>
-									</c:when>
-									<c:when test="${searchMap.search == 'classification'}">
-										<option value='all'>전체</option>
-										<option value='name'>이름</option>
-										<option value='classification' selected='selected'>분류</option>
-									</c:when>
-								</c:choose>
+						</div>
+						<div id='searchBox'>
+							<p id='searchBoxName'>검색</p> 
+							<select name='searchOption' id='searchOption'>
+								<option value=''>전체</option>
+								<option value='P.NAME'>이름</option>
+								<option value='C.CODE'>분류</option>
 							</select>
-							<input type='text' id='inputBox' name='search' value="${searchMap.search}">
-							<input type='submit' value="검색" class='productListbutton'>
-						</form>
-					</div>
+							<input type='text' id='inputBox' name='search' value="${searchOption.search}">
+							<input type='submit' value="검색" id='productListShortbutton'>
+						</div>
+					</form>
 				</div>
 				<div id='tableDiv'>
 					<table id='productManagementTable'>
@@ -246,8 +260,8 @@
 							<c:when test="${empty productList}">
 								<tr>
 									<td colspan="6" 
-										style="width: 500px; height: 350px; 
-										font-size:32px; font-weight: bold; text-align: center;">
+										style="width: 500px; height: 350px; border: 0px;
+										font-size: 25px; font-weight: bold; text-align: center;">
 										밀키트를 등록해주세요.
 									</td>
 								</tr>
@@ -285,9 +299,9 @@
 
 			<form id="pagingForm" method="get">
 				<input type="hidden" id="curPage" name="curPage" value="${paging.curPage}">
-				<input type="hidden" name="keyword" value="${searchMap.keyword}">
-				<input type="hidden" name="searchOption" value="${searchMap.searchOption}">
-				<input type="hidden" name="sortOption" value="${sortMap.sortOption}">
+				<input type="hidden" name="search" value="${searchOption.search}">
+				<input type="hidden" id="searchOptionValue" name="searchOption" value="${searchOption.searchOption}">
+				<input type="hidden" id="sortValue" name="sort" value="${searchOption.sort}">
 			</form>		
 			<div id="underPadding"></div>
 			

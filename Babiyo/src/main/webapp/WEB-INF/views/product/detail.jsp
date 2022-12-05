@@ -105,8 +105,17 @@
 }
 
 #inputPurchaseDetail{
+	margin-top: 40px;
+	width: 250px;
 	height: 190px;
-	margin-top: 40px
+	float: left;
+}
+
+#adjustDiv{
+	margin-top: 40px;
+	width: 200px;
+	height: 190px;
+	float: left;
 }
 
 #price{
@@ -114,26 +123,33 @@
 	height: 25px;
 }
 
+#priceName{
+	float: left;
+}
+
 #stock, #quantity{
-	margin: 10px 10px;
+	margin: 10px 0px 0px 10px;
 	height: 25px;
 }
 
 #priceValue{
 	margin-left: 50px;
 	height: 25px;
-	color: #FF0000;
+	color: #000000;
+	float: right;
 }
 
 #stockValue{
 	margin-left: 25px;
 	height: 25px;
+	float: right;
 }
 
 #quantitySelect{
 	margin-left: 65px;
 	width: 50px;
 	height: 25px;
+	float: right;
 }
 
 #totalPrice{
@@ -147,6 +163,10 @@
 #totalPriceName{
 	margin-right: 20px;
 	height: 25px;
+}
+
+#totalPriceValue{
+	float: right;
 }
 
 #productInfoButton{
@@ -416,18 +436,18 @@ function cartAddBtn(){
 						
 						<div id='inputPurchaseDetail'>
 							<div id='price'>
-								<span id='priceName'>가격: </span>
+								<span id='priceName'>가격 </span>
 								<span id='priceValue'>
 									<fmt:formatNumber value="${productDto.price}" pattern="#,###"/>&nbsp;&nbsp;원
 								</span>
 								<input type="hidden" id="priceOrigin" name="orderDetailList[0].price" value="${productDto.price}">
 							</div>
 							<div id='stock'>
-								<span id='stockName'>남은 개수: </span>
-								<span id='stockValue'>${productDto.stock}</span>
+								<span id='stockName'>남은 개수 </span>
+								<span id='stockValue'>${productDto.stock}&nbsp;&nbsp;개</span>
 							</div>
 							<div id='quantity'>
-								<span id='quantityName'>수량: </span>
+								<span id='quantityName'>수량 </span>
 								<select id='quantitySelect' name="orderDetailList[0].quantity" onchange="totalPriceFnc(this);">
 									<c:forEach begin="1" end="${productDto.stock}" var="i">
 										<option value="${i}">${i}</option>
@@ -435,13 +455,14 @@ function cartAddBtn(){
 								</select>
 							</div>
 							<div id='totalPrice'>
-								<span id='totalPriceName'>총 결제금액: </span>
+								<span id='totalPriceName'>총 결제금액 </span>
 								<span id='totalPriceValue'>
 									<fmt:formatNumber value="${productDto.price}" pattern="#,###"/>&nbsp;&nbsp;원	
 								</span>
 							</div>
 						</div>
-				
+						
+						<div id='adjustDiv'></div>
 						
 						<hr class='shortDivisionLine'/>
 						

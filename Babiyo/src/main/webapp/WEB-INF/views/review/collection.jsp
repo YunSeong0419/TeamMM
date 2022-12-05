@@ -158,13 +158,14 @@
 	border-radius: 5px;
 	font-size: 16px;
 }
+
 .reviewCollectionList {
     display: none;
 }
+
 .reviewCollectionList.active {
     display: block;
 }
-
 </style>
 
 <script type="text/javascript" src="/babiyo/resources/js/jquery-3.6.1.js"></script>
@@ -205,7 +206,7 @@
 			<p>따끈따끈한 최신 리뷰를 확인해 보아요.</p>
 		</div>
 		
-		<hr class='lowerDivisionLine'/>		
+		<hr class='lowerDivisionLine' />		
 		
 		<div class='reviewCollectionList'>
 			<div class='productInfo'>

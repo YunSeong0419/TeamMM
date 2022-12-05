@@ -16,7 +16,6 @@
 	width: 1050px;
 	min-height: 550px;
 	text-align: center;
-	/* 	background-color: #EAEAEA; */
 	float: left;
 }
 
@@ -74,18 +73,21 @@
 	width: 900px;
 	margin-left: 80px;
 	margin-bottom: 5px;
-	border: 1px solid black;
 	border-collapse: collapse;
 }
 
 #reviewManagementTable > th, tr, td{
-	border: 1px solid black;
+	height: 25px;
+	font-size: 14px;
+}
+
+#reviewManagementTable > tr, td{
+	border-bottom: 1px solid black;
 	height: 25px;
 	font-size: 14px;
 }
 
 #tableHeadTr > th{
-	border: 1px solid black;
 	background: #EAEAEA;
 	color: #373737;
 	font-weight: bold;
@@ -113,7 +115,7 @@
 
 
 <script type="text/javascript">
-	function pageMovereviewAdminDetailFnc(no) {
+	function pageMoveAdminReviewDetailFnc(no) {
 		
 		var pagingFormObj = $('#pagingForm');
 		
@@ -126,28 +128,6 @@
 		pagingFormObj.attr('action', './adminDetail.do');
 		pagingFormObj.submit();
 	}
-	
-// 	function stockBatchModificationFnc() {
-		
-// 	}					틀 다 잡아놓고 나중에 하자
-	
-// 	function reviewBatchDeleteFnc() {
-// 		var wholePageCheckObj = document.getElementById('wholePageCheck');
-		
-// 		wholePageCheckObj.addEventListener('change', () )
-		
-// 		var url = "./deleteCtr.do?no=" + no;
-// 			if(wholePageCheckObj.checked == 'checked') {
-// 				//
-// 				location.href = url;
-// 			}
-			
-// 		var checkSelectDeleteObj = document.getElementsByClassName('checkboxes');
-// 			if(checkSelectDeleteObj.checked == 'checked')
-				
-// 				location.href = url;
-// 			}		
-// 	}
 
 </script>
 
@@ -252,9 +232,9 @@
 
 			<form id="pagingForm" method="get">
 				<input type="hidden" id="curPage" name="curPage" value="${paging.curPage}">
-				<input type="hidden" name="keyword" value="${searchMap.keyword}">
+				<input type="hidden" name="search" value="${searchMap.search}">
 				<input type="hidden" name="searchOption" value="${searchMap.searchOption}">
-				<input type="hidden" name="sortOption" value="${sortMap.sortOption}">
+				<input type="hidden" name="sort" value="${searchMap.sort}">
 			</form>
 			<div id="underPadding"></div>
 			

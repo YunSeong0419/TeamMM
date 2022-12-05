@@ -21,17 +21,17 @@ public class ProductDaoImpl implements ProductDao{
 	
 	//DB에서 밀키트 목록 퍼오기
 	@Override
-	public List<ProductDto> productList(SearchOption searchOption, SearchOption sort, int begin, int end) {
+	public List<ProductDto> productList(SearchOption searchOption, int begin, int end) {
 	
-//		Map<String, Object> paramMap = new HashMap<>();
-//		
-//		paramMap.put("searchOption", searchOption);
-//		paramMap.put("searchOption", sort);
-//		paramMap.put("begin", begin);+++++++++++++++++++++++++++++++++++++++++++++++++++
-//		paramMap.put("end", end);
+		Map<String, Object> paramMap = new HashMap<>();
 		
-//		return sqlSession.selectList(namespace + "productList", paramMap);
-		return null;
+		paramMap.put("sort", searchOption.getSort());
+		paramMap.put("searchOption", searchOption.getSearchOption());
+		paramMap.put("search", searchOption.getSearch());
+		paramMap.put("begin", begin);
+		paramMap.put("end", end);
+		
+		return sqlSession.selectList(namespace + "productList", paramMap);
 	}
 	
 	//DB에 밀키트 등록
@@ -63,26 +63,15 @@ public class ProductDaoImpl implements ProductDao{
 
 	//???
 	@Override
-	public int productTotalCount(String searchOption, String sortOption, String keyword) {
-
-		Map<String, Object> map = new HashMap<String, Object>();
+	public int productCount(SearchOption searchOption) {
 		
-		map.put("searchOption", searchOption);
-		map.put("sortOption", sortOption);
-		map.put("keyword", keyword);
-		
-		return sqlSession.selectOne(namespace + "productTotalCount", map);
+		return sqlSession.selectOne(namespace + "productCount", searchOption);
 	}
 
 	@Override
-	public int categoryCount(String keyword, int categoryCode) {
+	public int categoryCount(SearchOption searchOption) {
 		
-		Map<String, Object> map = new HashMap<String, Object>();
-		
-		map.put("keyword", keyword);
-		map.put("categoryCode", categoryCode);
-		
-		return sqlSession.selectOne(namespace + "categoryCount", map);
+		return sqlSession.selectOne(namespace + "categoryCount", searchOption);
 	}
 
 	//파일 삽입
@@ -122,12 +111,12 @@ public class ProductDaoImpl implements ProductDao{
 	
 	//DB에 있는 카테고리별 리스트 퍼오기
 	@Override
-	public List<ProductDto> categoryList(int categoryCode, String keyword, int begin, int end) {
+	public List<ProductDto> categoryList(SearchOption searchOption, int begin, int end) {
 		
 		Map<String, Object> map = new HashMap<>();
 		
-		map.put("categoryCode", categoryCode);
-		map.put("keyword", keyword);
+		map.put("search", searchOption.getSearch());
+		map.put("categoryCode", searchOption.getCategoryCode());
 		map.put("begin", begin);
 		map.put("end", end);
 		

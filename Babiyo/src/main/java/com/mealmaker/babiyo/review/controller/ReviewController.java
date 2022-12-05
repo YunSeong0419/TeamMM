@@ -35,7 +35,15 @@ public class ReviewController {
 		
 		return "review/collection";
 	}
-
+	
+	//오븐 60p 관리자-리뷰 관리-상세
+	@RequestMapping(value = "/review/adminDetail.do", method = RequestMethod.GET)
+	public String adminReviewDetail(Model model) {
+		logger.info("ReviewController collection! ");
+		
+		return "admin/review/adminReviewDetail";
+	}	
+	
 	//오븐 59p 관리자-리뷰 관리(목록)
 	@RequestMapping(value = "/review/adminList.do", method = {RequestMethod.GET, RequestMethod.POST})
 	public String reviewList(@RequestParam(defaultValue = "1") int curPage

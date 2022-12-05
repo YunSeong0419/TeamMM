@@ -197,7 +197,6 @@
 </head>
 <body>
 
-
 <div id="rootDiv">
 
 	<jsp:include page="/WEB-INF/views/Header.jsp" />
@@ -255,10 +254,7 @@
   						onclick='pageMoveBeforeFnc(${productDto.no});'>	  
 					<input type="submit" value='리뷰 등록' class='lowerButton'> 
 				</div>
-				
 			</div>
-		
-		
 		
 			<div id="underPadding"></div>
 			
@@ -269,7 +265,6 @@
 	<jsp:include page="/WEB-INF/views/Footer.jsp" />
 
 </div> <!-- rootDiv 끝 -->
-
 
 </body>
 </html>

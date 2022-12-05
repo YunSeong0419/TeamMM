@@ -19,8 +19,6 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.mealmaker.babiyo.favorite.dao.FavoriteDao;
 import com.mealmaker.babiyo.favorite.model.FavoriteDto;
-import com.mealmaker.babiyo.inquiry.model.InquiryDto;
-import com.mealmaker.babiyo.notice.model.NoticeDto;
 import com.mealmaker.babiyo.product.dao.ProductDao;
 import com.mealmaker.babiyo.product.model.ProductDto;
 import com.mealmaker.babiyo.util.FileUtils;
@@ -31,8 +29,7 @@ import com.mealmaker.babiyo.util.SearchOption;
 public class ProductServiceImpl implements ProductService{
 
 	//log4j 사용
-	private static final Logger logger
-		= LoggerFactory.getLogger(ProductServiceImpl.class);
+	private static final Logger logger = LoggerFactory.getLogger(ProductServiceImpl.class);
 	
 	//이미지 첨삭용 보조프로그램
 	@Resource(name="fileUtils")
@@ -46,21 +43,21 @@ public class ProductServiceImpl implements ProductService{
 	
 	//DAO에서 밀키트 목록 꺼내오게 시키기
 	@Override
-	public Map<String, Object> adminProductList(SearchOption searchOption, SearchOption sort, int curPage) {
+	public Map<String, Object> adminProductList(SearchOption searchOption, int curPage) {
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		
-//		int totalCount = productDao.productTotalCount(searchOption, sort);
+		int totalCount = productDao.productCount(searchOption);
 
-//		Paging paging = new Paging(totalCount, curPage);
+		Paging paging = new Paging(totalCount, curPage);
 		
-//		int begin = paging.getPageBegin();
-//		int end = paging.getPageEnd();
-//		
-//		List<ProductDto> productList = productDao.productList(searchOption, sort, begin, end);
-//		
-//		map.put("productList", productList);
-//		map.put("paging", paging);
+		int begin = paging.getPageBegin();
+		int end = paging.getPageEnd();
+		
+		List<ProductDto> productList = productDao.productList(searchOption, begin, end);
+		
+		map.put("productList", productList);
+		map.put("paging", paging);
 		
 		return map;
 	}
@@ -106,10 +103,10 @@ public class ProductServiceImpl implements ProductService{
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		
 		ProductDto productDto = productDao.productDetail(no);
-		Map<String, Object> fileSelectOne = productDao.fileSelectOne(no);
+		Map<String, Object> imgMap = productDao.fileSelectOne(no);
 		
 		resultMap.put("productDto", productDto);
-		resultMap.put("fileSelectOne", fileSelectOne);
+		resultMap.put("imgMap", imgMap);
 		
 		return resultMap;
 	}
@@ -166,16 +163,16 @@ public class ProductServiceImpl implements ProductService{
 	
 	//검색옵션, 분류 있는 애들의 개수 계산
 	@Override
-	public int productTotalCount(String searchOption, String sortOption, String keyword) {
+	public int productCount(SearchOption searchOption) {
 
-		return productDao.productTotalCount(searchOption, sortOption, keyword);
+		return productDao.productCount(searchOption);
 	}
 	
 	//카테고리 페이지에서의 개수 계산
 	@Override
-	public int categoryCount(String keyword, int categoryCode) {
+	public int categoryCount(SearchOption searchOption) {
 
-		return productDao.categoryCount(keyword, categoryCode);
+		return productDao.categoryCount(searchOption);
 	}
 
 	//DAO에서 카테고리 정보 가져오게 시키기
@@ -187,10 +184,10 @@ public class ProductServiceImpl implements ProductService{
 	
 	//DAO에서 카테고리별 밀키트 가져오게 시키기
 	@Override
-	public List<Map<String, Object>> categoryList(int categoryCode, String keyword, int begin, int end) {
+	public List<Map<String, Object>> categoryList(SearchOption searchOption, int begin, int end) {
 		
 
-		List<ProductDto> categoryList = productDao.categoryList(categoryCode, keyword, begin, end);
+		List<ProductDto> categoryList = productDao.categoryList(searchOption, begin, end);
 		
 		List<Map<String, Object>> productCategory = new ArrayList<Map<String,Object>>();
 		

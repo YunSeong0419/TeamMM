@@ -3,22 +3,6 @@
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mealmaker.babiyo.product">
 	
-	<sql id="search">
-		<choose>
-			<when test="searchOption == 'all'">
-				WHERE	NAME LIKE '%'||#{keyword}||'%'
-				OR		CATEGORY_CODE LIKE '%'||#{keyword}||'%'
-			</when>
-			<otherwise>
-				WHERE	${searchOption} LIKE '%'||#{keyword}||'%'
-			</otherwise>
-		</choose>
-	</sql>
-	
-	<sql id="sort">
-		ORDER BY	${sortOption}
-	</sql>
-	
 	<sql id="categoryCode">
 		<if test="categoryCode != 0">
 			WHERE CATEGORY_CODE = ${categoryCode}
@@ -41,34 +25,69 @@
 	FROM PRODUCT_CATEGORY
 	</select>
 	
+	<select id="categoryCount" resultType="int" parameterType="com.mealmaker.babiyo.util.SearchOption">
+		SELECT COUNT(*)
+		FROM PRODUCT
+		<where>
+		<if test="search != ''">AND NAME LIKE '%'||#{search}||'%'</if>
+		<if test="categoryCode != 0">AND CATEGORY_CODE = ${categoryCode}</if>
+		</where>
+	</select>
+	
 	<select id="categoryList" parameterType="map" resultMap="productResultMap">
 		SELECT NO, NAME, PRICE
-		FROM (
-				SELECT ROWNUM RNUM, NO, NAME, PRICE
-					FROM (
-							SELECT NO, NAME, PRICE
-							FROM PRODUCT
-							WHERE NAME LIKE '%'||#{keyword}||'%'
-							<if test="categoryCode != 0">
-							AND CATEGORY_CODE = ${categoryCode}
-							</if>
-							ORDER BY NO DESC)
+		FROM ( SELECT ROWNUM RNUM, NO, NAME, PRICE
+				FROM (SELECT NO, NAME, PRICE
+						FROM PRODUCT
+						<where>
+						<if test="search != ''">AND NAME LIKE '%'||#{search}||'%'</if>
+						<if test="categoryCode != 0">AND CATEGORY_CODE = ${categoryCode}</if>
+						</where>
+						ORDER BY NO DESC)
 		)
 		WHERE RNUM BETWEEN #{begin} AND #{end}
 	</select>
-		
+	
+	<select id="productCount" resultType="int" parameterType="map">
+		SELECT COUNT(*)
+		FROM PRODUCT P JOIN PRODUCT_CATEGORY C
+		ON P.CATEGORY_CODE = C.CODE
+		<where>
+		<if test="searchOption == ''">
+		P.NAME LIKE '%'||#{search}||'%' OR	C.NAME LIKE '%'||#{search}||'%'
+		</if>
+		<if test="searchOption != ''">
+		${searchOption} LIKE '%'||#{search}||'%'
+		</if>
+		</where>
+		<choose>
+		<when test="sort == ''">ORDER BY STOCK ASC</when>
+		<otherwise>ORDER BY ${sort}</otherwise>
+		</choose>
+	</select>
+	
 	<select id="productList" parameterType="map" resultMap="productResultMap">
 		SELECT NO, CATEGORY_CODE, CATEGORY_NAME, NAME, PRICE, STOCK
-		FROM (
-	        	SELECT ROWNUM RNUM, P.NO, P.CATEGORY_CODE, P.NAME, C.NAME CATEGORY_NAME, P.PRICE, P.STOCK
-	        	FROM (
-	                SELECT NO, CATEGORY_CODE, NAME, PRICE, STOCK
-					FROM PRODUCT 
-	                <include refid="search"></include>
-					<include refid="sort"></include>) P INNER JOIN PRODUCT_CATEGORY C
-				ON P.CATEGORY_CODE = C.CODE
-		)
-		WHERE RNUM BETWEEN #{start} AND #{end}
+		FROM (SELECT ROWNUM RNUM, NO, CATEGORY_CODE, CATEGORY_NAME
+	        		, NAME, PRICE, STOCK
+	        	FROM (SELECT P.NO, P.CATEGORY_CODE, C.NAME CATEGORY_NAME
+	        							, P.NAME, P.PRICE, P.STOCK
+					FROM PRODUCT P JOIN PRODUCT_CATEGORY C
+					ON P.CATEGORY_CODE = C.CODE
+					<where>
+					<if test="searchOption == ''">
+						P.NAME LIKE '%'||#{search}||'%' OR	C.NAME LIKE '%'||#{search}||'%'
+					</if>
+					<if test="searchOption != ''">
+						${searchOption} LIKE '%'||#{search}||'%'
+					</if>
+					</where>
+					<choose>
+					<when test="sort == ''">ORDER BY STOCK ASC</when>
+					<otherwise>ORDER BY ${sort}</otherwise>
+					</choose>
+		))
+		WHERE RNUM BETWEEN #{begin} AND #{end}
 	</select>
 	
 	<insert id="productRegistration" parameterType="productDto" 
@@ -127,23 +146,6 @@
 		DELETE FROM PRODUCT
 		WHERE NO = #{value}
 	</delete>
-
-	<select id="productTotalCount" resultType="java.lang.Integer" parameterType="map">
-		SELECT COUNT(*)
-		FROM PRODUCT
-		<include refid="search"></include>
-	</select>
-
-	<select id="categoryCount" resultType="int" parameterType="map">
-		SELECT COUNT(*)
-		FROM PRODUCT
-		<where>
-		NAME LIKE '%' || #{keyword} || '%'
-		<if test="categoryCode != 0">
-		AND CATEGORY_CODE = ${categoryCode}
-		</if>
-		</where>
-	</select>
 
 	<insert id="insertFile" parameterType="map">
 		INSERT INTO PRODUCT_IMAGE

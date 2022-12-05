@@ -11,19 +11,19 @@
 <link rel="stylesheet" type="text/css" href="/babiyo/resources/css/common.css"/>
 
 <style type="text/css">
-#middleDiv > hr{
+.lowerDivisionLine{
 	width: 900px;
 	margin: 0px auto;
 	border: 0px;
-	background-color: #FF5E00;
+	background-color: #FF9436;
 	height: 2px;
 }
 
 #emptyProductCategory{
 	margin: 0px;
 	width: 900px;
-	height: 300px;
-	font-size: 32px;
+	height: 350px;
+	font-size: 25px;
 	font-weight: bold;
 	text-align: center;
 	line-height: 300px;
@@ -55,15 +55,22 @@
 }
 
 #searchBoxInput{
-	width: 150px;
+	width: 200px;
 	height: 35px;
 	padding-top: 2px;
 }
 
 #searchBoxBtn{
+	margin-left: 10px;
 	padding-bottom: 3px;
-	width: 50px;
+	width: 60px;
 	height: 35px;
+	border: 0px;
+	border-radius: 5px;
+	color: #fff;
+	background-color: #FF9436;
+	font-size: 16px;
+	float: right;
 }
 
 #productDiv{
@@ -127,7 +134,6 @@ function categorySelect(code){
 
 </script>
 
-
 </head>
 
 <body>
@@ -149,12 +155,12 @@ function categorySelect(code){
 			<input type="hidden" id="categoryCode" name="categoryCode">
 		</form>
 		
-		<hr />
+		<hr class='lowerDivisionLine' />
 		
 		<div id='searchBox'>
 			<form id="searchForm" action="./category.do" method="get">
-				<input type="hidden" name="categoryCode" value="${searchMap.categoryCode}">
-				<input type="text" id='searchBoxInput' name="keyword" value="${searchMap.keyword}">
+				<input type="hidden" name="categoryCode" value="${searchOption.categoryCode}">
+				<input type="text" id='searchBoxInput' name="search" value="${searchOption.search}">
 				<input type="submit" value='검색' name="searchBoxBtn" id='searchBoxBtn'>
 			</form>
 		</div>
@@ -190,8 +196,8 @@ function categorySelect(code){
 		
 		<form id="pagingForm">
 			<input type="hidden" id="curPage" name="curPage" value="${paging.curPage}">
-			<input type="hidden" id="categoryCode" name="categoryCode" value="${searchMap.categoryCode}">
-			<input type="hidden" name="keyword" value="${searchMap.keyword}">
+			<input type="hidden" id="categoryCode" name="categoryCode" value="${searchOption.categoryCode}">
+			<input type="hidden" name="search" value="${searchOption.search}">
 		</form>
 		
 		<div id="underPadding"></div>

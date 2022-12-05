@@ -252,7 +252,7 @@
 						<c:forEach var="recommend" items="${recommendProductList}"> 
 							<div class='productContent'>
 								<div class='productContentImage'>
-									<a href="/babiyo/product/memberDetail.do?productNo=${recommend.productDto.no}">
+									<a href="/babiyo/product/detail.do?productNo=${recommend.productDto.no}">
 									<img alt="${recommend.productDto.name}" 
 										src="/babiyo/img/${recommend.imgMap.STORED_NAME}"></a>
 								</div>
@@ -284,7 +284,7 @@
 					<c:forEach var="product" items="${newProductList}"> 
 						<div class='productContent'>
 							<div class='productContentImage'>
-								<a href="/babiyo/product/memberDetail.do?productNo=${product.productDto.no}">
+								<a href="/babiyo/product/detail.do?productNo=${product.productDto.no}">
 								<img alt="${product.productDto.name}" src="/babiyo/img/${product.imgMap.STORED_NAME}"></a>
 							</div>
 							<div class='productContentName'>
