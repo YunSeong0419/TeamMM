@@ -9,6 +9,7 @@
 <title>회원 문의 상세</title>		
 
 <style type="text/css">
+
 input{
 	border-radius: 5px;
 }
@@ -22,23 +23,34 @@ span{
 	margin-right: 20px;
 }
 
-#titleDiv, #contentDiv, #answerDiv{
+#createDateSpan{
+	margin-left: 50px;
+}
+
+#divisionId, #titleDiv, #contentDiv, #answerDiv{
 	margin-top: 13px;
 }
 
-#divisionId{
-	width: 120px;
-	height: 32px;
+#divisionId, #titleId{
+	margin-left: 15px;
 }
 
-#createDateSpan{
-	margin-left: 20px;
+#memberId{
+	width: 145px;
+	height: 32px;
 }
 
 #createDateId{
 	width: 145px;
 	height: 32px;
 }
+
+#divisionId{
+	margin-left: 15px;
+	width: 120px;
+	height: 32px;
+}
+
 
 #titleId{
 	width: 600px;
@@ -62,7 +74,7 @@ span{
 	margin-top: 25px;
 }
 
-.backBtn, .modifytBtn, .deleteBtn{
+.backBtn, #modifytBtn, .deleteBtn, #answerBtn{
 	border-radius: 3px;
 	border-color: #E0E0E0;
 	height: 25px;
@@ -74,13 +86,17 @@ span{
 	margin-left: 390px;
 }
 
-.modifytBtn{
+#modifytBtn{
 	float: right;
-	margin-right: 20px;
+}
+
+#answerBtn{
+	float: right;
 }
 
 .deleteBtn{
 	float: right;
+	margin-right: 20px;
 }
 </style>
 
@@ -88,6 +104,7 @@ span{
 <script type="text/javascript" src="/babiyo/resources/js/jquery-3.6.1.js"></script>
 
 <script type="text/javascript">
+
 function backBtn() {
 	location.href = "../admin.do"
 }
@@ -101,8 +118,15 @@ function deleteBtn(no){
 
 function formSubmit() {
 	
-	var correction = document.getElementById('correctionId');
-	var answer = document.getElementById('answerId');
+	var modifyt = document.getElementById('modifytBtn');
+	var answer = document.getElementById('answerBtn');
+	
+	if (frm.answer.value == "") {
+		alert("답변을 입력하세요.");
+		frm.answer.focus();
+		
+		return false;
+	}
 	
 	if (answer) {
 		alert('등록되었습니다');
@@ -128,16 +152,16 @@ function formSubmit() {
 		<div id="middleMainDiv">
 			<div id="sideTitle"></div>
 			<!--여기서 작성 -->
-			<form onsubmit="formSubmit();" action="./answerCtr.do" method="post">
+			<div id="boxDiv">
+			<form name="frm" onsubmit="return formSubmit();" action="./answerCtr.do" method="post">
 				<input type="hidden" name="no" value="${inquiryDto.no}">
 				<input type="hidden" name="categoryCode" value="${inquiryDto.categoryCode}">
 				<div>
 					<span>작성자</span>
 					<input type="text" name="memberId" id="memberId"
 					 value="${inquiryDto.memberId}" readonly>
-				</div>
-				<div>
-					<span>작성일</span>
+					 
+					<span id="createDateSpan">작성일</span>
 					<input type="text" name="createDate" id="createDateId"
 					 value="<fmt:formatDate pattern='yyyy년MM월dd일 ' value='${inquiryDto.createDate}'/>"readonly>
 				</div>
@@ -146,35 +170,35 @@ function formSubmit() {
 					<input type="text" name="name" id="divisionId"
 					 value="${inquiryDto.name}" readonly>
 				</div>
-				<div>
+				<div id="titleDiv">
 					<span>제목</span>
-					<input type="text" name="title" id="title"
+					<input type="text" name="title" id="titleId"
 					 value="${inquiryDto.title}" readonly>
 				</div>
-				<div>
+				<div id="contentDiv">
 					<span>내용</span><br>
-					<input type="text" name="content" id="content"
+					<input type="text" name="content" id="contentId"
 					 value="${inquiryDto.content}" readonly>
 				</div>
-				
-				<div>
+				<div id="answerDiv">
 					<span>답변</span><br>
-					<input type="text" name="answer" id="answer"
+					<input type="text" name="answer" id="answerId"
 					 value="${inquiryDto.answer}" >
 				</div>
 				<div id="btnDiv">
-				<input id="backDiv" type="button" value="뒤로가기" onclick="backBtn()"> 
+				<input class="backBtn" type="button" value="뒤로가기" onclick="backBtn()"> 
 				<c:choose>
 					<c:when test="${!empty inquiryDto.answer}">
-						<input id="correctionId" type="submit" value="수정하기">
-						<input id="deleteDiv" type="button" value="삭제하기" onclick="deleteBtn(${inquiryDto.no})">	
+						<input id="modifytBtn" type="submit" value="수정하기" onclick="modifytBtn()">
+						<input class="deleteBtn" type="button" value="삭제하기" onclick="deleteBtn(${inquiryDto.no})">	
 					</c:when>
 					<c:otherwise>
-						<input id="answerId" type="submit" value="답변하기">
+						<input id="answerBtn" type="submit" value="답변하기">
 					</c:otherwise>
 				</c:choose>	
 				</div>
 			</form>
+			</div><!-- 박스div 끝 -->
 			<div id="underPadding"></div>
 			
 		</div> <!--middelMain 끝 -->

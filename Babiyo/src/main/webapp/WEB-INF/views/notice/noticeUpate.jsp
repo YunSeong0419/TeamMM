@@ -40,7 +40,7 @@ function deleteFileFnc() {
 }
 
 function pageMoveBeforeFnc(no){
-	location.href = './detail.do?no=' + no;
+	history.back();
 }
 
 

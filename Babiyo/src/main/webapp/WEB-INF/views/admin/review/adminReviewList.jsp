@@ -237,7 +237,6 @@
 											<a href='#' onclick="pageMoveAdminReviewDetailFnc(${reviewDto.no});">
 												${review.reviewDto.productName}</a>
 										</td>
-										
 										<td>
 											<fmt:formatNumber value="${review.reviewDto.starRating}" pattern="#.#" />
 										</td>

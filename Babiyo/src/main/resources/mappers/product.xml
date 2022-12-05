@@ -58,16 +58,17 @@
 	</select>
 		
 	<select id="productList" parameterType="map" resultMap="productResultMap">
-		SELECT PL.NO, PL.CATEGORY_CODE, PL.NAME, PL.PRICE, PL.STOCK
+		SELECT NO, CATEGORY_CODE, CATEGORY_NAME, NAME, PRICE, STOCK
 		FROM (
-	        	SELECT ROWNUM RNUM, P.NO, P.CATEGORY_CODE, P.NAME, P.PRICE, P.STOCK
+	        	SELECT ROWNUM RNUM, P.NO, P.CATEGORY_CODE, P.NAME, C.NAME CATEGORY_NAME, P.PRICE, P.STOCK
 	        	FROM (
 	                SELECT NO, CATEGORY_CODE, NAME, PRICE, STOCK
-					FROM PRODUCT
+					FROM PRODUCT 
 	                <include refid="search"></include>
-					<include refid="sort"></include>) P
-		) PL
-		WHERE PL.RNUM BETWEEN #{start} AND #{end}
+					<include refid="sort"></include>) P INNER JOIN PRODUCT_CATEGORY C
+				ON P.CATEGORY_CODE = C.CODE
+		)
+		WHERE RNUM BETWEEN #{start} AND #{end}
 	</select>
 	
 	<insert id="productRegistration" parameterType="productDto" 

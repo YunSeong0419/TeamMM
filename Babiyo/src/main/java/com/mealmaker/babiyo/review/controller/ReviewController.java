@@ -69,7 +69,7 @@ public class ReviewController {
 		model.addAttribute("sortMap", searchAndSortMap);
 		model.addAttribute("paging", paging);
 		
-		return "review/adminList";
+		return "admin/review/adminReviewList";
 	}
 	
 	//오븐 39p 회원-밀키트 상세-리뷰 쓰기로 가기
@@ -122,6 +122,14 @@ public class ReviewController {
 		return "review/detail";
 	}
 	
+	//오븐 38p 회원-내 정보-내가 쓴 리뷰로 가기
+	@RequestMapping(value = "/review/myReview.do", method = RequestMethod.GET)
+	public String myReview(Model model) {
+		logger.info("ReviewController myReview!");
+		
+		return "review/myReview";
+	}
+
 	//오븐 39p 회원-리뷰 상세-리뷰 수정으로 가기
 //	@RequestMapping(value = "/review/modification.do", method = RequestMethod.GET)
 //	public String reviewModification(int no, Model model) {
@@ -139,7 +147,7 @@ public class ReviewController {
 //		
 //		return "review/modification";
 //	}
-
+	
 	//오븐 39p 회원-리뷰 상세-리뷰 수정
 	@RequestMapping(value = "/review/modificationCtr.do", method = RequestMethod.POST)
 	public String reviewModificationCtr(HttpSession session, ReviewDto reviewDto

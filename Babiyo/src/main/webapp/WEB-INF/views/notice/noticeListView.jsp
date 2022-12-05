@@ -10,77 +10,110 @@
 
 <style type="text/css">
 table {
-	border: 1px solid black;
 	border-collapse: collapse;
-	width: 900px;
-	height: 350px;
 }
 
-th, td {
-	height: 31px;
+td{
+	height: 30px;
+	border-bottom: 1px solid gray;
+	padding: 0px 10px;
 }
 
-th {
-	border: 1px solid black;
-	background: #EAEAEA;
-	font-size: 14px;
-	color: #373737;
+a{
+	text-decoration: none;
+	color: black;
 }
 
-td {
-	border: 1px solid black;
-	text-align: center;
-	font-size: 14px;
+span{
+	font-weight: bold;
+	margin-right: 20px;
 }
 
-#stateSelect {
-	width: 100px;
-	height: 40px;
-	border-radius: 6px;
-	margin: 0px 0px 10px 74px;
-}
-
-#tableId {
+#filterDiv{
 	margin: auto;
+	width: 920px;
 }
 
-#numTh {
-	width: 30px;
-}
-
-;
-#categoryNameTh {
-	width: 134px;
-}
-
-;
-#titleTh {
-	width: 583px;
-}
-
-;
-#createTh {
-	width: 101px;
-}
-
-;
-#hitTh {
-	width: 52px;
-}
-
-;
-#formDiv {
-	float: left;
+#divisionId{
 	margin-left: 10px;
 }
 
-#backBtn {
-	margin: 35px 500px;
+#YesNo{
+	line-height: 35px;
 }
 
-#writeBtn {
+ #YesNo,#answerSelect{
+ float: right;
+} 
+ 
+#answerSelect{
+	margin-right: 80px;
+} 
+
+#categorySelect, #answerSelect{
+	width: 100px;
+	height: 35px;
+	border-radius: 5px;
+	margin: 0px 5px 10px 10px;
+}
+
+#inquiryList{
+	margin-top: 5px;
+	min-height: 400px;
+}
+
+#inquiryListTable{
+	margin: auto;
+}
+
+#firstRow{
+	background-color: #E0E0E0;
+}
+
+#inquiryNoTh {
+	width: 50px;
+}
+
+#inquiryCategoryTh {
+	width: 134px;
+}
+
+#titleTh {
+	width: 503px;
+}
+
+#createTh {
+	width: 161px;
+}
+
+#answerTh {
+	width: 52px;
+}
+
+.inquiryCategoryTd, .answerTd{
+	text-align: center;
+}
+
+#inputBtn{
+	width: 920px;
+	height:20px; 
+	margin: 0px 0px 50px 50px;
+}
+
+.backBtn {
+	margin-left: 410px;
+}
+
+.writeBtn {
 	float: right;
-	margin-right: 70px;
+}
+
+.backBtn, .writeBtn{
+	border-radius: 3px;
+	border-color: #E0E0E0;
+	height: 25px;
+	background-color: #E0E0E0;
+	cursor: pointer;
 }
 </style>
 
@@ -129,7 +162,6 @@ $(document).ready(function(){
 		<div id="middleDiv">
 
 			<jsp:include page="/WEB-INF/views/CommonMiddleDiv.jsp" />
-
 
 			<div id="middleMainDiv">
 				<div id="sideTitle"></div>
@@ -221,11 +253,9 @@ $(document).ready(function(){
 				</div>
 				<!--table div끝 -->
 				<c:if test="${_memberDto_.grade eq 1}">
-					<div id="backBtn">
-						<input type="button" value="뒤로가기" onclick="backBtn()">
-					</div>
-					<div id="writeBtn">
-						<input type="button" value="공지작성" onclick="writeBtn()">
+					<div id="inputBtn">
+						<input class="backBtn" type="button" value="뒤로가기" onclick="backBtn()">
+						<input class="writeBtn" type="button" value="공지작성" onclick="writeBtn()">
 					</div>
 				</c:if>
 
