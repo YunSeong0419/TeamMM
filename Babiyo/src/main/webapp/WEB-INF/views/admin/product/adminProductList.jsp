@@ -96,7 +96,7 @@
 
 #productManagementTable > th, tr, td{
 	border: 1px solid black;
-	height: 25px;
+	height: 35px;
 	font-size: 14px;
 }
 
@@ -120,11 +120,21 @@
 }
 
 .stock, .stockBox{
-	width: 50px;
+	width: 60px;
 	text-align: center;
-	float: right;
 }
 
+.productNameBox{
+	text-align: left;
+}
+
+.productNameBox > a{
+	margin-left: 10px;
+}
+
+.productPriceBox{
+	text-align: right;
+}
 </style>
 
 <script type="text/javascript" src="/babiyo/resources/js/jquery-3.6.1.js"></script>
@@ -251,13 +261,15 @@
 								<c:forEach var="productDto" items="${productList}"> 
 									<tr>			
 										<td>${productDto.no}</td>
-										<td>${productDto.categoryCode}</td>
-										<td>
+										<td>${productDto.categoryName}</td>
+										<td class='productNameBox'>
 											<a href='#' onclick="pageMoveProductAdminDetailFnc(${productDto.no});">
 												${productDto.name}
 											</a>
 										</td>
-										<td>${productDto.price}</td>
+										<td class='productPriceBox'>
+											<fmt:formatNumber value="${productDto.price}" pattern="#,###"/> 원&nbsp;
+										</td>
 										<td><input type="text" value='${productDto.stock}'
 												 class='stockBox'></td>
 										<td><input type="checkbox" class='checkboxes'></td>

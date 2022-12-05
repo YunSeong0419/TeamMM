@@ -108,6 +108,7 @@ public class ProductController {
 			productService.productList(searchOption, sortOption, keyword, start, end);
 
 		Map<String, Object> searchAndSortMap = new HashMap<>();
+
 		searchAndSortMap.put("searchOption", searchOption);
 		searchAndSortMap.put("sortOption", sortOption);
 		searchAndSortMap.put("keyword", keyword);

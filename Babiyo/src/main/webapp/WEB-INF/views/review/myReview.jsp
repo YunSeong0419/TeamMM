@@ -169,7 +169,7 @@
 						<div class='nickname'>조윤성</div>
 						<div class='wrapStar'>
 							<div class='starRating'>
-								<span style="width: 90%"></span>
+								<span style="width: 80%"></span>
 							</div>
 						</div>
 						<div class='reportingDate'></div>
