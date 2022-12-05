@@ -108,21 +108,6 @@ span{
 	text-align: center;
 }
 
-#inputBtn{
-	width: 920px;
-	height:20px; 
-	margin: 0px 0px 50px 50px;
-}
-
-.backBtn {
-	margin-left: 410px;
-	border-radius: 3px;
-	border-color: #E0E0E0;
-	height: 25px;
-	background-color: #E0E0E0;
-	cursor: pointer;
-}
-
 </style>
 
 <link rel="stylesheet" type="text/css"
@@ -230,7 +215,7 @@ span{
 										</c:choose> 
 										<td><a href="./admin/answer.do?no=${inquiryDto.no}">${inquiryDto.title}</a></td>
 										<td>${inquiryDto.memberId}</td>
-										<td><fmt:formatDate pattern="yyyy년MM월dd일 "
+										<td><fmt:formatDate pattern="yyyy-MM-dd "
 												value="${inquiryDto.createDate}" /></td>
 										<c:choose>
 											<c:when test="${empty inquiryDto.answer}">
@@ -247,10 +232,6 @@ span{
 					</table>
 				</div>
 				<!--table div끝 -->
-
-				<div id=inputBtn>
-					<input class="backBtn" type="button" value="뒤로가기" onclick="backBtn()">
-				</div>
 
 				<jsp:include page="/WEB-INF/views/Paging.jsp" />
 				

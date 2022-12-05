@@ -30,7 +30,30 @@ public class NoticeController {
 
 	@Autowired
 	private NoticeService noticeService;
+	
 	//관리자
+	//공지 게시판
+	@RequestMapping(value = "/notice/admin/list.do", method = RequestMethod.GET)
+	public String adminNoticeList(@RequestParam(defaultValue = "1") int curPage
+			, SearchOption searchOption
+			, HttpSession session, Model model) {
+		logger.info("Welcome NoticeController list! ");
+		
+		Map<String, Object> map = noticeService.noticeList(searchOption, curPage);
+		
+		// 리스트
+		@SuppressWarnings("unchecked")
+		List<NoticeDto> noticeList = (List<NoticeDto>) map.get("noticeList");
+		Paging paging = (Paging) map.get("paging");
+		
+		model.addAttribute("noticeList", noticeList);
+		model.addAttribute("paging", paging);
+		model.addAttribute("searchOption", searchOption);
+
+		return "notice/adminNoticeList";
+	}
+	
+	
 	//공지 게시판
 	@RequestMapping(value = "/notice/list.do", method = RequestMethod.GET)
 	public String noticeList(@RequestParam(defaultValue = "1") int curPage

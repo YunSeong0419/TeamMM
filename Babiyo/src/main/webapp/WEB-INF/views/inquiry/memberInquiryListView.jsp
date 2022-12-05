@@ -100,15 +100,12 @@ span{
 	margin: 0px 0px 50px 50px;
 }
 
-.backBtn {
-	margin-left: 410px;
-}
 
 .writeBtn {
 	float: right;
 }
 
-.backBtn, .writeBtn{
+.writeBtn{
 	border-radius: 3px;
 	border-color: #E0E0E0;
 	height: 25px;
@@ -140,10 +137,7 @@ function answerSelectFnc() {
 	$('#filterForm').submit();
 
 	}
-function backBtn() {
-
-	location.href = "#"
-	}
+	
 function writeBtn() {
 
 	location.href = "./member/write.do"
@@ -243,7 +237,6 @@ function writeBtn() {
 				<!--table div끝 -->
 
 				<div id="inputBtn">
-					<input class="backBtn" type="button" value="뒤로가기" onclick="backBtn()">
 					<input class="writeBtn" type="button" value="문의작성" onclick="writeBtn()">
 				</div>
 

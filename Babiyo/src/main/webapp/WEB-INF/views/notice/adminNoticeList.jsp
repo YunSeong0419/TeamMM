@@ -99,6 +99,24 @@ span{
 	text-align: center;
 }
 
+#inputBtn{
+	width: 920px;
+	height:20px; 
+	margin: 0px 0px 50px 50px;
+}
+
+.writeBtn {
+	float: right;
+	margin-right: 20px;
+}
+
+.writeBtn{
+	border-radius: 3px;
+	border-color: #E0E0E0;
+	height: 25px;
+	background-color: #E0E0E0;
+	cursor: pointer;
+}
 </style>
 
 <link rel="stylesheet" type="text/css"
@@ -140,42 +158,39 @@ $(document).ready(function(){
 
 		<div id="middleDiv">
 
-			<%-- <jsp:include page="/WEB-INF/views/CommonMiddleDiv.jsp" /> --%>
+			 <jsp:include page="/WEB-INF/views/CommonMiddleDiv.jsp" />
 
-			<!-- <div id="middleMainDiv"> -->
-				<div id="centerTitle"></div>
-				<div id="boxDiv">
-				
-				
+			 <div id="middleMainDiv"> 
+				<div id="sideTitle"></div>
 				<!--여기서 작성 -->
-				<div id="filterDiv">
-					<!--  filterDiv 시작-->
-					<form id="stateForm" action=./list.do method="get">
-						<span>분류</span> 
-							<select id="stateSelect" name="stateCode"
-								onchange="stateSelectFnc();">
-								<option value="0">전체</option>
-								<option value="1">공지</option>
-								<option value="2">진행중인 이벤트</option>
-								<option value="3">끝난 이벤트</option>
-							</select>
-					</form>
-				
-				<form action="./list.do" method="get" id="searchFrom">
-				<input type="hidden" id="searchMapId" value="${searchMap.search}"> 
-				<select name="searchOption" id="searchSelect">
-						<option value="all" selected="selected">전체</option>
-						<option value="title">제목</option>
-						<option value="content">내용</option>
-				</select>
-	
+		<div id="filterDiv">
+						<!--  filterDiv 시작-->
+						<form id="stateForm" action=./list.do method="get">
+							<span>분류</span> 
+								<select id="stateSelect" name="stateCode"
+									onchange="stateSelectFnc();">
+									<option value="0">전체</option>
+									<option value="1">공지</option>
+									<option value="2">진행중인 이벤트</option>
+									<option value="3">끝난 이벤트</option>
+								</select>
+						</form>
+					
+					<form action="./list.do" method="get" id="searchFrom">
+					<input type="hidden" id="searchMapId" value="${searchMap.search}"> 
+					<select name="searchOption" id="searchSelect">
+							<option value="all" selected="selected">전체</option>
+							<option value="title">제목</option>
+							<option value="content">내용</option>
+					</select>
 		
-		<input class="searchCl" type="text" name="search" value="${searchMap.search}">
 			
-		<input type="submit" value="검색">
-	
-	</form>
-	</div>
+			<input class="searchCl" type="text" name="search" value="${searchMap.search}">
+				
+			<input type="submit" value="검색">
+		
+		</form>
+		</div>
 				<!-- filterDiv 끝-->
 
 				<div id="noticeList">
@@ -204,7 +219,7 @@ $(document).ready(function(){
 										
 										<c:choose>
 											<c:when test="${noticeDto.categoryCode eq 1}">
- 												<td class="noticeCategoryTd">공지</td> 
+ 												<td class="noticeCategoryTd"> 공지</td> 
 											</c:when>
 											<c:otherwise>
 												<td class="noticeCategoryTd">이벤트</td> 
@@ -221,6 +236,12 @@ $(document).ready(function(){
 					</table>
 				</div>
 				<!--table div끝 -->
+				<c:if test="${_memberDto_.grade eq 1}">
+					<div id="inputBtn">
+						<input class="writeBtn" type="button" value="공지작성" onclick="writeBtn()">
+					</div>
+				</c:if>
+
 				<jsp:include page="/WEB-INF/views/Paging.jsp" />
 				
 			<form id="pagingForm">
@@ -228,9 +249,12 @@ $(document).ready(function(){
 				<input type="hidden" id="stateCode" name="stateCode" value="${searchOption.stateCode}">
 				<input type="hidden" name="search" value="${searchOption.search}">
 			</form>
-		</div>
+
 				<div id="underPadding"></div>
 				<!--underPadding-->
+
+			</div> 
+				<!--middelMain 끝 -->
 
 		</div>
 		<!--middleDiv 끝 -->

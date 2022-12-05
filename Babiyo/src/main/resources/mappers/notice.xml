@@ -98,7 +98,16 @@ useGeneratedKeys="true" keyProperty="no">
 </selectKey>
 INSERT INTO NOTICE
 VALUE(CATEGORY_CODE, TITLE, CONTENT, CREATE_DATE, EVENT_START_DATE, EVENT_END_DATE)
-VALUES( #{categoryCode}, #{title}, #{content}, SYSDATE, #{eventStartDate}, #{eventEndDate})
+VALUES( #{categoryCode}, #{title}, #{content}, SYSDATE,
+<choose>
+	<when test="categoryCode == 1">
+	null, null
+	</when>
+	<otherwise>
+	 #{eventStartDate}, #{eventEndDate}
+	</otherwise>
+</choose>
+)
 </insert>
 
 <!-- 사진 -->
@@ -133,8 +142,10 @@ VALUES( #{categoryCode}, #{title}, #{content}, SYSDATE, #{eventStartDate}, #{eve
 	TITLE = #{title}
 	,CONTENT = #{content}
 	,CATEGORY_CODE = #{categoryCode} 
+	<if test="categoryCode == 2">
 	,EVENT_START_DATE = #{eventStartDate}
 	,EVENT_END_DATE = #{eventEndDate}
+	</if>
 	WHERE NO = #{no}
 </update>
 

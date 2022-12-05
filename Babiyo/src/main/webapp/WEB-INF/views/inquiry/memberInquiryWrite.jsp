@@ -64,7 +64,7 @@ span{
 
 <script type="text/javascript">
 	function backBtn() {
-		location.href = "../member.do"
+		location.href = "./list.do"
 	}
 	
 	function formSubmit() {
@@ -123,7 +123,7 @@ span{
 			<input type="hidden" name="memberId" value="${_memberDto_.id}">
 			<div id="inputBtn"> 
 			<input class="backBtn" type="button" value="뒤로가기" onclick="backBtn()"> 
-			<input class="sumbitBtn"  type="submit" value="작성">
+			<input class="sumbitBtn" type="submit" value="작성">
 			</div>
 		</form>
 		</div>
