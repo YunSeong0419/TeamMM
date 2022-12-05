@@ -162,7 +162,7 @@ GROUP BY TO_CHAR(ORDER_DATE,'YYYY-MM-DD')
 ORDER BY day)
 </select>
 
-<select id="orderDetailView" parameterType="com.mealmaker.babiyo.util.SearchOption"
+<select id="orderDetailList" parameterType="com.mealmaker.babiyo.util.SearchOption"
 	 resultMap="orderDetailResultMap">
 SELECT *
 FROM ORDER_DETAIL D JOIN MEMBER_ORDER O
