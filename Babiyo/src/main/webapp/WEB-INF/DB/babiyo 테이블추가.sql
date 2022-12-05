@@ -274,7 +274,7 @@ CREATE TABLE product_image
 (
 	no number NOT NULL,
 	product_no number NOT NULL,
-	orginal_name varchar2(200) NOT NULL,
+	original_name varchar2(200) NOT NULL,
 	stored_name varchar2(200) NOT NULL,
 	PRIMARY KEY (no)
 );
