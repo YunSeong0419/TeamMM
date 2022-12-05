@@ -18,6 +18,16 @@
 	margin: 0px auto;
 }
 
+#cartListTable{
+	border-collapse: collapse;
+	margin: 0px auto;
+}
+
+#cartListTable td{
+	border-bottom: 2px solid #FF9436;
+	padding: 5px 10px;
+}
+
 #checkTh{
 	height: 30px;
 	width: 30px;
@@ -72,19 +82,10 @@
 	text-align: right;
 }
 
-table{
-	border-collapse: collapse;
-}
-
 #firstRow{
 	background-color: #FF9436;
 	color: #fff;
 }
-
-#cartListTable{
-	margin: 0px auto;
-}
-
 
 #orderBtnDiv{
 	text-align: center;
@@ -116,12 +117,6 @@ table{
 #totalAmountVal{
 	display: inline-block;
 	width: 100px;
-}
-
-
-#cartListTable td{
-	border-bottom: 1px solid #FF9436;
-	padding: 0;
 }
 
 

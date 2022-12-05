@@ -12,17 +12,22 @@
 <script type="text/javascript" src="/babiyo/resources/js/jquery-3.6.1.js"></script>
 
 <style type="text/css">
-table{
-	border-collapse: collapse;
-}
 
 #orderList{
 	min-height: 400px;
 }
 
 #orderListTable{
+	border-collapse: collapse;
 	margin: auto;
 }
+
+#orderListTable td{
+	height: 35px;
+	border-bottom: 2px solid #FF9436;
+	padding: 0px 10px;
+}
+
 #firstRow{
 	background-color: #FF9436;
 	color: #fff;
@@ -60,12 +65,6 @@ table{
 	padding-left: 10px;
 }
 
-td{
-	height: 35px;
-	border-bottom: 1px solid gray;
-	padding: 0px 10px;
-}
-
 #detailLink{
 	color: black;
 	text-decoration: none;
@@ -75,16 +74,12 @@ td{
 	margin: 5px 50px;
 }
 
-
 .inputBox{
 	line-height: 35px;
 	height: 35px;
 	border: 1px solid black;
 	border-radius: 5px;
 }
-
-
-
 </style>
 
 <script type="text/javascript">

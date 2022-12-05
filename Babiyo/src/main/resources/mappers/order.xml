@@ -171,11 +171,18 @@ JOIN MEMBER_ORDER O
 ON D.ORDER_NO = O.NO
 WHERE O.ORDER_DATE BETWEEN #{beginDate} AND #{endDate}+1
 AND STATE_CODE = 2
-<if test="search != ''">AND ${searchOption} LIKE '%'||#{search}||'%'</if>
-ORDER BY 
+<if test="search != ''">
 <choose>
-<when test="sort != null">${sort}</when>
-<otherwise>O.ORDER_DATE DESC</otherwise>
+<when test="searchOption == ''">
+	AND (O.MEMBER_ID LIKE '%'||#{search}||'%'
+	OR P.NAME LIKE '%'||#{search}||'%')
+</when>
+<otherwise>AND ${searchOption} LIKE '%'||#{search}||'%'</otherwise>
+</choose>
+</if>
+<choose>
+<when test="sort != ''">ORDER BY ${sort}</when>
+<otherwise>ORDER BY O.ORDER_DATE DESC</otherwise>
 </choose>
 </select>
 

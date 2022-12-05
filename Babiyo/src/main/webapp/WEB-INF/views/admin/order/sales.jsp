@@ -15,7 +15,7 @@
 
 #searchOptionContainer{
 	width: 950px;	
-	margin: 10px auto;
+	margin: 0 auto;
 }
 
 #searchOption{
@@ -48,10 +48,18 @@
 	border-radius: 5px;
 }
 
+#salesListContainer{
+	margin-top: 10px;
+}
+
 
 #salesTable{
 	border-collapse: collapse;
 	margin: auto;
+}
+
+#salesTable td{
+	border-bottom: 2px solid #FF9436;
 }
 
 #firstRow{
@@ -103,7 +111,6 @@
 	line-height: 350px;
 	font-size: 25px;
 	font-weight: bold;
-	border-bottom: 3px solid #FF9436;
 }
 
 
@@ -113,8 +120,17 @@
 <script type="text/javascript">
 $(function(){
 	
-	$('#sort').val($('#sortVal').val());
-	$('#searchOption').val($('#searchOptionVal').val());
+	if($('#sortVal').val()){
+		$('#sort').val($('#sortVal').val());
+	}
+	
+	if($('#searchOptionVal').val()){
+		$('#searchOption').val($('#searchOptionVal').val());
+	}
+	
+	$('#sort').change(function() {
+		searchOptionForm.submit();
+	});
 	
 	$('#endDate').change(function() {
 	
@@ -183,19 +199,19 @@ $(function(){
 				<form id="searchOptionForm" method="get">
 				<div id="searchOptionContainer">
 					<span>
-						<strong>정렬</strong>
 						<select id="sort" class="inputBox" name="sort">
-							<option value='TOTAL_AMOUNT ASC'>총액 ↑</option>
-							<option value='TOTAL_AMOUNT DESC'>총액 ↓</option>
-							<option value='ORDER_DATE DESC'>날짜 ↑</option>
-							<option value='ORDER_DATE ASC'>날짜 ↓</option>
-							<option value='PRODUCT_NAME ASC'>품명 ↑</option>
-							<option value='PRODUCT_NAME DESC'>품명 ↓</option>
+							<option value="ORDER_DATE DESC">날짜 ↑</option>
+							<option value="ORDER_DATE ASC">날짜 ↓</option>
+							<option value="TOTAL_AMOUNT ASC">총액 ↑</option>
+							<option value="TOTAL_AMOUNT DESC">총액 ↓</option>
+							<option value="PRODUCT_NAME ASC">품명 ↑</option>
+							<option value="PRODUCT_NAME DESC">품명 ↓</option>
 						</select>
 					</span>
 					<span id="periodSelect">
-						<strong>기간 선택</strong>
-						<input type="date" name="beginDate" id="beginDate" class="inputBox" onchange="stateSelectFnc();"
+						<strong>기간</strong>
+						<input type="date" name="beginDate" id="beginDate" class="inputBox"
+							 onchange="stateSelectFnc();"
 							max="<fmt:formatDate value="${searchOption.endDate}" pattern="yyyy-MM-dd"/>"
 							value="<fmt:formatDate value="${searchOption.beginDate}" pattern="yyyy-MM-dd"/>">
 						 ~ 
@@ -204,10 +220,12 @@ $(function(){
 					</span>
 					<span id="searchKeword">
 						<select id="searchOption" class="inputBox" name="searchOption">
+							<option value="">전체</option>
 							<option value="MEMBER_ID">회원</option>
 							<option value="PRODUCT_NAME">밀키트</option>
 						</select>
-						<input type="text" name="search" id="search" class="inputBox" value="${searchOption.search}">
+						<input type="text" name="search" id="search" class="inputBox"
+							 value="${searchOption.search}" placeholder="검색어 입력">
 						<input type="submit" value="검색">
 						
 						<input id="searchOptionVal" type="hidden" value="${searchOption.searchOption}">
@@ -216,49 +234,58 @@ $(function(){
 				</div>
 			</form>
 			
-			<div>
+			<c:forEach begin="1" end="12" var="i">
+			<span id="month${i}">
+				${i}월
+			</span>
+			</c:forEach>
 			
-			<table id="salesTable">
-				<tr id="firstRow">
-					<th id="orderDateTh">주문일자</th>
-					<th id="memberIdTh">회원아이디</th>
-					<th id="productTh">상품명</th>
-					<th id="quantityTh">수 량</th>
-					<th id="priceTh">가 격</th>
-					<th id="totalAmount">금 액</th>
-				</tr>
-				<c:choose>
-				<c:when test="${!empty salesList}">
-					<c:forEach items="${salesList}" var="sales">
+			<div>
+				총 합계
+			</div>
+			
+			<div id="salesListContainer">
+				<table id="salesTable">
+					<tr id="firstRow">
+						<th id="orderDateTh">주문일자</th>
+						<th id="memberIdTh">회원아이디</th>
+						<th id="productTh">상품명</th>
+						<th id="quantityTh">수 량</th>
+						<th id="priceTh">가 격</th>
+						<th id="totalAmount">금 액</th>
+					</tr>
+					<c:choose>
+					<c:when test="${!empty salesList}">
+						<c:forEach items="${salesList}" var="sales">
+						<tr>
+							<td class="orderDateTd"><fmt:formatDate value="${sales.orderDate}"
+								pattern="yyyy-MM-dd hh:mm:ss"/></td>
+							<td class="memberIdTd">${sales.memberId}</td>
+							<td class="productTd">${sales.productName}</td>
+							<td class="quantityTd">
+								${sales.quantity}
+							</td>
+							<td class="priceTd">
+								<fmt:formatNumber value="${sales.price}" pattern="#,### 원"/>
+								<input type="hidden" value="${sales.price}">
+							</td>
+							<td class="totalAmountTd">
+								<fmt:formatNumber value="${sales.quantity * sales.price}"
+									 pattern="#,### 원"/>
+								<input type="hidden" value="${sales.quantity * sales.price}">
+							</td>
+						</tr>
+						</c:forEach>
+					</c:when>
+					<c:otherwise>
 					<tr>
-						<td class="memberIdTd">${sales.memberId}</td>
-						<td class="orderDateTd"><fmt:formatDate value="${sales.orderDate}" pattern="yyyy-MM-dd hh:mm:ss"/></td>
-						<td class="productTd">${sales.productName}</td>
-						<td class="quantityTd">
-							${sales.quantity}
-						</td>
-						<td class="priceTd">
-							<fmt:formatNumber value="${sales.price}" pattern="#,### 원"/>
-							<input type="hidden" value="${sales.price}">
-						</td>
-						<td class="totalAmountTd">
-							<fmt:formatNumber value="${sales.quantity * sales.price}" pattern="#,### 원"/>
-							<input type="hidden" value="${sales.quantity * sales.price}">
+						<td id="emptySales" colspan="6">
+							<span>매출 기록이 없습니다</span>
 						</td>
 					</tr>
-					</c:forEach>
-				</c:when>
-				<c:otherwise>
-				<tr>
-					<td id="emptySales" colspan="6">
-						<span>매출 기록이 없습니다</span>
-					</td>
-				</tr>
-				</c:otherwise>
-				</c:choose>
-			</table>
-			
-			
+					</c:otherwise>
+					</c:choose>
+				</table>
 			</div>
 			
 			

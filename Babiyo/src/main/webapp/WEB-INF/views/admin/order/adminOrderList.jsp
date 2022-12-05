@@ -22,6 +22,13 @@
 	border-collapse: collapse;
 	margin: auto;
 }
+
+#orderListTable td{
+	height: 35px;
+	border-bottom: 2px solid #FF9436;
+	padding: 0px 10px;
+}
+
 #firstRow{
 	background-color: #FF9436;
 	color: #fff;
@@ -55,21 +62,14 @@
 	text-align: right;
 }
 
-
-
-td{
-	height: 35px;
-	border-bottom: 1px solid gray;
-	padding: 0px 10px;
-}
-
 #detailLink{
 	color: black;
 	text-decoration: none;
 }
 
-#searchOption{
-	margin: 5px 50px;
+#searchOptionContainer{
+	width: 950px;
+	margin: auto;
 }
 
 #periodSelect{
@@ -191,7 +191,7 @@ function stateSelectFnc(){
 						</select>
 					</span>
 					<span id="periodSelect">
-						<strong>기간 선택</strong>
+						<strong>기간</strong>
 						<input type="date" name="beginDate" id="beginDate" class="inputBox" onchange="stateSelectFnc();"
 							max="<fmt:formatDate value="${searchOption.endDate}" pattern="yyyy-MM-dd"/>"
 							value="<fmt:formatDate value="${searchOption.beginDate}" pattern="yyyy-MM-dd"/>">
@@ -200,8 +200,8 @@ function stateSelectFnc(){
 							value="<fmt:formatDate value="${searchOption.endDate}" pattern="yyyy-MM-dd"/>">
 					</span>
 					<span id="searchKeword">
-						<strong>회원 검색</strong>
-						<input type="text" name="search" id="search" class="inputBox" value="${searchOption.search}">
+						<input type="text" name="search" id="search" class="inputBox" value="${searchOption.search}"
+							placeholder="회원아이디 입력">
 						<input type="submit" value="검색">
 					</span>
 				</div>

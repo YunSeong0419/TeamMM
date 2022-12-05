@@ -190,7 +190,6 @@ public class OrderController {
 		model.addAttribute("today", today);
 		model.addAttribute("salesList", salesList);
 		
-		
 		return "admin/order/sales";
 	}
 	

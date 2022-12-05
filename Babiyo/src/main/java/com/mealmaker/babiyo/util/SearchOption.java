@@ -25,7 +25,9 @@ public class SearchOption {
 	private Date endDate;
 	
 	public SearchOption() {
+		this.searchOption = "";
 		this.search = "";
+		this.sort = "";
 		
 		setDate();
 	}
