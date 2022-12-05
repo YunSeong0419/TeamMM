@@ -19,10 +19,10 @@
 </resultMap>
 	
 <select id="memberExist" parameterType="map" resultMap="memberResultMap">
-	SELECT ID, NAME, EMAIL, BIRTHDAY, GENDER, PHONE, NICKNAME
+	SELECT ID, PASSWORD, NAME, EMAIL, BIRTHDAY, GENDER, PHONE, NICKNAME
 		, CASH, GRADE_CODE, CREATE_DATE, MODIFY_DATE
 	FROM MEMBER
-	WHERE ID = #{id} AND PASSWORD = #{password}
+	WHERE ID = #{id} AND PASSWORD = #{password} AND GRADE_CODE ^= 3
 </select>
 
 <select id="idCheck" parameterType="String" resultType="int">
@@ -76,14 +76,16 @@
 
 <update id="memberUpdateOne" parameterType="memberDto">
 UPDATE MEMBER
-		SET<if test="password != ''">PASSWORD = #{password},</if> 
-			NAME = #{name},
-			EMAIL = #{email},
-			PHONE = #{phone},
-			GENDER = #{gender},
-			NICKNAME = #{nickname},
-			MODIFY_DATE = SYSDATE
-		WHERE ID = #{id}
+<set>
+	<if test="password != ''">PASSWORD = #{password},</if> 
+	<if test="name != ''">NAME = #{name},</if>
+	<if test="phone != ''">PHONE = #{phone},</if>
+	<if test="nickname != ''">NICKNAME = #{nickname},</if>
+	<if test="email != ''">EMAIL = #{email},</if>
+	GENDER = #{gender},
+	MODIFY_DATE = SYSDATE
+</set>
+WHERE ID = #{id}
 </update>
 
 <update id="UpdateInterest" parameterType="com.mealmaker.babiyo.member.model.InterestDto">
@@ -91,6 +93,20 @@ UPDATE MEMBER
 	SET 	 
     CODE = #{categoryCode}
     WHERE MEMBER_ID = #{memberId} AND LIST_NO = #{listNo}
+</update>
+
+<select id="memberInterest" parameterType="map" resultType="map">
+SELECT CODE, LIST_NO
+FROM INTEREST
+WHERE MEMBER_ID = #{memberId}
+ORDER BY LIST_NO ASC
+</select>
+
+<update id="memberDeleteOne">
+UPDATE MEMBER
+SET
+GRADE_CODE = 3
+WHERE ID = #{id}
 </update>
 	
 

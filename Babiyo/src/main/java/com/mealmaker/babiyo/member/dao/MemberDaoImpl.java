@@ -121,6 +121,25 @@ public class MemberDaoImpl implements MemberDao{
 				, interestDto);
 	}
 
+	@Override
+	public List<Map<String, Object>> memberInterest(InterestDto interestDto) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList(namespace + "memberInterest");
+	}
+
+	@Override
+	public List<Map<String, Object>> selectInterest(String memberId) {
+		// TODO Auto-generated method stub
+		
+		return sqlSession.selectList(namespace + "memberInterest", memberId);
+	}
+
+	@Override
+	public void memberDeleteOne(MemberDto memberDto) {
+		// TODO Auto-generated method stub
+		sqlSession.update(namespace + "memberDeleteOne", memberDto);
+	}
+
 	
 
 

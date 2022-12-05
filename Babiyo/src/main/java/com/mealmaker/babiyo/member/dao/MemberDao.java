@@ -31,6 +31,9 @@ public interface MemberDao {
 //	public List<Map<String, Object>> fileSelectList(int no);
 //	public Map<String, Object> fileSelectStoredFileName(String parentSeq);
 //	public int fileDelete(String parentSeq);
+	public List<Map<String, Object>> memberInterest(InterestDto interestDto);
+	List<Map<String, Object>> selectInterest(String memberId);
+	public void memberDeleteOne(MemberDto memberDto);
 	
 	
 	

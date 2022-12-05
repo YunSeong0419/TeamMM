@@ -4,14 +4,10 @@ package com.mealmaker.babiyo.member.service;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.mealmaker.babiyo.member.dao.MemberDao;
 import com.mealmaker.babiyo.member.model.InterestDto;
@@ -108,6 +104,24 @@ public class MemberServiceImpl implements MemberService{
 	public void UpdateInterest(InterestDto interestDto) {
 		// TODO Auto-generated method stub
 		memberDao.UpdateInterest(interestDto);
+	}
+
+	@Override
+	public List<Map<String, Object>> memberInterest(InterestDto interestDto) {
+		// TODO Auto-generated method stub
+		return memberDao.memberInterest(interestDto);
+	}
+
+	@Override
+	public List<Map<String, Object>> selectInterest(String memberId) {
+		// TODO Auto-generated method stub
+		return memberDao.selectInterest(memberId);
+	}
+
+	@Override
+	public void memberDeleteOne(MemberDto memberDto) {
+		// TODO Auto-generated method stub
+		memberDao.memberDeleteOne(memberDto);
 	}
 
 	

@@ -76,11 +76,24 @@ select {
 
 
 <script type="text/javascript">
+
+$(function(){
+	
+	$('input[id^="listNo"]').each(function(i, element) {
+		var no = $(this).val();
+		var code = $('#interestCode' + no).val();
+		
+		$('#category' + no).val(code);
+	});
+	
+});
+
 	function updateFnc() {
 		var form = document.forms;
 
 		form[0].submit();
 	};
+	
 	function moveBackFnc() {
 		location.href = './memberInfo.do';
 	};
@@ -106,8 +119,10 @@ select {
 						<div id='border'>
 							<table>
 								<tr class="bir_wrap">
-									<td class="option">생년월일</td>
-									<input type="hidden" id="birthDate" name="birthDate">
+									<td class="option">
+										생년월일
+										<input type="hidden" id="birthDate" name="birthDate">
+									</td>
 									<td><select id='myYear' class='birth'>
 											<option disabled selected>
 												<fmt:formatDate value="${_memberDto_.birthDate}"
@@ -193,28 +208,60 @@ select {
 									<td><input type="text" id="nickname" class="input_box"
 										name="nickname" value="${_memberDto_.nickname}"></td>
 								</tr>
-								<tr>
-									<td class="option">관심사1</td>
-									<input type="hidden" name="interestList[0].listNo" value="1">
-									<td><select id='myYear' class='birth'
-										name='interestList[0].categoryCode'>
-											<option disabled selected>선택</option>
-											<c:forEach items="${categoryCodeList}" var="interest">
-												<option value="${interest.CODE}">${interest.NAME}</option>
-											</c:forEach>
-									</select></td>
-								</tr>
-								<tr>
-									<td class="option">관심사2</td>
-									<input type="hidden" name="interestList[1].listNo" value="2">
-									<td><select id='myYear' class='birth'
-										name='interestList[1].categoryCode'>
-											<option disabled selected>선택</option>
-											<c:forEach items="${categoryCodeList}" var="interest">
-												<option value="${interest.CODE}">${interest.NAME}</option>
-											</c:forEach>
-									</select></td>
-								</tr>
+								
+								<c:forEach varStatus="i" begin="0" end="1">
+									<tr>
+										<td class="option">
+											관심사${i.count}
+										</td>
+										<td>
+											<select id='category${i.count}' class='birth'
+												 name='interestList[${i.index}].categoryCode'>
+												 
+												<option disabled selected>선택</option>
+												
+												<c:forEach items="${categoryCodeList}" var="interest">
+													<option value="${interest.CODE}">${interest.NAME}</option>
+												</c:forEach>
+												
+											</select>
+										</td>
+									</tr>
+								</c:forEach>
+								
+								<c:forEach items="${interestList}" var="interest" varStatus="i">
+									<input id="listNo${interest.LIST_NO}" type="hidden" name="interestList[${i.index}].listNo"
+											 value="${interest.LIST_NO}">
+									<input type="hidden" id="interestCode${interest.LIST_NO}" value="${interest.CODE}">
+								</c:forEach>
+								
+								
+<!-- 								<tr> -->
+<!-- 									<td class="option">관심사1</td> -->
+<!-- 									<input type="hidden" name="interestList[0].listNo" value="1"> -->
+<!-- 									<td><select id='myYear' class='birth' -->
+<!-- 										name='interestList[0].categoryCode'> -->
+<!-- 											<option disabled selected>선택</option> -->
+<%-- 											<c:forEach items="${categoryCodeList}" var="interest"> --%>
+<%-- 												<option value="${interest.CODE}">${interest.NAME}</option> --%>
+<%-- 											</c:forEach> --%>
+<!-- 									</select></td> -->
+<!-- 								</tr> -->
+								
+<!-- 								<tr> -->
+<!-- 									<td class="option">관심사2</td> -->
+<!-- 									<input type="hidden" name="interestList[1].listNo" value="2"> -->
+<!-- 									<td><select id='myYear' class='birth' -->
+<!-- 										name='interestList[1].categoryCode'> -->
+<%-- 											<option disabled selected>${interestList. }</option> --%>
+<%-- 											<c:forEach items="${categoryCodeList}" var="interest"> --%>
+<%-- 												<option value="${interest.CODE}">${interest.NAME}</option> --%>
+<%-- 											</c:forEach> --%>
+<!-- 									</select></td> -->
+<!-- 								</tr> -->
+								
+								
+								
 							</table>
 						</div>
 					</form>

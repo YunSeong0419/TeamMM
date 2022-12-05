@@ -14,19 +14,28 @@
 	}
 	
 	table {
-	border: 1px solid black;
-	border-radius: 12px;
+	width: 500px;
 	margin: auto;
+	border-collapse: collapse;
+	}
+	
+	tr {
+		border: 1px solid black;
 	}
 	
 	th {
-	border-collapse: collapse;
-	border-bottom: 1px solid black;
-	border-right: 1px solid black;
+	border: 1px solid black;
+	background: orange;
+	color: white;
+	padding: 10px;
+	margin: auto;
 	}
 	
+	
 	td {
-	margin-top: 20px;
+	border: 1px solid black;
+	padding: 10px;
+	margin: auto;
 	}
 	
 
@@ -43,7 +52,11 @@ function moveChargeFnc() {
 };
 
 function updateInfoFnc() {
-	location.href ='./memberUpdate.do';
+	location.href ='./checkInfo.do';
+};
+
+function deleteInfoFnc() {
+	location.href ='./delete.do';
 };
 
 
@@ -75,7 +88,8 @@ function updateInfoFnc() {
 							<td>건</td><td>건</td><td>건</td><td>개</td><td><a href="./memberCash.do">${_memberDto_.cash}원</a></td>
 						</tr>
 					</table>	
-				
+				<p>최근 정보 수정일</p>
+				<p><fmt:formatDate value="${_memberDto_.modifyDate}" pattern="yyyy년MM월dd일  a hh:mm"  /></p>
 				<p>
 					<input type="button" value="내 정보 수정" onclick="updateInfoFnc();">
 					<input type="button" value="회원 탈퇴" onclick="deleteInfoFnc();">

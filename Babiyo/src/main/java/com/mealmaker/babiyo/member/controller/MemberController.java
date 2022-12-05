@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
+import javax.websocket.Session;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -153,30 +154,71 @@ public class MemberController {
 	}
 	
 	
+	@RequestMapping(value = "/member/checkInfo.do", method = RequestMethod.GET)
+	public String checkInfo(HttpSession session, Model model) {
+		logger.info("check your password! ");
+		
+		return "/member/CheckInfo";
+	}
+	
+	
 	@RequestMapping(value = "/member/memberUpdate.do", method = RequestMethod.GET)
 	public String memberUpdate(HttpSession session, Model model) {
 		logger.info("Welcome MemberController memberUpdate! ");
+		
+		MemberDto memberDto = (MemberDto)session.getAttribute("_memberDto_");
+		String memberId = memberDto.getId();
+		
 		List<Map<String, Object>> categoryCodeList = memberService.categoryCodeList();
+		List<Map<String, Object>> interestList = memberService.selectInterest(memberId);
+		
 		model.addAttribute("categoryCodeList", categoryCodeList);
+		model.addAttribute("interestList", interestList);
 		
 		return "/member/MemberUpdate";
 	}
 	
 	@RequestMapping(value = "/member/memberUpdateCtr.do", method = RequestMethod.POST)
-	public String memberUpdateOne(MemberDto memberDto, Model model
+	public String memberUpdateOne(MemberDto memberDto, Model model, HttpSession session
 			, InterestDto interestDto) {
-		logger.info("Welcome MemberController memberUpdate!" 
-				+ memberDto);
+		logger.info("Welcome MemberController memberUpdate!" + memberDto);
+		
 		memberService.memberUpdateOne(memberDto);
+		
 		String memberId = memberDto.getId();
 		interestDto.setMemberId(memberId);
-		model.addAttribute("interestDto", interestDto);
+		List<InterestDto> list = interestDto.getInterestList();
+		
+		for (InterestDto interest : list) {
+			interest.setMemberId(memberId);
+			
+			memberService.UpdateInterest(interest);
+		}
+		
+		session.setAttribute("_memberDto_", memberService.memberInfo(memberDto));
+		
 		System.out.println(interestDto);
-		memberService.UpdateInterest(interestDto);
 		
-		
-		return "/member/MemberUpdate";
+		return "redirect:/member/memberInfo.do";
 	}
+	
+	@RequestMapping(value = "/member/delete.do", method = RequestMethod.GET)
+	public String memberDelete(HttpSession session, Model model) {
+		logger.info("Welcome MemberController memberUpdate! ");
+		
+		return "/member/CheckOut";
+	}
+	
+	
+	// 회원탈퇴
+		@RequestMapping(value = "/member/deleteCtr.do", method = RequestMethod.POST)
+		public String memberDelete(MemberDto memberDto, Model model, HttpSession session) {
+			logger.info("Welcome memberDelete! " + memberDto);
+			
+			memberService.memberDeleteOne(memberDto);
+			
+			return "redirect:/auth/login.do";
+		}
 	
 //	@RequestMapping(value = "/member/UpdateInterestCtr.do", method = RequestMethod.POST)
 //	public String UpdateInterest(InterestDto interestDto, Model model) {
@@ -197,7 +239,7 @@ public class MemberController {
 	
 	@RequestMapping(value = "/member/memberCash.do", method = RequestMethod.GET)
 	public String memberCash(HttpSession session, Model model) {
-		logger.info("Welcome MemberController memberInfo! ");
+		logger.info("Welcome MemberController memberCash! ");
 		
 		return "/member/MemberCash";
 	}
@@ -243,16 +285,7 @@ public class MemberController {
 //		return "/member/memberInfo.do";
 //	}
 //	
-//	// 회원탈퇴
-//	@RequestMapping(value = "/member/deleteCtr.do"
-//		, method = RequestMethod.GET)
-//	public String memberDelete(int no, Model model) {
-//		logger.info("Welcome MemberController memberDelete! " + no);
-//		
-//		memberService.memberDeleteOne(no);
-//		
-//		return "redirect:/member/list.do";
-//	}
+//	
 //	// 회원목록 화면으로
 //	@RequestMapping(value = "/member/list.do"
 //		, method = {RequestMethod.GET, RequestMethod.POST})

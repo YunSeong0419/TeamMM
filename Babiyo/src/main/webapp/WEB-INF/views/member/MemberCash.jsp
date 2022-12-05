@@ -39,6 +39,9 @@ function moveChargeFnc() {
 	location.href ='../cash/chargeCash.do';
 }
 
+function moveBackFnc() {
+	location.href ='../member/memberInfo.do';
+}
 
 
 </script>
@@ -71,8 +74,7 @@ function moveChargeFnc() {
 					<div id='btnWrap'>	
 						<p>
 						<input type="button" id="charge" value="충전" onclick='moveChargeFnc();'>
-						<input type="button" value="충전 내역">	
-						<input type="button" value="사용 내역">
+						<input type="button" value="뒤로 가기" onclick="moveBackFnc();">	
 						</p>
 					</div>	
 				</div>
