@@ -11,6 +11,161 @@
 <link rel="stylesheet" type="text/css" href="/babiyo/resources/css/common.css"/>
 <script type="text/javascript" src="/babiyo/resources/js/jquery-3.6.1.js"></script>
 
+<style type="text/css">
+
+#searchOptionContainer{
+	width: 950px;	
+	margin: 10px auto;
+}
+
+#searchOption{
+}
+
+#periodSelect{
+	margin-left: 20px;
+}
+
+#searchKeword{
+	float:right;
+}
+
+#stateCodeSel{
+	width: 60px;
+}
+
+#search{
+	width: 150px;
+}
+
+#beginDate, #endDate{
+	width: 100px;
+}
+
+.inputBox{
+	line-height: 35px;
+	height: 35px;
+	border: 1px solid black;
+	border-radius: 5px;
+}
+
+
+#salesTable{
+	border-collapse: collapse;
+	margin: auto;
+}
+
+#firstRow{
+	background-color: #FF9436;
+	color: #fff;
+}
+#orderDateTh {
+	height: 30px;
+	width: 200px;
+}
+#memberIdTh{
+	width: 150px;
+}
+#productTh {
+	width: 280px;
+}
+#quantityTh {
+	width: 80px;
+}
+#priceTh {
+	width: 120px;
+}
+#totalAmount {
+	width: 120px;
+}
+
+.orderDateTd{
+	height: 35px;
+}
+.memberIdTd{
+	text-align: center;
+}
+.productTd{
+	text-align: left;
+}
+.quantityTd{
+	text-align: right;
+}
+.priceTd{
+	text-align: right;
+}
+.totalAmountTd{
+	text-align: right;
+}
+
+#emptySales{
+	text-align: center;
+	height: 350px;
+	line-height: 350px;
+	font-size: 25px;
+	font-weight: bold;
+	border-bottom: 3px solid #FF9436;
+}
+
+
+
+</style>
+
+<script type="text/javascript">
+$(function(){
+	
+	$('#sort').val($('#sortVal').val());
+	$('#searchOption').val($('#searchOptionVal').val());
+	
+	$('#endDate').change(function() {
+	
+		var beginDateObj = $('#beginDate');
+		var endDateObj = $('#endDate');
+		
+		var beginDate = new Date(beginDateObj.val());
+		var endDate = new Date(endDateObj.val());
+		
+		var period = endDate.getTime() - beginDate.getTime();
+		
+		//시작날짜가 끝나는 날짜보다 커지지 못하게 max설정
+		beginDateObj.attr('max', $('#endDate').val());
+		
+		//끝나는 날짜가 시작날짜보다 적어질 경우 시작날짜를 끝나는 날짜를 한달 전으로 만듬
+		if(period < 0){
+				
+			var year = endDate.getFullYear();
+			var month = endDate.getMonth();
+			var date = endDate.getDate();
+				
+			var lastDate = new Date(year, month, 0).getDate();
+			
+			if(date > lastDate){ // 한달전의 말일이 작으면 말일로 맞춰줌
+				date = lastDate;
+			}
+			
+			if(month == 0){ // 1월일때 년도를 1년 줄임
+				year = year - 1;
+				month = 12;
+			}
+			
+			if(month < 10){ // 10보다 작을경우 0을 넣어줌 ex) 4 > 04
+				month = '0' + month;
+			}
+			if(date < 10){
+				date = '0' + date;
+			}
+			
+			var beginDateStr = year + '-' + month + '-' + date;
+			beginDateObj.val(beginDateStr);
+			
+		}
+		
+		stateSelectFnc();
+	
+	});
+
+});
+</script>
+
 </head>
 <body>
 
@@ -25,17 +180,17 @@
 		<div id="middleMainDiv">
 			<div id="sideTitle"></div>
 			<!--여기서 작성 -->
-				<form id="searchOption" method="get">
+				<form id="searchOptionForm" method="get">
 				<div id="searchOptionContainer">
 					<span>
 						<strong>정렬</strong>
-						<select id="stateCodeSel" class="inputBox" name="stateCode" onchange="stateSelectFnc();">
-							<option value='STOCK ASC'>총액 ↑</option>
-							<option value='STOCK DESC'>총액 ↓</option>
-							<option value='NAME ASC'>날짜 ↑</option>
-							<option value='NAME DESC'>날짜 ↓</option>
-							<option value='PRICE ASC'>품명 ↑</option>
-							<option value='PRICE DESC'>품명 ↓</option>
+						<select id="sort" class="inputBox" name="sort">
+							<option value='TOTAL_AMOUNT ASC'>총액 ↑</option>
+							<option value='TOTAL_AMOUNT DESC'>총액 ↓</option>
+							<option value='ORDER_DATE DESC'>날짜 ↑</option>
+							<option value='ORDER_DATE ASC'>날짜 ↓</option>
+							<option value='PRODUCT_NAME ASC'>품명 ↑</option>
+							<option value='PRODUCT_NAME DESC'>품명 ↓</option>
 						</select>
 					</span>
 					<span id="periodSelect">
@@ -48,38 +203,59 @@
 							value="<fmt:formatDate value="${searchOption.endDate}" pattern="yyyy-MM-dd"/>">
 					</span>
 					<span id="searchKeword">
-						<select>
-							<option value="">회원</option>
-							<option value="">밀키트</option>
+						<select id="searchOption" class="inputBox" name="searchOption">
+							<option value="MEMBER_ID">회원</option>
+							<option value="PRODUCT_NAME">밀키트</option>
 						</select>
-						<strong>회원 검색</strong>
 						<input type="text" name="search" id="search" class="inputBox" value="${searchOption.search}">
 						<input type="submit" value="검색">
+						
+						<input id="searchOptionVal" type="hidden" value="${searchOption.searchOption}">
+						<input id="sortVal" type="hidden" value="${searchOption.sort}">
 					</span>
 				</div>
 			</form>
 			
 			<div>
 			
-			<table>
-				<tr>
-					<th>회 원</th>
-					<th>날 짜</th>
-					<th>물 품</th>
-					<th>개 수</th>
-					<th>가 격</th>
-					<th>합 계</th>
+			<table id="salesTable">
+				<tr id="firstRow">
+					<th id="orderDateTh">주문일자</th>
+					<th id="memberIdTh">회원아이디</th>
+					<th id="productTh">상품명</th>
+					<th id="quantityTh">수 량</th>
+					<th id="priceTh">가 격</th>
+					<th id="totalAmount">금 액</th>
 				</tr>
-				<c:forEach items="${salesList}" var="sales">
+				<c:choose>
+				<c:when test="${!empty salesList}">
+					<c:forEach items="${salesList}" var="sales">
+					<tr>
+						<td class="memberIdTd">${sales.memberId}</td>
+						<td class="orderDateTd"><fmt:formatDate value="${sales.orderDate}" pattern="yyyy-MM-dd hh:mm:ss"/></td>
+						<td class="productTd">${sales.productName}</td>
+						<td class="quantityTd">
+							${sales.quantity}
+						</td>
+						<td class="priceTd">
+							<fmt:formatNumber value="${sales.price}" pattern="#,### 원"/>
+							<input type="hidden" value="${sales.price}">
+						</td>
+						<td class="totalAmountTd">
+							<fmt:formatNumber value="${sales.quantity * sales.price}" pattern="#,### 원"/>
+							<input type="hidden" value="${sales.quantity * sales.price}">
+						</td>
+					</tr>
+					</c:forEach>
+				</c:when>
+				<c:otherwise>
 				<tr>
-					<td>${sales.memberId}</td>
-					<td>${sales.orderDate}</td>
-					<td>${sales.productName}</td>
-					<td>${sales.quantity}</td>
-					<td>${sales.price}</td>
-					<td>${sales.quantity * sales.price}</td>
+					<td id="emptySales" colspan="6">
+						<span>매출 기록이 없습니다</span>
+					</td>
 				</tr>
-				</c:forEach>
+				</c:otherwise>
+				</c:choose>
 			</table>
 			
 			

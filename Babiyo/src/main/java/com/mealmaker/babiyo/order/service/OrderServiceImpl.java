@@ -7,8 +7,6 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +16,7 @@ import com.mealmaker.babiyo.cash.dao.CashDao;
 import com.mealmaker.babiyo.order.dao.OrderDao;
 import com.mealmaker.babiyo.order.model.OrderDetailDto;
 import com.mealmaker.babiyo.order.model.OrderDto;
+import com.mealmaker.babiyo.product.dao.ProductDao;
 import com.mealmaker.babiyo.util.Paging;
 import com.mealmaker.babiyo.util.SearchOption;
 
@@ -32,6 +31,9 @@ public class OrderServiceImpl implements OrderService{
 	@Resource
 	private CartDao cartDao;
 	
+	@Resource
+	private ProductDao productDao;
+	
 	@Autowired
 	public OrderServiceImpl(OrderDao orderDao) {
 		this.orderDao = orderDao;
@@ -41,20 +43,30 @@ public class OrderServiceImpl implements OrderService{
 	public int order(OrderDto orderDto, OrderDetailDto orderDetailDto) {
 		// TODO Auto-generated method stub
 		
+		// 금액 차감
+		cashUpdate(orderDto);
+		
+		// 주문정보를 db에 저장
 		orderDao.order(orderDto);
 		
 		int orderNo = orderDto.getNo();
 		
 		String memeberId = orderDto.getMemberId();
+		
 		orderDetailDto.setOrderNo(orderNo);
 		
+		// 주문상세내용을 db에 저장
 		orderDao.orderDetail(orderDetailDto);
+		
+		// 구매한 상품개수 만큼 재고 삭제
+//		productDao.
 		
 		CartDto cartDto = new CartDto();
 		cartDto.setMemberId(memeberId);
 		
 		List<CartDto> cartList = new ArrayList<CartDto>();
 		
+		// 구매한 물품을 장바구니 db에서 삭제하기 위해서 배열에 저장
 		for (OrderDetailDto detail : orderDetailDto.getOrderDetailList()) {
 			CartDto cart = new CartDto();
 			cart.setProductNo(detail.getProductNo());
@@ -64,9 +76,11 @@ public class OrderServiceImpl implements OrderService{
 		
 		cartDto.setCartList(cartList);
 		
+		// 배열에 들어있는 장바구니 삭제
 		cartDao.cartDelete(cartDto);
 		
-		cashUpdate(orderDto);
+		
+		
 		
 		return orderNo;
 	}
@@ -105,6 +119,7 @@ public class OrderServiceImpl implements OrderService{
 		Map<String, Object> map = new HashMap<String, Object>();
 		
 		OrderDto orderDto = orderDao.orderView(orderNo);
+		
 		List<OrderDetailDto> orderDetailList = orderDao.orderDetailView(orderNo);
 		
 		map.put("orderDto", orderDto);

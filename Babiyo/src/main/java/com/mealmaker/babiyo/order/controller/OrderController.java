@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-import com.mealmaker.babiyo.cart.model.CartDto;
 import com.mealmaker.babiyo.cart.service.CartService;
 import com.mealmaker.babiyo.member.model.MemberDto;
 import com.mealmaker.babiyo.order.model.OrderDetailDto;
@@ -96,7 +95,7 @@ public class OrderController {
 		
 		model.addAttribute("orderMap", orderMap);
 		
-		return "/order/orderDetail";
+		return "order/orderDetail";
 	}
 	
 	@RequestMapping(value="/order/cancel.do", method = RequestMethod.POST)
@@ -151,7 +150,6 @@ public class OrderController {
 		model.addAttribute("paging", paging);
 		model.addAttribute("orderList", orderList);
 		model.addAttribute("stateList", stateList);
-		model.addAttribute("searchOption", searchOption);
 		
 		return "admin/order/adminOrderList";
 	}
@@ -177,18 +175,21 @@ public class OrderController {
 		model.addAttribute("paging", paging);
 		model.addAttribute("orderList", orderList);
 		model.addAttribute("stateList", stateList);
-		model.addAttribute("searchOption", searchOption);
 		
 		return "order/memberOrderList";
 	}
 	
 	@RequestMapping(value = "/admin/sales.do", method = RequestMethod.GET)
-	public String sales(@RequestParam(defaultValue = "1") int curPage
-			, SearchOption searchOption
-			, HttpSession session, Model model) {
+	public String sales(Model model, SearchOption searchOption) {
 		logger.info("관리자 매출관리");
 		
-		orderService.salesView(searchOption);
+		List<OrderDetailDto> salesList = orderService.salesView(searchOption);
+		
+		LocalDate today = LocalDate.now();
+		
+		model.addAttribute("today", today);
+		model.addAttribute("salesList", salesList);
+		
 		
 		return "admin/order/sales";
 	}

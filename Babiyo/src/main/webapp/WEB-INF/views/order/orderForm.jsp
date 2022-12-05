@@ -167,21 +167,29 @@ ul > li {
 $(document).ready(function(){
 	
 	var totalAmount = 0;
+	var balance = Number($('#memberCash').val());
 	
 	$('.price').each(function(i, element) {
 		totalAmount += Number($(element).val()) * Number($('.quantity').eq(i).val());
 	});
+	
+	if(totalAmount > balance){
+		$('#orderBtn').css('background-color', '#FFBA85');
+	}
 	
 	var htmlStr = totalAmount.toLocaleString('ko-KR') + ' 원';
 	
 	$('#totalAmount').val(totalAmount);
 	$('#totalAmountMoney').html(htmlStr);
 	
-	
-	
 	$('#orderBtn').click(function(){
 		
-		if(!$('#receiverName').val()){
+		if(totalAmount > balance){
+			alert('보유금액이 부족합니다 충전을 해주세요');
+			if(confirm('충전을 하시겠습니까?')){
+				location.href = '/babiyo/cash/chargeCash.do';
+			}
+		}else if(!$('#receiverName').val()){
 			alert('받으시는 분 성함을 입력해주세요');
 			$('#receiverName').focus();
 		}else if(!$('#receiverPhone').val()){
@@ -324,7 +332,7 @@ function postFind() {
 						<li>
 							<span class="mealkitName"><strong>${list.productName}</strong></span>
 							<span class="mealkitPrice">
-								<fmt:formatNumber pattern="#,###">${list.price * list.quantity}</fmt:formatNumber> 원
+								<fmt:formatNumber pattern="#,### 원" value="${list.price * list.quantity}"/>
 							</span>
 							<span class="mealkitQuantity">${list.quantity}개</span>
 						</li>
@@ -337,7 +345,8 @@ function postFind() {
 			<div>
 				<p>
 					<span id="balanceName">보유금액</span>
-					<span id="balanceMoney"><strong><fmt:formatNumber pattern="#,###">${_memberDto_.cash}</fmt:formatNumber> 원</strong></span>
+					<span id="balanceMoney"><strong><fmt:formatNumber pattern="#,### 원" value="${_memberDto_.cash}"/></strong></span>
+					<input type="hidden" id="memberCash" value="${_memberDto_.cash}">
 				</p>
 				<p>
 					<span id="totalAmountName">결제금액</span> <strong><span id="totalAmountMoney"></span></strong>

@@ -54,6 +54,11 @@
 	text-align: center;
 }
 
+.productName > a{
+	text-decoration: none;
+	color: #000;
+}
+
 #btnContainer{
 	width: 950px;
 	text-align: center;
@@ -173,14 +178,16 @@ $(function(){
 								<c:forEach items="${favoriteList}" var="list" varStatus="status">
 									<div class="favorite">
 										<div class="productImgContainer">
-											<a href="/babiyo/product/detail.do?productNo=${list.favoriteDto.productNo}">
-												<img class="productImg" alt="${list.favoriteDto.productName}"
+											<label for="check${status.index}">
+												<img class="productImg" onerror="this.onerror=null; this.src='/babiyo/resources/img/logo.png'"
 														src="/babiyo/img/${list.imgMap.STORED_NAME}">
-											</a>
+											</label>
 										</div>
 										<span class="productName">
 											<input type="checkbox" class="check" id="check${status.index}"> 
-											<label for="check${status.index}">${list.favoriteDto.productName}</label>
+											<a href="/babiyo/product/detail.do?productNo=${list.favoriteDto.productNo}">
+												${list.favoriteDto.productName}
+											</a>
 										</span>
 										<input type="hidden" class="productNo" value="${list.favoriteDto.productNo}">
 									</div>

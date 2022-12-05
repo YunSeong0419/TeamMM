@@ -159,7 +159,7 @@ function stateSelectFnc(){
 							</c:choose>
 							</a>
 						</td>
-						<td class="totalAmountTd"><fmt:formatNumber pattern="#,###" value="${order.totalAmount}"/>원</td>
+						<td class="totalAmountTd"><fmt:formatNumber pattern="#,### 원" value="${order.totalAmount}"/></td>
 						<td class="orderStateTd">${order.stateName}</td>
 						
 						<td class="btnTd">

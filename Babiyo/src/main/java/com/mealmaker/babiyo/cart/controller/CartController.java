@@ -3,7 +3,6 @@ package com.mealmaker.babiyo.cart.controller;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -20,7 +19,6 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.mealmaker.babiyo.cart.model.CartDto;
 import com.mealmaker.babiyo.cart.service.CartService;
-import com.mealmaker.babiyo.member.dao.MemberDao;
 import com.mealmaker.babiyo.member.model.MemberDto;
 
 // 어노테이션 드리븐

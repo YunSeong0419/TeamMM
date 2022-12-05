@@ -178,7 +178,7 @@ footer {
 	min-width: 100%;
 	height: 115px;
 	font-size: 12px;
-	background-color: #FAE0D4;
+	background-color: #FFBA85;
 	position: absolute;
 	bottom: 0;
 }
@@ -192,13 +192,13 @@ footer > div{
 	font-size: 10px;
 	line-height: 20px;
 	margin: 10px;
-	color: #8C8C8C;
+	color: #F6F6F6;
 }
 
 .footerPTag {
 	line-height: 20px;
 	margin: 10px;
-	color: #5D5D5D;
+	color: #F6F6F6;
 }
 
 

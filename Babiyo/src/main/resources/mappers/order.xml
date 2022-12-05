@@ -164,12 +164,19 @@ ORDER BY day)
 
 <select id="orderDetailList" parameterType="com.mealmaker.babiyo.util.SearchOption"
 	 resultMap="orderDetailResultMap">
-SELECT *
-FROM ORDER_DETAIL D JOIN MEMBER_ORDER O
+SELECT O.MEMBER_ID, O.ORDER_DATE, P.NAME PRODUCT_NAME, D.QUANTITY, D.PRICE, D.QUANTITY * D.PRICE TOTAL_AMOUNT
+FROM PRODUCT P JOIN ORDER_DETAIL D
+ON P.NO = D.PRODUCT_NO
+JOIN MEMBER_ORDER O
 ON D.ORDER_NO = O.NO
 WHERE O.ORDER_DATE BETWEEN #{beginDate} AND #{endDate}+1
+AND STATE_CODE = 2
 <if test="search != ''">AND ${searchOption} LIKE '%'||#{search}||'%'</if>
-ORDER BY ${sort}
+ORDER BY 
+<choose>
+<when test="sort != null">${sort}</when>
+<otherwise>O.ORDER_DATE DESC</otherwise>
+</choose>
 </select>
 
 </mapper>

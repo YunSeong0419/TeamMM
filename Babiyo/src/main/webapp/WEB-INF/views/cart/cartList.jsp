@@ -27,22 +27,32 @@
 	text-align: center;
 }
 
+
 #nameTh{
 	width: 620px;
 }
-.nameTd{
-	padding-left: 20px;
+
+.nameText{
+	line-height: 120px;
+	margin-left: 20px;
 }
 
-#imgTh{
-	width: 130px;	
+.nameTd > a{
+	text-decoration: none;
+	color: #000;
+}
+
+.productImg{
+	float: left;
+	width: 120px;
+	height: 120px;
 }
 
 #priceTh{
 	width: 100px;
 }
 .priceTd{
-	text-align: center;
+	text-align: right;
 }
 #quantityTh{
 	width: 100px;
@@ -59,12 +69,7 @@
 	width: 100px;
 }
 .sumTd{
-	text-align: center;
-}
-
-.imgTd{
-	width: 130px;
-	height: 130px;
+	text-align: right;
 }
 
 table{
@@ -80,9 +85,6 @@ table{
 	margin: 0px auto;
 }
 
-#totalAmountText{
-	float: right;
-}
 
 #orderBtnDiv{
 	text-align: center;
@@ -100,23 +102,26 @@ table{
 	color: white;
 }
 
-
 #tableUnder{
 	width: 950px;
+	text-align: right;
+	font-weight: bold;
 	margin: auto;
 }
 
-#productImg{
-	width: 120px;
-	height: 120px;
+#totalAmountText{
+	display: inline-block;
+	
+}
+#totalAmountVal{
+	display: inline-block;
+	width: 100px;
 }
 
-#totalAmountText{
-	font-weight: bold;
-}
 
 #cartListTable td{
 	border-bottom: 1px solid #FF9436;
+	padding: 0;
 }
 
 
@@ -245,7 +250,7 @@ function totalTrans(){ // 체크한 주문금액을 반영해주는 함수
 	});
 	
 	$('#totalAmount').val(totalAmount); // input에 값 저장
-	$('#totalAmountText').html('주문금액: ' + korTrans(totalAmount)); // 화면을 위한 값
+	$('#totalAmountVal').html(korTrans(totalAmount)); // 화면을 위한 값
 }
 
 
@@ -272,7 +277,6 @@ function totalTrans(){ // 체크한 주문금액을 반영해주는 함수
 					<table id="cartListTable">
 						<tr id="firstRow">
 							<th id="checkTh"><input type="checkbox" id="allCheck"></th>
-							<th id="imgTh"></th>
 							<th id="nameTh">상품명</th>
 							<th id="priceTh">가격</th>
 							<th id="quantityTh">수량</th>
@@ -282,21 +286,24 @@ function totalTrans(){ // 체크한 주문금액을 반영해주는 함수
 						<c:when test="${!empty cartList}">
 						<c:forEach items="${cartList}" var="cart">
 						<tr>
-							<td class="checkTd"><input type="checkbox" class="check"></td>
-							<td class="imgTd">
+							<td class="checkTd"><input type="checkbox" id="check${cart.cartDto.productNo}" class="check"></td>
+							<td class="nameTd">
+								<label for="check${cart.cartDto.productNo}">
+									<img class="productImg" src="/babiyo/img/${cart.imgMap.STORED_NAME}"
+										 onerror="this.onerror=null; this.src='/babiyo/resources/img/logo.png'">
+								</label>
 								<a href="/babiyo/product/detail.do?productNo=${cart.cartDto.productNo}">
-									<img id="productImg" alt="${cart.cartDto.productName}" src="/babiyo/img/${cart.imgMap.STORED_NAME}">
+									<span class="nameText">${cart.cartDto.productName}</span>
 								</a>
 							</td>
-							<td class="nameTd">${cart.cartDto.productName}</td>
 							<td class="priceTd">
-								<fmt:formatNumber pattern="#,###">${cart.cartDto.productPrice}</fmt:formatNumber>원
+								<fmt:formatNumber pattern="#,### 원" value="${cart.cartDto.productPrice}"/>
 							</td>
 							<td class="quantityTd">
 								<input class="quantity" type="number" min="1" max="99" value="${cart.cartDto.quantity}">
 							</td>
 							<td class="sumTd">
-								<fmt:formatNumber pattern="#,###">${cart.cartDto.productPrice * cart.cartDto.quantity}</fmt:formatNumber>원
+								<fmt:formatNumber pattern="#,### 원" value="${cart.cartDto.productPrice * cart.cartDto.quantity}"/>
 							</td>
 						</tr>
 						<div>
@@ -310,7 +317,7 @@ function totalTrans(){ // 체크한 주문금액을 반영해주는 함수
 						
 						<c:otherwise>
 						<tr>
-							<td colspan="6" style="text-align: center; height: 130px; font-size: 25px;">
+							<td colspan="5" style="text-align: center; height: 130px; font-size: 25px;">
 								<strong>장바구니가 비었습니다</strong>
 							</td>
 						</tr>
@@ -318,13 +325,12 @@ function totalTrans(){ // 체크한 주문금액을 반영해주는 함수
 						</c:choose>
 						
 					</table>
-					<input type="text" style="display: none">
 				</form>
 			</div>
 			
 			<div id="tableUnder">
-				
-				<span id="totalAmountText">주문금액: 0원</span>
+				<span id="totalAmountText">주문금액 </span>
+				<span id="totalAmountVal">0 원</span>
 			</div>
 			<input type="hidden" id="totalAmount" name="totalAmount" value="">
 			

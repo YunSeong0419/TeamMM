@@ -143,12 +143,13 @@ function newOrderFnc(){
 			<p id="paymentInfoTitle">결제 정보</p>
 			<div id="totalAmountDiv">
 				<span class="moneyText">주문 금액</span>
-				<span class="moneySpan"><fmt:formatNumber pattern="#,###">${orderDto.totalAmount}</fmt:formatNumber> 원</span>
+				<span class="moneySpan"><fmt:formatNumber pattern="#,### 원" value="${orderDto.totalAmount}"/></span>
+				
 			</div>
 			<hr>
 			<div>
 				<span class="moneyText">결제후 보유금액</span>
-				<span class="moneySpan"><fmt:formatNumber pattern="#,###">${_memberDto_.cash}</fmt:formatNumber> 원</span>
+				<span class="moneySpan"><fmt:formatNumber pattern="#,### 원" value="${_memberDto_.cash}"/></span>
 			</div>
 		</div>
 		

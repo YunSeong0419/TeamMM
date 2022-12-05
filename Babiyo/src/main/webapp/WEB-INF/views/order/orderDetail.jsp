@@ -229,7 +229,7 @@ function acceptFnc(no){
 							<li>
 								<span class="mealkitName"><strong>${mealkit.productName}</strong></span>
 								<span class="mealkitPrice">
-								<fmt:formatNumber pattern="#,###">${mealkit.price * mealkit.quantity}</fmt:formatNumber> 원
+									<fmt:formatNumber pattern="#,### 원" value="${mealkit.price * mealkit.quantity}"/>
 								</span>
 								<span class="mealkitQuantity">${mealkit.quantity}개</span>
 							</li>
@@ -242,7 +242,9 @@ function acceptFnc(no){
 				<div>
 					<p>
 						<span id="totalAmountName">총 결제금액</span>
-						<span id="totalAmountMoney"><fmt:formatNumber pattern="#,###" value="${orderMap.orderDto.totalAmount}"/> 원</span>
+						<span id="totalAmountMoney">
+							<fmt:formatNumber pattern="#,### 원" value="${orderMap.orderDto.totalAmount}"/>
+						</span>
 					</p>
 					
 					<p>
