@@ -1,188 +1,150 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="UTF-8">
-		<title>네이버 : 회원가입</title>
-		
-		<style type="text/css">
-		body{
-			margin: 0 auto;
-		}
-		
-		h4{
-			margin-bottom: 300px;
-		}
-		
-		#wrap{
-			margin: 0 auto;
-		}
-		
-		#header{
-			 text-align: center;
-		}
-		
-		
-		.chk_plz{
-			color: red;
-		}
-		
-		.bir_yy{
-			display: table-cell;
-			width: 25%;
-		}
-		.bir_mm{
-			display: table-cell;
-			width: 25%;
-		}
-		.bir_dd{
-			display: table-cell;
-			width: 25%;
-		}
-		.user_input{
-			border: none;
-			outline: 0;
-		}
-		.input_box{
-			border: solid 1px #dadada;
-			outline: 0;
-			background-color: white;
-			padding: 10px;
-			margin: 3px;
-		}
-		
-		.birth{
-			width: 130px; height: 40px;
-			margin: 7px;
-			border: solid 1px #dadada;
-		}
-		
-		
-		</style>
-		
-		<script type="text/javascript">
-		
-			window.onload = function () {
-				var midObj = document.getElementById('mid');
-				var idChkObj = document.getElementById('id_plz');
-				var pwdObj = document.getElementById('pwd');
-				var pwdChkObj = document.getElementById('pwd_plz');
-				var chkPwdObj = document.getElementById('chkPwd');
-				var chkPwdChkObj = document.getElementById('chkPwd_plz');
-				var mnameObj = document.getElementById('mname');
-				var nameChkObj = document.getElementById('name_plz');
-				var birthChkObj = document.getElementById('birthchk_plz');
-				var emailObj = document.getElementById('email');
-				var allchk = document.getElementById('all_chk');
-				var yearObj = document.getElementById('myYear');
-				var monthObj = document.getElementById('myMonth');
-				var dayObj = document.getElementById('myDay');
-				
-				
-				var chk1 = chk2 = chk3 = chk4 = chk5 = false;
-				
-				chk1 = <%=request.getAttribute("addCheck")%>;
-				
-				allchk.addEventListener('click', function(e) {
-					console.log(chk1);
-					console.log(chk2);
-					console.log(chk3);
-					console.log(chk4);
-					console.log(chk5);
-					if (!chk1 || !chk2 || !chk3 || !chk4 || !chk5 
-							|| yearObj.value == '년도' || monthObj.value == '월'
-							|| dayObj.value == '일') {
-						e.preventDefault();
-					}
-				});
-				
-				midObj.addEventListener('blur', function() {
-					var spObj = /[`~!@#$%^&*|\\\";:\/?]/;
-					var check_kor = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
-					var check_eng = /[A-Z]/;
-					if (midObj.value == '') {
-						idChkObj.innerHTML = '필수정보입니다';
-					}else if (midObj.value.length < 5 || check_kor.test(midObj.value)
-							|| spObj.test(midObj.value) || check_eng.test(midObj.value)) {
-						idChkObj.innerHTML = '5~20자의 영문 소문자,'
-						+ '숫자와 특수기호(_),(-)만 사용 가능합니다.';
-					}else {
-						location.href = './check?mid=' + midObj.value;
-						
-					}
-						
-					
-				});
-				
-				pwdObj.addEventListener('blur', function() {
-					var spObj = /[`~!@#$%^&*|\\\";:\/?]/;
-					var check_eng = /[a-zA-Z]/;
-					if (pwdObj.value == '') {
-						pwdChkObj.innerHTML = '필수정보입니다';
-					}else if (pwdObj.value.length < 8 || 
-							 !spObj.test(pwdObj.value) || !check_eng.test(pwdObj.value)) {
-						pwdChkObj.innerHTML = '8~16자 영문 대 소문자, 숫자, 특수문자를 사용하세요.';
-					}else {
-						chk2 = true;
-						pwdChkObj.innerHTML = '';
-					}
-				});
-				
-				chkPwdObj.addEventListener('blur', function() {
-					if (chkPwdObj.value == '') {
-						chkPwdChkObj.innerHTML = '필수정보입니다';
-					}else if (pwdObj.value != chkPwdObj.value) {
-						chkPwdChkObj.innerHTML = '비밀번호가 일치하지 않습니다.';
-					}else if (pwdObj.value = chkPwdObj.value) {
-						chk3 = true;
-						chkPwdChkObj.innerHTML = '';
-					}	
-				});
-				
-				mnameObj.addEventListener('blur', function() {
-					if (mnameObj.value == '') {
-						nameChkObj.innerHTML = '필수정보입니다';
-					}else {
-						nameChkObj.innerHTML = '';
-						chk4 = true;
-					} 
-				});
-				
-				emailObj.addEventListener('blur', function() {
-					if (emailObj.value == '') {
-					}else {
-						chk5 = true;
-					} 
-				});
-				
-				
-				
-			}
-			
-		</script>
-		
-	</head>
+<head>
+<meta charset="UTF-8">
+<title>비밀번호 찾기</title>
+<script type="text/javascript"
+	src="/babiyo/resources/js/jquery-3.6.1.js"></script>
+
+<style type="text/css">
+#header {
+	margin: auto;
+	width: 400px;
+	border-bottom: 1px solid grey;
+	text-align: center;
+}
+
+h2 {
+	text-align: center;
+}
+
+#bodyDiv {
+	width: 300px;
+	text-align: center;
+	margin: auto;
+	margin-top: 100px;
+}
+
+#findId {
+	width: 50%;
+	margin-top: 20px;
+	padding: 10px; border : none;
+	border-top-left-radius: 10px;
+	background: grey;
+	color: white;
+	font-size: 20px;
+	text-align: center;
+	float: left;
+	border: none;
+}
+
+#findPwd {
+	width: 50%;
+	margin-top: 20px;
+	padding: 10px; border : none;
+	border-top-right-radius: 10px;
+	background: orange;
+	color: white;
+	font-size: 20px;
+	text-align: center;
+	border: none;
+}
+
+h3 {
+	text-align: left;
+	margin-bottom: 0px;
+	margin-top: 40px;
+}
+
+#email {
+	width: 300px;
+	padding: 0px;
+	margin: 0px;
+	border: 1px solid grey;
+	border-radius: 5px;
+	height: 30px;
+}
+
+#findBtn {
+	width: 100%;
+	height: 35px; border : none;
+	border-radius: 5px; background : grey;
+	color: white;
+	background: grey;
+	border: none;
+}
+
+#emailChk {
+	margin-bottom: 100px;
+}
+</style>
+
+<script type="text/javascript">
+	function findPwdFnc() {
+		location.href = './findPwd.do';
+	};
+	function findIdFnc() {
+		location.href = './findId.do';
+	};
+window.onload = function () {
+	var emailObj = document.getElementById('email');
+	var emailChkObj = document.getElementById('emailChk');
 	
-	<body>
-		<div id='wrap'>
-			<div id='header'>
-				<h1>
-					<a href="../auth/login">
-						<img style="width: 150px; height: 60px;"  src="../auth/mmLogo.png">
-					</a>
-				</h1>
-			</div>	
-			<h1 style="text-align: center;">비밀번호 찾기</h1>
-			<div style="text-align: center; ">
-				<input id='findId'  type="button" style="border: none;" value='아이디 찾기' >
-				<input id='findPwd'  type="button" style="border: none; background-color: orange; " value='비밀번호 찾기'>
-				<h3>이메일</h3>
-				<input type="text" placeholder="이메일을 입력"><br>
-				<p></p>
-				<input type="button" value="찾기">
-			</div>	
-		</div>	
-	</body>
+	emailObj.addEventListener('keyup',function(e) {
+			let emailRull = RegExp(/^([\w\.\_\-])*[a-zA-Z0-9]+([\w\.\_\-])*([a-zA-Z0-9])+([\w\.\_\-])+@([a-zA-Z0-9]+\.)+[a-zA-Z0-9]{2,8}$/);
+			if (emailObj.value == '') {
+				emailChkObj.innerHTML = '이메일을 입력해주세요';
+				emailChkObj.style.color = 'orange';
+			} else if (emailRull.test(emailObj.value) == false) {
+				emailChkObj.innerHTML = '이메일 형식이 올바르지 않습니다';
+				emailChkObj.style.color = 'orange';
+			} else {var email = $('#email').val(); //id값이 "email"인 입력란의 값을 저장
+					$.ajax({
+						url : './member/emailCheckCtr.do', //Controller에서 요청 받을 주소
+						type : 'post', //POST 방식으로 전달
+						data : {email : email},
+						success : function(cnt) { //컨트롤러에서 넘어온 cnt값을 받는다 
+							if (cnt == 0) { //cnt가 1이 아니면(=0일 경우) -> 사용 가능한 이메일
+								emailChkObj.innerHTML = '탈퇴했거나 가입하지 않은 이메일 입니다';
+								emailChkObj.style.color = 'orange';
+							} else { // cnt가 1일 경우 -> 이미 가입된 이메일
+								emailChkObj.innerHTML = '';
+								}
+							},
+							error : function() {
+							console.log(email);
+										}
+									});
+						}
+					});
+};
+</script>
+
+</head>
+
+<body>
+	<div id='wrap'>
+		<div id='header'>
+			<h1>
+				<a href="../auth/login"> <img
+					style="width: 150px; height: 60px;"
+					src="/babiyo/resources/img/logo.png">
+				</a>
+			</h1>
+		</div>
+		<h2>아이디 찾기</h2>
+		<div id='bodyDiv'>
+
+			<input id='findId' type="button" value='아이디 찾기' onclick='findIdFnc();'> <input
+				id='findPwd' type="button" value='비밀번호 찾기' onclick="findPwdFnc();">
+			<h3>이메일</h3>
+			<input type="text" id="email" name='email' placeholder="이메일을 입력하세요">
+			<p id="emailChk"></p>
+			<input id="findBtn" type="button" value="찾기">
+		</div>
+	</div>
+</body>
 </html>

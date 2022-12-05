@@ -39,7 +39,7 @@ public class MemberController {
 		
 		return "/auth/LoginForm";
 	}
-	
+	//로그인
 	@RequestMapping(value = "/auth/loginCtr.do", method = RequestMethod.POST)
 	public String loginCtr(String id, String password
 			, HttpSession session, Model model) {
@@ -59,6 +59,22 @@ public class MemberController {
 		}
 		
 		return viewUrl;
+	}
+	
+	@RequestMapping(value = "/auth/findId.do", method = RequestMethod.GET)
+	public String findId(HttpSession session, Model model) {
+		logger.info("Welcome MemberController findId! ");
+		
+		
+		return "/auth/MemberFindId";
+	}
+	
+	@RequestMapping(value = "/auth/findPwd.do", method = RequestMethod.GET)
+	public String findPwd(HttpSession session, Model model) {
+		logger.info("Welcome MemberController findPwd! ");
+		
+		
+		return "/auth/MemberFindPwd";
 	}
 	
 	//로그아웃

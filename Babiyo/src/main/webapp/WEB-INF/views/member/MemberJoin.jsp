@@ -201,7 +201,7 @@ $(document).ready(function(){
 		
 		
 		
-		pwdObj.addEventListener('blur', function() {
+		pwdObj.addEventListener('keyup', function() {
 			var spObj = /[`~!@#$%^&*|\\\";:\/?]/;
 			var check_eng = /[a-zA-Z]/;
 			if (pwdObj.value == '') {
@@ -217,7 +217,7 @@ $(document).ready(function(){
 			
 		});
 		
-		chkPwdObj.addEventListener('blur', function() {
+		chkPwdObj.addEventListener('keyup', function() {
 			if (chkPwdObj.value == '') {
 				chkPwdChkObj.innerHTML = '필수정보입니다';
 			}else if (pwdObj.value != chkPwdObj.value) {

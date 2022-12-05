@@ -123,7 +123,7 @@
 			<div>
 				<ul id='loginMethodList'>
 					<li><a style="border-right: 1px; border-right-color: grey;"
-						href="./findId">아이디 찾기</a></li>
+						href="./findId.do">아이디 찾기</a></li>
 					<div class='categoryVerticalLine'></div>
 					<li><a href="./singleUsePwd.jsp">비밀번호 찾기</a></li>
 				</ul>
