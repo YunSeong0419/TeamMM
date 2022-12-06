@@ -210,79 +210,10 @@ public class NoticeServiceImpl implements NoticeService {
 //	 				.setRollbackOnly();
 				e.printStackTrace();
 			}
-
 			 
 			return resultNum;
 		}
-//		int resultNum = 0;
-//
-//		resultNum = noticeDao.noticeUpdate(noticeDto);
-//		
-//		int no = noticeDto.getNo();
-//
-//		// 순서대로 끄내는 로직
-//		Iterator<String> iterator = mulRequest.getFileNames();
-//		MultipartFile multipartFile = null;
-//
-//		while (iterator.hasNext()) {
-//
-//			multipartFile = mulRequest.getFile(iterator.next());
-//
-//			if (multipartFile.isEmpty() == false) {
-//				log.debug("-------- file start --------");
-//
-//				log.debug("name : {} ", multipartFile.getName());
-//				log.debug("fileName : {} ", multipartFile.getOriginalFilename());
-//				log.debug("size : {} ", multipartFile.getSize());
-//
-//				log.debug("-------- file end --------\n");
-//			} // 콘솔에서 이미지 정보 보여주는 곳
-//
-//		} // while end
-//
-//		try {
-//			int parentSeq = noticeDto.getNo();
-//			
-//			List<Map<String, Object>> list 
-//				= fileUtils.parseInsertFileInfo(parentSeq, mulRequest);
-//			System.out.println(list);
-//	
-//			Map<String, Object> imgMap = noticeDao.fileSelectOne(no);
-//			System.out.println(imgMap);
-//			
-//			int imgNo2 = 0;
-//			
-//			if(imgMap != null) {
-//				imgNo2 = Integer.parseInt(String.valueOf(imgMap.get("NO")));
-//				
-//				System.out.println("imgNo" + imgNo);
-//				System.out.println("imgNo2" + imgNo2);
-//				
-//				if (imgNo2 != imgNo) {
-//					System.out.println("imgno 다를때");
-//					noticeDao.fileDelete(parentSeq);
-//					fileUtils.parseUpdateFileInfo(imgMap);
-//					
-//					for (Map<String, Object> map : list) {
-//						noticeDao.insertFile(map);
-//					}
-//				}
-//			}else {
-//				for (Map<String, Object> map : list) {
-//					noticeDao.insertFile(map);
-//				}
-//			}
-//			
-//			 
-//
-//		}catch (Exception e) { 
-////		 	TransactionAspectSupport.currentTransactionStatus() 
-//// 				.setRollbackOnly();
-//			e.printStackTrace();
-//		}
-//
-//		 
-//		return resultNum;
+
 	}
 
 	@Override

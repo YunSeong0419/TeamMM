@@ -13,6 +13,12 @@ table {
 	border-collapse: collapse;
 }
 
+th {
+    background-color: #FF9436;
+    color: #fff;
+    height: 30px;
+}
+
 td{
 	height: 30px;
 	border-bottom: 1px solid gray;
@@ -24,6 +30,9 @@ a{
 	color: black;
 }
 
+p{
+	margin-top: 30px;
+}
 span{
 	font-weight: bold;
 	margin-right: 20px;
@@ -31,7 +40,7 @@ span{
 
 #filterDiv{
 	margin: auto;
-	width: 920px;
+	width: 970px;
 }
 
 #stateForm{
@@ -39,12 +48,18 @@ span{
 	margin-left: 45px;
 }
 
-
-#stateSelect, #searchSelect{
+#stateSelect{
 	width: 100px;
 	height: 35px;
 	border-radius: 5px;
 	margin: 0px 5px 10px 10px;
+}
+
+ #searchSelect{
+	width: 100px;
+	height: 35px;
+	border-radius: 5px;
+	margin: 0px 5px 10px 40px;
 }
 
 #searchFrom{
@@ -67,7 +82,7 @@ span{
 }
 
 #noticeList{
-	margin-top: 5px;
+	margin-top: 10px;
 	min-height: 400px;
 }
 
@@ -84,7 +99,7 @@ span{
 }
 
 #noticeCategoryTh {
-	width: 134px;
+	width: 153px;
 }
 
 #titleTh {
@@ -95,8 +110,24 @@ span{
 	width: 161px;
 }
 
+#hitTh{
+	width: 100px;
+}
+
 .noticeCategoryTd, .hitTd, .createTd{
 	text-align: center;
+}
+
+#searchBoxBtn {
+    margin-left: 5px;
+    padding-bottom: 3px;
+    width: 60px;
+    height: 35px;
+    border: 0px;
+    border-radius: 5px;
+    color: #fff;
+    background-color: #FF9436;
+    font-size: 16px;
 }
 
 </style>
@@ -145,8 +176,6 @@ $(document).ready(function(){
 			<!-- <div id="middleMainDiv"> -->
 				<div id="centerTitle"></div>
 				<div id="boxDiv">
-				
-				
 				<!--여기서 작성 -->
 				<div id="filterDiv">
 					<!--  filterDiv 시작-->
@@ -169,7 +198,7 @@ $(document).ready(function(){
 					</select>
 					<input id="hiddenSearch" type="hidden" value="${searchOption.search}">
 					<input class="searchCl" type="text" name="search">
-					<input type="submit" value="검색">
+					<input id="searchBoxBtn" type="submit" value="검색">
 					</form>
 				</div>
 						<!-- filterDiv 끝-->
@@ -189,7 +218,7 @@ $(document).ready(function(){
 							<c:when test="${empty noticeList}">
 								<tr>
 									<td colspan="5"
-										style="width: 900px; height: 350px; font-weight: bold; text-align: center;">
+										style="width: 858px; height: 350px; font-weight: bold; text-align: center;">
 										공지가 존재하지 않습니다</td>
 								</tr>
 							</c:when>

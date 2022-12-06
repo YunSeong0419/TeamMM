@@ -19,6 +19,11 @@ td{
 	padding: 0px 10px;
 }
 
+th {
+    background-color: #FF9436;
+    color: #fff;
+}
+
 a{
 	text-decoration: none;
 	color: black;

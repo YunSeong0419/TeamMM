@@ -1,12 +1,14 @@
-//package com.mealmaker.babiyo.ranking.dao;
-//
-//import java.util.List;
-//
-//public interface RankingDao {
-//
-//		public List<RankingDto> toDayList();
-//		public List<RankingDto> weeklyList();
-//		public List<RankingDto> manList();
-//		public List<RankingDto> womanList();
-//		
-//}
+package com.mealmaker.babiyo.ranking.dao;
+
+import java.util.List;
+
+import com.mealmaker.babiyo.product.model.ProductDto;
+
+public interface RankingDao {
+
+		public List<ProductDto> toDayList();
+		public List<ProductDto> weeklyList();
+		public List<ProductDto> manList();
+		public List<ProductDto> womanList();
+		
+}
