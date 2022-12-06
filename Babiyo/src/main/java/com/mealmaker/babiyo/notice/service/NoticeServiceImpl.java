@@ -136,75 +136,153 @@ public class NoticeServiceImpl implements NoticeService {
 	@Override
 	public int noticeUpdate(int imgNo, NoticeDto noticeDto, MultipartHttpServletRequest mulRequest) throws Exception {
 		// TODO Auto-generated method stub
-		int resultNum = 0;
-
-		resultNum = noticeDao.noticeUpdate(noticeDto);
 		
-		int no = noticeDto.getNo();
-
-		// 순서대로 끄내는 로직
-		Iterator<String> iterator = mulRequest.getFileNames();
-		MultipartFile multipartFile = null;
-
-		while (iterator.hasNext()) {
-
-			multipartFile = mulRequest.getFile(iterator.next());
-
-			if (multipartFile.isEmpty() == false) {
-				log.debug("-------- file start --------");
-
-				log.debug("name : {} ", multipartFile.getName());
-				log.debug("fileName : {} ", multipartFile.getOriginalFilename());
-				log.debug("size : {} ", multipartFile.getSize());
-
-				log.debug("-------- file end --------\n");
-			} // 콘솔에서 이미지 정보 보여주는 곳
-
-		} // while end
-
-		try {
-			int parentSeq = noticeDto.getNo();
-			
-			List<Map<String, Object>> list 
-				= fileUtils.parseInsertFileInfo(parentSeq, mulRequest);
-			System.out.println(list);
+		int CategoryCode = noticeDto.getCategoryCode();
 	
-			Map<String, Object> imgMap = noticeDao.fileSelectOne(no);
-			System.out.println(imgMap);
+		if (CategoryCode == 1) {
+				int no = noticeDto.getNo(); 
+				noticeDao.fileDelete(no);
+		return	noticeDao.noticeUpdate(noticeDto);
+		}else {
+			int resultNum = 0;
+
+			resultNum = noticeDao.noticeUpdate(noticeDto);
 			
-			int imgNo2 = 0;
-			
-			if(imgMap != null) {
-				imgNo2 = Integer.parseInt(String.valueOf(imgMap.get("NO")));
+			int no = noticeDto.getNo();
+
+			// 순서대로 끄내는 로직
+			Iterator<String> iterator = mulRequest.getFileNames();
+			MultipartFile multipartFile = null;
+
+			while (iterator.hasNext()) {
+
+				multipartFile = mulRequest.getFile(iterator.next());
+
+				if (multipartFile.isEmpty() == false) {
+					log.debug("-------- file start --------");
+
+					log.debug("name : {} ", multipartFile.getName());
+					log.debug("fileName : {} ", multipartFile.getOriginalFilename());
+					log.debug("size : {} ", multipartFile.getSize());
+
+					log.debug("-------- file end --------\n");
+				} // 콘솔에서 이미지 정보 보여주는 곳
+
+			} // while end
+
+			try {
+				int parentSeq = noticeDto.getNo();
 				
-				System.out.println("imgNo" + imgNo);
-				System.out.println("imgNo2" + imgNo2);
+				List<Map<String, Object>> list 
+					= fileUtils.parseInsertFileInfo(parentSeq, mulRequest);
+				System.out.println(list);
+		
+				Map<String, Object> imgMap = noticeDao.fileSelectOne(no);
+				System.out.println(imgMap);
 				
-				if (imgNo2 != imgNo) {
-					System.out.println("imgno 다를때");
-					noticeDao.fileDelete(parentSeq);
-					fileUtils.parseUpdateFileInfo(imgMap);
+				int imgNo2 = 0;
+				
+				if(imgMap != null) {
+					imgNo2 = Integer.parseInt(String.valueOf(imgMap.get("NO")));
 					
+					System.out.println("imgNo" + imgNo);
+					System.out.println("imgNo2" + imgNo2);
+					
+					if (imgNo2 != imgNo) {
+						System.out.println("imgno 다를때");
+						noticeDao.fileDelete(parentSeq);
+						fileUtils.parseUpdateFileInfo(imgMap);
+						
+						for (Map<String, Object> map : list) {
+							noticeDao.insertFile(map);
+						}
+					}
+				}else {
 					for (Map<String, Object> map : list) {
 						noticeDao.insertFile(map);
 					}
 				}
-			}else {
-				for (Map<String, Object> map : list) {
-					noticeDao.insertFile(map);
-				}
+				
+				 
+
+			}catch (Exception e) { 
+//			 	TransactionAspectSupport.currentTransactionStatus() 
+//	 				.setRollbackOnly();
+				e.printStackTrace();
 			}
-			
+
 			 
-
-		}catch (Exception e) { 
-//		 	TransactionAspectSupport.currentTransactionStatus() 
-// 				.setRollbackOnly();
-			e.printStackTrace();
+			return resultNum;
 		}
-
-		 
-		return resultNum;
+//		int resultNum = 0;
+//
+//		resultNum = noticeDao.noticeUpdate(noticeDto);
+//		
+//		int no = noticeDto.getNo();
+//
+//		// 순서대로 끄내는 로직
+//		Iterator<String> iterator = mulRequest.getFileNames();
+//		MultipartFile multipartFile = null;
+//
+//		while (iterator.hasNext()) {
+//
+//			multipartFile = mulRequest.getFile(iterator.next());
+//
+//			if (multipartFile.isEmpty() == false) {
+//				log.debug("-------- file start --------");
+//
+//				log.debug("name : {} ", multipartFile.getName());
+//				log.debug("fileName : {} ", multipartFile.getOriginalFilename());
+//				log.debug("size : {} ", multipartFile.getSize());
+//
+//				log.debug("-------- file end --------\n");
+//			} // 콘솔에서 이미지 정보 보여주는 곳
+//
+//		} // while end
+//
+//		try {
+//			int parentSeq = noticeDto.getNo();
+//			
+//			List<Map<String, Object>> list 
+//				= fileUtils.parseInsertFileInfo(parentSeq, mulRequest);
+//			System.out.println(list);
+//	
+//			Map<String, Object> imgMap = noticeDao.fileSelectOne(no);
+//			System.out.println(imgMap);
+//			
+//			int imgNo2 = 0;
+//			
+//			if(imgMap != null) {
+//				imgNo2 = Integer.parseInt(String.valueOf(imgMap.get("NO")));
+//				
+//				System.out.println("imgNo" + imgNo);
+//				System.out.println("imgNo2" + imgNo2);
+//				
+//				if (imgNo2 != imgNo) {
+//					System.out.println("imgno 다를때");
+//					noticeDao.fileDelete(parentSeq);
+//					fileUtils.parseUpdateFileInfo(imgMap);
+//					
+//					for (Map<String, Object> map : list) {
+//						noticeDao.insertFile(map);
+//					}
+//				}
+//			}else {
+//				for (Map<String, Object> map : list) {
+//					noticeDao.insertFile(map);
+//				}
+//			}
+//			
+//			 
+//
+//		}catch (Exception e) { 
+////		 	TransactionAspectSupport.currentTransactionStatus() 
+//// 				.setRollbackOnly();
+//			e.printStackTrace();
+//		}
+//
+//		 
+//		return resultNum;
 	}
 
 	@Override

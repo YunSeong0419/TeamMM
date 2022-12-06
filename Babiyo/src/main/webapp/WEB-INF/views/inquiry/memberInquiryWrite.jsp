@@ -64,7 +64,7 @@ span{
 
 <script type="text/javascript">
 	function backBtn() {
-		location.href = "./list.do"
+		location.href = "../member.do"
 	}
 	
 	function formSubmit() {

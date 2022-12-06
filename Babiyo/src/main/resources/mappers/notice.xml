@@ -26,7 +26,7 @@
 		<if test="searchOption != null">
 		<choose>
 		<!-- 검색 옵션이 전체 검색일 경우  -->
-		<when test="searchOption == 'all'">
+		<when test="searchOption == ''">
 			(TITLE LIKE '%'||#{search}||'%'	OR CONTENT LIKE '%'||#{search}||'%')
 		</when>
 		<!-- 전체 검색이 아닌 경우  -->
@@ -62,7 +62,7 @@
 	SELECT COUNT(*)
 	FROM NOTICE
 	<where>
-	<include refid="search"/>
+	<include refid="search"/>  
 	<include refid="stateCode"/>
 	</where>
 	
@@ -142,9 +142,9 @@ VALUES( #{categoryCode}, #{title}, #{content}, SYSDATE,
 	TITLE = #{title}
 	,CONTENT = #{content}
 	,CATEGORY_CODE = #{categoryCode} 
-	<if test="categoryCode == 2">
-	,EVENT_START_DATE = #{eventStartDate}
-	,EVENT_END_DATE = #{eventEndDate}
+	<if test="categoryCode == 1">
+	,EVENT_START_DATE = NULL
+	,EVENT_END_DATE = NULL
 	</if>
 	WHERE NO = #{no}
 </update>

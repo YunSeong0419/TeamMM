@@ -23,7 +23,7 @@ span{
 }
 
 #divisionId{
-	margin-left: 15px;
+	margin-left: 13px;
 	width: 100px;
 	height: 35px;
 	border-radius: 5px;
@@ -62,7 +62,7 @@ span{
 }
 
 #titleId{
-	margin:10px 0px 0px 15px;
+	margin:10px 0px 0px 12px;
 	width: 842px;
 	height: 40px;
 }
@@ -114,7 +114,7 @@ span{
 
 <script type="text/javascript">
 function backBtn(){
-	location.href = './list.do';
+	location.href = './admin/list.do';
 }
 
 function deleteBtn(no){
@@ -124,7 +124,7 @@ function deleteBtn(no){
 	}
 }
 function modifytBtn(no) {
-	location.href = "./update.do?no=" + no;
+	location.href = "../update.do?no=" + no;
 }
 </script>
 </head>

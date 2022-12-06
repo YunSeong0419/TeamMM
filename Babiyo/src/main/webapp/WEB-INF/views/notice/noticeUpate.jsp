@@ -34,7 +34,7 @@ span{
 }
 
 #titleId{
-	margin:10px 0px 0px 15px;
+	margin:10px 0px 0px 16px;
 	width: 838px;
 	height: 40px;
 }
@@ -77,7 +77,7 @@ span{
 	margin-top: 10px;
 }
 
-#imageDiv{
+#fileContent{
 	display: none;
 }
 
@@ -120,10 +120,10 @@ $(document).ready(function(){
 		    var result = $("select[name=categoryCode]").val();
 		    if (result == 2) {
 		      $('.eventCl').show();
-		      $('#imageDiv').show();
+		      $('#fileContent').show();
 		    } else {
 		      $('.eventCl').hide();
-		      $('#imageDiv').hide();
+		      $('#fileContent').hide();
 		    }
 		  }); 
 	
@@ -133,7 +133,7 @@ $(document).ready(function(){
 		deleteFileFnc();
 	});
 	
-	$('#divisionId').val($('#categoryCode').val());
+	$('#categoryId').val($('#categoryCode').val());
 });
 
 function formSubmit() {
@@ -193,7 +193,7 @@ function deleteFileFnc() {
 	
 	var htmlStr = "";
 	
-	htmlStr += '<sapn>이미지</sapn><br>사진 <input name="file" id="imageId" type="file">';
+	htmlStr += '<span>이미지</span><br>사진 <input name="file" id="imageId" type="file">';
 	htmlStr += '<a href="#this" id="" onclick="deleteFileFnc();">삭제</a>';
 	
 	obj.html(htmlStr);
@@ -231,20 +231,19 @@ function pageMoveDeleteFnc(no){
 				<input type="hidden" name="no" value="${noticeDto.no}">
 				<input type="hidden" id="categoryCode" value="${noticeDto.categoryCode}">
 				<div>
-				<span>분류</span>
-					<select name="categoryCode" id="categoryId">
-						<option value="1">공지</option>
-						<option value="2">이벤트</option>
-					</select>
+						<span>분류</span>
+						<select name="categoryCode" id="categoryId">
+							<option value="1">공지</option>
+							<option value="2">이벤트</option>
+						</select>
 						
-				 <c:if test="${noticeDto.categoryName eq '이벤트'}"> 
 						<span id="daySpan" class="eventCl">기간</span>
 						<input type="date" name="eventStartDate" id="eventStartDateId" class="eventCl" 
 						value="<fmt:formatDate pattern='yyyy-MM-dd' value='${noticeDto.eventStartDate}'/>">
-						<span id="daySpan" class="eventCl">&nbsp~</span>
-						<input type="date" name="eventEndDateId" id="eventEndDateId" class="eventCl" 
+						<span id="daySpan" class="eventCl">~</span>
+						<input type="date" name="eventEndDate" id="eventEndDateId" class="eventCl" 
 						value="<fmt:formatDate pattern='yyyy-MM-dd' value='${noticeDto.eventEndDate}'/>">
-				 </c:if> 
+			
 					</div> 
 				
 				<div id="SecondDiv">

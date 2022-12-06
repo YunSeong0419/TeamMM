@@ -190,7 +190,7 @@ $(document).ready(function() {
 				
 				<span id="daySpan" class="eventCl">기간</span>
 				<input name="eventStartDate" id="eventStartDateId" class="eventCl" type="date">
-				<span id="daySpan" class="eventCl">&nbsp~</span><input name="eventEndDateId" id="eventEndDateId" class="eventCl" type="date">
+				<span id="daySpan" class="eventCl">&nbsp~</span><input name="eventEndDate" id="eventEndDateId" class="eventCl" type="date">
 			</div>
 			<div>      
 				<span>제목</span><input name="title" id="titleId" type="text">

@@ -182,8 +182,7 @@ function formSubmit() {
 				</div>
 				<div id="answerDiv">
 					<span>답변</span><br>
-					<input type="text" name="answer" id="answerId"
-					 value="${inquiryDto.answer}" >
+					<textarea name="answer" id="answerId">${inquiryDto.answer}</textarea>
 				</div>
 				<div id="btnDiv">
 				<input class="backBtn" type="button" value="뒤로가기" onclick="backBtn()"> 

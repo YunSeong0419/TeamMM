@@ -33,7 +33,7 @@ public class NoticeController {
 	
 	//관리자
 	//공지 게시판
-	@RequestMapping(value = "/notice/admin/list.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/notice/admin/list.do")
 	public String adminNoticeList(@RequestParam(defaultValue = "1") int curPage
 			, SearchOption searchOption
 			, HttpSession session, Model model) {
@@ -54,8 +54,8 @@ public class NoticeController {
 	}
 	
 	
-	//공지 게시판
-	@RequestMapping(value = "/notice/list.do", method = RequestMethod.GET)
+	//일반 공지 게시판
+	@RequestMapping(value = "/notice/list.do")
 	public String noticeList(@RequestParam(defaultValue = "1") int curPage
 			, SearchOption searchOption
 			, HttpSession session, Model model) {
@@ -91,9 +91,27 @@ public class NoticeController {
 
 		noticeService.noticeWrite(noticeDto, mulRequest);
 	
-		return "redirect:/notice/list.do";
+		return "redirect:/notice/admin/list.do";
 	}
 	
+	
+	//관리자 공지 상세 
+	@RequestMapping(value = "/notice/admin/detail.do", method = RequestMethod.GET)
+	public String adminNoticeDetail(NoticeDto noticeDto, int no, HttpSession session, Model model) {
+		logger.info("Welcome NoticeController detail! ");
+
+		noticeService.noticeHitPlus(noticeDto);	
+		Map<String, Object> map = noticeService.noticeSelectOne(no);
+		
+		NoticeDto noticeDto2 = (NoticeDto) map.get("noticeDto");
+		@SuppressWarnings("unchecked")
+		Map<String, Object> noticeImg = (Map<String, Object>) map.get("imgMap");
+		
+		model.addAttribute("noticeDto", noticeDto2);
+		model.addAttribute("noticeImg", noticeImg);
+		 
+		return "notice/adminNoticeDetail";
+	}
 	
 	//공지 상세 
 	@RequestMapping(value = "/notice/detail.do", method = RequestMethod.GET)

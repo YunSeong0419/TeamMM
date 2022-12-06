@@ -128,9 +128,9 @@ span{
 
 $(document).ready(function(){
 	
-	$('#searchId').val($('#searchMapId').val());
-	
 	$('#stateSelect').val($('#stateCode').val());
+	$('#searchSelect').val($('#searchOption').val());
+	$('.searchCl').val($('#hiddenSearch').val());
 	
 	});
 
@@ -146,7 +146,7 @@ $(document).ready(function(){
 
 	function writeBtn() {
 
-		location.href = "./write.do"
+		location.href = "../write.do"
 	}
 </script>
 </head>
@@ -165,7 +165,7 @@ $(document).ready(function(){
 				<!--여기서 작성 -->
 		<div id="filterDiv">
 						<!--  filterDiv 시작-->
-						<form id="stateForm" action=./list.do method="get">
+						<form id="stateForm" action=./admin/list.do method="post">
 							<span>분류</span> 
 								<select id="stateSelect" name="stateCode"
 									onchange="stateSelectFnc();">
@@ -176,21 +176,17 @@ $(document).ready(function(){
 								</select>
 						</form>
 					
-					<form action="./list.do" method="get" id="searchFrom">
-					<input type="hidden" id="searchMapId" value="${searchMap.search}"> 
-					<select name="searchOption" id="searchSelect">
-							<option value="all" selected="selected">전체</option>
-							<option value="title">제목</option>
-							<option value="content">내용</option>
-					</select>
-		
-			
-			<input class="searchCl" type="text" name="search" value="${searchMap.search}">
-				
-			<input type="submit" value="검색">
-		
-		</form>
-		</div>
+						<form action="./list.do" method="post" id="searchFrom">
+						<select name="searchOption" id="searchSelect">
+								<option value="">전체</option>
+								<option value="title">제목</option>
+								<option value="content">내용</option>
+						</select>
+						<input type="hidden" id="hiddenSearch" value="${searchOption.search}">
+						<input class="searchCl" type="text" name="search">
+						<input type="submit" value="검색">
+						</form>
+				</div>
 				<!-- filterDiv 끝-->
 
 				<div id="noticeList">
@@ -247,6 +243,7 @@ $(document).ready(function(){
 			<form id="pagingForm">
 				<input type="hidden" id="curPage" name="curPage" value="${paging.curPage}">
 				<input type="hidden" id="stateCode" name="stateCode" value="${searchOption.stateCode}">
+				<input type="hidden" id="searchOption" name="searchOption" value="${searchOption.searchOption}">
 				<input type="hidden" name="search" value="${searchOption.search}">
 			</form>
 

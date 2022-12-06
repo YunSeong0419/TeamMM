@@ -13,6 +13,11 @@ table {
 	border-collapse: collapse;
 }
 
+th{
+	background-color: #FF9436;
+    color: #fff;
+}
+
 td{
 	height: 30px;
 	border-bottom: 1px solid gray;
@@ -67,7 +72,8 @@ span{
 }
 
 #firstRow{
-	background-color: #E0E0E0;
+	background-color: #FF9436;
+    color: #fff;
 }
 
 #inquiryNoTh {

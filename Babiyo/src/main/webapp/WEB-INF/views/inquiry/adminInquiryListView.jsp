@@ -13,6 +13,11 @@ table {
 	border-collapse: collapse;
 }
 
+th{
+	background-color: #FF9436;
+    color: #fff;
+}
+
 td{
 	height: 30px;
 	border-bottom: 1px solid gray;
@@ -104,7 +109,7 @@ span{
 	width: 52px;
 }
 
-.inquiryCategoryTd, .answerTd{
+.inquiryCategoryTd, .createDateTd, .answerTd{
 	text-align: center;
 }
 
@@ -120,6 +125,8 @@ span{
 
 		$('#answerSelect').val($('#answerState').val());
 		$('#categorySelect').val($('#categoryCode').val());
+		$('#searchId').val($('#hiddenSearch').val());
+		
 	});
 
 	function categorySelectFnc() {
@@ -172,7 +179,9 @@ span{
 						</select>
 						<span id="YesNo">답변여부</span> 
 						<span class="memberCL">작성자</span>
+						<input type="hidden" id="hiddenSearch" value="${searchMap.search}">
 						<input id="searchId" type="text" name="search">
+						<input type="submit" value="검색">
 					</form>
 				</div>
 					<div id="inquiryList">
@@ -215,7 +224,7 @@ span{
 										</c:choose> 
 										<td><a href="./admin/answer.do?no=${inquiryDto.no}">${inquiryDto.title}</a></td>
 										<td>${inquiryDto.memberId}</td>
-										<td><fmt:formatDate pattern="yyyy-MM-dd "
+										<td class="createDateTd"><fmt:formatDate pattern="yyyy-MM-dd "
 												value="${inquiryDto.createDate}" /></td>
 										<c:choose>
 											<c:when test="${empty inquiryDto.answer}">
