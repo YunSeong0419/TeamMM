@@ -232,7 +232,7 @@ $(function(){
 });
 
 function korTrans(price){ // 숫자를 원화시키기 위한 함수
-	return price.toLocaleString('ko-KR') + '원';
+	return price.toLocaleString('ko-KR') + ' 원';
 }
 
 function totalTrans(){ // 체크한 주문금액을 반영해주는 함수

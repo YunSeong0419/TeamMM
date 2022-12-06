@@ -179,8 +179,8 @@ public class OrderController {
 		return "order/memberOrderList";
 	}
 	
-	@RequestMapping(value = "/admin/sales.do", method = RequestMethod.GET)
-	public String sales(Model model, SearchOption searchOption) {
+	@RequestMapping(value = "/admin/sales.do", method = {RequestMethod.GET, RequestMethod.POST})
+	public String sales(Model model, SearchOption searchOption, String yearSel) {
 		logger.info("관리자 매출관리");
 		
 		List<OrderDetailDto> salesList = orderService.salesView(searchOption);
@@ -189,6 +189,7 @@ public class OrderController {
 		
 		model.addAttribute("today", today);
 		model.addAttribute("salesList", salesList);
+		model.addAttribute("yearSel", yearSel);
 		
 		return "admin/order/sales";
 	}

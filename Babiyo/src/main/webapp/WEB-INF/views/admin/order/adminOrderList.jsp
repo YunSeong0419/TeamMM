@@ -242,7 +242,7 @@ function stateSelectFnc(){
 					</c:forEach>
 					</c:when>
 					<c:otherwise>
-					<tr><td colspan="5" style="height: 350px; text-align: center; font-weight: bold;
+					<tr><td colspan="6" style="height: 350px; text-align: center; font-weight: bold;
 								font-size: 25px;">
 					<c:choose>
 						<c:when test="${searchOption.search ne ''}">

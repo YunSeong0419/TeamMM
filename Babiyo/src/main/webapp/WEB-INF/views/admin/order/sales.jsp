@@ -13,29 +13,57 @@
 
 <style type="text/css">
 
-#searchOptionContainer{
+#searchOptionForm{
 	width: 950px;	
 	margin: 0 auto;
 }
 
+#sort{
+	width: 65px;
+}
+
+#searchContainer{
+	float:right;
+}
+
 #searchOption{
+	width: 65px;
+}
+
+#search{
+	width: 150px;
+}
+
+#period{
+	display: inline-block;
 }
 
 #periodSelect{
 	margin-left: 20px;
 }
 
-#searchKeword{
-	float:right;
+.month{
+	display: inline-block;
+	width: 35px;
+	height: 35px;
+	line-height: 35px;
+	background-color: #FF9436;
+	border-radius: 5px;
+	font-weight: bold;
+	text-align: center;
+	font-size: 12px;
+	color: #fff;
+	cursor: pointer;
+}
+
+.month:hover{
+	background-color: #FF8224;
 }
 
 #stateCodeSel{
 	width: 60px;
 }
 
-#search{
-	width: 150px;
-}
 
 #beginDate, #endDate{
 	width: 100px;
@@ -47,6 +75,15 @@
 	border: 1px solid black;
 	border-radius: 5px;
 }
+
+#salesTotalAmountContainer{
+	width: 950px;
+	margin: 20px auto;
+	text-align: center;
+	font-size: 20px;
+	font-weight: bold;
+}
+
 
 #salesListContainer{
 	margin-top: 10px;
@@ -82,7 +119,7 @@
 #priceTh {
 	width: 120px;
 }
-#totalAmount {
+#totalAmountTh {
 	width: 120px;
 }
 
@@ -120,18 +157,57 @@
 <script type="text/javascript">
 $(function(){
 	
+	// 정렬 셀렉박스 설정
 	if($('#sortVal').val()){
 		$('#sort').val($('#sortVal').val());
 	}
 	
+	// 검색옵션 셀렉박스 설정
 	if($('#searchOptionVal').val()){
 		$('#searchOption').val($('#searchOptionVal').val());
 	}
 	
+	// 년도선택 셀렉박스 설정
+	$('#yearSel').val($('#yearSelVal').val());
+	
+	// 선택한 년도에 맞춰서 화면변경
+	yearSelFnc();
+	
+	let month = Number($('#endDate').val().substr(5,2));
+	
+	// 선택한 월의 버튼배경색 변경
+	$('.month').eq(month-1).css('background-color', '#FF8224');
+	
+	// 
+	if($('#yearSel').val() != 'custom'){
+		$('#periodText').html($('.month').eq(month-1).text());
+	}else{
+		$('#periodText').html($('#beginDate').val() + ' ~ ' + $('#endDate').val());
+	}
+	
+	let salesTotalAmount = 0;
+	
+	$('.totalAmount').each(function() {
+		salesTotalAmount += Number($(this).val());
+	});
+	
+	
+	
+	$('#salesTotalAmount').html(korTrans(salesTotalAmount));
+	
+// 	 여기부터 이벤트리스너
+	
+	// 정렬 서브밋
 	$('#sort').change(function() {
 		searchOptionForm.submit();
 	});
 	
+	// 시작날짜 서브밋
+	$('#beginDate').change(function() {
+		searchOptionForm.submit();
+	});
+	
+	// 종료날짜 서브밋
 	$('#endDate').change(function() {
 	
 		var beginDateObj = $('#beginDate');
@@ -175,11 +251,72 @@ $(function(){
 			
 		}
 		
-		stateSelectFnc();
+		$('#searchOptionForm').submit();
 	
 	});
 
 });
+
+function korTrans(price){
+	
+	return price.toLocaleString('ko-KR') + ' 원';
+}
+
+// 월을 선택하면 서브밋 하는 함수
+function selectMonthFnc(month){
+	
+	let year = $('#yearSel').val();
+	
+	if(!year){
+		year = new Date().getFullYear();
+	}
+	
+	let beginDate = new Date(year, month-1, 1);
+	let endDate = new Date(year, month, 0);
+	
+	$('#beginDate').val(dateTrans(beginDate));
+	
+	$('#endDate').attr('max', dateTrans(endDate));
+	$('#endDate').val(dateTrans(endDate));
+	
+	$('#searchOptionForm').submit();
+}
+
+// 월과 일이 10보다 작으면 앞에 0을 붙여주는 함수
+function dateTrans(date){
+	let year = date.getFullYear();
+	let month = date.getMonth() + 1;
+	let day = date.getDate();
+	
+	if(month < 10){
+		month = '0' + month;
+	}
+	
+	if(day < 10){
+		day = '0' + day;
+	}
+	
+	return year + '-' + month + '-' + day;
+}
+
+// 선택한 연도에 따라서 화면변경
+function yearSelFnc(){
+	
+	if($('#yearSel').val() != 'custom'){
+		$('#presetPeriod').css('display', 'inline');
+		$('#customPeriod').css('display', 'none');
+	}else{
+		$('#customPeriod').css('display', 'inline');
+		$('#presetPeriod').css('display', 'none');
+		
+		$('#endDate').attr('max', dateTrans(new Date()));
+		
+		if(new Date($('#endDate').val()) > new Date()){
+			$('#endDate').val(dateTrans(new Date()));
+		}
+	}
+	
+}
 </script>
 
 </head>
@@ -196,33 +333,52 @@ $(function(){
 		<div id="middleMainDiv">
 			<div id="sideTitle"></div>
 			<!--여기서 작성 -->
-				<form id="searchOptionForm" method="get">
+			<form id="searchOptionForm" method="post">
 				<div id="searchOptionContainer">
-					<span>
-						<select id="sort" class="inputBox" name="sort">
-							<option value="ORDER_DATE DESC">날짜 ↑</option>
-							<option value="ORDER_DATE ASC">날짜 ↓</option>
-							<option value="TOTAL_AMOUNT ASC">총액 ↑</option>
-							<option value="TOTAL_AMOUNT DESC">총액 ↓</option>
-							<option value="PRODUCT_NAME ASC">품명 ↑</option>
-							<option value="PRODUCT_NAME DESC">품명 ↓</option>
+					<select id="sort" class="inputBox" name="sort">
+						<option value="ORDER_DATE DESC">날짜 ↑</option>
+						<option value="ORDER_DATE ASC">날짜 ↓</option>
+						<option value="TOTAL_AMOUNT ASC">총액 ↑</option>
+						<option value="TOTAL_AMOUNT DESC">총액 ↓</option>
+						<option value="PRODUCT_NAME ASC">품명 ↑</option>
+						<option value="PRODUCT_NAME DESC">품명 ↓</option>
+					</select>
+					<div id="period">
+						<input type="hidden" id="yearSelVal" value="${yearSel}">
+						<select id="yearSel" class="inputBox" name="yearSel" onchange="yearSelFnc();">
+							<option value="custom">직접 선택</option>
+							<option value="">${today.year}년</option>
+							<c:forEach var="i" begin="1" end="${today.year - 2020}">
+							
+							<option value="${today.year - i}">${today.year - i}년</option>
+							
+							</c:forEach>
 						</select>
-					</span>
-					<span id="periodSelect">
-						<strong>기간</strong>
-						<input type="date" name="beginDate" id="beginDate" class="inputBox"
-							 onchange="stateSelectFnc();"
-							max="<fmt:formatDate value="${searchOption.endDate}" pattern="yyyy-MM-dd"/>"
-							value="<fmt:formatDate value="${searchOption.beginDate}" pattern="yyyy-MM-dd"/>">
-						 ~ 
-						<input type="date" name="endDate" id="endDate" class="inputBox"	max="${today}"
-							value="<fmt:formatDate value="${searchOption.endDate}" pattern="yyyy-MM-dd"/>">
-					</span>
-					<span id="searchKeword">
+					
+						<div id="presetPeriod" style="display: none">
+							<c:forEach var="month" begin="1" end="12">
+						
+							<span class="month" onclick="selectMonthFnc(${month})">${month}월</span>
+							
+							</c:forEach>
+						</div>
+						
+						<div id="customPeriod" style="display: none">
+							시작일
+							<input type="date" name="beginDate" id="beginDate" class="inputBox"
+								max="<fmt:formatDate value="${searchOption.endDate}" pattern="yyyy-MM-dd"/>"
+								value="<fmt:formatDate value="${searchOption.beginDate}" pattern="yyyy-MM-dd"/>">
+						 	종료일
+							<input type="date" name="endDate" id="endDate" class="inputBox"
+								value="<fmt:formatDate value="${searchOption.endDate}" pattern="yyyy-MM-dd"/>">
+						</div>
+						
+					</div>
+					<div id="searchContainer">
 						<select id="searchOption" class="inputBox" name="searchOption">
 							<option value="">전체</option>
 							<option value="MEMBER_ID">회원</option>
-							<option value="PRODUCT_NAME">밀키트</option>
+							<option value="NAME">밀키트</option>
 						</select>
 						<input type="text" name="search" id="search" class="inputBox"
 							 value="${searchOption.search}" placeholder="검색어 입력">
@@ -230,18 +386,13 @@ $(function(){
 						
 						<input id="searchOptionVal" type="hidden" value="${searchOption.searchOption}">
 						<input id="sortVal" type="hidden" value="${searchOption.sort}">
-					</span>
+					</div>
 				</div>
 			</form>
 			
-			<c:forEach begin="1" end="12" var="i">
-			<span id="month${i}">
-				${i}월
-			</span>
-			</c:forEach>
-			
-			<div>
-				총 합계
+			<div id="salesTotalAmountContainer">
+				<span id="periodText"></span>
+				매출 총 액 <span id="salesTotalAmount"></span>
 			</div>
 			
 			<div id="salesListContainer">
@@ -252,7 +403,7 @@ $(function(){
 						<th id="productTh">상품명</th>
 						<th id="quantityTh">수 량</th>
 						<th id="priceTh">가 격</th>
-						<th id="totalAmount">금 액</th>
+						<th id="totalAmountTh">금 액</th>
 					</tr>
 					<c:choose>
 					<c:when test="${!empty salesList}">
@@ -272,7 +423,7 @@ $(function(){
 							<td class="totalAmountTd">
 								<fmt:formatNumber value="${sales.quantity * sales.price}"
 									 pattern="#,### 원"/>
-								<input type="hidden" value="${sales.quantity * sales.price}">
+								<input class="totalAmount" type="hidden" value="${sales.quantity * sales.price}">
 							</td>
 						</tr>
 						</c:forEach>
@@ -288,10 +439,6 @@ $(function(){
 				</table>
 			</div>
 			
-			
-				
-				
-				
 			<div id="underPadding"></div>
 			
 		</div> <!--middelMain 끝 -->

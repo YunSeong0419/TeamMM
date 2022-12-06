@@ -258,6 +258,7 @@ CREATE TABLE product
 	price number NOT NULL,
 	stock number NOT NULL,
 	content varchar2(4000) NOT NULL,
+	registration_date date NOT NULL,
 	PRIMARY KEY (no)
 );
 
@@ -557,11 +558,12 @@ END;
 
 /
 
-
 insert into member_grade
 values(1, '관리자');
 insert into member_grade
 values(2, '일반회원');
+insert into member_grade
+values(3, '탈퇴회원');
 
 insert into cash_history_category
 values(1, '충전');
@@ -576,7 +578,6 @@ insert into inquiry_category
 values(3, '회원');
 insert into inquiry_category
 values(4, '기타');
-
 
 insert into notice_category
 values(1, '공지');
@@ -607,7 +608,7 @@ insert into member
 (id, password, name, email, birthday, gender, phone, nickname, cash
 , grade_code, create_date, modify_date)
 values('admin', '123', '관리자', 'admin@test.com', TO_DATE('19960325')
-    , '남', '01011112222', 'admin1', 100000000, 1, sysdate, sysdate);
+    , '남', '01011112222', 'admin1', 0, 1, sysdate, sysdate);
 
 insert into member
 (id, password, name, email, birthday, gender, phone, nickname, cash
@@ -615,13 +616,12 @@ insert into member
 values('dong', '123', '이동현', 'dong@test.com', TO_DATE('19960325')
     , '남', '01055553333', '동현', 100000, 2, sysdate, sysdate);
 
-insert into product(CATEGORY_CODE, NAME, PRICE, STOCK, CONTENT)
-values(4, '봉골레파스타', 6000, 100, '아주 맛있는 봉골레파스타!');
-insert into product(CATEGORY_CODE, NAME, PRICE, STOCK, CONTENT)
-values(4, '까르보나라', 8000, 100, '아주 맛있는 까르보나라!');
-insert into product(CATEGORY_CODE, NAME, PRICE, STOCK, CONTENT)
-values(4, '로제파스타', 7000, 100, '아주 맛있는 로제파스타!');
-
+insert into product(CATEGORY_CODE, NAME, PRICE, STOCK, CONTENT, REGISTRATION_DATE)
+values(4, '봉골레파스타', 6000, 100, '아주 맛있는 봉골레파스타!', SYSDATE);
+insert into product(CATEGORY_CODE, NAME, PRICE, STOCK, CONTENT, REGISTRATION_DATE)
+values(4, '까르보나라', 8000, 100, '아주 맛있는 까르보나라!', SYSDATE);
+insert into product(CATEGORY_CODE, NAME, PRICE, STOCK, CONTENT, REGISTRATION_DATE)
+values(4, '로제파스타', 7000, 100, '아주 맛있는 로제파스타!', SYSDATE);
 
 INSERT INTO PRODUCT_IMAGE(PRODUCT_NO, ORIGINAL_NAME, STORED_NAME)
 VALUES(1, '봉골레사진.jpg', '봉골레.jpg');
@@ -630,25 +630,4 @@ VALUES(2, '까르보.jpg', '까르보.jpg');
 INSERT INTO PRODUCT_IMAGE(PRODUCT_NO, ORIGINAL_NAME, STORED_NAME)
 VALUES(3, '로제.jpg', '로제.jpg');
 
-
-insert into cart(member_id, product_no, quantity)
-values('dong', 1, 3);
-insert into cart(member_id, product_no, quantity)
-values('dong', 2, 2);
-insert into cart(member_id, product_no, quantity)
-values('dong', 3, 4);
-
-INSERT INTO FAVORITE(MEMBER_ID, PRODUCT_NO)
-VALUES('dong', 1);
-INSERT INTO FAVORITE(MEMBER_ID, PRODUCT_NO)
-VALUES('dong', 2);
-INSERT INTO FAVORITE(MEMBER_ID, PRODUCT_NO)
-VALUES('dong', 3);
-
-
-
-
 commit;
-
-
-

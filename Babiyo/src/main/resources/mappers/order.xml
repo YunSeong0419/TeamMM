@@ -177,7 +177,9 @@ AND STATE_CODE = 2
 	AND (O.MEMBER_ID LIKE '%'||#{search}||'%'
 	OR P.NAME LIKE '%'||#{search}||'%')
 </when>
-<otherwise>AND ${searchOption} LIKE '%'||#{search}||'%'</otherwise>
+<otherwise>
+	AND ${searchOption} LIKE '%'||#{search}||'%'
+</otherwise>
 </choose>
 </if>
 <choose>
