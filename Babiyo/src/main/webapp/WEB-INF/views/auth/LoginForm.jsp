@@ -4,25 +4,36 @@
 <head>
 <title>Login</title>
 
+<script type="text/javascript" src="/babiyo/resources/js/jquery-3.6.1.js"></script>
+
 <style type="text/css">
-#header {
-	margin: auto;
-	width: 400px;
-	border-bottom: 1px solid grey;
-	text-align: center;
+
+html, body{
+	margin: 0;
+	padding: 0;
+}
+
+body{
 }
 
 #wrapper {
-	height: 680px;
-	
+	width: 400px;
 	min-height: 100%;
+	margin: 0px auto;
+	background-color: #fff;
+}
+
+#titleContainer{
+	margin-top: 50px;
+	text-align: center;
 }
 
 #titleForm {
 	text-align: center;
 	width: 300px;
-	margin: 0 auto;
+	margin: 40px auto 0px;
 }
+
 
 #loginMethodList {
 	font-size: 10px;
@@ -61,7 +72,13 @@
 	text-decoration: none;
 }
 
-#boxSizeAjdust1 {
+#verticalLine {
+	display: inline-block;
+	border-left: 1px solid #A0A0A0;
+	height: 10px;
+}
+
+#idBox {
 	width: 300px;
 	height: 40px;
 	font-size: 16px;
@@ -69,36 +86,25 @@
 	margin-bottom: 20px;
 }
 
-#boxSizeAjdust2 {
+#pwdBox {
 	width: 300px;
 	height: 40px;
 	font-size: 16px;
 	cursor: pointer;
-	margin-bottom: 20px;
+	margin-bottom: 40px;
 }
 
-#loginBtnSizeAjdust {
-	width: 150px;
-	height: 50px;
-	font-size: 18px;
+
+
+#loginBtn,#memberAddBtn {
+	width: 120px;
+	height: 40px;
+	font-size: 17px;
 	font-weight: bold;
-	background-color: orange;
+	background-color: #FF9436;
 	color: #fff;
 	border: none;
 	border-radius: 8px;
-	margin-bottom: 5px;
-}
-
-#memberAddBtn {
-	width: 150px;
-	height: 50px;
-	font-size: 18px;
-	font-weight: bold;
-	background-color: orange;
-	color: #fff;
-	border: none;
-	border-radius: 8px;
-	margin-bottom: 5px;
 }
 
 #alertMessage {
@@ -107,69 +113,48 @@
 	text-align: left;
 }
 
-.categoryVerticalLine {
-	display: inline-block;
-	border-left: 1px solid #A0A0A0;
-	height: 10px;
-}
 </style>
 
 </head>
 
 <body>
-			<div id='header'>
-			<h1>
-				<a href="../auth/login.do"> <img
-					style="width: 150px; height: 60px;"
-					src="/babiyo/resources/img/logo.png">
-				</a>
-			</h1>
-		</div>
+
 	<div id='wrapper'>
+		
+		<jsp:include page="/WEB-INF/views/LoginHeader.jsp"/>
 
-		<div>
-			<h3
-				style="text-align: center; margin-bottom: 200px; border-top: 10px; border-top-color: gray;">로그인</h3>
-		</div>	
+		<div id="titleContainer">
+			<h1>로그인</h1>
+		</div>
+		
 		<div id='titleForm'>
-
 			<div>
 				<ul id='loginMethodList'>
 					<li><a style="border-right: 1px; border-right-color: grey;"
 						href="./findId.do">아이디 찾기</a></li>
-					<div class='categoryVerticalLine'></div>
+					<li id='verticalLine'></li>
 					<li><a href="./findPwd.do">비밀번호 찾기</a></li>
 				</ul>
 			</div>
 
 			<div>
 				<form action="./loginCtr.do" method="post">
-					<input type="text" name="id" id="boxSizeAjdust1" placeholder="아이디">
-					<br> <input type="password" name="password"
-						id="boxSizeAjdust2" placeholder="비밀번호">
+				
+					<input type="text" name="id" id="idBox" placeholder="아이디">
+					<br> 
+					<input type="password" name="password" id="pwdBox" placeholder="비밀번호">
+						
 					<div>
-						<input type="submit" id="loginBtnSizeAjdust" value="로그인"
-							style="float: left">
-						<a href = "./member/add.do">
-							<input type="button" id="memberAddBtn" value="회원가입">
-						</a>
+						<input type="submit" id="loginBtn" value="로그인">
+						<input type="button" id="memberAddBtn" value="회원가입"
+							onclick="location.href='./member/add.do'">
 					</div>
+					
 				</form>
 			</div>
-
-			<div style="margin-top: 5px; text-align: left;">
-				<label for="together"
-					style="font-size: 14px; color: #888; cursor: pointer;"> <input
-					type="checkbox" id="together">아이디 저장
-				</label>&nbsp;&nbsp;&nbsp;&nbsp;
-			</div>
-			<br> <br>
-
-
 		</div>
+		
 	</div>
-
-	<jsp:include page="../Footer.jsp" />
 
 </body>
 </html>

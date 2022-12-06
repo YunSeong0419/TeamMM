@@ -225,71 +225,71 @@ function pageMoveDeleteFnc(no){
 				<div id="boxDiv">
 			<!--여기서 작성 -->
 			
-			<form name="frm" action="./updateCtr.do" method="post" enctype="multipart/form-data"
-			onsubmit="return formSubmit();">
-			
-				<input type="hidden" name="no" value="${noticeDto.no}">
-				<input type="hidden" id="categoryCode" value="${noticeDto.categoryCode}">
-				<div>
-						<span>분류</span>
-						<select name="categoryCode" id="categoryId">
-							<option value="1">공지</option>
-							<option value="2">이벤트</option>
-						</select>
-						
-						<span id="daySpan" class="eventCl">기간</span>
-						<input type="date" name="eventStartDate" id="eventStartDateId" class="eventCl" 
-						value="<fmt:formatDate pattern='yyyy-MM-dd' value='${noticeDto.eventStartDate}'/>">
-						<span id="daySpan" class="eventCl">~</span>
-						<input type="date" name="eventEndDate" id="eventEndDateId" class="eventCl" 
-						value="<fmt:formatDate pattern='yyyy-MM-dd' value='${noticeDto.eventEndDate}'/>">
-			
-					</div> 
+				<form name="frm" action="./updateCtr.do" method="post" enctype="multipart/form-data"
+				onsubmit="return formSubmit();">
 				
-				<div id="SecondDiv">
-				<span>작성일</span>
-				<input type="text" id="createDateId"
-					value="<fmt:formatDate pattern='yyyy-MM-dd' value='${noticeDto.createDate}'/>"  readonly="readonly">
-					<span id="lookSpan">조회수</span>
-					<input type="text" id="hitId" value="${noticeDto.hit}" readonly="readonly">
-				</div>
-				<div>
-				<span>제목</span>
-				<input type="text" name="title" id="titleId" value="${noticeDto.title}">
-				</div>
-				<div>
-					<span>내용</span><br>
-					<input type="text" name="content" id="contentsId" value="${noticeDto.content}">
-				</div>
+					<input type="hidden" name="no" value="${noticeDto.no}">
+					<input type="hidden" id="categoryCode" value="${noticeDto.categoryCode}">
+					<div>
+							<span>분류</span>
+							<select name="categoryCode" id="categoryId">
+								<option value="1">공지</option>
+								<option value="2">이벤트</option>
+							</select>
+							
+							<span id="daySpan" class="eventCl">기간</span>
+							<input type="date" name="eventStartDate" id="eventStartDateId" class="eventCl" 
+							value="<fmt:formatDate pattern='yyyy-MM-dd' value='${noticeDto.eventStartDate}'/>">
+							<span id="daySpan" class="eventCl">~</span>
+							<input type="date" name="eventEndDate" id="eventEndDateId" class="eventCl" 
+							value="<fmt:formatDate pattern='yyyy-MM-dd' value='${noticeDto.eventEndDate}'/>">
 				
-				<div>
-					<div id='fileContent'>
-						<span>이미지</span><br>
-						<c:choose>		
-						<c:when test="${!empty noticeImg}">
-						<div>
-							<input type="hidden" name="imgNo" value="${noticeImg.NO}">
-							<img alt="image not found" src="/babiyo/img/${noticeImg.STORED_NAME}">
-								${noticeImg.ORIGINAL_NAME}
-							<a href="#this" id="delete">삭제</a>
-						</div>
-						</c:when>
-						<c:otherwise>
-							사진 <input name="file" id="imageId" type="file">
-							<a href="#this" id="delete">삭제</a>
-						</c:otherwise>  
-						</c:choose>
-					</div>	
-				</div>
-				
-				<div id="btnDiv">
-					<input class="backBtn" type="button" value="뒤로가기" onclick="pageMoveBeforeFnc(${noticeDto.no});">
-				<c:if test="${_memberDto_.grade eq 1}">
-					<input class="modifytBtn"  type="submit" value="수정하기">
-					<input class="deleteBtn" type="button" value="삭제하기" onclick="pageMoveDeleteFnc(${noticeDto.no});">
-				</c:if>
-				</div>
-			</form>
+						</div> 
+					
+					<div id="SecondDiv">
+					<span>작성일</span>
+					<input type="text" id="createDateId"
+						value="<fmt:formatDate pattern='yyyy-MM-dd' value='${noticeDto.createDate}'/>"  readonly="readonly">
+						<span id="lookSpan">조회수</span>
+						<input type="text" id="hitId" value="${noticeDto.hit}" readonly="readonly">
+					</div>
+					<div>
+					<span>제목</span>
+					<input type="text" name="title" id="titleId" value="${noticeDto.title}">
+					</div>
+					<div>
+						<span>내용</span><br>
+						<input type="text" name="content" id="contentsId" value="${noticeDto.content}">
+					</div>
+					
+					<div>
+						<div id='fileContent'>
+							<span>이미지</span><br>
+							<c:choose>		
+							<c:when test="${!empty noticeImg}">
+							<div>
+								<input type="hidden" name="imgNo" value="${noticeImg.NO}">
+								<img alt="image not found" src="/babiyo/img/${noticeImg.STORED_NAME}">
+									${noticeImg.ORIGINAL_NAME}
+								<a href="#this" id="delete">삭제</a>
+							</div>
+							</c:when>
+							<c:otherwise>
+								사진 <input name="file" id="imageId" type="file">
+								<a href="#this" id="delete">삭제</a>
+							</c:otherwise>  
+							</c:choose>
+						</div>	
+					</div>
+					
+					<div id="btnDiv">
+						<input class="backBtn" type="button" value="뒤로가기" onclick="pageMoveBeforeFnc(${noticeDto.no});">
+					<c:if test="${_memberDto_.grade eq 1}">
+						<input class="modifytBtn"  type="submit" value="수정하기">
+						<input class="deleteBtn" type="button" value="삭제하기" onclick="pageMoveDeleteFnc(${noticeDto.no});">
+					</c:if>
+					</div>
+				</form>
 			</div>
 			<div id="underPadding"></div>
 			

@@ -138,4 +138,11 @@ FROM(SELECT I.NO, C.NAME, I.TITLE, I.CONTENT, I.ANSWER, I.CATEGORY_CODE ,I.CREAT
 	WHERE NO = #{no} 
 </update>
 
+<!-- 관리자 홈에서 문의수 조회 -->
+<select id="waitInquiryCount" resultType="int">
+	SELECT COUNT(*)
+	FROM INQUIRY
+	WHERE ANSWER IS NULL
+</select>
+
 </mapper>

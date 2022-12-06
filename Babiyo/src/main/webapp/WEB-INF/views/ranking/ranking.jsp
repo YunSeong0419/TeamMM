@@ -49,8 +49,8 @@ ul{
 		       	<div id="rankingDiv">
 				<ul id="ulId">
 					<li id="rankIi">오늘 판매량 순위</li>
-					<c:forEach items="${toDayList}">
-						<li></li>
+					<c:forEach items="${toDayList}" var="ranking">
+						<li>${ranking}</li>
 					</c:forEach>
 				</ul>
 		     	 </div>
@@ -58,8 +58,8 @@ ul{
 				<div id="rankingDiv">
 				<ul id="ulId">
 					<li id="rankIi">주간 판매량 순위</li>
-					<c:forEach items="${weeklyList}">
-						<li></li>
+					<c:forEach items="${weeklyList}" var="ranking">
+						<li>${ranking}</li>
 					</c:forEach>
 				</ul>
 		     	 </div>
@@ -67,8 +67,8 @@ ul{
 			<div id="rankingDiv">
 				<ul id="ulId">
 					<li id="rankIi">남성 판매량 순위</li>
-					<c:forEach items="${manList}">
-						<li></li>
+					<c:forEach items="${manList}" var="ranking">
+						<li>${ranking}</li>
 					</c:forEach>
 				</ul>
 		     	 </div>
@@ -76,8 +76,8 @@ ul{
 			<div id="rankingDiv">
 				<ul id="ulId">
 					<li id="rankIi">여성 판매량 순위</li>
-					<c:forEach items="${womanList}">
-						<li></li>
+					<c:forEach items="${womanList}" var="ranking">
+						<li>${ranking}</li>
 					</c:forEach>
 				</ul>
 		     	 </div>

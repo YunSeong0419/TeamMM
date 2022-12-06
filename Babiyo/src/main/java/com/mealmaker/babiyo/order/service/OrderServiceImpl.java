@@ -44,7 +44,7 @@ public class OrderServiceImpl implements OrderService{
 		// TODO Auto-generated method stub
 		
 		// 금액 차감
-		cashUpdate(orderDto);
+		orderCashUpdate(orderDto);
 		
 		// 주문정보를 db에 저장
 		orderDao.order(orderDto);
@@ -78,9 +78,6 @@ public class OrderServiceImpl implements OrderService{
 		
 		// 배열에 들어있는 장바구니 삭제
 		cartDao.cartDelete(cartDto);
-		
-		
-		
 		
 		return orderNo;
 	}
@@ -129,10 +126,18 @@ public class OrderServiceImpl implements OrderService{
 	}
 
 	@Override
-	public void orderCancel(int orderNo) {
+	public int orderCancel(int orderNo) {
 		// TODO Auto-generated method stub
-		
 		orderDao.orderCancel(orderNo);
+		
+		Map<String, Object> map = orderDao.totalAmountView(orderNo);
+		
+		String memberId = (String)map.get("MEMBER_ID");
+		int totalAmount = Integer.parseInt(map.get("TOTAL_AMOUNT").toString());
+		
+		cancelCashUpdate(memberId, totalAmount);
+		
+		return totalAmount;
 	}
 
 	@Override
@@ -169,18 +174,6 @@ public class OrderServiceImpl implements OrderService{
 		orderDao.orderAccept(orderNo);
 	}
 
-	@Override
-	public void cashUpdate(OrderDto orderDto) {
-		// TODO Auto-generated method stub
-		String memberId = orderDto.getMemberId();
-		int totalAmount = orderDto.getTotalAmount();
-		
-		// 유저의 돈을 뺌
-		cashDao.cashUpdateOne(memberId, totalAmount * -1);
-		
-		// 받은돈을 증가시킴
-		cashDao.cashUpdateOne("admin", totalAmount);
-	}
 
 	@Override
 	public List<OrderDetailDto> salesView(SearchOption searchOption) {
@@ -190,6 +183,28 @@ public class OrderServiceImpl implements OrderService{
 		return orderDao.orderDetailList(searchOption);
 	}
 
+	
+	public void orderCashUpdate(OrderDto orderDto) {
+		
+		String memberId = orderDto.getMemberId();
+		int totalAmount = orderDto.getTotalAmount();
+		
+		// 유저의 돈을 뺌
+		cashDao.cashUpdateOne(memberId, totalAmount * -1);
+		
+		// 받은돈을 증가시킴
+		cashDao.cashUpdateOne("admin", totalAmount);
+	}
+	
+	public void cancelCashUpdate(String memberId, int totalAmount) {
+		
+		// 취소한 주문금액만큼 차감
+		cashDao.cashUpdateOne("admin", totalAmount * -1);
+		
+		// 유저의 돈을 돌려줌
+		cashDao.cashUpdateOne(memberId, totalAmount);
+		
+	}
 
 	
 

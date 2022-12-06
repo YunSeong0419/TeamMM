@@ -38,6 +38,16 @@
 	display: inline-block;
 }
 
+#presetPeriod{
+	width: 500px;
+	text-align: center;
+}
+
+#customPeriod{
+	width: 500px;
+	font-weight: bold;
+}
+
 #periodSelect{
 	margin-left: 20px;
 }
@@ -64,9 +74,13 @@
 	width: 60px;
 }
 
-
 #beginDate, #endDate{
 	width: 100px;
+}
+
+#beginDateContainer, #endDateContainer{
+	display: inline-block;
+	margin-left: 10px;
 }
 
 .inputBox{
@@ -124,6 +138,7 @@
 }
 
 .orderDateTd{
+	text-align: center;
 	height: 35px;
 }
 .memberIdTd{
@@ -180,7 +195,16 @@ $(function(){
 	
 	// 
 	if($('#yearSel').val() != 'custom'){
-		$('#periodText').html($('.month').eq(month-1).text());
+		
+		let year = $('#yearSel').val();
+		
+		if(!year){
+			year = new Date().getFullYear();
+		}
+		
+		let html = year + '년 ' + $('.month').eq(month-1).text();
+		
+		$('#periodText').html(html);
 	}else{
 		$('#periodText').html($('#beginDate').val() + ' ~ ' + $('#endDate').val());
 	}
@@ -303,11 +327,11 @@ function dateTrans(date){
 function yearSelFnc(){
 	
 	if($('#yearSel').val() != 'custom'){
-		$('#presetPeriod').css('display', 'inline');
 		$('#customPeriod').css('display', 'none');
+		$('#presetPeriod').css('display', 'inline-block');
 	}else{
-		$('#customPeriod').css('display', 'inline');
 		$('#presetPeriod').css('display', 'none');
+		$('#customPeriod').css('display', 'inline-block');
 		
 		$('#endDate').attr('max', dateTrans(new Date()));
 		
@@ -364,13 +388,17 @@ function yearSelFnc(){
 						</div>
 						
 						<div id="customPeriod" style="display: none">
-							시작일
-							<input type="date" name="beginDate" id="beginDate" class="inputBox"
-								max="<fmt:formatDate value="${searchOption.endDate}" pattern="yyyy-MM-dd"/>"
-								value="<fmt:formatDate value="${searchOption.beginDate}" pattern="yyyy-MM-dd"/>">
-						 	종료일
-							<input type="date" name="endDate" id="endDate" class="inputBox"
-								value="<fmt:formatDate value="${searchOption.endDate}" pattern="yyyy-MM-dd"/>">
+							<div id="beginDateContainer">
+								<span>시작일</span>
+								<input type="date" name="beginDate" id="beginDate" class="inputBox"
+									max="<fmt:formatDate value="${searchOption.endDate}" pattern="yyyy-MM-dd"/>"
+									value="<fmt:formatDate value="${searchOption.beginDate}" pattern="yyyy-MM-dd"/>">
+							</div>
+							<div id="endDateContainer">
+							 	<span>종료일</span>
+								<input type="date" name="endDate" id="endDate" class="inputBox"
+									value="<fmt:formatDate value="${searchOption.endDate}" pattern="yyyy-MM-dd"/>">
+							</div>
 						</div>
 						
 					</div>

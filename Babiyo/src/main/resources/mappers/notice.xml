@@ -180,7 +180,7 @@ WHERE ROWNUM = 1
 <select id="mainLatestEventImage" resultMap="noticeResultMap">
 SELECT NO, ORIGINAL_NAME, STORED_NAME, NOTICE_NO
 FROM NOTICE_IMAGE
-ORDER BY NO DESC
 WHERE ROWNUM = 1
+ORDER BY NO DESC
 </select>
 </mapper>

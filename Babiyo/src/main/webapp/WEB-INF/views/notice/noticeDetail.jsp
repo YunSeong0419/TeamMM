@@ -14,7 +14,8 @@ input{
 }
 
 #boxDiv{
-	margin-left: 50px;
+	width: 900px;
+	margin: auto;
 }
 
 span{
@@ -117,15 +118,6 @@ function backBtn(){
 	location.href = './list.do';
 }
 
-function deleteBtn(no){
-	if (confirm('삭제하시겠습니까?')) {
-		var url = "./deleteCtr.do?no=" + no;
-		location.href = url;
-	}
-}
-function modifytBtn(no) {
-	location.href = "./update.do?no=" + no;
-}
 </script>
 </head>
 <body>
@@ -135,15 +127,12 @@ function modifytBtn(no) {
 	<jsp:include page="/WEB-INF/views/Header.jsp" />
 
 	<div id="middleDiv">
-	
-		<jsp:include page="/WEB-INF/views/CommonMiddleDiv.jsp" />
-		
-		<div id="middleMainDiv">
-			<div id="sideTitle"></div>
-			<!--여기서 작성 -->
-			<div id="boxDiv">
-				<input type="hidden" name="no" value="${noticeDto.no}">
-				<div>
+
+		<div id="centerTitle"></div>
+		<!--여기서 작성 -->
+		<div id="boxDiv">
+			<input type="hidden" name="no" value="${noticeDto.no}">
+			<div>
 				<span>분류</span>
 				<input type="text" name="categoryName" id="divisionId"
 						value="${noticeDto.categoryName}"readonly>
@@ -156,37 +145,40 @@ function modifytBtn(no) {
 							value="<fmt:formatDate pattern='yyyy-MM-dd ' value='${noticeDto.eventEndDate}'/>"
 							readonly>
 				</c:if> 
-					</div> 
-					<div id="SecondDiv">			 
-					<span>작성일</span>
-					<input type="text" name="createDate" id="createDateId"
-							 value="<fmt:formatDate pattern='yyyy-MM-dd ' value='${noticeDto.createDate}'/>" readonly>
-					<span id="lookSpan">조회수</span>
-					<input type="text" name="hit" id="hitId"
-							 value="${noticeDto.hit}" readonly>
-				 </div>
-				<div>
-					<span>제목</span>
-					<input type="text" name="title" id="titleId"
-							 value="${noticeDto.title}" readonly>
-				</div>
-				<span>내용</span>	<br> 
-				<input type="text" name="content" id="contentsId"
-						 value="${noticeDto.content}" readonly>
-				<div id="btnDiv">
-				<img alt="" src="/babiyo/img/${noticeImg.STORED_NAME}">
-				<input class="backBtn" type="button" value="뒤로가기" onclick="backBtn()">
-				<c:if test="${_memberDto_.grade eq 1}">
-				<input class="modifytBtn"  type="button" value="수정하기" onclick="modifytBtn(${noticeDto.no})">
-				<input class="deleteBtn" type="button" value="삭제하기" onclick="deleteBtn(${noticeDto.no})">
-				</c:if>
-				</div>
+			</div> 
+			<div id="SecondDiv">	
+					 
+				<span>작성일</span>
 				
-		</div>
-		<div class="clear"></div>
-			<div id="underPadding"></div>
+				<input type="text" name="createDate" id="createDateId"
+						 value="<fmt:formatDate pattern='yyyy-MM-dd ' value='${noticeDto.createDate}'/>" readonly>
+				<span id="lookSpan">조회수</span>
+				<input type="text" name="hit" id="hitId"
+						 value="${noticeDto.hit}" readonly>
+						 
+			</div>
+			<div>
 			
-		</div> <!--middelMain 끝 -->
+				<span>제목</span>
+				<input type="text" name="title" id="titleId"
+						 value="${noticeDto.title}" readonly>
+			</div>
+			
+			<span>내용</span><br> 
+			
+			<input type="text" name="content" id="contentsId"
+					 value="${noticeDto.content}" readonly>
+					 
+			<div id="btnDiv">
+				<img alt="" src="/babiyo/img/${noticeImg.STORED_NAME}">
+				
+				<input class="backBtn" type="button" value="뒤로가기" onclick="backBtn()">
+			</div>
+		</div>
+		
+		<div class="clear"></div>
+		
+		<div id="underPadding"></div>
 	
 	</div> <!--middleDiv 끝 -->
 

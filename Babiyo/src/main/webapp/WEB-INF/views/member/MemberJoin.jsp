@@ -7,9 +7,16 @@
 <meta charset="UTF-8">
 <title>회원가입</title>
 <script type="text/javascript" src="/babiyo/resources/js/jquery-3.6.1.js"></script>
+
 <style type="text/css">
-body {
-	margin: 0 auto;
+
+html, body{
+	margin: 0;
+	padding: 0;
+}
+
+body{
+	background-color: #FFF2E6;
 }
 
 form {
@@ -18,10 +25,16 @@ form {
 }
 
 #wrap {
+	width: 400px;
 	margin: 0 auto;
+	min-height: 100%;
+	margin: 0px auto;
 }
 
 #header {
+	height: 120px;
+	padding-top: 30px;
+	margin: 0;
 	text-align: center;
 }
 
@@ -50,22 +63,22 @@ form {
 }
 
 .input_box {
+	box-sizing: border-box;
 	border: solid 1px #dadada;
+	width: 400px;
 	outline: 0;
 	background-color: white;
-	padding: 10px;
-	margin: 3px;
+	padding: 10px 0 10px 10px;
 }
 
 .birth {
-	width: 130px;
+	width: 133px;
 	height: 40px;
-	margin: 7px;
 	border: solid 1px #dadada;
 }
 
 #all_chk {
-	width: 435px;
+	width: 400px;
 	margin-top: 20px;
 	margin-right: 0;
 	padding-bottom: 20px;
@@ -369,49 +382,46 @@ function allChkColor() {
 
 <body>
 	<div id='wrap'>
-		<div id='header'>
-			<h1>
-				<a href="/auth/LoginForm"> <img
-					style="width: 300px; height: 100px;"
-					src="/babiyo/resources/img/logo.png">
-				</a>
-			</h1>
-		</div>
+	
+		<jsp:include page="/WEB-INF/views/LoginHeader.jsp"/>
+		
 		<form id="addForm" action='./addCtr.do' method='post'>
 			<div>
 				<h3>아이디</h3>
-				<span> <input class="input_box" type='text' id='id'
-					name='id' style="padding-right: 250px;" maxlength="20">
+				<span> 
+					<input class="input_box" type='text' id='id'
+						name='id' maxlength="20">
 				</span>
 			</div>
 			<p id='id_plz' class="chk_plz"></p>
 			<div>
 				<h3>비밀번호</h3>
-				<span> <input style="padding-right: 250px;" class="input_box"
-					type='password' id='pwd' name='password' maxlength="16">
+				<span> 
+					<input class="input_box" type='password' id='pwd'
+						 name='password' maxlength="16">
 				</span>
 			</div>
 			<p id='pwd_plz' class="chk_plz"></p>
 			<div>
 				<h3>비밀번호 재확인</h3>
-				<span> <input style="padding-right: 250px;" class="input_box"
-					type='password' id='chkPwd'>
+				<span> 
+					<input class="input_box" type='password' id='chkPwd'>
 				</span>
 			</div>
 			<p id='chkPwd_plz' class="chk_plz"></p>
 
 			<div>
 				<h3>이름</h3>
-				<span> <input style="padding-right: 250px;" class="input_box"
-					type='text' id='mname' name='name'>
+				<span> 
+					<input class="input_box" type='text' id='mname' name='name'>
 				</span>
 			</div>
 			<p id='name_plz' class="chk_plz"></p>
 			<div>
 				<h3>이메일</h3>
 				<div>
-					<span> <input style="padding-right: 250px;"
-						class="input_box" type='text' id='email' name='email'>
+					<span> 
+						<input class="input_box" type='text' id='email' name='email'>
 					</span>
 				</div>
 				<p id='mail_plz' class="chk_plz"></p>
@@ -477,13 +487,13 @@ function allChkColor() {
 			</div>
 			<div>
 				<h3>휴대폰번호</h3>
-				<input type="text" id="phone" style="padding-right: 250px;" class="input_box"
+				<input type="text" id="phone" class="input_box"
 					name="phone" maxlength="11">
 			</div>
 			<p id='phone_plz' class="chk_plz"></p>
 			<div>
 				<h3>닉네임</h3>
-				<input type="text" id="nickname" style="padding-right: 250px;" class="input_box"
+				<input type="text" id="nickname"class="input_box"
 					name="nickname">
 			</div>
 			<p id='nickname_plz' class="chk_plz"></p>

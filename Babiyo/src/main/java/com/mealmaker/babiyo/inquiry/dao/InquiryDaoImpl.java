@@ -129,5 +129,11 @@ public class InquiryDaoImpl implements InquiryDao{
 		return sqlSession.selectList(namespace + "inquiryCategoeyList");
 	}
 
+	@Override
+	public int waitInquiryCount() {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(namespace + "waitInquiryCount");
+	}
+
 
 }

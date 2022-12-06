@@ -114,7 +114,7 @@ span{
 
 <script type="text/javascript">
 function backBtn(){
-	location.href = './admin/list.do';
+	location.href = './list.do';
 }
 
 function deleteBtn(no){
@@ -123,9 +123,11 @@ function deleteBtn(no){
 		location.href = url;
 	}
 }
+
 function modifytBtn(no) {
-	location.href = "../update.do?no=" + no;
+	location.href = "./update.do?no=" + no;
 }
+
 </script>
 </head>
 <body>

@@ -68,8 +68,6 @@ public class OrderController {
 		int balance = memberDto.getCash() - orderDto.getTotalAmount();
 		memberDto.setCash(balance);
 		
-		model.addAttribute("_memberDto_", memberDto);
-		
 		return "redirect:/order/complete.do";
 	}
 	
@@ -102,7 +100,11 @@ public class OrderController {
 	public String orderCancel(@ModelAttribute("_memberDto_") MemberDto memberDto,
 			int orderNo, HttpSession session, Model model) {
 		
-		orderService.orderCancel(orderNo);
+		int totalAmount = orderService.orderCancel(orderNo);
+		
+		int balance = memberDto.getCash() + totalAmount;
+		
+		memberDto.setCash(balance);
 		
 		int grade = memberDto.getGrade();
 		

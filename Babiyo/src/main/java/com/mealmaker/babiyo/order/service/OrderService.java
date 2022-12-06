@@ -17,7 +17,7 @@ public interface OrderService {
 
 	public Map<String, Object> orderView(int orderNo);
 
-	public void orderCancel(int orderNo);
+	public int orderCancel(int orderNo);
 
 	public List<Map<String, Object>> orderStateList();
 
@@ -25,8 +25,6 @@ public interface OrderService {
 
 	public void orderAccept(int orderNo);
 	
-	public void cashUpdate(OrderDto orderDto);
-
 	public List<OrderDetailDto> salesView(SearchOption searchOption);
 
 }
