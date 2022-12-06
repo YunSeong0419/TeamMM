@@ -20,13 +20,21 @@
 	width: 250px;
 	height: 250px;
 	margin-left: 80px;
-  	background-color: #EAEAEA; 
 	float: left;
 }
 
-.insertFileButton{
+#imageContainer{
 	width: 200px;
-	float: left;
+	height: 200px;
+}
+
+#imageContainer > a{
+	margin-left: 220px;
+}
+
+#imageContainer > img{
+	width: 250px;
+	height: 250px;
 }
 
 #upperInsertDataDiv{
@@ -37,13 +45,17 @@
 	float: left;
 }
 
+#fileContent{
+	height: 250px;
+}
+
 .insertDataDiv{
 	margin-bottom: 20px;
 	width: 680px;
 	height: 60px;
 }
 
-.classificationDiv ,.stockDiv{
+.categoryCodeDiv , .stockDiv{
 	margin-top: 10px;
 	width: 220px;
 	height: 60px;
@@ -65,13 +77,6 @@
 	float: left;
 }
 
-.smallpTagName{
-	margin: 0px auto 10px auto;	
-	line-height: 18px;
-	font-size: 16px;
-	font-weight: bold;
-}
-
 .inputBox{
 	width: 250px;
 	height: 30px;
@@ -85,7 +90,7 @@
 }
 
 #contentDiv{
-	margin-top: 30px;
+	margin-top: 50px;
 	margin-left: 80px;
 	width: 970px;
 	height: 280px;
@@ -93,10 +98,12 @@
 }
 
 .contentTextBox{
+ 	margin-top: 2px; 
 	width: 900px;
-	height: 244px;
+	height: 200px;
+	font-size: 16px;
+	font-family: inherit;
 	text-align: left;
-	vertical-align: top;
 }
 
 #lowerButtonDiv{
@@ -109,10 +116,16 @@
 }
 
 .lowerButton{
-	margin: 0px 15px;
-	width: 100px;
-	height: 40px;
+	margin-top: 10px;
+	margin-left: 10px;
+	width: 150px;
+	height: 35px;
+	border: 0px;
+	border-radius: 5px;
+	color: #fff;
+	background-color: #FF9436;
 	font-size: 16px;
+	font-weight: bold;
 }
 </style>
 
@@ -123,6 +136,48 @@
 		var pagingFormObj = document.getElementById('pagingForm');
 		
 		pagingFormObj.submit();
+	}
+
+	function setThumbnail(event) {
+	        var reader = new FileReader();
+
+	        reader.onload = function(event) {
+	          var img = document.createElement("img");
+	          img.setAttribute("src", event.target.result);
+	          $('#imageContainer').html(img);
+	        };
+
+	        reader.readAsDataURL(event.target.files[0]);
+	}
+	 
+	function formSubmit() {	
+		if (frm.name.value == "") {
+			alert("제목을 입력하세요.");
+			frm.name.focus();
+			
+			return false;
+		}
+		
+		if (frm.price.value == "") {
+			alert("가격을 입력하세요.");
+			frm.price.focus();
+			
+			return false;
+		}
+		
+		if (frm.stock.value == "") {
+			alert("재고를 입력하세요.");
+			frm.stock.focus();
+			
+			return false;
+		}
+		
+		if (frm.content.value == "") {
+			alert("내용을 입력하세요.");
+			frm.content.focus();
+			
+			return false;
+		}
 	}
 </script>
 
@@ -141,16 +196,17 @@
 			<div id="sideTitle"></div>
 			<!--여기서 작성 -->
 			<div id='productRegistrationDiv'>
-				<form action='./adminRegistrationCtr.do' method='post' enctype="multipart/form-data">
+			<form action='./adminModificationCtr.do' method='post' name='frm'
+					enctype="multipart/form-data" onsubmit="return formSubmit();">
 				<div id='imageDiv'>
-					<div>
-						<p class='smallpTagName'>밀키트 사진</p>
+					<div id='fileContent'>
+						<div id="imageContainer">
+						</div>
 					</div>
-					<div>
-						<input type="file" name='originalName' class='insertFileButton'>
-						<input type="button" value='-' class='deleteFileButton' onclick="fileDeleteFnc();">
-					</div>
+						<input type="file" name="file" id="imageId" 
+						 	accept="image/*" onchange="setThumbnail(event);"/>								
 				</div>
+		
 				<div id='upperInsertDataDiv'>
 					<div class='insertDataDiv'>
 						<p class='pTagName'>밀키트명</p>
@@ -160,10 +216,10 @@
 						<p class='pTagName'>가격</p>
 						<input type='text' name='price' class='inputBox'>
 					</div>
-					<div class='classificationDiv'>
+					<div class='categoryCodeDiv'>
 						<p class='sidePTagName'>분류</p>
-						<select name='categoryCode' class='smallInputBox'>
-							<option value=0 id='classificationOption' selected='selected'>분류</option>
+						<input type="hidden" id='hiddenCategoryCode'>
+						<select id='categoryCode' name='categoryCode' class='smallInputBox'>
 							<option value=1>한식</option>
 							<option value=2>중식</option>
 							<option value=3>일식</option>
@@ -179,7 +235,7 @@
 				</div>
 				<div id='contentDiv'>
 					<p class='pTagName'>설명</p>
-					<input type='text' name='content' class='contentTextBox'>
+					<textarea name="content" class='contentTextBox'></textarea>
 				</div>
 				<div id='lowerButtonDiv'>
 					<input type="submit" value="등록" class='lowerButton'>

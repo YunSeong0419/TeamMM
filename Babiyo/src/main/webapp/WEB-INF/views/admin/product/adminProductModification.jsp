@@ -37,13 +37,6 @@
 	height: 250px;
 }
 
-#deleteButton{
-	padding: 3px 10px;
-	border-radius: 5px;
-	text-decoration: none;
-	background-color: #FF9436;
-}
-
 #upperInsertDataDiv{
 	margin-top: 20px;
 	margin-left: 40px;
@@ -52,13 +45,17 @@
 	float: left;
 }
 
+#fileContent{
+	height: 250px;
+}
+
 .insertDataDiv{
 	margin-bottom: 20px;
 	width: 680px;
 	height: 60px;
 }
 
-.categoryCodeDiv ,.stockDiv{
+.categoryCodeDiv , .stockDiv{
 	margin-top: 10px;
 	width: 220px;
 	height: 60px;
@@ -76,14 +73,6 @@
 	margin: 0px auto 5px auto;	
 	line-height: 30px;
 	font-size: 18px;
-	font-weight: bold;
-	float: left;
-}
-
-.smallpTagName{
-	margin: 0px auto 10px auto;	
-	line-height: 18px;
-	font-size: 16px;
 	font-weight: bold;
 	float: left;
 }
@@ -144,11 +133,6 @@
 
 <script type="text/javascript">
 	$(document).ready(function(){
-		$("#deleteButton").on('click', function(e){
-			e.preventDefault();
-			deleteFileFnc();
-		});
-		
 		$('#categoryCode').val($('#hiddenCategoryCode').val());
 	});
 	
@@ -231,12 +215,12 @@
   					<input type="hidden" name='no' value='${productDto.no}'> 
 				<div id='imageDiv'>
 					<div id='fileContent'>
-						<input type="file" name="file" id="imageId" 
-						 	accept="image/*" onchange="setThumbnail(event);"/>								
 						<div id="imageContainer">
 							<img id='imageId' alt="image not found" src="/babiyo/img/${productImg.STORED_NAME}">
 						</div>
 					</div>
+						<input type="file" name="file" id="imageId" 
+						 	accept="image/*" onchange="setThumbnail(event);"/>								
 				</div>
 		
 				<div id='upperInsertDataDiv'>

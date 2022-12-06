@@ -12,14 +12,14 @@
 
 <style type="text/css">
 #mainPageNoticeAreaDiv{
-	margin: 40px auto 20px auto;
+	margin: 40px 0px 20px 0px;
 	width: 1200px;
 	height: 30px;
 }
 
 #emptyMainNotice{
 	margin: 0px;
-	padding-left: 30px;
+	padding-left: 50px;
 	width: 700px;
 	height: 30px;
 	font-size: 16px;
@@ -31,7 +31,6 @@
 #noticeName{
 	width: 100px;
 	height: 30px;
-	margin-left: 150px;
 	font-size: 18px;
 	float: left;
 	text-align: center;
@@ -41,7 +40,7 @@
 #noticeTitle{
 	width: 550px;
 	height: 30px;
-	padding-left: 30px;
+	padding-left: 50px;
 	line-height: 30px;
 	font-size: 14px;
 	float: left;
@@ -69,7 +68,7 @@
 	padding-left: 30px;
 	line-height: 30px;
 	font-size: 14px;
-	float: left;
+	float: right;
 	text-decoration: none;
 }
 
@@ -79,16 +78,39 @@
 }
 
 #eventBannerDiv{
+	position: relative;
+}
+
+#eventImgDiv{
 	width: 1200px;
 	height: 300px;
 	margin: 0px auto 30px auto;
 	text-align: center;
 	line-height: 300px;
-	overflow: hidden;
+ 	overflow: hidden;
+ 	white-space: nowrap;
 }
 
-#eventImg{
+.eventImg{
 	width: 1200px;
+	height: 300px;
+}
+
+#bannerBtn{
+	width: 1200px;
+	text-align: center;
+	position: absolute;
+	bottom: 20px;
+}
+
+#bannerBtn > a{
+	color: #FF9436;
+	font-size: 16px;
+	text-decoration: none;
+}
+
+#bannerBtn > a:hover{
+	color: #FF0000;
 }
 
 #emptyEventList{
@@ -96,8 +118,6 @@
 	font-weight: bold;
 	text-align: center;
 }
-
-
 
 #emptyProductList{
 	margin: 0px;
@@ -227,20 +247,28 @@
 		</div>
 		
 		<div id='eventBannerDiv'>
-			<c:choose>
-				<c:when test="${empty eventImgList}">
-					<p id='emptyEventList'>
-						진행중인 이벤트가 없습니다. 빠른 시일 내로 준비하겠습니다!
-					</p>
-				</c:when>
-				<c:otherwise>
-				<c:forEach items="${eventImgList}" var="img" varStatus="i">
-					<a href="#">
-						<img id="eventImg${i.index}" alt="이벤트 이미지" src="/babiyo/img/${img.STORED_NAME}">
-					</a>
+			<div id='eventImgDiv'>
+				<c:choose>
+					<c:when test="${empty eventImgList}">
+						<p id='emptyEventList'>
+							진행중인 이벤트가 없습니다. 빠른 시일 내로 준비하겠습니다!
+						</p>
+					</c:when>
+					<c:otherwise>
+					<c:forEach items="${eventImgList}" var="img" varStatus="i">
+						<a href="/babiyo/notice/detail.do?no=${img.NOTICE_NO}">
+							<img id="eventImg${i.index}" class="eventImg" alt="이벤트 이미지"
+								 src="/babiyo/img/${img.STORED_NAME}">
+						</a>
+					</c:forEach>
+					</c:otherwise>
+				</c:choose>
+			</div>
+			<div id="bannerBtn">
+				<c:forEach var="i" begin="0" end="${eventImgList.size()-1}">
+					<a href="#eventImg${i}">●</a>
 				</c:forEach>
-				</c:otherwise>
-			</c:choose>
+			</div>
 		</div>
 		
 		<div class='productDiv'>

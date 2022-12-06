@@ -17,6 +17,7 @@
 		<result column="PRICE" property="price"/>
 		<result column="STOCK" property="stock"/>
 		<result column="CONTENT" property="content"/>
+		<result column="REGISTRATION_DATE" property="registrationDate"/>
 	</resultMap>
 	
 	

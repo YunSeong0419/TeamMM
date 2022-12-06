@@ -230,8 +230,8 @@
 								<option value='P.NAME DESC'>이름 ↓</option>
 								<option value='PRICE ASC'>가격 ↑</option>
 								<option value='PRICE DESC'>가격 ↓</option>
-								<option value='REGISTRATION ASC'>등록 ↑</option>
-								<option value='REGISTRATION DESC'>등록 ↓</option>
+								<option value='REGISTRATION_DATE ASC'>등록 ↑</option>
+								<option value='REGISTRATION_DATE DESC'>등록 ↓</option>
 							</select>
 						</div>
 						<div id='searchBox'>
