@@ -33,7 +33,7 @@ h2 {
 	margin-top: 20px;
 	padding: 10px; border : none;
 	border-top-left-radius: 10px;
-	background: orange;
+	background: grey;
 	color: white;
 	font-size: 20px;
 	text-align: center;
@@ -46,7 +46,7 @@ h2 {
 	margin-top: 20px;
 	padding: 10px; border : none;
 	border-top-right-radius: 10px;
-	background: grey;
+	background: orange;
 	color: white;
 	font-size: 20px;
 	text-align: center;
@@ -119,7 +119,7 @@ h3 {
 				id='findPwd' type="button" value='비밀번호 찾기' onclick="goFindPwdFnc();">
 				<h3></h3>
 				<div id='infoDiv'>
-					<p id="yourId">고객님의 아이디는<a> ${_memberDto_.id} </a>입니다</p>
+					<p id="yourId">비밀번호가 변경되었습니다</p>
 				</div>
 				<div id='lowerButtonDiv'>
 					<input id="loginBtn" type="button" value="로그인" onclick="goLoginFnc();">

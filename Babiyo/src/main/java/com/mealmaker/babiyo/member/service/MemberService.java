@@ -24,11 +24,12 @@ public interface MemberService {
 	public MemberDto memberInfo(MemberDto memberDto);
 	public void memberUpdateOne(MemberDto memberDto);
 	public void UpdateInterest(InterestDto interestDto);
-//	public List<MemberDto> memberSelectList(String searchOption, 
-//		String keyword,	int start, int end);
 	public List<Map<String, Object>> memberInterest(InterestDto interestDto);
 	List<Map<String, Object>> selectInterest(String memberId);
 	public void memberDeleteOne(MemberDto memberDto);
+	public MemberDto findId(String email);
+	public MemberDto findPwd(String email);
+	public void newPwd(MemberDto memberDto);
 	
 	
 	

@@ -8,8 +8,6 @@ import com.mealmaker.babiyo.member.model.MemberDto;
 
 public interface MemberDao {
 
-//	public List<MemberDto> memberSelectList(String searchOption, 
-//		String keyword,	int start, int end);
 	public MemberDto memberExist(String id, String password);
 	public int idCheck(String id);
 	public int emailCheck(String email);
@@ -21,19 +19,12 @@ public interface MemberDao {
 	public MemberDto memberInfo(MemberDto memberDto);
 	public void memberUpdateOne(MemberDto memberDto);
 	public void UpdateInterest(InterestDto interestDto);
-//	public MemberDto memberSelectOne(int no);
-//	int memberUpdateOne(MemberDto memberDto);
-//	
-//	public void memberDeleteOne(int no);
-//	public int memberSelectTotalCount(String searchOption, String keyword);
-//	public void insertFile(Map<String, Object> map);
-//	
-//	public List<Map<String, Object>> fileSelectList(int no);
-//	public Map<String, Object> fileSelectStoredFileName(String parentSeq);
-//	public int fileDelete(String parentSeq);
 	public List<Map<String, Object>> memberInterest(InterestDto interestDto);
 	List<Map<String, Object>> selectInterest(String memberId);
 	public void memberDeleteOne(MemberDto memberDto);
+	public MemberDto findId(String email);
+	public MemberDto findPwd(String email);
+	public void newPwd(MemberDto memberDto);
 	
 	
 	

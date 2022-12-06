@@ -6,7 +6,7 @@
 <head>
 <head>
 <meta charset="UTF-8">
-<title>비밀번호 찾기</title>
+<title>아이디 찾기</title>
 <script type="text/javascript"
 	src="/babiyo/resources/js/jquery-3.6.1.js"></script>
 
@@ -37,7 +37,7 @@ form{
 	margin-top: 20px;
 	padding: 10px; border : none;
 	border-top-left-radius: 10px;
-	background: grey;
+	background: orange;
 	color: white;
 	font-size: 20px;
 	text-align: center;
@@ -49,7 +49,7 @@ form{
 	margin-top: 20px;
 	padding: 10px; border : none;
 	border-top-right-radius: 10px;
-	background: orange;
+	background: grey;
 	color: white;
 	font-size: 20px;
 	text-align: center;
@@ -95,9 +95,7 @@ h3 {
 	function goFindIdFnc() {
 		location.href = './findId.do';
 	};
-	
-	
-	
+
 window.onload = function () {
 	var emailObj = document.getElementById('email');
 	var emailChkObj = document.getElementById('emailChk');
@@ -108,12 +106,10 @@ window.onload = function () {
 		var form = document.forms;
 		if (chk1 == true) {
 			form[0].submit();
-		}else {
+		}else  {
 			event.preventDefault();
 		}
-			
 	});
-	
 	
 	
 	emailObj.addEventListener('keyup',function(e) {
@@ -131,7 +127,6 @@ window.onload = function () {
 						data : {email : email},
 						success : function(cnt) { //컨트롤러에서 넘어온 cnt값을 받는다 
 							if (cnt == 0) { //cnt가 1이 아니면(=0일 경우) -> 사용 가능한 이메일
-								
 								emailChkObj.innerHTML = '탈퇴했거나 가입하지 않은 이메일 입니다';
 								emailChkObj.style.color = 'orange';
 								findBtnObj.style.background = 'grey';
@@ -155,7 +150,6 @@ window.onload = function () {
 
 <body>
 
-	
 	<div id='wrap'>
 		<div id='header'>
 			<h1>
@@ -165,19 +159,19 @@ window.onload = function () {
 				</a>
 			</h1>
 		</div>
-		<h2>비밀번호 찾기</h2>
+		<h2>아이디 찾기</h2>
 		<div id='bodyDiv'>
 
 			<input id='findId' type="button" value='아이디 찾기' onclick='goFindIdFnc();'> <input
 				id='findPwd' type="button" value='비밀번호 찾기' onclick="goFindPwdFnc();">
 			<h3>이메일</h3>
-			<form action="./findPwdCtr.do" method="post">
+			<form action="./findIdCtr.do" method="post">
 			<div id='infoDiv'>
 			<input type="text" id="email" name='email' placeholder="이메일을 입력하세요">
 			<p id="emailChk"> </p>
 			</div>
 			<div id='lowerButtonDiv'>
-			<input id="findBtn" type="button" value="찾기" onclick="submitFnc();">
+			<input id="findBtn" type="submit" value="찾기">
 			</div>
 			</form>
 		</div>
