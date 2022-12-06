@@ -6,7 +6,6 @@ import java.util.Map;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.mealmaker.babiyo.notice.model.NoticeDto;
-import com.mealmaker.babiyo.notice.model.NoticeImageDto;
 import com.mealmaker.babiyo.util.SearchOption;
 
 public interface NoticeService {
@@ -28,5 +27,5 @@ public interface NoticeService {
 	//메인에 공지 리스트 가져오기
 	NoticeDto mainLatestNotice();
 	//메인에 이벤트 사진 쏴주기
-	public NoticeDto mainLatestEventImage();
+	List<Map<String, Object>> mainLatestEventImage();
 }

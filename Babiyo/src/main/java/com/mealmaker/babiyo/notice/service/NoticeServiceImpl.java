@@ -135,10 +135,9 @@ public class NoticeServiceImpl implements NoticeService {
 	
 	// 메인에 이벤트 이미지 가져오게 시키기
 	@Override
-	public NoticeDto mainLatestEventImage() {
-		NoticeDto mainLatestEventImage = noticeDao.mainLatestEventImage();
-
-		return mainLatestEventImage;
+	public List<Map<String, Object>> mainLatestEventImage() {
+		
+		return noticeDao.mainLatestEventImage();
 	}
 
 	@Override

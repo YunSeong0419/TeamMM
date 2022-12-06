@@ -41,10 +41,12 @@ public class MainController {
 		List<Map<String, Object>> newProductList = productService.newProductList();
 		
 		NoticeDto mainLatestNotice = noticeService.mainLatestNotice();
-		NoticeDto mainLatestEventImage = noticeService.mainLatestEventImage();
+		
+		List<Map<String, Object>> eventImgList
+			= noticeService.mainLatestEventImage();
 		
 		model.addAttribute("mainLatestNotice", mainLatestNotice);
-		model.addAttribute("mainLatestEventImage", mainLatestEventImage);
+		model.addAttribute("eventImgList", eventImgList);
 		model.addAttribute("recommendProductList", recommendProductList);
 		model.addAttribute("newProductList", newProductList);
 			

@@ -77,10 +77,10 @@ public class NoticeDaoImpl implements NoticeDao{
 	}
 	
 	@Override
-	public NoticeDto mainLatestEventImage() {
+	public List<Map<String, Object>> mainLatestEventImage() {
 		// TODO Auto-generated method stub
 		
-		return sqlSession.selectOne(namespace + "mainLatestEventImage");
+		return sqlSession.selectList(namespace + "mainLatestEventImage");
 	}
 	
 	@Override

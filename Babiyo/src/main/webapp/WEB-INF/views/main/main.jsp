@@ -84,6 +84,11 @@
 	margin: 0px auto 30px auto;
 	text-align: center;
 	line-height: 300px;
+	overflow: hidden;
+}
+
+#eventImg{
+	width: 1200px;
 }
 
 #emptyEventList{
@@ -91,6 +96,8 @@
 	font-weight: bold;
 	text-align: center;
 }
+
+
 
 #emptyProductList{
 	margin: 0px;
@@ -221,13 +228,17 @@
 		
 		<div id='eventBannerDiv'>
 			<c:choose>
-				<c:when test="${empty mainLatestEventImage}">
+				<c:when test="${empty eventImgList}">
 					<p id='emptyEventList'>
-						이벤트가 존재하지 않습니다. 빠른 시일 내로 준비하겠습니다!
+						진행중인 이벤트가 없습니다. 빠른 시일 내로 준비하겠습니다!
 					</p>
 				</c:when>
 				<c:otherwise>
-					<a href="#"><img alt="이벤트 이미지" src="/babiyo/img/${noticeDto.mainLatestEventImage.STORED_NAME}"></a>
+				<c:forEach items="${eventImgList}" var="img" varStatus="i">
+					<a href="#">
+						<img id="eventImg${i.index}" alt="이벤트 이미지" src="/babiyo/img/${img.STORED_NAME}">
+					</a>
+				</c:forEach>
 				</c:otherwise>
 			</c:choose>
 		</div>
@@ -239,7 +250,7 @@
 			<div class='productContentDiv'>
 				<c:choose>
 					<c:when test="${empty recommendProductList}">
-						<form action='/babiyo/auth/member/addInterest.do' method='get'>
+						<form action='/babiyo/member/checkInfo.do' method='get'>
 							<div id='emptyInterestList'>
 								<p>
 									관심사를 등록해 주시면 밀키트를 추천해 드려요!<br />
