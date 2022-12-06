@@ -47,14 +47,15 @@ public class MemberController {
 			+ ", " + password);
 		
 		MemberDto memberDto = memberService.memberExist(id, password);
-		logger.info("wel" + id + password);
+		logger.info("wel" + id + "," + password);
 		logger.info("wel" + memberDto);
 		String viewUrl = "";
 		if(memberDto != null) {
 			session.setAttribute("_memberDto_", memberDto);
-			logger.info("Welcome");
+			logger.info("Welcome" + memberDto);
 			viewUrl = "redirect:/main.do";
-		}else {
+		}else{
+			
 			viewUrl = "/auth/LoginFail";
 		}
 		
@@ -68,6 +69,26 @@ public class MemberController {
 		
 		return "/auth/MemberFindId";
 	}
+	//아이디 찾기
+	@RequestMapping(value = "/auth/findIdCtr.do", method = RequestMethod.POST)
+	public String findId(String email
+			, HttpSession session, Model model) {
+		logger.info("Welcome  findIdCtr! " + email);
+		
+		MemberDto memberDto = memberService.findId(email);
+		logger.info("wel" + email);
+			session.setAttribute("_memberDto_", memberDto);
+		
+		return "redirect:/auth/completeFindId.do";
+	}
+	
+	@RequestMapping(value = "/auth/completeFindId.do", method = RequestMethod.GET)
+	public String completeFindId(HttpSession session, Model model) {
+		logger.info("Welcome MemberController findId! ");
+//		MemberDto memberDto = (MemberDto)session.getAttribute("_memberDto_");
+		
+		return "/auth/CompleteFindId";
+	}
 	
 	@RequestMapping(value = "/auth/findPwd.do", method = RequestMethod.GET)
 	public String findPwd(HttpSession session, Model model) {
@@ -76,6 +97,44 @@ public class MemberController {
 		
 		return "/auth/MemberFindPwd";
 	}
+	
+	@RequestMapping(value = "/auth/findPwdCtr.do", method = RequestMethod.POST)
+	public String findPwd(String email
+			, HttpSession session, Model model) {
+		logger.info("Welcome  findPwdCtr! " + email);
+		
+		MemberDto memberDto = memberService.findPwd(email);
+		logger.info("your mail is " + email);
+			session.setAttribute("_memberDto_", memberDto);
+			System.out.println(memberDto);
+		return "redirect:/auth/MemberNewPwd.do";
+	}
+	
+	@RequestMapping(value = "/auth/MemberNewPwd.do", method = RequestMethod.GET)
+	public String changePwd(HttpSession session, Model model) {
+		logger.info("Welcome MemberController newPwd! ");
+		MemberDto memberDto = (MemberDto)session.getAttribute("_memberDto_");
+		System.out.println(memberDto);
+		
+		return "/auth/MemberNewPwd";
+	}
+	
+	@RequestMapping(value = "/auth/newPwdCtr.do", method = RequestMethod.POST)
+	public String newPwd(MemberDto memberDto, HttpSession session, Model model) {
+		logger.info("Welcome  newPwdCtr! " );
+		memberService.newPwd(memberDto);
+		System.out.println(memberDto);
+		return "redirect:/auth/CompleteNewPwd.do";
+	}
+	
+	@RequestMapping(value = "/auth/CompleteNewPwd.do", method = RequestMethod.GET)
+	public String completePwd(HttpSession session, Model model) {
+		logger.info("Welcome MemberController complete change password! ");
+		
+		return "/auth/CompleteNewPwd";
+	}
+	
+	
 	
 	//로그아웃
 	@RequestMapping(value = "/auth/logout.do", method = RequestMethod.GET)
@@ -221,7 +280,8 @@ public class MemberController {
 	@RequestMapping(value = "/member/delete.do", method = RequestMethod.GET)
 	public String memberDelete(HttpSession session, Model model) {
 		logger.info("Welcome MemberController memberUpdate! ");
-		
+		MemberDto memberDto = (MemberDto)session.getAttribute("_memberDto_");
+		System.out.println(memberDto);
 		return "/member/CheckOut";
 	}
 	
@@ -230,20 +290,11 @@ public class MemberController {
 		@RequestMapping(value = "/member/deleteCtr.do", method = RequestMethod.POST)
 		public String memberDelete(MemberDto memberDto, Model model, HttpSession session) {
 			logger.info("Welcome memberDelete! " + memberDto);
-			
+			System.out.println(memberDto);
 			memberService.memberDeleteOne(memberDto);
 			
 			return "redirect:/auth/login.do";
 		}
-	
-//	@RequestMapping(value = "/member/UpdateInterestCtr.do", method = RequestMethod.POST)
-//	public String UpdateInterest(InterestDto interestDto, Model model) {
-//		logger.info("Welcome MemberController memberAdd 신규등록 처리! " 
-//				+ interestDto);
-//		memberService.UpdateInterest(interestDto);
-//		
-//		return "/member/MemberUpdate";
-//	}
 	
 	// 회원정보
 	@RequestMapping(value = "/member/memberInfo.do", method = RequestMethod.GET)
@@ -260,119 +311,5 @@ public class MemberController {
 		return "/member/MemberCash";
 	}
 
-	// 회원수정
-//	@RequestMapping(value = "/member/updateCtr.do"
-//		, method = RequestMethod.POST)
-//	public String memberUpdateCtr(HttpSession session,
-//		MemberDto memberDto, Model model) {
-//		logger.info("Welcome MemberController memberUpdateCtr {}" 
-//		 , memberDto);
-//		
-//		int resultNum = 0; 
-//			
-//		try {
-//			resultNum = memberService.memberUpdateOne(memberDto);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//
-//		// 데이터베이스에서 회원정보가 수정이 됐는지 여부😊😊
-//		// 존재, 증명여부 
-//		MemberDto sessionMemberDto 
-//			= (MemberDto)session.getAttribute("_memberDto_");
-//		
-//		if(sessionMemberDto != null) {
-//			if(sessionMemberDto.getId() == memberDto.getId()) {
-//				MemberDto newMemberDto = new MemberDto();
-//				
-//				newMemberDto.setEmail(memberDto.getEmail());
-//				newMemberDto.setName(memberDto.getName());
-//				newMemberDto.setGender(memberDto.getGender());
-//				newMemberDto.setBirthDate(memberDto.getBirthDate());
-//				newMemberDto.setPassword(memberDto.getPassword());
-//				
-//				session.removeAttribute("_memberDto_");
-//				
-//				session.setAttribute("_memberDto_", newMemberDto);
-//			}
-//		}
-//		
-//		
-//		return "/member/memberInfo.do";
-//	}
-//	
-//	
-//	// 회원목록 화면으로
-//	@RequestMapping(value = "/member/list.do"
-//		, method = {RequestMethod.GET, RequestMethod.POST})
-//	public String memberList(@RequestParam(defaultValue = "1") int curPage
-//		, @RequestParam(defaultValue = "all") String searchOption
-//		, @RequestParam(defaultValue = "") String keyword
-//		, Model model) {
-//		logger.info("Welcome MemberController memberList! curPgae: {}"
-//				+ ", searchOption: {}"
-//			, curPage, searchOption);
-//		logger.info("keyword: {}", keyword);
-//		
-//		// 처음부터 DB컬럼명을 잘못 구성해서 이사단이 남 후에 서로 일치시키자
-//		if("name".equals(searchOption)) {
-//			searchOption = "mname";
-////			System.out.println(searchOption);
-//		}
-//		
-//		int totalCount = 
-//			memberService.memberSelectTotalCount(searchOption, keyword);
-//		
-//		Paging memberPaging = new Paging(totalCount, curPage);
-//		int start = memberPaging.getPageBegin();
-//		int end = memberPaging.getPageEnd();
-//		
-//		List<MemberDto> memberList = 
-//			memberService.memberSelectList(searchOption, keyword, 
-//				start, end);
-//		
-//		// DB에서 잘 사용했으니 이젠 화면에 맞게 되돌리기
-//		if("mname".equals(searchOption)) {
-//			searchOption = "name";
-//		}
-//		
-//		Map<String, Object> searchMap = new HashMap<>();
-//		searchMap.put("searchOption", searchOption);
-//		searchMap.put("keyword", keyword);
-//		
-//		Map<String, Object> pagingMap = new HashMap<String, Object>();
-//		pagingMap.put("totalCount", totalCount);
-//		pagingMap.put("memberPaging", memberPaging);
-//		
-//		model.addAttribute("memberList", memberList);
-//		model.addAttribute("searchMap", searchMap);
-//		model.addAttribute("pagingMap", pagingMap);
-//		
-//		return "member/MemberListView";
-//	}
-//	
-//	// 회원정보 상세 화면으로
-//	@RequestMapping(value = "/member/one.do")
-//	public String memberOne(int no, int curPage, String searchOption
-//			, String keyword, Model model) {
-//		logger.info("Welcome memberOne enter! - {}", no);
-//		
-//		Map<String, Object> map = memberService.memberSelectOne(no);
-//		
-//		MemberDto memberDto = (MemberDto) map.get("memberDto");
-//		List<Map<String, Object>> fileList 
-//			= (List<Map<String, Object>>) map.get("fileList");
-//		
-//		Map<String, Object> prevMap = new HashMap<>();
-//		prevMap.put("curPage", curPage);
-//		prevMap.put("searchOption", searchOption);
-//		prevMap.put("keyword", keyword);
-//		
-//		model.addAttribute("memberDto", memberDto);
-//		model.addAttribute("fileList", fileList);
-//		model.addAttribute("prevMap", prevMap);
-//		
-//		
-//		return "member/MemberOneView";
-//	}
+
 }

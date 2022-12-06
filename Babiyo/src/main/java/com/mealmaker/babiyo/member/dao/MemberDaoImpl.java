@@ -140,6 +140,25 @@ public class MemberDaoImpl implements MemberDao{
 		sqlSession.update(namespace + "memberDeleteOne", memberDto);
 	}
 
+	@Override
+	public MemberDto findId(String email) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(namespace + "findId", email);
+	}
+	
+	@Override
+	public MemberDto findPwd(String email) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(namespace + "findPwd", email);
+	}
+
+	@Override
+	public void newPwd(MemberDto memberDto) {
+		// TODO Auto-generated method stub
+		System.out.println(memberDto);
+		sqlSession.update(namespace + "newPwd", memberDto);
+	}
+
 	
 
 
@@ -148,69 +167,7 @@ public class MemberDaoImpl implements MemberDao{
 	
 	
 
-//	@Override
-//	public MemberDto memberSelectOne(int no) {
-//		
-//		return sqlSession.selectOne(namespace + "memberSelectOne"
-//			, no);
-//	}
-//	
-//	@Override
-//	public int memberUpdateOne(MemberDto memberDto) {
-//		
-//		return sqlSession.update(namespace + "memberUpdateOne", memberDto);
-//	}
-//
-//	@Override
-//	public void memberDeleteOne(int no) {
-//		// TODO Auto-generated method stub
-//		sqlSession.delete(namespace + "memberDeleteOne", no);
-//	}
-//
-//	@Override
-//	public int memberSelectTotalCount(String searchOption, String keyword) {
-//		// TODO Auto-generated method stub
-//		Map<String, Object> map = new HashMap<String, Object>();
-//		
-//		map.put("searchOption", searchOption);
-//		map.put("keyword", keyword);
-//		
-//		return sqlSession.selectOne(
-//			namespace + "memberSelectTotalCount", map);
-//	}
-//
-//	@Override
-//	public void insertFile(Map<String, Object> map) {
-//		// TODO Auto-generated method stub
-//		
-//		sqlSession.insert(namespace + "insertFile", map);
-//	}
-//
-//	@Override
-//	public List<Map<String, Object>> fileSelectList(int no) {
-//		// TODO Auto-generated method stub
-//		return sqlSession.selectList(namespace + "fileSelectList", no);
-//	}
-//
-//	
-//
-//	@Override
-//	public Map<String, Object> fileSelectStoredFileName(String parentSeq) {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
-//
-//	@Override
-//	public int fileDelete(String parentSeq) {
-//		// TODO Auto-generated method stub
-//		return 0;
-//	}
-//
-//	@Override
-//	public List<MemberDto> memberSelectList(String searchOption, String keyword, int start, int end) {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
+
 
 	
 	

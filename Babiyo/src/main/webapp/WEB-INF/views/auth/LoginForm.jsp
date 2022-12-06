@@ -5,8 +5,16 @@
 <title>Login</title>
 
 <style type="text/css">
+#header {
+	margin: auto;
+	width: 400px;
+	border-bottom: 1px solid grey;
+	text-align: center;
+}
+
 #wrapper {
 	height: 680px;
+	
 	min-height: 100%;
 }
 
@@ -109,15 +117,20 @@
 </head>
 
 <body>
-
-	<jsp:include page="../LoginHeader.jsp" />
-
+			<div id='header'>
+			<h1>
+				<a href="../auth/login.do"> <img
+					style="width: 150px; height: 60px;"
+					src="/babiyo/resources/img/logo.png">
+				</a>
+			</h1>
+		</div>
 	<div id='wrapper'>
 
 		<div>
 			<h3
 				style="text-align: center; margin-bottom: 200px; border-top: 10px; border-top-color: gray;">로그인</h3>
-		</div>
+		</div>	
 		<div id='titleForm'>
 
 			<div>
@@ -125,7 +138,7 @@
 					<li><a style="border-right: 1px; border-right-color: grey;"
 						href="./findId.do">아이디 찾기</a></li>
 					<div class='categoryVerticalLine'></div>
-					<li><a href="./singleUsePwd.jsp">비밀번호 찾기</a></li>
+					<li><a href="./findPwd.do">비밀번호 찾기</a></li>
 				</ul>
 			</div>
 

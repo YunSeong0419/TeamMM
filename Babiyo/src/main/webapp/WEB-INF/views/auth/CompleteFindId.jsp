@@ -53,37 +53,46 @@ h2 {
 	border: none;
 }
 
+a{
+	color: orange;
+}
+
 h3 {
 	text-align: left;
 	margin-bottom: 0px;
-	margin-top: 40px;
+	margin-top: 65px;
 }
 
-#email {
-	width: 300px;
-	padding: 0px;
-	margin: 0px;
-	border: 1px solid grey;
-	border-radius: 5px;
-	height: 30px;
+
+
+
+
+#infoDiv{
+	height: 150px;
+}
+#yourId{
+	text-align: center;
 }
 
-#findBtn {
+#loginBtn{
 	width: 100%;
 	height: 35px; border : none;
 	border-radius: 5px; background : grey;
 	color: white;
-	background: grey;
+	background: orange;
 	border: none;
+
 }
 
-#emailChk {
-	margin-bottom: 100px;
-}
+
 </style>
 
 <script type="text/javascript">
-	function findPwdFnc() {
+
+	function goFindIdFnc() {
+		location.href = './findId.do';
+	}
+	function goFindPwdFnc() {
 		location.href = './findPwd.do';
 	};
 	function goLoginFnc() {
@@ -106,10 +115,15 @@ h3 {
 		<h2>아이디 찾기</h2>
 		<div id='bodyDiv'>
 
-			<input id='findId' type="button" value='아이디 찾기' onclick=''> <input
-				id='findPwd' type="button" value='비밀번호 찾기' onclick="findPwdFnc();">
-			<p id="yourId">고객님의 아이디는 ${_memberDto_.id} 입니다</p>
-			<input id="findBtn" type="button" value="로그인 " onclick="goLoginFnc();">
+			<input id='findId' type="button" value='아이디 찾기' onclick='goFindIdFnc();'> <input
+				id='findPwd' type="button" value='비밀번호 찾기' onclick="goFindPwdFnc();">
+				<h3></h3>
+				<div id='infoDiv'>
+					<p id="yourId">고객님의 아이디는<a> ${_memberDto_.id} </a>입니다</p>
+				</div>
+				<div id='lowerButtonDiv'>
+					<input id="loginBtn" type="button" value="로그인" onclick="goLoginFnc();">
+				</div>
 		</div>
 	</div>
 </body>

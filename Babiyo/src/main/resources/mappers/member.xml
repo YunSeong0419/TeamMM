@@ -102,10 +102,29 @@ WHERE MEMBER_ID = #{memberId}
 ORDER BY LIST_NO ASC
 </select>
 
-<update id="memberDeleteOne">
+<update id="memberDeleteOne" parameterType="memberDto">
 UPDATE MEMBER
 SET
 GRADE_CODE = 3
+WHERE ID = #{id}
+</update>
+
+<select id="findId" resultMap="memberResultMap">
+SELECT ID
+FROM MEMBER
+WHERE EMAIL = #{email}
+</select>
+
+<select id="findPwd" resultMap="memberResultMap">
+SELECT ID, PASSWORD
+FROM MEMBER
+WHERE EMAIL = #{email}
+</select>
+
+<update id="newPwd" parameterType="memberDto">
+UPDATE MEMBER
+SET
+PASSWORD = #{password}	
 WHERE ID = #{id}
 </update>
 	

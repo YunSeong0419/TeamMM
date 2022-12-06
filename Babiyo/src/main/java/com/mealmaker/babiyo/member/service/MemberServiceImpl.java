@@ -124,114 +124,30 @@ public class MemberServiceImpl implements MemberService{
 		memberDao.memberDeleteOne(memberDto);
 	}
 
+	@Override
+	public MemberDto findId(String email) {
+		// TODO Auto-generated method stub
+		return memberDao.findId(email);
+	}
+	
+	@Override
+	public MemberDto findPwd(String email) {
+		// TODO Auto-generated method stub
+		return memberDao.findPwd(email);
+	}
+
+	@Override
+	public void newPwd(MemberDto memberDto) {
+		// TODO Auto-generated method stub
+		System.out.println(memberDto);
+		memberDao.newPwd(memberDto);
+	}
+
 	
 
 	
 		
-//		
-//
-//	@Override
-//	public Map<String, Object> memberSelectOne(int no) {
-//		// TODO Auto-generated method stub
-//		
-//		Map<String, Object> resultMap = new HashMap<String, Object>();
-//		
-//		MemberDto memberDto = memberDao.memberSelectOne(no);
-//		resultMap.put("memberDto", memberDto);
-//		
-//		List<Map<String, Object>> fileList = memberDao.fileSelectList(no);
-//		resultMap.put("fileList", fileList);
-//		
-//		return resultMap;
-//	}
-//
-//	@Transactional(rollbackFor = Exception.class)
-//	@Override
-//	public int memberUpdateOne(MemberDto memberDto
-//		, MultipartHttpServletRequest multipartHttpServletRequest,
-//			int fileIdx) throws Exception {
-//		
-//		int resultNum = 0;
-//		
-//		try {
-//			resultNum = memberDao.memberUpdateOne(memberDto);
-//			
-//			String parentSeq = ((MemberDto) memberDto).getId();
-//			Map<String, Object> tempFileMap 
-//				= memberDao.fileSelectStoredFileName(parentSeq);
-//			
-//			List<Map<String, Object>> list 
-//				= fileUtils.parseInsertFileInfo(parentSeq
-//					, multipartHttpServletRequest);
-//			
-//			// 일단 하나의 파일만 가능하도록 구현
-//			if(list.isEmpty() == false) {
-//				if(tempFileMap != null) {
-//					memberDao.fileDelete(parentSeq);
-//					fileUtils.parseUpdateFileInfo(tempFileMap);
-//				}
-//				
-//				for (Map<String, Object> map : list) {
-//					memberDao.insertFile(map);
-//				}
-//			}else if(fileIdx == -1) {
-//				if(tempFileMap != null) {
-//					memberDao.fileDelete(parentSeq);
-//					fileUtils.parseUpdateFileInfo(tempFileMap);
-//				}
-//			}
-//		}catch (Exception e) {
-//			TransactionAspectSupport.currentTransactionStatus()
-//				.setRollbackOnly();
-//		}
-//		
-//		return resultNum;
-//	}
-//
-//	@Override
-//	public void memberDeleteOne(int no) {
-//		// TODO Auto-generated method stub
-//		memberDao.memberDeleteOne(no);
-//	}
-//
-//	@Override
-//	public int memberSelectTotalCount(String searchOption, String keyword) {
-//		// TODO Auto-generated method stub
-//		return memberDao.memberSelectTotalCount(searchOption, keyword);
-//	}
 
-	
-
-//	@Override
-//	public List<MemberDto> memberSelectList(String searchOption, String keyword, int start, int end) {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
-//
-//	@Override
-//	public Map<String, Object> memberSelectOne(int no) {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
-//
-//	@Override
-//	public int memberUpdateOne(MemberDto memberDto, MultipartHttpServletRequest multipartHttpServletRequest,
-//			int fileIdx) throws Exception {
-//		// TODO Auto-generated method stub
-//		return 0;
-//	}
-//
-//	@Override
-//	public void memberDeleteOne(int no) {
-//		// TODO Auto-generated method stub
-//		
-//	}
-//
-//	@Override
-//	public int memberSelectTotalCount(String searchOption, String keyword) {
-//		// TODO Auto-generated method stub
-//		return 0;
-//	}
 
 	
 

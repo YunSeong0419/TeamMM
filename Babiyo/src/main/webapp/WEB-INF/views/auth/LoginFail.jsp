@@ -5,8 +5,12 @@
 <head>
 <meta charset="UTF-8" http-equiv="Refresh" content="3;url=./login.do">
 <script type="text/javascript">
+
 alert('잘못된 회원정보 입니다.');
 location.href='./login.do';
+
+
+
 
 </script>
 
