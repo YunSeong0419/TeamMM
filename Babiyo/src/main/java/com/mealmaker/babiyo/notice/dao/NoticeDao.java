@@ -30,4 +30,5 @@ public interface NoticeDao {
 	void insertFile(Map<String, Object> map);
 	public int fileDelete(int parentSeq);
 	NoticeDto mainLatestNotice();
+	public NoticeDto mainLatestEventImage();
 }

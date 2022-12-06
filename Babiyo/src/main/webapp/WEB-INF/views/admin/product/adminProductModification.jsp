@@ -20,13 +20,28 @@
 	width: 250px;
 	height: 250px;
 	margin-left: 80px;
-  	background-color: #EAEAEA; 
 	float: left;
 }
 
-.insertFileButton{
+#imageContainer{
 	width: 200px;
-	float: left;
+	height: 200px;
+}
+
+#imageContainer > a{
+	margin-left: 220px;
+}
+
+#imageContainer > img{
+	width: 250px;
+	height: 250px;
+}
+
+#deleteButton{
+	padding: 3px 10px;
+	border-radius: 5px;
+	text-decoration: none;
+	background-color: #FF9436;
 }
 
 #upperInsertDataDiv{
@@ -43,7 +58,7 @@
 	height: 60px;
 }
 
-.classificationDiv ,.stockDiv{
+.categoryCodeDiv ,.stockDiv{
 	margin-top: 10px;
 	width: 220px;
 	height: 60px;
@@ -70,6 +85,7 @@
 	line-height: 18px;
 	font-size: 16px;
 	font-weight: bold;
+	float: left;
 }
 
 .inputBox{
@@ -85,7 +101,7 @@
 }
 
 #contentDiv{
-	margin-top: 30px;
+	margin-top: 50px;
 	margin-left: 80px;
 	width: 970px;
 	height: 280px;
@@ -93,10 +109,12 @@
 }
 
 .contentTextBox{
+ 	margin-top: 2px; 
 	width: 900px;
-	height: 244px;
+	height: 200px;
+	font-size: 16px;
+	font-family: inherit;
 	text-align: left;
-	vertical-align: top;
 }
 
 #lowerButtonDiv{
@@ -109,46 +127,40 @@
 }
 
 .lowerButton{
-	margin: 0px 15px;
-	width: 100px;
-	height: 40px;
+	margin-top: 10px;
+	margin-left: 10px;
+	width: 150px;
+	height: 35px;
+	border: 0px;
+	border-radius: 5px;
+	color: #fff;
+	background-color: #FF9436;
 	font-size: 16px;
+	font-weight: bold;
 }
 </style>
 
 <script type="text/javascript" src="/babiyo/resources/js/jquery-3.6.1.js"></script>
 
 <script type="text/javascript">
-	
 	$(document).ready(function(){
-		$("a[id^='delete']").on('click', function(e){ // 삭제 버튼
+		$("#deleteButton").on('click', function(e){
 			e.preventDefault();
-			deleteFileFnc($(this));
+			deleteFileFnc();
 		});
+		
+		$('#categoryCode').val($('#hiddenCategoryCode').val());
 	});
 	
-	function deleteFileFnc(obj){
-		obj.parent().remove();
-	}
-	
-	function addFileFnc() {
+	function deleteFileFnc() {
 		var obj = $('#fileContent');
 		
 		var htmlStr = "";
 		
-		htmlStr += '<div>';
-		htmlStr += '<input type="hidden" id="fileIdx" name="fileIdx"';
-		htmlStr += ' value="">';
-		htmlStr += '<input type="file" id="file0" name="file0">';
-		htmlStr += '<a href="#this" id="delete0">삭제</a><br>';
-		htmlStr += '</div>';
+		htmlStr += '<input type="file" name="file" id="imageId" accept="image/*"';
+		htmlStr += 'onchange="setThumbnail(event);"/><div id="imageContainer"></div>';
 		
 		obj.html(htmlStr);
-		
-		$('a[id^="delete"]').on('click', function(e) {
-			e.preventDefault();
-			deleteFileFnc($(this));
-		});		
 	}
 
 	function pageMoveBeforeFnc(no){
@@ -156,12 +168,47 @@
 		location.href = url;
 	}
 	
-// 	var classificationSelectedObj = document.getElementById('classification');
-// 	if(classificationSelectedObj.option.value == {ProductDto.categoryCode}){
-// 		this option.selected = selected;
-// 	}
+	function setThumbnail(event) {
+	        var reader = new FileReader();
+
+	        reader.onload = function(event) {
+	          var img = document.createElement("img");
+	          img.setAttribute("src", event.target.result);
+	          $('#imageContainer').html(img);
+	        };
+
+	        reader.readAsDataURL(event.target.files[0]);
+	}
+	 
+	function formSubmit() {	
+		if (frm.name.value == "") {
+			alert("제목을 입력하세요.");
+			frm.name.focus();
 			
-	
+			return false;
+		}
+		
+		if (frm.price.value == "") {
+			alert("가격을 입력하세요.");
+			frm.price.focus();
+			
+			return false;
+		}
+		
+		if (frm.stock.value == "") {
+			alert("재고를 입력하세요.");
+			frm.stock.focus();
+			
+			return false;
+		}
+		
+		if (frm.content.value == "") {
+			alert("내용을 입력하세요.");
+			frm.content.focus();
+			
+			return false;
+		}
+	}
 </script>
 
 </head>
@@ -179,37 +226,15 @@
 			<div id="sideTitle"></div>
 			<!--여기서 작성 -->
 			<div id='productRegistrationDiv'>
-				<form action='./adminModificationCtr.do' method='post' enctype="multipart/form-data">
+				<form action='./adminModificationCtr.do' method='post' name='frm'
+					enctype="multipart/form-data" onsubmit="return formSubmit();">
   					<input type="hidden" name='no' value='${productDto.no}'> 
 				<div id='imageDiv'>
-					<div>
-						<p class='smallpTagName'>밀키트 사진</p>
-					</div>
 					<div id='fileContent'>
-						<div>
-			
-						<c:choose>
-							<c:when test="${empty fileList}">
-								<input type="hidden" id='fileIdx' name='fileIdx' value="">
-								<input type="file" id='file0' name="file0" class='insertFileButton'>
-								<a href="#this" id="delete0" class='deleteFileButton' 
-									onclick="addFileFnc();">삭제</a><br>
-							</c:when>
-							<c:otherwise>
-								<c:forEach var="row" items="${fileList}" varStatus="obj">
-								<input type="hidden" id="fileIdx_${obj.index}" 
-								name="fileIdx" value="${row.IDX}">
-								<img alt="image not found" 
-								src="<c:url value='/img/${row.STORED_NAME}'/>"/><br>
-								${row.ORIGINAL_NAME} 
-								<input type="file" id='file_${obj.index}' 
-									name="file_${obj.index}">
-									(${row.FILE_SIZE}kb) 
-									<a href="#this" id="delete_${obj.index}">삭제</a><br>
-								</c:forEach>
-							</c:otherwise>
-						</c:choose>
-			
+						<input type="file" name="file" id="imageId" 
+						 	accept="image/*" onchange="setThumbnail(event);"/>								
+						<div id="imageContainer">
+							<img id='imageId' alt="image not found" src="/babiyo/img/${productImg.STORED_NAME}">
 						</div>
 					</div>
 				</div>
@@ -223,9 +248,10 @@
 						<p class='pTagName'>가격</p>
 						<input type='text' name='price' class='inputBox' value='${productDto.price}'>
 					</div>
-					<div class='classificationDiv'>
+					<div class='categoryCodeDiv'>
 						<p class='sidePTagName'>분류</p>
-						<select id='classification' name='categoryCode' class='smallInputBox'>
+						<input type="hidden" id='hiddenCategoryCode' value='${productDto.categoryCode}'>
+						<select id='categoryCode' name='categoryCode' class='smallInputBox'>
 							<option value=1>한식</option>
 							<option value=2>중식</option>
 							<option value=3>일식</option>
@@ -241,7 +267,7 @@
 				</div>
 				<div id='contentDiv'>
 					<p class='pTagName'>설명</p>
-					<input type='text' name='content' class='contentTextBox' value='${productDto.content}'>
+					<textarea name="content" class='contentTextBox'>${productDto.content}</textarea>
 				</div>
 				<div id='lowerButtonDiv'>
 					<input type="submit" value='수정' class='lowerButton'> 
@@ -253,9 +279,9 @@
 			<form id="pagingForm" action="./adminDetail.do" method="get">
 				<input type="hidden" id="no" name="no" value="${productDto.no}">
 				<input type="hidden" id="curPage" name="curPage" value="${paging.curPage}">
-				<input type="hidden" name="keyword" value="${searchMap.keyword}">
-				<input type="hidden" name="searchOption" value="${searchMap.searchOption}">
-				<input type="hidden" name="sortOption" value="${sortMap.sortOption}">
+				<input type="hidden" name="search" value="${searchOption.keyword}">
+				<input type="hidden" name="searchOption" value="${searchOption.searchOption}">
+				<input type="hidden" name="sort" value="${searchOption.sort}">
 			</form>
 			<div id="underPadding"></div>
 			

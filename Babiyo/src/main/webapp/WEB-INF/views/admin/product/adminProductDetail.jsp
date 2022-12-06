@@ -26,9 +26,9 @@
 	float: left;
 }
 
-#image > img{
-	width: 200px;
-	height: 200px;
+#imageDiv > img{
+	width: 250px;
+	height: 250px;
 	
 }
 .insertFileButton{
@@ -37,7 +37,8 @@
 }
 
 #upperInsertDataDiv{
-	margin-top: 30px;
+	margin-top: 20px;
+	margin-left: 40px;
 	width: 530px;
 	height: 220px;	
 	float: left;
@@ -71,13 +72,6 @@
 	float: left;
 }
 
-.smallpTagName{
-	margin: 0px auto 10px auto;	
-	line-height: 18px;
-	font-size: 16px;
-	font-weight: bold;
-}
-
 .inputBox{
 	width: 250px;
 	height: 30px;
@@ -91,7 +85,7 @@
 }
 
 #contentDiv{
-	margin-top: 30px;
+	margin-top: 50px;
 	margin-left: 80px;
 	width: 970px;
 	min-height: 200px;
@@ -115,10 +109,16 @@
 }
 
 .lowerButton{
-	margin: 0px 15px;
-	width: 100px;
-	height: 40px;
+	margin-top: 10px;
+	margin-left: 10px;
+	width: 150px;
+	height: 35px;
+	border: 0px;
+	border-radius: 5px;
+	color: #fff;
+	background-color: #FF9436;
 	font-size: 16px;
+	font-weight: bold;
 }
 
 .dataSpace{
@@ -169,12 +169,7 @@
 				<form action='adminModification.do' method='get'>
  					<input type="hidden" name='no' value='${productDto.no}'>
 				<div id='imageDiv'>
-					<div id='imageName'>
-						<p class='smallpTagName'>밀키트 사진</p>
-					</div>
-					<div id='image'>
-						<img alt='${productDto.name}' src="/babiyo/img/${productImg.STORED_NAME}">
-					</div>
+					<img alt='${productDto.name}' src="/babiyo/img/${productImg.STORED_NAME}">
 				</div>
 				<div id='upperInsertDataDiv'>
 					<div class='insertDataDiv'>

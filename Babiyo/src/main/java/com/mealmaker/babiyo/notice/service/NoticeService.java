@@ -27,4 +27,6 @@ public interface NoticeService {
 	public void noticeDeleteOne(int no);
 	//메인에 공지 리스트 가져오기
 	NoticeDto mainLatestNotice();
+	//메인에 이벤트 사진 쏴주기
+	public NoticeDto mainLatestEventImage();
 }

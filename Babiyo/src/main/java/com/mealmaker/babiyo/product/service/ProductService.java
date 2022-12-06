@@ -13,13 +13,12 @@ public interface ProductService {
 	public Map<String, Object> adminProductList(SearchOption searchOption, int curPage);
 	//등록
 	public void productRegistration(ProductDto productDto
-		, MultipartHttpServletRequest multipartHttpServletRequest) throws Exception;
+		, MultipartHttpServletRequest mulRequest) throws Exception;
 	//관리자 밀키트 상세
 	Map<String, Object> productAdminDetail(int no);
 	//수정	
 	public int productModification(ProductDto productDto
-		, MultipartHttpServletRequest multipartHttpServletRequest
-		, int fileIdx) throws Exception;
+		, MultipartHttpServletRequest mulRequest) throws Exception;
 	//삭제
 	public void productDelete(int no);
 	//???

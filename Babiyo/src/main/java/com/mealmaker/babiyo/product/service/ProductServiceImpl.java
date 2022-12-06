@@ -65,23 +65,21 @@ public class ProductServiceImpl implements ProductService{
 	//DAO에 밀키트 등록하게 시키기
 	@Override
 	public void productRegistration(ProductDto productDto, 
-			MultipartHttpServletRequest multipartHttpServletRequest) throws Exception {
+			MultipartHttpServletRequest mulRequest) throws Exception {
 		
 		productDao.productRegistration(productDto);
 		//파일 넣기
-		Iterator<String> iterator = multipartHttpServletRequest.getFileNames();
+		Iterator<String> iterator = mulRequest.getFileNames();
 		MultipartFile multipartFile = null;
 		
 		while(iterator.hasNext()) {
-			multipartFile = multipartHttpServletRequest.getFile(iterator.next());
+			multipartFile = mulRequest.getFile(iterator.next());
 			
 			if(multipartFile.isEmpty() == false) {
 				logger.debug("-------- file start --------");
-				
 				logger.debug("name : {} ", multipartFile.getName());
 				logger.debug("fileName : {} ", multipartFile.getOriginalFilename());
 				logger.debug("size : {} ", multipartFile.getSize());
-				
 				logger.debug("-------- file end --------\n");
 			}
 		}
@@ -89,12 +87,12 @@ public class ProductServiceImpl implements ProductService{
 		int parentSeq = productDto.getNo();
 		
 		List<Map<String, Object>> list 
-			= fileUtils.parseInsertFileInfo(parentSeq, multipartHttpServletRequest);
+			= fileUtils.parseInsertFileInfo(parentSeq, mulRequest);
 		
 		for (int i = 0; i < list.size(); i++) {
 			productDao.insertFile(list.get(i));
 		}
-	}	//void라서 리턴 없음
+	}
 
 	//DAO에서 관리자 밀키트 상세 꺼내오게 시키기
 	@Override
@@ -112,44 +110,56 @@ public class ProductServiceImpl implements ProductService{
 	}
 
 	//DAO에 밀키트 상세 변경하게 시키기
-	@Transactional(rollbackFor = Exception.class)
 	@Override
-	public int productModification(ProductDto productDto, 
-			MultipartHttpServletRequest multipartHttpServletRequest, int fileIdx) 
-			throws Exception {
+	public int productModification(ProductDto productDto, MultipartHttpServletRequest mulRequest) 
+		throws Exception {
 		
 		int resultNum = 0;
 		
-		try {
-			resultNum = productDao.productModification(productDto);
+		resultNum = productDao.productModification(productDto);
+		
+		int no = productDto.getNo();
 			
-			int parentSeq = productDto.getNo();
-			Map<String, Object> tempFileMap 
-				= productDao.fileSelectStoredFileName(parentSeq);
-			
-			List<Map<String, Object>> list 
-				= fileUtils.parseInsertFileInfo(parentSeq, multipartHttpServletRequest);
-			
-			// 하나의 파일만 가능하도록 구현
-			if(list.isEmpty() == false) {
-				if(tempFileMap != null) {
-					productDao.fileDelete(parentSeq);
-					fileUtils.parseUpdateFileInfo(tempFileMap);
-				}
-				
-				for (Map<String, Object> map : list) {
-					productDao.insertFile(map);
-				}
-			}else if(fileIdx == -1) {
-				if(tempFileMap != null) {
-					productDao.fileDelete(parentSeq);
-					fileUtils.parseUpdateFileInfo(tempFileMap);
-				}
-			}
-		}catch (Exception e) {
-			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+		Iterator<String> iterator = mulRequest.getFileNames();
+		MultipartFile multipartFile = null;
+
+		while (iterator.hasNext()) {
+
+			multipartFile = mulRequest.getFile(iterator.next());
+
+			if (multipartFile.isEmpty() == false) {
+				logger.debug("-------- file start --------");
+				logger.debug("name : {} ", multipartFile.getName());
+				logger.debug("fileName : {} ", multipartFile.getOriginalFilename());
+				logger.debug("size : {} ", multipartFile.getSize());
+				logger.debug("-------- file end --------\n");
+			} // 콘솔에서 이미지 정보 보여주는 곳
 		}
 		
+		try {
+			int parentSeq = productDto.getNo();
+			
+			List<Map<String, Object>> list 
+				= fileUtils.parseInsertFileInfo(parentSeq, mulRequest);
+	
+			Map<String, Object> imgMap = productDao.fileSelectOne(no);
+			
+			if(!list.isEmpty()) {
+				if (!imgMap.isEmpty()) {
+					productDao.fileDelete(parentSeq);
+					fileUtils.parseUpdateFileInfo(imgMap);
+					
+					for (Map<String, Object> map : list) {
+						productDao.insertFile(map);
+					}
+				}
+			}
+			
+		}catch (Exception e) { 
+//		 	TransactionAspectSupport.currentTransactionStatus() 
+// 				.setRollbackOnly();
+			e.printStackTrace();
+		}	 
 		return resultNum;
 	}
 

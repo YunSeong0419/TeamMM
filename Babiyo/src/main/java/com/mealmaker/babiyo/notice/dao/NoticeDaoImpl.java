@@ -68,13 +68,19 @@ public class NoticeDaoImpl implements NoticeDao{
 
 		return sqlSession.selectOne(namespace + "fileSelectStoredFileName", no);
 	}
-
-
+	
 	@Override
 	public Map<String, Object> fileSelectOne(int no) {
 		// TODO Auto-generated method stub
 		
 		return sqlSession.selectOne(namespace + "fileSelectOne", no);
+	}
+	
+	@Override
+	public NoticeDto mainLatestEventImage() {
+		// TODO Auto-generated method stub
+		
+		return sqlSession.selectOne(namespace + "mainLatestEventImage");
 	}
 	
 	@Override

@@ -36,7 +36,7 @@
 	line-height: 68px;
 }
 
-#productCategoryName > span{
+.categorySelectName{
 	color: #4A4A4A;
 	padding: 10px 30px;
 	margin: 0px auto;
@@ -45,6 +45,11 @@
 	text-align: left;
 	text-decoration: none;
 	cursor: pointer;
+}
+
+.categorySelectName:active{
+	color: #FF9436;
+	text-decoration: underline;
 }
 
 #searchBox{
@@ -132,6 +137,9 @@ function categorySelect(code){
 	$('#categoryForm').submit();
 }
 
+	$('#productCategoryName > span').on('click', function(){
+		$(this).addClass(':active');
+	})
 </script>
 
 </head>
@@ -145,9 +153,9 @@ function categorySelect(code){
 	<div id="middleDiv">
 		<!--여기서 작성 -->
 		<div id='productCategoryName'>
-			<span onclick="categorySelect(0);">전체</span>
+			<span class='categorySelectName' onclick="categorySelect(0);">전체</span>
 			<c:forEach  var="productCategory" items="${productCategory}">
-				<span onclick="categorySelect(${productCategory.CODE});">${productCategory.NAME}</span>
+				<span class='categorySelectName' onclick="categorySelect(${productCategory.CODE});">${productCategory.NAME}</span>
 			</c:forEach>
 		</div>
 		

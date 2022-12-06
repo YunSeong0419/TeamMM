@@ -176,4 +176,11 @@ FROM(SELECT NO, TITLE, CREATE_DATE
 WHERE ROWNUM = 1
 </select>
 
+<!-- 메인-이벤트 사진 노출 -->
+<select id="mainLatestEventImage" resultMap="noticeResultMap">
+SELECT NO, ORIGINAL_NAME, STORED_NAME, NOTICE_NO
+FROM NOTICE_IMAGE
+ORDER BY NO DESC
+WHERE ROWNUM = 1
+</select>
 </mapper>

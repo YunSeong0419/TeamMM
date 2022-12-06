@@ -132,13 +132,12 @@
 
 	<update id="productModification" parameterType="productDto">
 		UPDATE PRODUCT
-		<set>
-			<if test="name != ''">NAME = #{name},</if> 
-			<if test="categoryCode != ''">CATEGORY_CODE = #{categoryCode},</if> 
-			<if test="price != ''">PRICE = #{price},</if>
-			<if test="stock != ''">STOCK = #{stock},</if>
-			<if test="content != ''">CONTENT = #{content},</if>
-		</set>
+		SET
+		NAME = #{name}, 
+		CATEGORY_CODE = #{categoryCode},
+		PRICE = #{price},
+		STOCK = #{stock},
+		CONTENT = #{content}
 		WHERE NO = #{no}
 	</update>	
 	
@@ -171,7 +170,7 @@
 
 	<delete id="fileDelete" parameterType="int">
 		DELETE FROM PRODUCT_IMAGE
-		WHERE NO = #{no}
+		WHERE PRODUCT_NO = #{value}
 	</delete>
 	
 	

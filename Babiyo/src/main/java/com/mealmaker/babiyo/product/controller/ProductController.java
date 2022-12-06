@@ -1,6 +1,5 @@
 package com.mealmaker.babiyo.product.controller;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -17,10 +16,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.mealmaker.babiyo.member.model.MemberDto;
-import com.mealmaker.babiyo.order.model.OrderDto;
 import com.mealmaker.babiyo.product.model.ProductDto;
 import com.mealmaker.babiyo.product.service.ProductService;
-import com.mealmaker.babiyo.review.model.ReviewDto;
 import com.mealmaker.babiyo.review.service.ReviewService;
 import com.mealmaker.babiyo.util.Paging;
 import com.mealmaker.babiyo.util.SearchOption;
@@ -138,11 +135,11 @@ public class ProductController {
 	//오븐 57p 관리자-밀키트 관리-밀키트 등록
 	@RequestMapping(value = "/product/adminRegistrationCtr.do", method = RequestMethod.POST)
 	public String productRegistration(ProductDto productDto, 
-		MultipartHttpServletRequest multipartHttpServletRequest, Model model) {
+		MultipartHttpServletRequest mulRequest, Model model) {
 		logger.info("ProductController productRegistration 밀키트 등록 완료!" + productDto);
 		
 		try {
-			productService.productRegistration(productDto, multipartHttpServletRequest);
+			productService.productRegistration(productDto, mulRequest);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -158,29 +155,32 @@ public class ProductController {
 		
 		ProductDto productDto = (ProductDto)map.get("productDto");
 		
-		List<Map<String, Object>> fileList 
-			= (List<Map<String, Object>>) map.get("fileList");
+		@SuppressWarnings("unchecked")
+		Map<String, Object> productImg = (Map<String, Object>) map.get("imgMap");
+		
 		
 		model.addAttribute("productDto", productDto);
-		model.addAttribute("fileList", fileList);
+		model.addAttribute("productImg", productImg);
 		
 		return "admin/product/adminProductModification";
 	}
 
 	//오븐 58p 관리자-밀키트 관리-밀키트 상세-밀키트 수정
-	@RequestMapping(value = "/product/adminModificationCtr.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/product/adminModificationCtr.do")
 	public String productModificationCtr(HttpSession session, ProductDto productDto
-		, @RequestParam(value = "fileIdx", defaultValue = "-1") int fileIdx
-		, MultipartHttpServletRequest multipartHttpServletRequest, Model model) {
-		logger.info("ProductController productModificationCtr {} :: {}" , productDto, fileIdx);
-		
+		, MultipartHttpServletRequest mulRequest, Model model) {
+		logger.info("ProductController productModificationCtr {} :: {}" , productDto);
+	
 		int resultNum = 0; 
 			
 		try {
-			resultNum = productService.productModification(productDto, multipartHttpServletRequest, fileIdx);
+			resultNum = productService.productModification(productDto, mulRequest);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		int productNo = productDto.getNo();
+		
 		//DB에서 밀키트 정보가 수정됐는지 증명 
 		ProductDto sessionProductDto = (ProductDto)session.getAttribute("_productDto_");
 		
@@ -199,7 +199,7 @@ public class ProductController {
 				session.setAttribute("_productDto_", proofModificationDto);
 			}
 		}
-		return "admin/product/adminProductModificationSuccess";
+		return "redirect:/product/adminDetail.do?no=" + productNo;
 	}
 	
 	//오븐 58p 관리자-밀키트 관리-밀키트 상세-밀키트 삭제

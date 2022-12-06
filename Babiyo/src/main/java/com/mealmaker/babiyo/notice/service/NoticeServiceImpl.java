@@ -132,6 +132,14 @@ public class NoticeServiceImpl implements NoticeService {
 
 		return mainLatestNotice;
 	}
+	
+	// 메인에 이벤트 이미지 가져오게 시키기
+	@Override
+	public NoticeDto mainLatestEventImage() {
+		NoticeDto mainLatestEventImage = noticeDao.mainLatestEventImage();
+
+		return mainLatestEventImage;
+	}
 
 	@Override
 	public int noticeUpdate(int imgNo, NoticeDto noticeDto, MultipartHttpServletRequest mulRequest) throws Exception {

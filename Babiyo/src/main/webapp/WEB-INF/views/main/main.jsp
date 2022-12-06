@@ -221,13 +221,13 @@
 		
 		<div id='eventBannerDiv'>
 			<c:choose>
-				<c:when test="${empty eventList}">
+				<c:when test="${empty mainLatestEventImage}">
 					<p id='emptyEventList'>
 						이벤트가 존재하지 않습니다. 빠른 시일 내로 준비하겠습니다!
 					</p>
 				</c:when>
 				<c:otherwise>
-					<a href="#"><img alt="이벤트 이미지" src=""></a>
+					<a href="#"><img alt="이벤트 이미지" src="/babiyo/img/${noticeDto.mainLatestEventImage.STORED_NAME}"></a>
 				</c:otherwise>
 			</c:choose>
 		</div>
