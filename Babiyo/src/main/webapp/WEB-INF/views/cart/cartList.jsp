@@ -281,7 +281,9 @@ function totalTrans(){ // 체크한 주문금액을 반영해주는 함수
 						<c:when test="${!empty cartList}">
 						<c:forEach items="${cartList}" var="cart">
 						<tr>
-							<td class="checkTd"><input type="checkbox" id="check${cart.cartDto.productNo}" class="check"></td>
+							<td class="checkTd">
+								<input type="checkbox" id="check${cart.cartDto.productNo}" class="check">
+							</td>
 							<td class="nameTd">
 								<label for="check${cart.cartDto.productNo}">
 									<img class="productImg" src="/babiyo/img/${cart.imgMap.STORED_NAME}"

@@ -151,7 +151,7 @@ $(document).ready(function(){
 
 	function writeBtn() {
 
-		location.href = "../write.do"
+		location.href = "./write.do"
 	}
 </script>
 </head>
@@ -168,9 +168,9 @@ $(document).ready(function(){
 			 <div id="middleMainDiv"> 
 				<div id="sideTitle"></div>
 				<!--여기서 작성 -->
-		<div id="filterDiv">
+				<div id="filterDiv">
 						<!--  filterDiv 시작-->
-						<form id="stateForm" action=./admin/list.do method="post">
+						<form id="stateForm" method="post">
 							<span>분류</span> 
 								<select id="stateSelect" name="stateCode"
 									onchange="stateSelectFnc();">
@@ -181,7 +181,7 @@ $(document).ready(function(){
 								</select>
 						</form>
 					
-						<form action="./list.do" method="post" id="searchFrom">
+						<form method="post" id="searchFrom">
 						<select name="searchOption" id="searchSelect">
 								<option value="">전체</option>
 								<option value="title">제목</option>
@@ -245,7 +245,7 @@ $(document).ready(function(){
 
 				<jsp:include page="/WEB-INF/views/Paging.jsp" />
 				
-			<form id="pagingForm">
+			<form id="pagingForm" method="post">
 				<input type="hidden" id="curPage" name="curPage" value="${paging.curPage}">
 				<input type="hidden" id="stateCode" name="stateCode" value="${searchOption.stateCode}">
 				<input type="hidden" id="searchOption" name="searchOption" value="${searchOption.searchOption}">

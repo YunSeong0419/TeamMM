@@ -92,9 +92,9 @@ $(function(){
 	    async : true,            // 비동기화 여부 (default : true)
 	    success : function(data) { // 결과 성공 콜백함수
 	    	
-	    	const ctx = document.getElementById('salse').getContext('2d');
+	    	const weekSales = document.getElementById('salse').getContext('2d');
 
-	    	const myChart = new Chart(ctx, {
+	    	const weekSalesChart = new Chart(weekSales, {
 	    	    type: 'bar',
 	    	    data: {
 	    	        labels: dateList,
@@ -140,84 +140,42 @@ $(function(){
 	    }
 	}); // ajax 종료
 	
-const ctx3 = document.getElementById('salseVolume').getContext('2d');
+	$.ajax({
+	    type : 'post',           // 타입 (get, post, put 등등)
+	    url : './productChart.do',           // 요청할 서버url
+	    async : true,            // 비동기화 여부 (default : true)
+	    success : function(data) { // 결과 성공 콜백함수
+	    	
+	    	console.log(data.nameList);
+	    	console.log(data.countList);
 	
-	const myChart3 = new Chart(ctx3, {
-	    type: 'line',
-	    data: {
-	        labels: dateList,
-	        datasets: [{
-	            label: '봉골레파스타',
-	            data: [12, 19, 3, 5, 2, 3, 2],
-	            backgroundColor: [
-	                'rgba(255, 99, 132, 0.2)',
-	                'rgba(54, 162, 235, 0.2)',
-	                'rgba(255, 206, 86, 0.2)',
-	                'rgba(75, 192, 192, 0.2)',
-	                'rgba(153, 102, 255, 0.2)',
-	                'rgba(255, 159, 64, 0.2)'
-	            ],
-	            borderColor: [
-	                'rgba(255, 99, 132, 1)',
-	                'rgba(54, 162, 235, 1)',
-	                'rgba(255, 206, 86, 1)',
-	                'rgba(75, 192, 192, 1)',
-	                'rgba(153, 102, 255, 1)',
-	                'rgba(255, 159, 64, 1)'
-	            ],
-	            borderWidth: 1
-	        },{
-	            label: '까르보나라',
-	            data: [1, 22, 3, 14, 12, 18],
-	            backgroundColor: [
-	                'rgba(255, 99, 132, 0.2)',
-	                'rgba(54, 162, 235, 0.2)',
-	                'rgba(255, 206, 86, 0.2)',
-	                'rgba(75, 192, 192, 0.2)',
-	                'rgba(153, 102, 255, 0.2)',
-	                'rgba(255, 159, 64, 0.2)'
-	            ],
-	            borderColor: [
-	                'rgba(255, 99, 132, 1)',
-	                'rgba(54, 162, 235, 1)',
-	                'rgba(255, 206, 86, 1)',
-	                'rgba(75, 192, 192, 1)',
-	                'rgba(153, 102, 255, 1)',
-	                'rgba(255, 159, 64, 1)'
-	            ],
-	            borderWidth: 1
-	        },{
-	            label: '로제파스타',
-	            data: [30, 12, 24, 10, 2, 18],
-	            backgroundColor: [
-	                'rgba(255, 99, 132, 0.2)',
-	                'rgba(54, 162, 235, 0.2)',
-	                'rgba(255, 206, 86, 0.2)',
-	                'rgba(75, 192, 192, 0.2)',
-	                'rgba(153, 102, 255, 0.2)',
-	                'rgba(255, 159, 64, 0.2)'
-	            ],
-	            borderColor: [
-	                'rgba(255, 99, 132, 1)',
-	                'rgba(54, 162, 235, 1)',
-	                'rgba(255, 206, 86, 1)',
-	                'rgba(75, 192, 192, 1)',
-	                'rgba(153, 102, 255, 1)',
-	                'rgba(255, 159, 64, 1)'
-	            ],
-	            borderWidth: 1
-	        }]
-	    },
-	    options: {
-	    	responsive: false,
-	        scales: {
-	            y: {
-	                beginAtZero: true
-	            }
-	        }
+			const productSales = document.getElementById('salseVolume').getContext('2d');
+			
+			const productSalesChart = new Chart(productSales, {
+			    type: 'bar',
+			    data: {
+			        labels: data.nameList,
+			        datasets: [{
+			        	label: '판매량',
+				       	data: data.countList
+				   	}]
+			    },
+			    options: {
+			    	responsive: false,
+			    	plugins: {
+	    	    		legend: {
+	    	    			display: false
+	    	    		}
+	    	    	},
+			        scales: {
+			            y: {
+			                beginAtZero: true
+			            }
+			        }
+			    }
+			});
 	    }
-	});
-	
+	}); // ajax 종료
 });
 
 </script>
@@ -241,19 +199,19 @@ const ctx3 = document.getElementById('salseVolume').getContext('2d');
 			<div id="stateContainer">
 				<div id="orderState">
 					<div class="stateTitle">
-						<span><strong>밀키트주문</strong></span>
+						<span><strong>대기 주문</strong></span>
 					</div>
 					<div class="stateContent">
-						<span class="stateCount"><a href="#">${countMap.orderCount}</a></span>
+						<span class="stateCount"><a href="./orderList.do">${countMap.orderCount}</a></span>
 						<span>건</span>
 					</div>
 				</div>
 				<div id="inquiryState">
 					<div class="stateTitle">
-						<span><strong>문의</strong></span>
+						<span><strong>대기 문의</strong></span>
 					</div>
 					<div class="stateContent">
-						<span class="stateCount"><a>${countMap.inquiryCount}</a></span>
+						<span class="stateCount"><a href="../inquiry/admin.do">${countMap.inquiryCount}</a></span>
 						<span>건</span>
 					</div>
 				</div>

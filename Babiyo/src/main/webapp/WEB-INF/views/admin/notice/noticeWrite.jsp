@@ -88,11 +88,10 @@ span{
 
 <script type="text/javascript">
 
-function backBtn(){
-	location.href = '../list.do';
-}
+
 
 $(document).ready(function() {
+	
 	  $('#categoryId').change(function() {
 	    var result = $("select[name=categoryCode]").val();
 	    if (result == 2) {
@@ -103,13 +102,14 @@ $(document).ready(function() {
 	      $('#imageDiv').hide();
 	    }
 	  }); 
-	}); 
+	  
+}); 
 
-	function formSubmit() {
+function formSubmit() {
 		var today = new Date();  
 		var todayCut = new Date(today.getFullYear(),today.getMonth(),today.getDate());
 		var eventStart = new Date(frm.eventStartDate.value);
-		 var target = document.getElementById("categoryId");
+		var target = document.getElementById("categoryId");
 		
 		if (target.value == 2) {
 			
@@ -155,11 +155,12 @@ $(document).ready(function() {
 			
 			return false;
 		}
-		};
+} //formSubmit() end
 
-	function backBtn() {
-		location.href = "../list.do"
-	};
+function backBtn(){
+	location.href = './list.do';
+}
+
 	
 </script>
 </head>

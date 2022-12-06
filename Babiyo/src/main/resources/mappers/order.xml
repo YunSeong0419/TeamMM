@@ -152,16 +152,6 @@ FROM MEMBER_ORDER
 WHERE STATE_CODE = 1
 </select>
 
-<select id="salesChart" resultType="int">
-SELECT NUM
-FROM(SELECT SUM(TOTAL_AMOUNT) NUM, TO_CHAR(ORDER_DATE,'YYYY-MM-DD') day
-FROM MEMBER_ORDER
-WHERE ORDER_DATE > TRUNC(SYSDATE) - 6
-AND STATE_CODE = 2
-GROUP BY TO_CHAR(ORDER_DATE,'YYYY-MM-DD')
-ORDER BY day)
-</select>
-
 <select id="orderDetailList" parameterType="com.mealmaker.babiyo.util.SearchOption"
 	 resultMap="orderDetailResultMap">
 SELECT O.MEMBER_ID, O.ORDER_DATE, P.NAME PRODUCT_NAME, D.QUANTITY, D.PRICE, D.QUANTITY * D.PRICE TOTAL_AMOUNT
@@ -186,6 +176,37 @@ AND STATE_CODE = 2
 <when test="sort != ''">ORDER BY ${sort}</when>
 <otherwise>ORDER BY O.ORDER_DATE DESC</otherwise>
 </choose>
+</select>
+
+<select id="totalAmountView" parameterType="int" resultType="map">
+SELECT TOTAL_AMOUNT, MEMBER_ID
+FROM MEMBER_ORDER
+WHERE NO = #{value}
+</select>
+
+<select id="salesChart" resultType="int">
+SELECT NUM
+FROM(SELECT SUM(TOTAL_AMOUNT) NUM, TO_CHAR(ORDER_DATE,'YYYY-MM-DD') day
+FROM MEMBER_ORDER
+WHERE ORDER_DATE > TRUNC(SYSDATE) - 6
+AND STATE_CODE = 2
+GROUP BY TO_CHAR(ORDER_DATE,'YYYY-MM-DD')
+ORDER BY day)
+</select>
+
+<select id="productChart" resultType="map">
+SELECT NAME, COUNT
+FROM ( SELECT P.NAME , COUNT(*) COUNT
+FROM ORDER_DETAIL D JOIN MEMBER_ORDER O
+ON D.ORDER_NO = O.NO
+JOIN PRODUCT P
+ON D.PRODUCT_NO = P.NO
+WHERE O.ORDER_DATE > TRUNC(SYSDATE) - 6
+AND O.STATE_CODE = 2
+GROUP BY D.PRODUCT_NO, P.NAME
+HAVING COUNT(*) > 0
+ORDER BY COUNT DESC)
+WHERE <![CDATA[ ROWNUM <= 7  ]]>
 </select>
 
 </mapper>

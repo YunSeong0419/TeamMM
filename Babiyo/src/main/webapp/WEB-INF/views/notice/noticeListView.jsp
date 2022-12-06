@@ -248,7 +248,7 @@ $(document).ready(function(){
 				<!--table div끝 -->
 				<jsp:include page="/WEB-INF/views/Paging.jsp" />
 				
-			<form id="pagingForm">
+			<form id="pagingForm" method="post">
 				<input type="hidden" id="curPage" name="curPage" value="${paging.curPage}">
 				<input type="hidden" id="stateCode" name="stateCode" value="${searchOption.stateCode}">
 				<input type="hidden" id="searchOption" name="searchOption" value="${searchOption.searchOption}">

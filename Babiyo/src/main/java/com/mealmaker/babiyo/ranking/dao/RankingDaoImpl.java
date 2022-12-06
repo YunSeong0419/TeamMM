@@ -4,9 +4,11 @@ import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import com.mealmaker.babiyo.product.model.ProductDto;
 
+@Repository
 public class RankingDaoImpl implements RankingDao{
 
 	@Autowired
@@ -17,25 +19,25 @@ public class RankingDaoImpl implements RankingDao{
 	@Override
 	public List<ProductDto> toDayList() {
 		// TODO Auto-generated method stub
-		return sqlSession.selectOne(namespace + "toDayList");
+		return sqlSession.selectList(namespace + "toDayList");
 	}
 
 	@Override
 	public List<ProductDto> weeklyList() {
 		// TODO Auto-generated method stub
-		return sqlSession.selectOne(namespace + "weeklyList");
+		return sqlSession.selectList(namespace + "weeklyList");
 	}
 
 	@Override
 	public List<ProductDto> manList() {
 		// TODO Auto-generated method stub
-		return sqlSession.selectOne(namespace + "manList");
+		return sqlSession.selectList(namespace + "manList");
 	}
 
 	@Override
 	public List<ProductDto> womanList() {
 		// TODO Auto-generated method stub
-		return sqlSession.selectOne(namespace + "womanList");
+		return sqlSession.selectList(namespace + "womanList");
 	}
 
 

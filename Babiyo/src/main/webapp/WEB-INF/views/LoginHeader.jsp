@@ -2,20 +2,13 @@
 	pageEncoding="UTF-8"%>
 
 <style type="text/css">
-html, body{
-	padding: 0px;
-	margin: 0px;
-}
 
 header{
 	width: 400px;
-	height: 110px;
-	margin: 0px auto;
-}
-
-#logo{
-	width: 150px;
-	height: 60px;
+ 	height: 120px; 
+ 	margin: auto;
+	text-align: center;
+	border: 0px;
 }
 
 #logoDiv{
@@ -23,16 +16,17 @@ header{
 	text-align: center;
 }
 
+#logo{
+	width: 200px;
+}
+
 </style>
 
 <header>
 	<div id='logoDiv'>
-		<a href="#">
+		<a href="/babiyo/main.do">
 			<img id='logo' alt="로그인 페이지로 이동" 
-				src="/babiyo/resources/img/logo.png"></a>
-	</div>
-	
-	<div>
-		<hr color="#EAEAEA">
+				src="/babiyo/resources/img/logo.png">
+		</a>
 	</div>
 </header>

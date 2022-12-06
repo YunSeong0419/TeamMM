@@ -38,6 +38,8 @@ public interface InquiryDao {
 	//삭제
 	public int adminInquiryDeleteOne(InquiryDto inquiryDto);
 
+	public int waitInquiryCount();
+
 
 
 

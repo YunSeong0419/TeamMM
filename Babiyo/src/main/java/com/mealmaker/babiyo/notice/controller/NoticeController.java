@@ -33,7 +33,7 @@ public class NoticeController {
 	
 	//관리자
 	//공지 게시판
-	@RequestMapping(value = "/notice/admin/list.do")
+	@RequestMapping(value = "/admin/notice/list.do")
 	public String adminNoticeList(@RequestParam(defaultValue = "1") int curPage
 			, SearchOption searchOption
 			, HttpSession session, Model model) {
@@ -50,7 +50,7 @@ public class NoticeController {
 		model.addAttribute("paging", paging);
 		model.addAttribute("searchOption", searchOption);
 
-		return "notice/adminNoticeList";
+		return "admin/notice/noticeList";
 	}
 	
 	
@@ -76,27 +76,27 @@ public class NoticeController {
 	}
 	
 	//공지 게시글 작성 화면으로
-	@RequestMapping(value = "/notice/write.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/admin/notice/write.do", method = RequestMethod.GET)
 	public String noticeWrite(HttpSession session, Model model) {
 		logger.info("Welcome NoticeController write! ");
 		
-		return "notice/noticeWrite";
+		return "admin/notice/noticeWrite";
 	}
 	
 	//공지 게시글 작성
-	@RequestMapping(value = "/notice/writeCtr.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/admin/notice/writeCtr.do", method = RequestMethod.POST)
 	public String noticeWriteCtr(MultipartHttpServletRequest mulRequest
 			, NoticeDto noticeDto, Model model) throws Exception {
 		logger.info("Welcome NoticeController WriteCtr 신규 공지 작성! ");
 
 		noticeService.noticeWrite(noticeDto, mulRequest);
 	
-		return "redirect:/notice/admin/list.do";
+		return "redirect:/admin/notice/list.do";
 	}
 	
 	
 	//관리자 공지 상세 
-	@RequestMapping(value = "/notice/admin/detail.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/admin/notice/detail.do", method = RequestMethod.GET)
 	public String adminNoticeDetail(NoticeDto noticeDto, int no, HttpSession session, Model model) {
 		logger.info("Welcome NoticeController detail! ");
 
@@ -110,7 +110,7 @@ public class NoticeController {
 		model.addAttribute("noticeDto", noticeDto2);
 		model.addAttribute("noticeImg", noticeImg);
 		 
-		return "notice/adminNoticeDetail";
+		return "admin/notice/noticeDetail";
 	}
 	
 	//공지 상세 
@@ -132,7 +132,7 @@ public class NoticeController {
 	}
 	
 	//공지 수정화면으로
-	@RequestMapping(value = "/notice/update.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/admin/notice/update.do", method = RequestMethod.GET)
 	public String noticeUpdate(int no, Model model) {
 		logger.info("Welcome NoticeController update! ");
 
@@ -147,12 +147,12 @@ public class NoticeController {
 		model.addAttribute("noticeDto", noticeDto);
 		model.addAttribute("noticeImg", noticeImg); 
 		
-		return "notice/noticeUpate";
+		return "admin/notice/noticeUpate";
 	}
 	
 	
 	//공지 수정
-	@RequestMapping(value = "/notice/updateCtr.do", method = {RequestMethod.GET ,RequestMethod.POST})
+	@RequestMapping(value = "/admin/notice/updateCtr.do", method = {RequestMethod.GET ,RequestMethod.POST})
 	public String noticeUpdateCtr(HttpSession session, NoticeDto noticeDto
 			, @RequestParam(defaultValue = "-1") int imgNo
 			, MultipartHttpServletRequest mulRequest
@@ -171,18 +171,18 @@ public class NoticeController {
 
 		int noticeNo = noticeDto.getNo();
 	
-		return "redirect:/notice/detail.do?no=" + noticeNo;
+		return "redirect:/admin/notice/detail.do?no=" + noticeNo;
 	}
 	
 	//공지 게시글 삭제
-	@RequestMapping(value = "/notice/deleteCtr.do"
+	@RequestMapping(value = "/admin/notice/deleteCtr.do"
 			, method = RequestMethod.GET)
 	public String noticeDelete(int no, Model model) {
 		logger.info("Welcome NoticeControllerdelete delete! ");
 		
 		noticeService.noticeDeleteOne(no);
 		
-		return "redirect:/notice/list.do";
+		return "redirect:/admin/notice/list.do";
 	}
 	
 }	

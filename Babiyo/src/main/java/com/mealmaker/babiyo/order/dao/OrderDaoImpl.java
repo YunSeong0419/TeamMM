@@ -132,17 +132,31 @@ public class OrderDaoImpl implements OrderDao {
 	}
 
 
-	@Override
-	public List<Integer> salesChart() {
-		// TODO Auto-generated method stub
-		return sqlSession.selectList(namespace + "salesChart");
-	}
 
 
 	@Override
 	public List<OrderDetailDto> orderDetailList(SearchOption searchOption) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList(namespace + "orderDetailList" , searchOption);
+	}
+
+
+	@Override
+	public Map<String, Object> totalAmountView(int orderNo) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(namespace + "totalAmountView", orderNo);
+	}
+	
+	@Override
+	public List<Integer> salesChart() {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList(namespace + "salesChart");
+	}
+
+	@Override
+	public List<Map<String, Object>> productChart() {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList(namespace + "productChart");
 	}
 
 	

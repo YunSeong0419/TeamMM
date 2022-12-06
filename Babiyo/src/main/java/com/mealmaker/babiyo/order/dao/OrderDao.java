@@ -38,5 +38,9 @@ public interface OrderDao {
 	public List<Integer> salesChart();
 
 	public List<OrderDetailDto> orderDetailList(SearchOption searchOption);
+
+	public Map<String, Object> totalAmountView(int orderNo);
+
+	public List<Map<String, Object>> productChart();
 	
 }
