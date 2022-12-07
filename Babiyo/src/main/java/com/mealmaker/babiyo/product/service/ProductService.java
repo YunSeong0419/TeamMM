@@ -36,5 +36,5 @@ public interface ProductService {
 	//메인에 추천 밀키트 쏴주기
 	List<Map<String, Object>> recommendProductList(String memberId);
 	public Map<String, Object> productDetail(String memberId, int productNo);
-	int quantityView(int productNo);
+	int stockView(int productNo);
 }

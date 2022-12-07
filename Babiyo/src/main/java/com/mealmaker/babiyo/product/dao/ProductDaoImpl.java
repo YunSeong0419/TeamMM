@@ -143,8 +143,19 @@ public class ProductDaoImpl implements ProductDao{
 	}
 
 	@Override
-	public int quantityView(int productNo) {
+	public int stockView(int productNo) {
 		// TODO Auto-generated method stub
-		return sqlSession.selectOne(namespace + "quantityView", productNo);
+		return sqlSession.selectOne(namespace + "stockView", productNo);
+	}
+
+	@Override
+	public void stockUpdate(int productNo, int stock) {
+		// TODO Auto-generated method stub
+		Map<String, Object> paraMap = new HashMap<String, Object>();
+		
+		paraMap.put("productNo", productNo);
+		paraMap.put("stock", stock);
+		
+		sqlSession.update(namespace + "stockUpdate", paraMap);
 	}
 }

@@ -41,10 +41,26 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public List<Integer> salesChart() {
+	public Map<String, List<Object>> salesChart() {
 		// TODO Auto-generated method stub
 		
-		return orderDao.salesChart();
+		List<Map<String, Object>> list = orderDao.salesChart();
+		
+		Map<String, List<Object>> resultMap = new HashMap<>();
+		
+		List<Object> weekList = new ArrayList<>();
+		List<Object> amountList = new ArrayList<>();
+		
+		for (Map<String, Object> map : list) {
+			weekList.add(map.get("WEEK"));
+			amountList.add(map.get("TOTAL_AMOUNT"));
+		}
+		
+		resultMap.put("weekList", weekList);
+		resultMap.put("amountList", amountList);
+		
+		
+		return resultMap;
 	}
 
 	@Override

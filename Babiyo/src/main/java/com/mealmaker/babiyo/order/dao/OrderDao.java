@@ -35,7 +35,7 @@ public interface OrderDao {
 
 	public int waitOrderCount();
 
-	public List<Integer> salesChart();
+	public List<Map<String, Object>> salesChart();
 
 	public List<OrderDetailDto> orderDetailList(SearchOption searchOption);
 

@@ -33,6 +33,7 @@ public interface ProductDao {
 	List<ProductDto> newProductList();
 	//메인에 추천 밀키트 쏴주기
 	List<ProductDto> recommendProductList(String memberId, int listNo);
-	public int quantityView(int productNo);
+	public int stockView(int productNo);
+	public void stockUpdate(int productNo, int stock);
 }
 

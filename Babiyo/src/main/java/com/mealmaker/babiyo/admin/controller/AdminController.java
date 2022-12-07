@@ -46,10 +46,10 @@ public class AdminController {
 	
 	@PostMapping(value="/admin/salesChart.do")
 	@ResponseBody
-	public List<Integer> ajaxSalesChart() {
+	public Map<String, List<Object>> ajaxSalesChart() {
 		logger.info("ajax: 주간 매출금액 리스트 가져오기");
 		
-		List<Integer> salesList = adminService.salesChart();
+		Map<String, List<Object>> salesList = adminService.salesChart();
 		
 		return salesList;
 	}

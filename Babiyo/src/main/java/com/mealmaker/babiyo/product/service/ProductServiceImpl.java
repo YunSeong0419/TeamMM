@@ -294,8 +294,8 @@ public class ProductServiceImpl implements ProductService{
 	}
 
 	@Override
-	public int quantityView(int productNo) {
+	public int stockView(int productNo) {
 		// TODO Auto-generated method stub
-		return productDao.quantityView(productNo);
+		return productDao.stockView(productNo);
 	}
 }

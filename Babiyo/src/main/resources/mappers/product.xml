@@ -144,16 +144,27 @@
 		DELETE FROM PRODUCT
 		WHERE NO = #{value}
 	</delete>
-
+	
+	<select id="stockView" resultType="int">
+		SELECT STOCK
+		FROM PRODUCT
+		WHERE NO = #{value}
+	</select>
+	
+	<update id="stockUpdate" parameterType="map">
+		UPDATE PRODUCT
+		SET STOCK = ${stock}
+		WHERE NO = ${productNo}
+	</update>
+	
+	<!-- 상품이미지 DB -->
+	
 	<insert id="insertFile" parameterType="map">
 		INSERT INTO PRODUCT_IMAGE
 		VALUE(PRODUCT_NO, ORIGINAL_NAME, STORED_NAME)
 		VALUES
 		(#{parentSeq}, #{original_file_name}, #{stored_file_name})
 	</insert>
-
-
-	<!-- 상품이미지 DB -->
 	
 	<select id="fileSelectOne" parameterType="int" resultType="map">
 		SELECT NO, ORIGINAL_NAME, STORED_NAME, PRODUCT_NO
@@ -171,11 +182,6 @@
 		DELETE FROM PRODUCT_IMAGE
 		WHERE PRODUCT_NO = #{value}
 	</delete>
-	
-	<select id="quantityView" resultType="int">
-		SELECT STOCK
-		FROM PRODUCT
-		WHERE NO = #{value}
-	</select>
+
 	
 </mapper>

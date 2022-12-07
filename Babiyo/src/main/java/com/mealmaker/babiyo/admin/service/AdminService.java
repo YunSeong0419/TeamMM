@@ -7,7 +7,7 @@ public interface AdminService {
 
 	public Map<String, Integer> waitCount();
 
-	public List<Integer> salesChart();
+	public Map<String, List<Object>> salesChart();
 
 	public Map<String, List<Object>> productChart();
 	

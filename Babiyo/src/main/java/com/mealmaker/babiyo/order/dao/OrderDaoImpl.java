@@ -148,7 +148,7 @@ public class OrderDaoImpl implements OrderDao {
 	}
 	
 	@Override
-	public List<Integer> salesChart() {
+	public List<Map<String, Object>> salesChart() {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList(namespace + "salesChart");
 	}

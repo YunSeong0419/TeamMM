@@ -216,7 +216,7 @@ public class ProductController {
 	@PostMapping(value="/product/ajax/quantityView.do")
 	public int productQuantityView(@RequestParam int productNo) {
 		
-		return productService.quantityView(productNo);
+		return productService.stockView(productNo);
 	};
 	
 }

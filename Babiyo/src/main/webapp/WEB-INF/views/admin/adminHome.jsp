@@ -61,29 +61,6 @@ a{
 
 <script type="text/javascript">
 
-var today = new Date();
-
-let year = today.getFullYear();
-let month = today.getMonth();
-let day = today.getDate();
-
-var dateList = [];
-
-for (var i = 0; i < 7; i++) {
-	
-	var week = new Date(year, month, day + (i - 6));
-	
-	let weekDay = week.getDate();
-	
-	if(weekDay < 10){
-		weekDay = '0' + weekDay;
-	}
-	
-	var str = week.getFullYear() + '-' + (week.getMonth()+1) + '-' + weekDay;
-	
-	dateList.push(str);
-}
-
 $(function(){
 	
 	$.ajax({
@@ -92,31 +69,18 @@ $(function(){
 	    async : true,            // 비동기화 여부 (default : true)
 	    success : function(data) { // 결과 성공 콜백함수
 	    	
+	    	console.log(data.weekList);
+	    	console.log(data.amountList);
+	    	
 	    	const weekSales = document.getElementById('salse').getContext('2d');
 
 	    	const weekSalesChart = new Chart(weekSales, {
 	    	    type: 'bar',
 	    	    data: {
-	    	        labels: dateList,
+	    	        labels: data.weekList,
 	    	        datasets: [{
 	    	            label: '일일 매출',
-	    	            data: data,
-	    	            backgroundColor: [
-	    	                'rgba(255, 99, 132, 0.2)',
-	    	                'rgba(54, 162, 235, 0.2)',
-	    	                'rgba(255, 206, 86, 0.2)',
-	    	                'rgba(75, 192, 192, 0.2)',
-	    	                'rgba(153, 102, 255, 0.2)',
-	    	                'rgba(255, 159, 64, 0.2)'
-	    	            ],
-	    	            borderColor: [
-	    	                'rgba(255, 99, 132, 1)',
-	    	                'rgba(54, 162, 235, 1)',
-	    	                'rgba(255, 206, 86, 1)',
-	    	                'rgba(75, 192, 192, 1)',
-	    	                'rgba(153, 102, 255, 1)',
-	    	                'rgba(255, 159, 64, 1)'
-	    	            ],
+	    	            data: data.amountList,
 	    	            borderWidth: 1
 	    	        }]
 	    	    },

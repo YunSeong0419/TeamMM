@@ -114,22 +114,15 @@ public class OrderController {
 		int totalAmount = orderService.orderCancel(orderNo);
 		
 		int balance = memberDto.getCash() + totalAmount;
-		
 		memberDto.setCash(balance);
 		
-		int grade = memberDto.getGrade();
+		boolean adminCheck = memberDto.getGrade() == 1;
 		
-		String url = "";
-		
-		if(grade == 1) {
-			url += "redirect:/admin/orderList.do?orderNo=";
-		} else {
-			url += "redirect:/member/orderList.do?orderNo=";
+		if(adminCheck) {
+			return "redirect:/admin/orderList.do?orderNo=";
 		}
 		
-		url += orderNo;
-		
-		return url;
+		return "redirect:/member/orderList.do?orderNo=";
 	}
 	
 	@RequestMapping(value="/order/accept.do", method = RequestMethod.POST)

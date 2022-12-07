@@ -44,15 +44,21 @@ public class OrderServiceImpl implements OrderService{
 		// TODO Auto-generated method stub
 		
 		List<OrderDetailDto> detailList = orderDetailDto.getOrderDetailList();
+		Map<Integer, Integer> stockMap = new HashMap<Integer, Integer>();
 		
 		for (OrderDetailDto detail : detailList) {
-			
-			int stock = productDao.quantityView(detail.getProductNo());
+			int stock = productDao.stockView(detail.getProductNo());
 			
 			if(stock < detail.getQuantity()) {
 				System.out.println("주문오류: 구매하려는 상품수가 재고보다 많습니다");
 				return -1;
 			}
+			
+			int productNo = detail.getProductNo();
+			int quantity = detail.getQuantity();
+			
+			// map에 제품번호를 키로 판매하고 남은 개수를 밸류에 저장
+			stockMap.put(productNo, stock-quantity);
 		}
 		
 		// 금액 차감
@@ -70,10 +76,8 @@ public class OrderServiceImpl implements OrderService{
 		// 주문상세내용을 db에 저장
 		orderDao.orderDetail(orderDetailDto);
 		
-		// 구매한 상품개수 만큼 재고 삭제
-//		productDao.
-		
 		CartDto cartDto = new CartDto();
+		
 		cartDto.setMemberId(memeberId);
 		
 		List<CartDto> cartList = new ArrayList<CartDto>();
@@ -82,6 +86,13 @@ public class OrderServiceImpl implements OrderService{
 		for (OrderDetailDto detail : detailList) {
 			CartDto cart = new CartDto();
 			cart.setProductNo(detail.getProductNo());
+			
+			int productNo = detail.getProductNo();
+			// 제품마다 남은개수를 맵에서 불러옴
+			int stock = stockMap.get(productNo);
+			
+			// 구매한 상품개수 만큼 재고 차감
+			productDao.stockUpdate(productNo, stock);
 			
 			cartList.add(cart);
 		}
@@ -143,6 +154,17 @@ public class OrderServiceImpl implements OrderService{
 		orderDao.orderCancel(orderNo);
 		
 		Map<String, Object> map = orderDao.totalAmountView(orderNo);
+		List<OrderDetailDto> detailList = orderDao.orderDetailView(orderNo);
+		
+		// 주문취소시 상품의 개수 반환
+		for (OrderDetailDto detail : detailList) {
+			int productNo = detail.getProductNo();
+			int stock = productDao.stockView(productNo);
+			int quantity = detail.getQuantity();
+			int updateStock = stock + quantity;
+			
+			productDao.stockUpdate(productNo, updateStock);
+		}
 		
 		String memberId = (String)map.get("MEMBER_ID");
 		int totalAmount = Integer.parseInt(map.get("TOTAL_AMOUNT").toString());
@@ -190,8 +212,6 @@ public class OrderServiceImpl implements OrderService{
 	@Override
 	public List<OrderDetailDto> salesView(SearchOption searchOption) {
 		// TODO Auto-generated method stub
-		
-		
 		return orderDao.orderDetailList(searchOption);
 	}
 
