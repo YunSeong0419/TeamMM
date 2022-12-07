@@ -113,7 +113,7 @@
 }
 
 #reviewManagementTable > tr, td{
-	border-bottom: 1px solid black;
+	border-bottom: 2px solid #FF9436;
 	height: 35px;
 	font-size: 14px;
 }
@@ -130,18 +130,28 @@
  	width: 60px; 
 } 
 
-#classificationTh, #evaluationTh, #quantityTh{
+#evaluationTh, #quantityTh{
 	width: 150px;
-}
-
-#productNameTh{
-	width: 450px;
-}
-
-#quantityTh{
 	text-align: center;
 }
 
+#productNameTh{
+	width: 440px;
+}
+
+#classificationTh{
+	width: 100px;
+}
+
+.productNameBox{
+	text-align: left;
+}
+
+.productNameBox > a{
+	margin-left: 10px;
+	color: #000000;
+	text-decoration: none;
+}
 </style>
 
 <script type="text/javascript" src="/babiyo/resources/js/jquery-3.6.1.js"></script>
@@ -231,7 +241,7 @@
 									<tr>			
 										<td>${review.RNUM}</td>
 										<td>${review.CATEGORY_NAME}</td>
-										<td>
+										<td class='productNameBox'>
 											<a href='#' onclick="pageMoveAdminReviewDetailFnc(${review.NO});">
 												${review.PRODUCT_NAME}</a>
 										</td>
