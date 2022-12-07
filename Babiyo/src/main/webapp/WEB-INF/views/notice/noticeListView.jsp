@@ -20,7 +20,7 @@ th {
 }
 
 td{
-	height: 30px;
+	height: 35px;
 	border-bottom: 1px solid gray;
 	padding: 0px 10px;
 }
@@ -30,9 +30,6 @@ a{
 	color: black;
 }
 
-p{
-	margin-top: 30px;
-}
 span{
 	font-weight: bold;
 	margin-right: 20px;
@@ -40,12 +37,11 @@ span{
 
 #filterDiv{
 	margin: auto;
-	width: 970px;
+	width: 900px;
 }
 
 #stateForm{
 	float: left;
-	margin-left: 45px;
 }
 
 #stateSelect{
@@ -63,7 +59,7 @@ span{
 }
 
 #searchFrom{
-	margin-left: 540px;
+	margin-left: 510px;
 }
 
 .searchCl{
@@ -98,16 +94,16 @@ span{
 	width: 50px;
 }
 
-#noticeCategoryTh {
-	width: 153px;
+#noticeCategoryNameTh {
+	width: 100px;
 }
 
 #titleTh {
-	width: 503px;
+	width: 500px;
 }
 
 #createTh {
-	width: 161px;
+	width: 150px;
 }
 
 #hitTh{
@@ -218,7 +214,7 @@ $(document).ready(function(){
 							<c:when test="${empty noticeList}">
 								<tr>
 									<td colspan="5"
-										style="width: 858px; height: 350px; font-weight: bold; text-align: center;">
+										style="width: 900px; height: 400px; font-weight: bold; text-align: center;">
 										공지가 존재하지 않습니다</td>
 								</tr>
 							</c:when>

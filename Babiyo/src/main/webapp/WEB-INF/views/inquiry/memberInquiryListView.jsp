@@ -16,10 +16,11 @@ table {
 th{
 	background-color: #FF9436;
     color: #fff;
+    height: 30px;
 }
 
 td{
-	height: 30px;
+	height: 35px;
 	border-bottom: 1px solid gray;
 	padding: 0px 10px;
 }
@@ -112,10 +113,12 @@ span{
 }
 
 .writeBtn{
-	border-radius: 3px;
-	border-color: #E0E0E0;
-	height: 25px;
-	background-color: #E0E0E0;
+	width: 64px;
+    height: 35px;
+    border: 0px;
+    border-radius: 5px;
+    color: #fff;
+    background-color: #FF9436;
 	cursor: pointer;
 }
 </style>

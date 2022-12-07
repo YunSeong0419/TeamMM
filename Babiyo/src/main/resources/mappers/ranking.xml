@@ -15,7 +15,7 @@ FROM(SELECT P.NAME , COUNT(*) COUNT
 	GROUP BY D.PRODUCT_NO, P.NAME
 	HAVING COUNT(*) > 0
 	ORDER BY COUNT DESC)
-	WHERE <![CDATA[ ROWNUM <= 10 ]]>
+	WHERE <![CDATA[ ROWNUM <= 5 ]]>
 </select>
 
 <select id="weeklyList" resultType="String">
@@ -30,7 +30,7 @@ FROM(SELECT P.NAME , COUNT(*) COUNT
 	GROUP BY D.PRODUCT_NO, P.NAME
 	HAVING COUNT(*) > 0
 	ORDER BY COUNT DESC)
-	WHERE <![CDATA[ ROWNUM <= 10 ]]>
+	WHERE <![CDATA[ ROWNUM <= 5 ]]>
 </select>
 
 <select id="manList" resultType="String">
@@ -47,7 +47,7 @@ FROM(SELECT P.NAME , COUNT(*) COUNT
 	GROUP BY D.PRODUCT_NO, P.NAME
 	HAVING COUNT(*) > 0
 	ORDER BY COUNT DESC)
-	WHERE <![CDATA[ ROWNUM <= 10 ]]>
+	WHERE <![CDATA[ ROWNUM <= 5 ]]>
 </select>
 
 <select id="womanList" resultType="String">
@@ -64,7 +64,7 @@ FROM(SELECT P.NAME , COUNT(*) COUNT
 	GROUP BY D.PRODUCT_NO, P.NAME
 	HAVING COUNT(*) > 0
 	ORDER BY COUNT DESC)
-	WHERE <![CDATA[ ROWNUM <= 10 ]]>
+	WHERE <![CDATA[ ROWNUM <= 5 ]]>
 </select>
 
 

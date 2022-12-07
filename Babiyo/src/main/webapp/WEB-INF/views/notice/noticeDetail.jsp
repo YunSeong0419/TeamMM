@@ -24,7 +24,7 @@ span{
 }
 
 #divisionId{
-	margin-left: 15px;
+	margin-left: 16px;
 	width: 100px;
 	height: 35px;
 	border-radius: 5px;
@@ -63,9 +63,9 @@ span{
 }
 
 #titleId{
-	margin:10px 0px 0px 15px;
-	width: 842px;
-	height: 40px;
+	margin: 10px 0px 0px 17px;
+    width: 835px;
+    height: 40px;
 }
 
 #contentsId{
@@ -84,10 +84,11 @@ span{
 }
 
 .backBtn, .modifytBtn, .deleteBtn{
-	border-radius: 3px;
-	border-color: #E0E0E0;
-	height: 25px;
-	background-color: #E0E0E0;
+	height: 35px;
+    border: 0px;
+    border-radius: 5px;
+    color: #fff;
+    background-color: #FF9436;
 	cursor: pointer;
 }
 
@@ -140,7 +141,7 @@ function backBtn(){
 						<span id="daySpan">기간</span>
 						<input type="text" name="eventStartDate" id="eventStartDateId"
 							value="<fmt:formatDate pattern='yyyy-MM-dd ' value='${noticeDto.eventStartDate}'/>"
-							readonly>~
+							readonly><span id="daySpan" class="eventCl">~</span>
 						<input type="text" name="eventEndDate" id="eventEndDateId"
 							value="<fmt:formatDate pattern='yyyy-MM-dd ' value='${noticeDto.eventEndDate}'/>"
 							readonly>
@@ -163,15 +164,13 @@ function backBtn(){
 				<input type="text" name="title" id="titleId"
 						 value="${noticeDto.title}" readonly>
 			</div>
-			
 			<span>내용</span><br> 
 			
 			<input type="text" name="content" id="contentsId"
 					 value="${noticeDto.content}" readonly>
 					 
 			<div id="btnDiv">
-				<img alt="" src="/babiyo/img/${noticeImg.STORED_NAME}">
-				
+				<img alt="" src="/babiyo/img/${noticeImg.STORED_NAME}"><br>
 				<input class="backBtn" type="button" value="뒤로가기" onclick="backBtn()">
 			</div>
 		</div>

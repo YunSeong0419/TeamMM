@@ -15,25 +15,35 @@ ul{
 	list-style: none;
 }
 
-#ulId {
-	height: 300px;
-	width: 400px;
-}
-
-
 #boxDiv {
-	margin-left: 300px;
-	margin-top: 30px;
+	margin: auto;
 }
 
 #rankingDiv {
 	margin-top: 10px;
 	float: left;
 }
+
+#ulId {
+	text-align:center;
+	margin: auto;
+	height: 300px;
+	width: 600px;
+}
+
 #rankIi{
-	font-size: 20px;
+	font-size: 30px;
 	font-weight: bold;
 }
+
+ul > .listCl{
+	margin-top: 30px;
+	margin-left: 150px;
+	font-size: 20px;
+	font-weight: bold;
+	text-align: left;
+}
+
 </style>
 </head>
 <body>
@@ -49,8 +59,8 @@ ul{
 		       	<div id="rankingDiv">
 				<ul id="ulId">
 					<li id="rankIi">오늘 판매량 순위</li>
-					<c:forEach items="${toDayList}" var="ranking">
-						<li>${ranking}</li>
+					<c:forEach items="${toDayList}" var="ranking" varStatus="status">
+						<li class="listCl">${status.count}위&nbsp;&nbsp;&nbsp;${ranking}</li>
 					</c:forEach>
 				</ul>
 		     	 </div>
@@ -58,8 +68,8 @@ ul{
 				<div id="rankingDiv">
 				<ul id="ulId">
 					<li id="rankIi">주간 판매량 순위</li>
-					<c:forEach items="${weeklyList}" var="ranking">
-						<li>${ranking}</li>
+					<c:forEach items="${weeklyList}" var="ranking" varStatus="status">
+						<li class="listCl">${status.count}위&nbsp;&nbsp;&nbsp;${ranking}</li>
 					</c:forEach>
 				</ul>
 		     	 </div>
@@ -67,8 +77,8 @@ ul{
 			<div id="rankingDiv">
 				<ul id="ulId">
 					<li id="rankIi">남성 판매량 순위</li>
-					<c:forEach items="${manList}" var="ranking">
-						<li>${ranking}</li>
+					<c:forEach items="${manList}" var="ranking" varStatus="status">
+						<li class="listCl">${status.count}위&nbsp;&nbsp;&nbsp;${ranking}</li>
 					</c:forEach>
 				</ul>
 		     	 </div>
@@ -76,8 +86,8 @@ ul{
 			<div id="rankingDiv">
 				<ul id="ulId">
 					<li id="rankIi">여성 판매량 순위</li>
-					<c:forEach items="${womanList}" var="ranking">
-						<li>${ranking}</li>
+					<c:forEach items="${womanList}" var="ranking" varStatus="status">
+						<li class="listCl">${status.index}위&nbsp;&nbsp;&nbsp;${ranking}</li>
 					</c:forEach>
 				</ul>
 		     	 </div>

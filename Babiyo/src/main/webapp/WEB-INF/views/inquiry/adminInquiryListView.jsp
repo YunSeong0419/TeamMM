@@ -16,10 +16,11 @@ table {
 th{
 	background-color: #FF9436;
     color: #fff;
+    height: 30px;
 }
 
 td{
-	height: 30px;
+	height: 35px;
 	border-bottom: 1px solid gray;
 	padding: 0px 10px;
 }
@@ -36,7 +37,11 @@ span{
 
 #filterDiv{
 	margin: auto;
-	width: 960px;
+	width: 912px;
+}
+
+#divisionId{
+	margin-left: 6px;
 }
 
 .memberCL{
@@ -47,6 +52,16 @@ span{
 	height: 35px;
 	border-radius: 5px;
 	
+}
+
+#submitBtn{
+	width: 64px;
+    height: 35px;
+    border: 0px;
+    border-radius: 5px;
+    color: #fff;
+    background-color: #FF9436;
+	cursor: pointer;
 }
 
 #YesNo{
@@ -63,17 +78,17 @@ span{
 
 #categorySelect, #answerSelect{
 	width: 100px;
-	height: 35px;
+	height: 34px;
 	border-radius: 5px;
 	margin: 0px 5px 10px 10px;
 }
 
 #memberId{
- margin-left: 350px;
+ 	margin-left: 350px;
 }
 
 #inquiryList{
-	margin-top: 5px;
+	margin-top: 10px;
 	min-height: 400px;
 }
 
@@ -85,28 +100,28 @@ span{
 	background-color: #E0E0E0;
 }
 
-#inquiryNoTh {
+#inquiryNoTh{
 	width: 50px;
 }
 
-#inquiryCategoryTh {
-	width: 134px;
+#inquiryCategoryTh{
+	width: 70px;
 }
 
-#titleTh {
-	width: 503px;
-}
-
-#createTh {
-	width: 161px;
+#titleTh{
+	width: 544px;
 }
 
 #memberTh{
-	width: 50px;
+	width: 66px;
+}
+
+#createTh{
+	width: 120px;
 }
 
 #answerTh {
-	width: 52px;
+	width: 50px;
 }
 
 .inquiryCategoryTd, .createDateTd, .answerTd{
@@ -181,7 +196,7 @@ span{
 						<span class="memberCL">작성자</span>
 						<input type="hidden" id="hiddenSearch" value="${searchMap.search}">
 						<input id="searchId" type="text" name="search">
-						<input type="submit" value="검색">
+						<input id="submitBtn" type="submit" value="검색">
 					</form>
 				</div>
 					<div id="inquiryList">
@@ -200,7 +215,7 @@ span{
 							<c:when test="${empty adminList}">
 								<tr>
 									<td colspan="5"
-										style="width: 900px; height: 350px; font-weight: bold; text-align: center;">
+										style="width: 900px; height: 400px; font-weight: bold; text-align: center;">
 										문의가 존재하지 않습니다</td>
 								</tr>
 							</c:when>

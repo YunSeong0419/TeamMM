@@ -13,15 +13,16 @@ table {
 	border-collapse: collapse;
 }
 
-td{
-	height: 30px;
-	border-bottom: 1px solid gray;
-	padding: 0px 10px;
-}
-
 th {
+	height: 30px;
     background-color: #FF9436;
     color: #fff;
+}
+
+td{
+	height: 35px;
+	border-bottom: 1px solid gray;
+	padding: 0px 10px;
 }
 
 a{
@@ -36,32 +37,38 @@ span{
 
 #filterDiv{
 	margin: auto;
-	width: 920px;
+	width: 900px;
 }
 
-#stateForm{
+#stateForm{    
+	padding-top: 1px;
 	float: left;
-	margin-left: 45px;
 }
 
-
-#stateSelect, #searchSelect{
+#stateSelect{
 	width: 100px;
 	height: 35px;
 	border-radius: 5px;
 	margin: 0px 5px 10px 10px;
 }
 
-#searchFrom{
-	margin-left: 540px;
+ #searchSelect{
+	width: 100px;
+	height: 35px;
+	border-radius: 5px;
+	margin: 0px 5px 10px 40px;
 }
 
-.searchCl{
+#searchFrom{
+	margin-left: 510px;
+}
+
+ .searchCl{
 	width: 150px;
 	height: 35px;
 	border-radius: 5px;
 	margin: 0px 5px 10px 10px;
-}
+} 
 
 #searchId{
 	float: right;
@@ -72,7 +79,7 @@ span{
 }
 
 #noticeList{
-	margin-top: 5px;
+	margin-top: 10px;
 	min-height: 400px;
 }
 
@@ -88,16 +95,20 @@ span{
 	width: 50px;
 }
 
-#noticeCategoryTh {
-	width: 134px;
+#noticeCategoryNameTh {
+	width: 100px;
 }
 
 #titleTh {
-	width: 503px;
+	width: 500px;
 }
 
 #createTh {
-	width: 161px;
+	width: 150px;
+}
+
+#hitTh{
+	width: 100px;
 }
 
 .noticeCategoryTd, .hitTd, .createTd{
@@ -105,22 +116,38 @@ span{
 }
 
 #inputBtn{
-	width: 920px;
+	width: 925px;
 	height:20px; 
 	margin: 0px 0px 50px 50px;
 }
 
-.writeBtn {
+/* .writeBtn {
 	float: right;
 	margin-right: 20px;
-}
+} */
 
 .writeBtn{
-	border-radius: 3px;
-	border-color: #E0E0E0;
-	height: 25px;
-	background-color: #E0E0E0;
+	float: right;
+ 	width: 80px;
+    height: 35px;
+    border: 0px;
+    border-radius: 5px;
+    color: #fff;
+    background-color: #FF9436;
+    font-size: 16px;
 	cursor: pointer;
+}
+
+#searchBoxBtn {
+    margin-left: 5px;
+    padding-bottom: 3px;
+    width: 60px;
+    height: 35px;
+    border: 0px;
+    border-radius: 5px;
+    color: #fff;
+    background-color: #FF9436;
+    font-size: 16px;
 }
 </style>
 
@@ -189,7 +216,7 @@ $(document).ready(function(){
 						</select>
 						<input type="hidden" id="hiddenSearch" value="${searchOption.search}">
 						<input class="searchCl" type="text" name="search">
-						<input type="submit" value="검색">
+						<input id="searchBoxBtn" type="submit" value="검색">
 						</form>
 				</div>
 				<!-- filterDiv 끝-->

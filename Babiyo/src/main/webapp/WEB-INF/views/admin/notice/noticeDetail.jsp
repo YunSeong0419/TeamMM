@@ -23,7 +23,7 @@ span{
 }
 
 #divisionId{
-	margin-left: 13px;
+	margin-left: 15px;
 	width: 100px;
 	height: 35px;
 	border-radius: 5px;
@@ -62,8 +62,8 @@ span{
 }
 
 #titleId{
-	margin:10px 0px 0px 12px;
-	width: 842px;
+	margin:10px 0px 0px 16px;
+	width: 836px;
 	height: 40px;
 }
 
@@ -83,10 +83,11 @@ span{
 }
 
 .backBtn, .modifytBtn, .deleteBtn{
-	border-radius: 3px;
-	border-color: #E0E0E0;
-	height: 25px;
-	background-color: #E0E0E0;
+	height: 35px;
+    border: 0px;
+    border-radius: 5px;
+    color: #fff;
+    background-color: #FF9436;
 	cursor: pointer;
 }
 
@@ -103,6 +104,7 @@ span{
 	float: right;
 	margin-right: 20px;
 }
+
 .clear{
 	clear: both;
 }
@@ -153,7 +155,7 @@ function modifytBtn(no) {
 						<span id="daySpan">기간</span>
 						<input type="text" name="eventStartDate" id="eventStartDateId"
 							value="<fmt:formatDate pattern='yyyy-MM-dd ' value='${noticeDto.eventStartDate}'/>"
-							readonly>~
+							readonly><span id="daySpan" class="eventCl">~</span>
 						<input type="text" name="eventEndDate" id="eventEndDateId"
 							value="<fmt:formatDate pattern='yyyy-MM-dd ' value='${noticeDto.eventEndDate}'/>"
 							readonly>
@@ -176,7 +178,7 @@ function modifytBtn(no) {
 				<input type="text" name="content" id="contentsId"
 						 value="${noticeDto.content}" readonly>
 				<div id="btnDiv">
-				<img alt="" src="/babiyo/img/${noticeImg.STORED_NAME}">
+				<img alt="" src="/babiyo/img/${noticeImg.STORED_NAME}"><br>
 				<input class="backBtn" type="button" value="뒤로가기" onclick="backBtn()">
 				<c:if test="${_memberDto_.grade eq 1}">
 				<input class="modifytBtn"  type="button" value="수정하기" onclick="modifytBtn(${noticeDto.no})">

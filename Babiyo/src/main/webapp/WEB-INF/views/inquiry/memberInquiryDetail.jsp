@@ -62,10 +62,11 @@ span{
 }
 
 .backBtn, .modifytBtn, .deleteBtn{
-	border-radius: 3px;
-	border-color: #E0E0E0;
-	height: 25px;
-	background-color: #E0E0E0;
+	height: 35px;
+    border: 0px;
+    border-radius: 5px;
+    color: #fff;
+    background-color: #FF9436;
 	cursor: pointer;
 }
 

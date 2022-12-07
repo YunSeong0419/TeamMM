@@ -19,9 +19,12 @@ input{
 
 span{
 	font-weight: bold;
-	margin-right: 15px;
+	margin-right: 10px;
 }
 
+#marginTopDiv{
+	margin-top: 1px;
+}
 #categoryId{
 	margin-left: 15px;
 	width: 100px;
@@ -47,7 +50,7 @@ span{
 
 #eventStartDateId, #eventEndDateId{
 	margin-left: 4px;
-	width: 100px;
+	width: 150px;
 	height: 35px;
 	border-radius: 5px;
 }
@@ -88,7 +91,7 @@ span{
 }
 
 .backBtn{
-	margin-left: 390px;
+	margin-left: 337px;
 }
 
 .modifytBtn{
@@ -102,10 +105,11 @@ span{
 }
 
 .backBtn, .modifytBtn, .deleteBtn{
-	border-radius: 3px;
-	border-color: #E0E0E0;
-	height: 25px;
-	background-color: #E0E0E0;
+	height: 35px;
+    border: 0px;
+    border-radius: 5px;
+    color: #fff;
+    background-color: #FF9436;
 	cursor: pointer;
 }
 </style>
@@ -115,6 +119,16 @@ span{
 
 <script type="text/javascript">
 $(document).ready(function(){
+	
+	$('#categoryId').val($('#categoryCode').val());
+	
+	if($("select[name=categoryCode]").val() == 2){
+		$('.eventCl').show();
+	    $('#fileContent').show();
+	}else{
+		$('.eventCl').hide();
+	    $('#fileContent').hide();
+	}
 	
 	  $('#categoryId').change(function() {
 		    var result = $("select[name=categoryCode]").val();
@@ -133,7 +147,7 @@ $(document).ready(function(){
 		deleteFileFnc();
 	});
 	
-	$('#categoryId').val($('#categoryCode').val());
+
 });
 
 function formSubmit() {
@@ -230,7 +244,7 @@ function pageMoveDeleteFnc(no){
 				
 					<input type="hidden" name="no" value="${noticeDto.no}">
 					<input type="hidden" id="categoryCode" value="${noticeDto.categoryCode}">
-					<div>
+					<div id="marginTopDiv">
 							<span>분류</span>
 							<select name="categoryCode" id="categoryId">
 								<option value="1">공지</option>
