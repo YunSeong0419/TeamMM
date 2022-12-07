@@ -182,18 +182,13 @@ public class NoticeServiceImpl implements NoticeService {
 				
 				List<Map<String, Object>> list 
 					= fileUtils.parseInsertFileInfo(parentSeq, mulRequest);
-				System.out.println(list);
-		
+
 				Map<String, Object> imgMap = noticeDao.fileSelectOne(no);
-				System.out.println(imgMap);
 				
 				int imgNo2 = 0;
 				
 				if(imgMap != null) {
 					imgNo2 = Integer.parseInt(String.valueOf(imgMap.get("NO")));
-					
-					System.out.println("imgNo" + imgNo);
-					System.out.println("imgNo2" + imgNo2);
 					
 					if (imgNo2 != imgNo) {
 						System.out.println("imgno 다를때");

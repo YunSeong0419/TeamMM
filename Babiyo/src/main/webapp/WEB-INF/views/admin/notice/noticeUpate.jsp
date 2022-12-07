@@ -217,10 +217,11 @@ function pageMoveBeforeFnc(no){
 	history.back();
 }
 
-
 function pageMoveDeleteFnc(no){
+	if (confirm('삭제하시겠습니까?')) {
 	var url = "./deleteCtr.do?no=" + no;
 	location.href = url;
+	}
 }
 </script>
 </head>
@@ -295,7 +296,6 @@ function pageMoveDeleteFnc(no){
 							</c:choose>
 						</div>	
 					</div>
-					
 					<div id="btnDiv">
 						<input class="backBtn" type="button" value="뒤로가기" onclick="pageMoveBeforeFnc(${noticeDto.no});">
 					<c:if test="${_memberDto_.grade eq 1}">

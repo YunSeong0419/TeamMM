@@ -62,7 +62,8 @@ span{
 }
 
 .backBtn, .modifytBtn, .deleteBtn{
-	height: 35px;
+	width: 60px;
+    height: 35px;
     border: 0px;
     border-radius: 5px;
     color: #fff;

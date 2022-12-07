@@ -109,11 +109,11 @@ span{
 }
 
 #titleTh{
-	width: 544px;
+	width: 543px;
 }
 
 #memberTh{
-	width: 66px;
+	width: 67px;
 }
 
 #createTh{

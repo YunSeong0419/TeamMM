@@ -45,7 +45,7 @@ span{
 }
 
 #stateSelect{
-	width: 100px;
+	width: 127px;
 	height: 35px;
 	border-radius: 5px;
 	margin: 0px 5px 10px 10px;

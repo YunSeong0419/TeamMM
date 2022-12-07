@@ -157,7 +157,7 @@ public class NoticeController {
 			, @RequestParam(defaultValue = "-1") int imgNo
 			, MultipartHttpServletRequest mulRequest
 			, Model model) {
-		logger.info("Welcome NoticeController updateCtr! imgNo : {} , {} ", imgNo , noticeDto);
+		logger.info("Welcome NoticeController updateCtr!");
 		
 		
 		int resultNum = 0; 

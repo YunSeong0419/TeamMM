@@ -142,10 +142,16 @@ VALUES( #{categoryCode}, #{title}, #{content}, SYSDATE,
 	TITLE = #{title}
 	,CONTENT = #{content}
 	,CATEGORY_CODE = #{categoryCode} 
-	<if test="categoryCode == 1">
-	,EVENT_START_DATE = NULL
-	,EVENT_END_DATE = NULL
-	</if>
+	<choose>
+		<when test="categoryCode == 1">
+			,EVENT_START_DATE = NULL
+			,EVENT_END_DATE = NULL
+		</when>
+		<otherwise>
+			,EVENT_START_DATE = #{eventStartDate}
+			,EVENT_END_DATE = #{eventEndDate}
+		</otherwise>	
+	</choose>
 	WHERE NO = #{no}
 </update>
 
