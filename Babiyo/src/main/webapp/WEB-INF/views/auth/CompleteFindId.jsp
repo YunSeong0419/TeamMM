@@ -104,14 +104,7 @@ h3 {
 
 <body>
 	<div id='wrap'>
-		<div id='header'>
-			<h1>
-				<a href="../auth/login"> <img
-					style="width: 150px; height: 60px;"
-					src="/babiyo/resources/img/logo.png">
-				</a>
-			</h1>
-		</div>
+		<jsp:include page="/WEB-INF/views/LoginHeader.jsp"/>
 		<h2>아이디 찾기</h2>
 		<div id='bodyDiv'>
 
@@ -119,7 +112,7 @@ h3 {
 				id='findPwd' type="button" value='비밀번호 찾기' onclick="goFindPwdFnc();">
 				<h3></h3>
 				<div id='infoDiv'>
-					<p id="yourId">고객님의 아이디는<a> ${_memberDto_.id} </a>입니다</p>
+					<p id="yourId">고객님의 아이디는<a> ${memberId} </a>입니다</p>
 				</div>
 				<div id='lowerButtonDiv'>
 					<input id="loginBtn" type="button" value="로그인" onclick="goLoginFnc();">

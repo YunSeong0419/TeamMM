@@ -56,6 +56,7 @@ public class MemberDaoImpl implements MemberDao{
 		
 	}
 	
+	
 	@Override
 	public int emailCheck(String email) {
 		// TODO Auto-generated method stub
@@ -158,6 +159,8 @@ public class MemberDaoImpl implements MemberDao{
 		System.out.println(memberDto);
 		sqlSession.update(namespace + "newPwd", memberDto);
 	}
+
+	
 
 	
 

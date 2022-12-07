@@ -12,6 +12,11 @@
 		text-align: center;
 		width: 950px;
 	}
+	#modifyDate{
+	margin-top: 100px;
+	margin-bottom: 100px;
+	
+	}
 	
 	table {
 	width: 500px;
@@ -38,6 +43,16 @@
 	margin: auto;
 	}
 	
+	.button{
+	width: 120px;
+	height: 40px;
+	font-size: 17px;
+	font-weight: bold;
+	background-color: #FF9436;
+	color: #fff;
+	border: none;
+	border-radius: 8px;
+	}
 
 
 </style>
@@ -82,17 +97,19 @@ function deleteInfoFnc() {
 				<div id='infoBox'>
 					<table>
 						<tr>
-							<th>주문횟수</th><th>문의</th><th>내가 쓴 리뷰</th><th>즐겨찾기</th><th>캐쉬</th>
+							<th>주문횟수</th><th>문의</th><th>내가 쓴 리뷰</th><th>캐쉬</th>
 						</tr>
 						<tr>
-							<td>건</td><td>건</td><td>건</td><td>개</td><td><a href="./memberCash.do">${_memberDto_.cash}원</a></td>
+							<td>건</td><td>건</td><td>건</td><td><a href="./memberCash.do">${_memberDto_.cash}원</a></td>
 						</tr>
-					</table>	
-				<p>최근 정보 수정일</p>
-				<p><fmt:formatDate value="${_memberDto_.modifyDate}" pattern="yyyy년MM월dd일  a hh:mm"  /></p>
+					</table>
+				<div id="modifyDate">		
+					<p>최근 정보 수정일</p>
+					<p><fmt:formatDate value="${_memberDto_.modifyDate}" pattern="yyyy년MM월dd일  a hh:mm"  /></p>
+				</div>
 				<p>
-					<input type="button" value="내 정보 수정" onclick="updateInfoFnc();">
-					<input type="button" value="회원 탈퇴" onclick="deleteInfoFnc();">
+					<input type="button" class="button" value="내 정보 수정" onclick="updateInfoFnc();">
+					<input type="button" class="button" value="회원 탈퇴" onclick="deleteInfoFnc();">
 				</p>
 				</div>
 				<div id="underPadding"></div>

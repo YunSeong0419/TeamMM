@@ -26,25 +26,26 @@
 </select>
 
 <select id="idCheck" parameterType="String" resultType="int">
-	SELECT COUNT(id)
+	SELECT COUNT(ID)
 	FROM MEMBER
 	WHERE ID= #{id}
 </select>
 
+
 <select id="emailCheck" parameterType="String" resultType="int">
-	SELECT COUNT(email)
+	SELECT COUNT(EMAIL)
 	FROM MEMBER
 	WHERE EMAIL= #{email}
 </select>
 
 <select id="phoneCheck" parameterType="String" resultType="int">
-	SELECT COUNT(phone)
+	SELECT COUNT(PHONE)
 	FROM MEMBER
 	WHERE PHONE= #{phone}
 </select>
 
 <select id="nicknameCheck" parameterType="String" resultType="int">
-	SELECT COUNT(nickname)
+	SELECT COUNT(NICKNAME)
 	FROM MEMBER
 	WHERE NICKNAME= #{nickname}
 </select>
@@ -59,7 +60,15 @@
 
 <insert id="insertInterest" parameterType="com.mealmaker.babiyo.member.model.InterestDto">
 	INSERT INTO INTEREST (MEMBER_ID, LIST_NO, CODE)
-   	VALUES(#{memberId}, #{listNo}, #{categoryCode})
+   	VALUES(#{memberId}, #{listNo},
+   	<choose>
+   	<when test="categoryCode != 0">
+   	 #{categoryCode})
+   	</when>
+   	<otherwise>
+   	null)
+   	</otherwise>
+   	</choose>
 </insert>
 
 <select id="categoryCodeList" resultType="map">

@@ -33,7 +33,8 @@ public class MemberServiceImpl implements MemberService{
 		int cnt = memberDao.idCheck(id);
 		System.out.println("cnt: " + cnt);
 		return cnt;
-	}	
+	}
+	
 	
 	@Override
 	public int emailCheck(String email) {
@@ -142,6 +143,8 @@ public class MemberServiceImpl implements MemberService{
 		System.out.println(memberDto);
 		memberDao.newPwd(memberDto);
 	}
+
+	
 
 	
 

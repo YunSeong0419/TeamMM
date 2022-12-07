@@ -94,8 +94,28 @@
 		<script type="text/javascript">
 		
 			function skipInterestFnc() {
-				location.href = './addComplete.do';
+				
+				$('#code1').val(0);
+				$('#code2').val(0);
+				
+				interestForm.submit();
 			}
+			
+			function submitCheck(){
+				
+				if($('#code1').val() == 0 || $('#code2').val() == 0){
+					event.preventDefault();
+					
+					alert('선택한 관심사가 존재하지 않습니다');
+				}
+				
+				if($('#code1').val() == $('#code2').val()){
+					event.preventDefault();
+					
+					alert('서로 다른 관심사를 선택해주세요');
+				}
+			}
+			
 		</script>
 		
 	</head>
@@ -111,14 +131,14 @@
 			</div>	
 			<h3 style="text-align: center;">관심사 선택</h3>
 			<h4 style="text-align: center;">관심사는 고객님께서 원하시는 밀키트를 추천해 드리기 위해서 사용됩니다.</h4>
-			<form  action='./addInterestCtr.do' method='post'>
+			<form id="interestForm" action='./addInterestCtr.do' method='post'>
 			<input type="hidden" name="memberId" value="${memberId}">
 				<div class="bir_wrap">
 					<h3>관심사</h3>
 					<div class="bir_yy">
 							<input type="hidden" name="interestList[0].listNo" value="1">
- 							<select id='myYear' class='birth' name='interestList[0].categoryCode'>
- 								<option disabled selected>선택해주세요</option>
+ 							<select id='code1' class='birth' name='interestList[0].categoryCode'>
+ 								<option value="0" disabled selected>선택해주세요</option>
  								<c:forEach items="${categoryCodeList}" var="interest">
 								<option value="${interest.CODE}">${interest.NAME}</option>
 							</c:forEach>
@@ -127,8 +147,8 @@
 					<h3>관심사</h3>
 					<div class="bir_yy">
 						<input type="hidden" name="interestList[1].listNo" value="2">
-						<select id='myYear' class='birth' name='interestList[1].categoryCode'>
-							<option disabled selected>선택해주세요</option>
+						<select id='code2' class='birth' name='interestList[1].categoryCode'>
+							<option value="0" disabled selected>선택해주세요</option>
 							<c:forEach items="${categoryCodeList}" var="interest">
 								<option value="${interest.CODE}">${interest.NAME}</option>
 <!-- 							<option value="01">한식</option> -->
@@ -140,7 +160,7 @@
 						</select>
 					</div>
 				</div>	
-				<input id='all_chk' type="submit" value='결정'>
+				<input id='all_chk' type="submit" value='결정' onclick="submitCheck();">
 				<input id='jump' type="button"  value='건너뛰기' onclick="skipInterestFnc();">
 			</form>	
 		</div>	

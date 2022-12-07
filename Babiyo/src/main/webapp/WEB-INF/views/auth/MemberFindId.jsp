@@ -151,14 +151,7 @@ window.onload = function () {
 <body>
 
 	<div id='wrap'>
-		<div id='header'>
-			<h1>
-				<a href="../auth/login.do"> <img
-					style="width: 150px; height: 60px;"
-					src="/babiyo/resources/img/logo.png">
-				</a>
-			</h1>
-		</div>
+		<jsp:include page="/WEB-INF/views/LoginHeader.jsp"/>
 		<h2>아이디 찾기</h2>
 		<div id='bodyDiv'>
 

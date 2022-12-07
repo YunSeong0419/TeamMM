@@ -9,7 +9,7 @@
 <title>회원 탈퇴</title>
 <style type="text/css">
 	#infoBox2{
-	width: 900px;
+	width: 950px;
 	}
 	
 	#infoBox {
@@ -28,7 +28,14 @@
 	}
 	
 	.button{
-	width: 30%;
+	width: 120px;
+	height: 40px;
+	font-size: 17px;
+	font-weight: bold;
+	background-color: #FF9436;
+	color: #fff;
+	border: none;
+	border-radius: 8px;
 	}
 	
 	a{

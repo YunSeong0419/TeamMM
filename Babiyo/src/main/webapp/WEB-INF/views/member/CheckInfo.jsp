@@ -13,6 +13,15 @@
 		width: 950px;
 	}
 	
+	#chkPwd{
+	width: 20%;
+	height: 40px;
+	text-align: center;
+	margin-bottom: 100px;
+	margin-top: 100px;
+	font-size: 20px;
+	}
+	
 	table {
 	width: 500px;
 	margin: auto;
@@ -38,6 +47,17 @@
 	margin: auto;
 	}
 	
+	.button{
+	width: 120px;
+	height: 40px;
+	font-size: 17px;
+	font-weight: bold;
+	background-color: #FF9436;
+	color: #fff;
+	border: none;
+	border-radius: 8px;
+	}
+	
 
 
 </style>
@@ -49,16 +69,38 @@
 
 		
 function checkInfoFnc() {
-	var chkPwd = document.getElementById('chkPwd').value;
-	var memberPwd = document.getElementById('memberPwd').value;
+	var pwd = document.getElementById('chkPwd').value;
 	console.log(chkPwd);
-	console.log(memberPwd);
+	
+function moveBackFnc() {
+	location.href ='./memberInfo.do';
+}
+	
+	
+	
+	
 	if (chkPwd == ''){
 		alert("비밀번호를 입력해주세요");
-	}else if(chkPwd !== memberPwd) {
-		alert("비밀번호를 확인해주세요");
 	}else {
-		location.href ='./memberUpdate.do';
+		
+		$.ajax({
+	        url:'./ajax/passwordCheck.do',
+	        type:'post',
+	        data:	{
+	        	pwd: pwd
+	        },
+	        success:function(check){ 
+	        	
+	        	if(check){
+	        		location.href ='./memberUpdate.do';
+	        	}else{
+	        		
+	        		alert('비밀번호가 일치하지 않습니다');
+	        		
+	        	}
+	        	
+	        }
+	    });
 	};
 	
 };
@@ -84,11 +126,11 @@ function checkInfoFnc() {
 			<div id="middleDiv">
 				<!--여기서 작성 -->
 				<div id='infoBox'>
-				<p>개인정보 변경을 하시려면 비밀번호를 입력해주세요</p>
-				<p><input id='memberPwd' name="password" type="hidden" value="${_memberDto_.password}"></p>
+				<h3>개인정보 변경을 하시려면 비밀번호를 입력해주세요</h3>
 				<p><input id='chkPwd'  type="password" placeholder="비밀번호 입력"></p>
 				<p>
-					<input type="button" value="입력" onclick="checkInfoFnc();">
+					<input class='button' type="button" value="입력" onclick="checkInfoFnc();">
+					<input class='button' type="button" value="이전" onclick="moveBackFnc();">
 				</p>
 				</div>
 				<div id="underPadding"></div>

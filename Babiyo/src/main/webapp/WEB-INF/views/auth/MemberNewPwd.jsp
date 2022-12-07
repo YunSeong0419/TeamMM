@@ -181,14 +181,7 @@ window.onload = function () {
 
 <body>
 	<div id='wrap'>
-		<div id='header'>
-			<h1>
-				<a href="../auth/login"> <img
-					style="width: 150px; height: 60px;"
-					src="/babiyo/resources/img/logo.png">
-				</a>
-			</h1>
-		</div>
+		<jsp:include page="/WEB-INF/views/LoginHeader.jsp"/>
 		<h2>비밀번호 찾기</h2>
 		<div id='bodyDiv'>
 
@@ -198,7 +191,7 @@ window.onload = function () {
 			<form action="./newPwdCtr.do" method="post">
 				<div id='infoDiv'>
 					<p class="name">비밀번호</p>
-					<input type="hidden" name='id' value="${_memberDto_.id}">
+					<input type="hidden" name='id' value="${memberId}">
 					<input type="password" id="password" class='pwd' name='password' placeholder="PW">
 					<p id="Pwd" class="check"></p>
 					<p class="name">비밀번호 확인</p>

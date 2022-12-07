@@ -33,7 +33,7 @@ header{
 
 <header>
 	<div id='logoDiv'>
-		<a href="/babiyo/main.do">
+		<a href="/babiyo/auth/login.do">
 			<img id='logo' alt="로그인 페이지로 이동" 
 				src="/babiyo/resources/img/logo.png">
 		</a>

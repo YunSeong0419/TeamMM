@@ -157,14 +157,9 @@ window.onload = function () {
 
 	
 	<div id='wrap'>
-		<div id='header'>
-			<h1>
-				<a href="../auth/login.do"> <img
-					style="width: 150px; height: 60px;"
-					src="/babiyo/resources/img/logo.png">
-				</a>
-			</h1>
-		</div>
+	
+		<jsp:include page="/WEB-INF/views/LoginHeader.jsp"/>
+		
 		<h2>비밀번호 찾기</h2>
 		<div id='bodyDiv'>
 
@@ -177,7 +172,7 @@ window.onload = function () {
 			<p id="emailChk"> </p>
 			</div>
 			<div id='lowerButtonDiv'>
-			<input id="findBtn" type="button" value="찾기" onclick="submitFnc();">
+			<input id="findBtn" type="submit" value="찾기">
 			</div>
 			</form>
 		</div>

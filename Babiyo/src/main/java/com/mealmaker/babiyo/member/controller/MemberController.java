@@ -71,29 +71,20 @@ public class MemberController {
 	}
 	//아이디 찾기
 	@RequestMapping(value = "/auth/findIdCtr.do", method = RequestMethod.POST)
-	public String findId(String email
-			, HttpSession session, Model model) {
+	public String findId(String email, HttpSession session, Model model) {
 		logger.info("Welcome  findIdCtr! " + email);
 		
 		MemberDto memberDto = memberService.findId(email);
 		logger.info("wel" + email);
-			session.setAttribute("_memberDto_", memberDto);
 		
-		return "redirect:/auth/completeFindId.do";
-	}
-	
-	@RequestMapping(value = "/auth/completeFindId.do", method = RequestMethod.GET)
-	public String completeFindId(HttpSession session, Model model) {
-		logger.info("Welcome MemberController findId! ");
-//		MemberDto memberDto = (MemberDto)session.getAttribute("_memberDto_");
+		model.addAttribute("memberId", memberDto.getId());
 		
-		return "/auth/CompleteFindId";
+		return "auth/CompleteFindId";
 	}
 	
 	@RequestMapping(value = "/auth/findPwd.do", method = RequestMethod.GET)
 	public String findPwd(HttpSession session, Model model) {
 		logger.info("Welcome MemberController findPwd! ");
-		
 		
 		return "/auth/MemberFindPwd";
 	}
@@ -105,25 +96,21 @@ public class MemberController {
 		
 		MemberDto memberDto = memberService.findPwd(email);
 		logger.info("your mail is " + email);
-			session.setAttribute("_memberDto_", memberDto);
-			System.out.println(memberDto);
-		return "redirect:/auth/MemberNewPwd.do";
-	}
-	
-	@RequestMapping(value = "/auth/MemberNewPwd.do", method = RequestMethod.GET)
-	public String changePwd(HttpSession session, Model model) {
-		logger.info("Welcome MemberController newPwd! ");
-		MemberDto memberDto = (MemberDto)session.getAttribute("_memberDto_");
 		System.out.println(memberDto);
 		
-		return "/auth/MemberNewPwd";
+		model.addAttribute("memberId", memberDto.getId());
+			
+		return "auth/MemberNewPwd";
 	}
 	
 	@RequestMapping(value = "/auth/newPwdCtr.do", method = RequestMethod.POST)
 	public String newPwd(MemberDto memberDto, HttpSession session, Model model) {
 		logger.info("Welcome  newPwdCtr! " );
+		
 		memberService.newPwd(memberDto);
+		
 		System.out.println(memberDto);
+		
 		return "redirect:/auth/CompleteNewPwd.do";
 	}
 	
@@ -131,7 +118,7 @@ public class MemberController {
 	public String completePwd(HttpSession session, Model model) {
 		logger.info("Welcome MemberController complete change password! ");
 		
-		return "/auth/CompleteNewPwd";
+		return "auth/CompleteNewPwd";
 	}
 	
 	
@@ -163,6 +150,8 @@ public class MemberController {
 		int cnt = memberService.idCheck(id);
 		return cnt;
 	}
+	
+	
 	
 	@PostMapping("/auth/member/emailCheckCtr.do")
 	@ResponseBody
@@ -202,6 +191,7 @@ public class MemberController {
 	@RequestMapping(value = "/auth/member/addInterest.do", method = RequestMethod.GET)
 	public String memberAddInterest(String memberId, Model model) {
 		logger.info("Welcome MemberController memberAdd 신규등록 처리! ");
+		
 		List<Map<String, Object>> categoryCodeList = memberService.categoryCodeList();
 		model.addAttribute("categoryCodeList", categoryCodeList);
 		model.addAttribute("memberId", memberId);
@@ -234,6 +224,21 @@ public class MemberController {
 		logger.info("check your password! ");
 		
 		return "/member/CheckInfo";
+	}
+	
+	
+	@ResponseBody
+	@PostMapping(value="/member/ajax/passwordCheck.do")
+	public boolean infoPwdCheck(HttpSession session, @RequestParam String pwd) {
+		
+		MemberDto memberDto = (MemberDto)session.getAttribute("_memberDto_");
+		String memberId = memberDto.getId();
+		
+		MemberDto memberDtoCheck = memberService.memberExist(memberId, pwd);
+		
+		boolean pwdCheck =  memberDtoCheck != null;
+		
+		return pwdCheck;
 	}
 	
 	
