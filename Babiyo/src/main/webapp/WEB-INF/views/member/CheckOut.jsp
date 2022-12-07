@@ -42,6 +42,12 @@
 	color: orange;
 	}
 	
+	#warn{
+	font-weight: bolder;
+	font-size: 20px;
+	width: 100%;
+	}
+	
 	
 
 
@@ -94,8 +100,8 @@ function moveBackFnc() {
 				<!--여기서 작성 -->
 				<div id='infoBox2'>
 					<div id='infoBox'>
-						<h3>탈퇴를 하시면 저희의 서비스를 전부 사용하실수 없게 됩니다
-							그래도 탈퇴 원하시면 밑에 입력란에<a>회원탈퇴</a>라고 적어주세요</h3>
+						<p id='warn'>탈퇴하시면 저희의 서비스를 전부 사용하실 수 없게 됩니다 그래도 탈퇴를 원하시면 아래 입력란에
+						<a> 회원탈퇴 </a>라고 적어주세요</p>
 						<p>
 							<input id='deleteWord' type="hidden" value="회원탈퇴">
 						</p>

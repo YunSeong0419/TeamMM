@@ -47,6 +47,10 @@
 	margin: auto;
 	}
 	
+	h3{
+	margin-bottom: 43px;
+	}
+	
 	.button{
 	width: 120px;
 	height: 40px;
