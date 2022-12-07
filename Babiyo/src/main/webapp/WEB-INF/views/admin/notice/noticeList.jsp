@@ -21,7 +21,7 @@ th {
 
 td{
 	height: 35px;
-	border-bottom: 1px solid gray;
+	border-bottom: 2px solid #FF9436;
 	padding: 0px 10px;
 }
 
@@ -121,11 +121,6 @@ span{
 	height:20px; 
 	margin: 0px 0px 50px 50px;
 }
-
-/* .writeBtn {
-	float: right;
-	margin-right: 20px;
-} */
 
 .writeBtn{
 	float: right;
