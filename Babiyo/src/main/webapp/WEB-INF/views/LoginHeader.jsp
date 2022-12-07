@@ -3,6 +3,15 @@
 
 <style type="text/css">
 
+html, body{
+	margin: 0;
+	padding: 0;
+}
+
+body{
+	overflow-y: scroll;
+}
+
 header{
 	width: 400px;
  	height: 120px; 

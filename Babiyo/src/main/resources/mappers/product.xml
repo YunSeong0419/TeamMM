@@ -100,8 +100,8 @@
 		</selectKey>
 		
 		INSERT INTO PRODUCT
-		VALUE(CATEGORY_CODE, NAME, PRICE, STOCK, CONTENT)
-		VALUES(#{categoryCode}, #{name}, #{price}, #{stock}, #{content})
+		VALUE(CATEGORY_CODE, NAME, PRICE, STOCK, CONTENT, REGISTRATION_DATE)
+		VALUES(#{categoryCode}, #{name}, #{price}, #{stock}, #{content}, SYSDATE)
 	</insert>
 
 	<select id="productDetail" parameterType="int" resultMap="productResultMap">

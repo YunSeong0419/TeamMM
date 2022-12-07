@@ -8,9 +8,11 @@ import org.springframework.format.annotation.DateTimeFormat;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
+@ToString
 public class SearchOption {
 	
 	private String searchOption;

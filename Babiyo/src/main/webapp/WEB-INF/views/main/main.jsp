@@ -265,8 +265,8 @@
 				</c:choose>
 			</div>
 			<div id="bannerBtn">
-				<c:forEach var="i" begin="0" end="${eventImgList.size()-1}">
-					<a href="#eventImg${i}">●</a>
+				<c:forEach items="${eventImgList}" varStatus="i">
+					<a href="#eventImg${i.index}">●</a>
 				</c:forEach>
 			</div>
 		</div>

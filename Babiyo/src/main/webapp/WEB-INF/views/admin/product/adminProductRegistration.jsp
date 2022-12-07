@@ -196,7 +196,7 @@
 			<div id="sideTitle"></div>
 			<!--여기서 작성 -->
 			<div id='productRegistrationDiv'>
-			<form action='./adminModificationCtr.do' method='post' name='frm'
+			<form action='./adminRegistrationCtr.do' method='post' name='frm'
 					enctype="multipart/form-data" onsubmit="return formSubmit();">
 				<div id='imageDiv'>
 					<div id='fileContent'>
