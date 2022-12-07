@@ -83,4 +83,10 @@ public class ReviewDaoImpl implements ReviewDao{
 		return sqlSession.selectList(namespace + "productReviewList", paraMap);
 		
 	}
+
+	@Override
+	public int memberReviewCount(String id) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(namespace + "reviewCount", id);
+	}
 }

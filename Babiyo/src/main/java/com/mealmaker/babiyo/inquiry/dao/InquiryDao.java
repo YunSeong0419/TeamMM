@@ -38,9 +38,9 @@ public interface InquiryDao {
 	public int adminAnswer(InquiryDto inquiryDto);
 	//삭제
 	public int adminInquiryDeleteOne(InquiryDto inquiryDto);
-
+	//관리홈 문의 카운트
 	public int waitInquiryCount();
-
+	//내정보 문의 카운트
 	public int memberInquiryCount(String id);
 
 }

@@ -19,5 +19,8 @@ public interface ReviewDao {
 	public Map<String, Object> fileSelectStoredFileName(int parentSeq);
 	public int fileDelete(int parentSeq);
 	List<Map<String, Object>> productReviewList(SearchOption searchOption, int begin, int end);
+	
+	//내정보 리뷰 카운트
+	public int memberReviewCount(String id);
 }
 

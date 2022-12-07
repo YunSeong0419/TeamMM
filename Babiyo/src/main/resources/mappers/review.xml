@@ -98,4 +98,11 @@
 		WHERE NO = #{no}
 	</delete>
 	
+	<!-- 회원 홈에서 리뷰수 조회 -->
+	<select id="reviewCount" parameterType="String" resultType="int">
+		SELECT COUNT(*)
+		FROM REVIEW
+		WHERE MEMBER_ID = #{value}
+	</select>
+		
 </mapper>

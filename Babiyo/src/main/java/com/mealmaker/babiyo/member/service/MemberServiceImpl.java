@@ -167,11 +167,11 @@ public class MemberServiceImpl implements MemberService{
 		
 //		int orderCount = orderDao.memberOrderCount(id);
 		int inquiryCount = inquiryDao.memberInquiryCount(id);
-//		int reviewCount = reviewDao.memberReviewCount(id);
+		int reviewCount = reviewDao.memberReviewCount(id);
 		
 //		map.put("orderCount", orderCount);
 		map.put("inquiryCount", inquiryCount);
-//		map.put("reviewCount", reviewCount);
+		map.put("reviewCount", reviewCount);
 		
 		return map;
 	}
