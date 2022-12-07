@@ -179,6 +179,13 @@
 			
 			return false;
 		}
+		
+		if (frm.file.value == "") {
+			alert("사진을 넣어주세요.");
+			frm.file.focus();
+			
+			return false;
+		}
 	}
 </script>
 
@@ -250,6 +257,7 @@
 				<input type="hidden" name="searchOptionValue" value="${searchOption.searchOption}">
 				<input type="hidden" name="sortValue" value="${searchOption.sort}">
 			</form>
+			
 			<div id="underPadding"></div>
 			
 		</div> <!--middelMain 끝 -->

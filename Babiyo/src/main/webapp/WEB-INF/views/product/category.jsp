@@ -36,7 +36,7 @@
 	line-height: 68px;
 }
 
-.categorySelectName{
+#productCategoryName > span{
 	color: #4A4A4A;
 	padding: 10px 30px;
 	margin: 0px auto;
@@ -47,26 +47,32 @@
 	cursor: pointer;
 }
 
-.categorySelectName:active{
+#productCategoryName > span:hover{
+	color: #FF0000;
+}
+
+#productCategoryName > .curCategory{
 	color: #FF9436;
-	text-decoration: underline;
 }
 
 #searchBox{
+	margin: 20px auto;
+	border-radius: 5px;
 	width: 900px;
 	height: 35px;
-	margin: 20px auto;
 	text-align: right;
 }
 
 #searchBoxInput{
+	border: 1px solid #000000;
+	border-radius: 5px;
 	width: 200px;
 	height: 35px;
 	padding-top: 2px;
 }
 
 #searchBoxBtn{
-	margin-left: 10px;
+	margin-left: 5px;
 	padding-bottom: 3px;
 	width: 60px;
 	height: 35px;
@@ -130,16 +136,19 @@
 </style>
 
 <script type="text/javascript" src="/babiyo/resources/js/jquery-3.6.1.js"></script>
+
 <script type="text/javascript">
+$(function(){
+	let no = $('#categoryCodeVal').val();
+	
+	$('#productCategoryName' + no).attr('class', 'curCategory');
+});
+
 function categorySelect(code){
 	$('#categoryCode').val(code);
 	
 	$('#categoryForm').submit();
 }
-
-	$('#productCategoryName > span').on('click', function(){
-		$(this).addClass(':active');
-	})
 </script>
 
 </head>
@@ -153,9 +162,11 @@ function categorySelect(code){
 	<div id="middleDiv">
 		<!--여기서 작성 -->
 		<div id='productCategoryName'>
-			<span class='categorySelectName' onclick="categorySelect(0);">전체</span>
-			<c:forEach  var="productCategory" items="${productCategory}">
-				<span class='categorySelectName' onclick="categorySelect(${productCategory.CODE});">${productCategory.NAME}</span>
+			<span id='productCategoryName0' onclick="categorySelect(0);">전체</span>
+			<c:forEach var="productCategory" items="${productCategory}">
+				<span id='productCategoryName${productCategory.CODE}' onclick="categorySelect(${productCategory.CODE});">
+				${productCategory.NAME}
+				</span>
 			</c:forEach>
 		</div>
 		
@@ -204,7 +215,7 @@ function categorySelect(code){
 		
 		<form id="pagingForm">
 			<input type="hidden" id="curPage" name="curPage" value="${paging.curPage}">
-			<input type="hidden" id="categoryCode" name="categoryCode" value="${searchOption.categoryCode}">
+			<input type="hidden" id="categoryCodeVal" name="categoryCode" value="${searchOption.categoryCode}">
 			<input type="hidden" name="search" value="${searchOption.search}">
 		</form>
 		

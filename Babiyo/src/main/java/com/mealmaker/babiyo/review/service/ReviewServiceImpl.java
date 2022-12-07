@@ -57,13 +57,19 @@ public class ReviewServiceImpl implements ReviewService{
 		return resultList;
 	}
 	
-	//DAO에서 리뷰 수 꺼내오게 시키기(밀키트 상세에 사용)
+	//DAO에서 리뷰 정보 꺼내오게 시키기(밀키트 상세에 사용)
 	@Override
-	public int reviewQuantity(int productNo) {
+	public Map<String, Object> productReviewInfo(int productNo) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
 		
 		int reviewQuantity = reviewDao.reviewQuantity(productNo);
+		double reviewEvaluation = reviewDao.reviewEvaluation(productNo);
 		
-		return reviewQuantity;
+		map.put("reviewQuantity", reviewQuantity);
+		map.put("reviewEvaluation", reviewEvaluation);
+		
+		return map;
 	}
 	
 	//DAO에서 리뷰 상세 꺼내오게 시키기
@@ -90,7 +96,7 @@ public class ReviewServiceImpl implements ReviewService{
 
 
 	@Override
-	public void reviewRegistration(ReviewDto reviewDto, MultipartHttpServletRequest multipartHttpServletRequest)
+	public void reviewRegistration(ReviewDto reviewDto, MultipartHttpServletRequest mulRequest)
 			throws Exception {
 		// TODO Auto-generated method stub
 		
@@ -103,9 +109,9 @@ public class ReviewServiceImpl implements ReviewService{
 	}
 
 	@Override
-	public int reviewModification(ReviewDto reviewDto, MultipartHttpServletRequest multipartHttpServletRequest,
-			int fileIdx) throws Exception {
-		// TODO Auto-generated method stub
+	public int reviewModification(ReviewDto reviewDto, MultipartHttpServletRequest mulRequest)
+		throws Exception {
+		
 		return 0;
 	}
 

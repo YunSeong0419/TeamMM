@@ -21,57 +21,37 @@
 
 #filterAndSearch{
 	width: 900px;
-	height: 50px;
-	margin-left: 80px;
+	height: 35px;
+	margin-left: 75px;
 }
 
 #sortBox{
-	width: 150px;
-	height: 50px;
+	width: 120px;
+	height: 35px;
 	float: left;
 }
 
-#sortBoxName{
-	margin: auto 10px auto 0px;	
-	line-height: 55px;
-	font-size: 18px;
-	font-weight: bold;
-	float: left;
+#sortBoxName, #searchBoxName{
+	margin: auto 0px;	
+	font-size: 16px;
 }
 
-#sort{
-	margin-top: 10px;
-	margin-right: 10px;
+#sort, #searchOption{
+	border: 1px solid #000000;
 	border-radius: 5px;	
 	width: 80px;
 	height: 35px;
 }
 
 #searchBox{
-	width: 420px;
-	height: 50px;
+	width: 390px;
+	height: 35px;
 	float: right;
 }
 
-#searchBoxName{
-	margin: auto 10px auto 0px;	
-	line-height: 55px;
-	font-size: 18px;
-	font-weight: bold;
-	float: left;
-}
-
-#searchOption{
-	margin-top: 10px;
-	margin-right: 10px;
-	border-radius: 5px;	
-	width: 80px;
-	height: 35px;
-	line-height: 35px;
-}
-
 #inputBox{
-	margin-top: 10px;
+	border: 1px solid #000000;
+	border-radius: 5px;
 	width: 200px;
 	height: 35px;
 	line-height: 35px;
@@ -86,13 +66,12 @@
 	float: left;
 }
 
-#reviewListButton{
-	margin-top: 10px;
-	margin-left: 10px;
-	width: 60px;
-	height: 35px;
+#productListShortbutton{
+	margin-left: 5px;
 	border: 0px;
 	border-radius: 5px;
+	width: 60px;
+	height: 35px;
 	color: #fff;
 	background-color: #FF9436;
 	font-size: 16px;
@@ -100,15 +79,15 @@
 }
 
 #tableDiv{
-	height: 450px;
-	min-height: 300px;
+	margin-top: 10px;
+	height: 380px;
 	float: left;
 }
 
 #reviewManagementTable{
 	width: 900px;
-	margin-left: 80px;
-	margin-bottom: 5px;
+	margin-left: 75px;
+	margin-bottom: 30px;
 	border-collapse: collapse;
 }
 
@@ -131,12 +110,12 @@
 } 
 
 #evaluationTh, #quantityTh{
-	width: 150px;
+	width: 145px;
 	text-align: center;
 }
 
 #productNameTh{
-	width: 440px;
+	width: 450px;
 }
 
 #classificationTh{
@@ -173,10 +152,10 @@
 	
 		$('#searchOption').val($('#searchOptionValue').val());
 	});
-	
 </script>
 
 </head>
+
 <body>
 
 <div id="rootDiv">
@@ -194,7 +173,7 @@
 				<div id='filterAndSearch'>
 					<form method='post'>
 						<div id='sortBox'>
-							<p id='sortBoxName'>정렬</p> 
+							<span id='sortBoxName'><strong>정렬</strong></span> 
 							<select name='sort' id="sort">
 								<option value='RATING_AVG DESC'>평점 ↓</option>
 								<option value='RATING_AVG ASC'>평점 ↑</option>
@@ -205,14 +184,14 @@
 							</select>
 						</div>
 						<div id='searchBox'>
-							<p id='searchBoxName'>검색</p> 
+							<span id='searchBoxName'><strong>검색</strong></span> 
 							<select name='searchOption' id='searchOption'>
 								<option value=''>전체</option>
 								<option value='PRODUCT_NAME'>이름</option>
 								<option value='CATEGORY_NAME'>분류</option>
 							</select>
 							<input type='text' id='inputBox' name='search' value="${searchOption.search}">
-							<input type='submit' value="검색" id='reviewListButton'>
+							<input type='submit' value="검색" id='productListShortbutton'>
 						</div>
 					</form>
 				</div>
@@ -230,8 +209,8 @@
 							<c:when test="${empty reviewList}">
 								<tr>
 									<td colspan="5" 
-										style="width: 500px; height: 350px; 
- 										font-size:32px; font-weight: bold; text-align: center;">
+										style="width: 500px; height: 350px; border: 0px;
+ 										font-size:25px; font-weight: bold; text-align: center;">
 										리뷰가 없습니다.
 									</td>
 								</tr>

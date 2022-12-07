@@ -16,18 +16,17 @@ public interface ReviewService {
 	List<Map<String, Object>> reviewList();
 	//등록
 	public void reviewRegistration(ReviewDto reviewDto
-		, MultipartHttpServletRequest multipartHttpServletRequest) throws Exception;
+		, MultipartHttpServletRequest mulRequest) throws Exception;
 	//관리자 상세
 	Map<String, Object> reviewAdminDetail(int no);
 	//회원 상세
 	List<Map<String, Object>> detail(String memberId, int no);
 	//수정	
 	public int reviewModification(ReviewDto reviewDto
-		, MultipartHttpServletRequest multipartHttpServletRequest
-		, int fileIdx) throws Exception;
+		, MultipartHttpServletRequest mulRequest) throws Exception;
 	//삭제
 	public void reviewDelete(int no);
 	//???
-	public int reviewQuantity(int productNo);
+	public Map<String, Object> productReviewInfo(int productNo);
 	List<Map<String, Object>> productReviewList(SearchOption searchOption, int begin, int end);
 }

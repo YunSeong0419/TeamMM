@@ -221,9 +221,9 @@ $(function(){
 	
 });
 
-	setInterval(function(){
-		let count = $('.eventImg').length;
-		let offset = $('#eventImgDiv').scrollLeft() + 1200;
+setInterval(function(){
+	let count = $('.eventImg').length;
+	let offset = $('#eventImgDiv').scrollLeft() + 1200;
 	
 	if(offset >= count*1200) {
 		offset = 0;
@@ -235,7 +235,7 @@ $(function(){
 	$('#bannerBtn' + no).attr('class', 'curBanner');
 	
 	$('#eventImgDiv').animate({scrollLeft: offset}, 800);
-	}, 5000);
+}, 5000);
 
 function eventBannerMoveFnc(no){
 	

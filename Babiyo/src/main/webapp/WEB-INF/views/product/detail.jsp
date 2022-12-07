@@ -15,7 +15,7 @@
 	width: 450px;
 	margin: 0px auto;
 	border: 0px;
-	background-color: #FF5E00;
+	background-color: #FF9436;
 	height: 2px;
 }
 
@@ -23,7 +23,7 @@
 	width: 900px;
 	margin: 0px auto;
 	border: 0px;
-	background-color: #FF5E00;
+	background-color: #FF9436;
 	height: 2px;
 }
 
@@ -104,6 +104,11 @@
 	line-height: 20px;	
 }
 
+#evaluationAndReviewCount > span{
+	color: #FF9436;
+	font-size: 20px;
+}
+
 #inputPurchaseDetail{
 	margin-top: 40px;
 	width: 250px;
@@ -175,10 +180,15 @@
 }
 
 #putShoppingCart, #purchaseOrder{
-	margin: 20px;
-	width: 150px;
+	margin: 25px;
+	border: 0px;
+	border-radius: 5px;
+	width: 170px;
 	height: 50px;
-	font-size: 16px;
+	font-size: 18px;
+	font-weight: bold;
+	color: #fff;
+	background-color: #FF9436;
 }
 
 #productContentDiv{
@@ -194,6 +204,10 @@
 	line-height: 30px;
 }
 
+#reviewName{
+	float: left;
+}
+
 #content{
 	margin: 30px 20px;
 }
@@ -205,18 +219,23 @@
 }
 
 #inlineDiv{
+	margin-top: 10px;
 	height: 40px;
-	line-height: 40px;
+	line-height: 50px;
 }
 
-#reviewTitle, #filter, #writeReview{
+.filter, #writeReview{
 	float: left;
 }
 
-#shortVerticalLine{
-	margin: 0px 5px;
+#reviewTitle{
+	margin-right: 20px;
+	float: left;
+}
+
+.shortVerticalLine{
 	display: inline-block;
-	margin-top:10px;
+	margin: 15px 5px 0px 5px;
 	border-left : 2px solid #A0A0A0;
 	height: 20px;
 	float: left;
@@ -238,21 +257,28 @@
 #lowerButton{
 	margin: 0px;
 	border: 0px;
+	border-radius: 5px;
 	width: 300px;
 	height: 40px;
-	background-color: orange;
-	border-radius: 5px;
-	font-size: 16px;
+	color: #fff;
+	background-color: #FF9436;
+	font-size: 18px;
+	font-weight: bold;
 }
 
-.writeReview{
+#writeReview{
 	float: right;
 }
 
-.writeReviewButton{
+#writeReviewButton{
+	border: 0px;
+	border-radius: 5px;
 	width: 100px;
 	height: 30px;
+	color: #fff;
+	background-color: #FF9436;
 	font-size: 16px;
+	font-weight: bold;
 }
 
 .userEvaluation{
@@ -424,6 +450,26 @@ function orderBtn(productNo){
 	
 }
 
+$(window).on('load', function () {
+	load('.reviewCollectionList', '4');
+    $('#lowerButton').on('click', function () {
+        load('.reviewCollectionList', '4', '#lowerButtonDiv');
+    })
+});
+ 
+function load(id, cnt, btn) {
+    var reviewList = id + ".reviewCollectionList:not(.active)";
+    var reviewLength = $(reviewList).length;
+    var reviewTotalCount;
+    
+    if (cnt < reviewLength) {
+    	reviewTotalCount = cnt;
+    } else {
+    	reviewTotalCount = reviewLength;
+        $('#lowerButton').hide();
+    }
+    $(reviewList + ":lt(" + reviewTotalCount + ")").addClass("active");
+}
 </script>
 
 
@@ -463,7 +509,7 @@ function orderBtn(productNo){
 						</div>
 					
 						<div id='evaluationAndReviewCount'>
-							☆4.9(${reviewDto})
+							<span>★</span>${reviewMap.reviewEvaluation}(${reviewMap.reviewQuantity})
 						</div>
 					
 						<hr class='shortDivisionLine'/>	
@@ -532,9 +578,9 @@ function orderBtn(productNo){
 			
 			
 			<div id='reviewDiv'>
-				<div class='inlineDiv'>
-					<div class='reviewTitle'>
-						<span class='reviewName'>리뷰(2,348)</span>
+				<div id='inlineDiv'>
+					<div id='reviewTitle'>
+						<span id='reviewName'>리뷰(${reviewMap.reviewQuantity})</span>
 					</div>
 					<div class='filter'>
 						<span class='latest'>최신순</span>
@@ -545,13 +591,14 @@ function orderBtn(productNo){
 					<div class='filter'>
 						<span class='highRating'>평점 높은 순</span>
 					</div>
-					<div class='writeReview'>
-						<input type="button" value='리뷰 쓰기' class='writeReviewButton'>
+					<div id='writeReview'>
+						<input type="button" value="리뷰 쓰기" id='writeReviewButton' 
+							onclick="location.href='/babiyo/review/write.do'">
 					</div>
 				</div>
 				
 				<hr class='longDivisionLine'/>
-				
+		
 				<div class='userEvaluation'>
 					<div class='nickname'>조윤성</div>
 					<div class='wrapStar'>
@@ -566,11 +613,8 @@ function orderBtn(productNo){
 				</div>
 			</div>
 			<div id='lowerButtonDiv'>
-				<input type="submit" value="리뷰 더 보기" class='lowerButton'>	
+				<input type="submit" value="리뷰 더 보기" id='lowerButton'>	
 			</div>
-
-
-
 		</div>
 		
 		<div id="underPadding"></div>

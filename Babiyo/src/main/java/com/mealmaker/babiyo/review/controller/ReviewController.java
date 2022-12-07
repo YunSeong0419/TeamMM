@@ -1,6 +1,5 @@
 package com.mealmaker.babiyo.review.controller;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -18,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.mealmaker.babiyo.member.model.MemberDto;
-import com.mealmaker.babiyo.product.dao.ProductDao;
+import com.mealmaker.babiyo.product.model.ProductDto;
 import com.mealmaker.babiyo.product.service.ProductService;
 import com.mealmaker.babiyo.review.model.ReviewDto;
 import com.mealmaker.babiyo.review.service.ReviewService;
@@ -95,16 +94,18 @@ public class ReviewController {
 
 	//회원-밀키트 상세-리뷰 등록(등록 후 리뷰 쓰기 버튼이 있던 회원-밀키트 상세로 돌아감.)
 	@RequestMapping(value = "/review/writeCtr.do", method = RequestMethod.POST)
-	public String reviewRegistration(ReviewDto reviewDto, 
+	public String reviewRegistration(ProductDto productDto, ReviewDto reviewDto, 
 		MultipartHttpServletRequest multipartHttpServletRequest, Model model) {
 		logger.info("ReviewController reviewRegistration 리뷰 등록 완료!" + reviewDto);
+		
+		int productNo = productDto.getNo();
 		
 		try {
 			reviewService.reviewRegistration(reviewDto, multipartHttpServletRequest);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "redirect:/product/memberDetail.do";
+		return "redirect:/product/detail.do?no=" + productNo;
 	}
 	
 
@@ -143,19 +144,21 @@ public class ReviewController {
 //	}
 	
 	//회원-리뷰 상세-리뷰 수정
-	@RequestMapping(value = "/review/modificationCtr.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/review/modificationCtr.do")
 	public String reviewModificationCtr(HttpSession session, ReviewDto reviewDto
-		, @RequestParam(value = "fileIdx", defaultValue = "-1") int fileIdx
-		, MultipartHttpServletRequest multipartHttpServletRequest, Model model) {
-		logger.info("ReviewController reviewModificationCtr {} :: {}" , reviewDto, fileIdx);
+		, MultipartHttpServletRequest mulRequest, Model model) {
+		logger.info("ReviewController reviewModificationCtr {} :" , reviewDto);
 		
 		int resultNum = 0; 
 			
 		try {
-			resultNum = reviewService.reviewModification(reviewDto, multipartHttpServletRequest, fileIdx);
+			resultNum = reviewService.reviewModification(reviewDto, mulRequest);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		int no = reviewDto.getNo();
+		
 		//DB에서 리뷰가 수정됐는지 증명 
 		ReviewDto sessionReviewDto = (ReviewDto)session.getAttribute("_reviewDto_");
 		
@@ -175,7 +178,7 @@ public class ReviewController {
 				session.setAttribute("_reviewDto_", proofModificationDto);
 			}
 		}
-		return "review/modificationSuccess";
+		return "redirect:/review/adminDetail.do?no=" + no;
 	}
 	
 	//회원-리뷰 상세-리뷰 삭제

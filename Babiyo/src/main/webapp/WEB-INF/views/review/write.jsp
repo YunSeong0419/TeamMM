@@ -32,12 +32,6 @@
 #productImage{
 	width: 150px;
 	height: 150px;
-	background-color: lightgrey;
-}
-
-#productImage > img{
-	width: 150px;
-	height: 150px;
 }
 
 #productSelectBox{
@@ -62,9 +56,9 @@
 }
 
 #guideDiv{
-	margin-left: 10px;
+	margin-left: 20px;
 	width: 450px;
-	height: 100px;
+	height: 60px;
 	float: left;
 }
 
@@ -95,24 +89,14 @@
 }
 
 #uploadImageDiv{
-	padding-left: 10px;
-	width: 700px;
-	height: 100px;
+	padding-left: 20px;
+	width: 750px;
+	height: 150px;
 	float: left;
 }
 
-#uploadButton{
-	width: 100px;
-	height: 100px;
-	float: left;
-}
-
-.userUploadImage{
-	height: 100px;
-}
-
-.userUploadImage > img{
-	margin: 0px 20px;
+#imageContainer > img{
+	margin: 10px 10px;
 	width: 100px;
 	height: 100px;
 	float: left;
@@ -153,16 +137,21 @@
 #contentDiv{
 	margin-top: 20px;
 	width: 900px;
-	height: 300px;
+	height: 250px;
+	float: left;
 }
 
-#contentDiv > input{
+#contentTextBox{
+ 	margin-top: 2px; 
 	width: 900px;
-	height: 300px;
+	height: 250px;
+	font-size: 16px;
+	font-family: inherit;
+	resize: none;
+	text-align: left;
 }
 
 #lowerButtonDiv{
-	margin-top: 20px;
 	width: 900px;
 	height: 50px;	
 	line-height: 50px;
@@ -171,10 +160,15 @@
 }
 
 .lowerButton{
-	margin: 0px 15px;
-	width: 200px;
-	height: 40px;
+	margin: 30px;
+	width: 150px;
+	height: 35px;
+	border: 0px;
+	border-radius: 5px;
+	color: #fff;
+	background-color: #FF9436;
 	font-size: 16px;
+	font-weight: bold;
 }
 </style>
 
@@ -191,7 +185,34 @@
 		var url = '/babiyo/product/detail.do?no=' + no;
 		location.href = url;
 	}
+
+	function setThumbnail(event) {
+	        var reader = new FileReader();
+
+	        reader.onload = function(event) {
+	          var img = document.createElement("img");
+	          img.setAttribute("src", event.target.result);
+	          $('#imageContainer').html(img);
+	        };
+
+	        reader.readAsDataURL(event.target.files[0]);
+	}
 	
+	function formSubmit() {	
+		if (frm.content.value == "") {
+			alert("내용을 입력하세요.");
+			frm.content.focus();
+			
+			return false;
+		}
+		
+		if (frm.file.value == "") {
+			alert("사진을 넣어주세요.");
+			frm.file.focus();
+			
+			return false;
+		}
+	}
 </script>
 
 </head>
@@ -209,10 +230,12 @@
 			<div id="sideTitle"></div>
 			<!--여기서 작성 -->
 			<div id='writeDiv'>
+				<form action='/babiyo/review/writeCtr.do' method='post' name='frm'
+					enctype="multipart/form-data" onsubmit="return formSubmit();">
 				<div id='upperInfoDiv'>
 					<div id='productInfoDiv'>
 						<div id='productImage'>
-							<img alt="밀키트 이미지" src="#">
+							<img alt="${productDto.name} 이미지" src="/babiyo/img/${productImg.STORED_NAME}">
 						</div>
 						<div id='productSelectBox'>
 							<span>*</span>
@@ -234,30 +257,32 @@
 							<input type="range" oninput="drawStar(this)" value='1' step='1' min='0' max='10'>
 						</span>
 					</div>
+					
 					<div id='uploadImageDiv'>
-						<input type="button" value='사진 올리기' id='uploadButton'>
-						<div class='userUploadImage'>
-							<img alt="밀키트 이미지 " src="">
-							<img alt="밀키트 이미지 " src="">
-							<img alt="밀키트 이미지 " src="">
-							<img alt="밀키트 이미지 " src="">
+						<input type="file" name="file" id="imageId" 
+						 	accept="image/*" onchange="setThumbnail(event);"/>
+						<div id='userUploadImage'>
+							<div id="imageContainer"></div>
 						</div>
 					</div>
 				</div>
-				<hr class='lowerDivisionLine'/>		
-						
+				
+				<hr class='lowerDivisionLine'/>	
+					
 				<div id='contentDiv'>
-					<input type="text">
+					<textarea name="content" id='contentTextBox'></textarea>
 				</div>
 				<div id='lowerButtonDiv'>
+  					<input type="hidden" id="no" name="no" value="${productDto.no}">
   					<input type='button' value='이전'  class='lowerButton' 
-  						onclick='pageMoveBeforeFnc(${productDto.no});'>	  
-					<input type="submit" value='리뷰 등록' class='lowerButton'> 
+  						onclick='pageMoveBeforeFnc(${productDto.no});'>
+					<input type="submit" value='리뷰 등록' class='lowerButton'>
 				</div>
+			</form> 
 			</div>
 		
 			<div id="underPadding"></div>
-			
+					
 		</div> <!--middelMain 끝 -->
 	
 	</div> <!--middleDiv 끝 -->

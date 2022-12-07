@@ -20,6 +20,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.mealmaker.babiyo.member.model.MemberDto;
 import com.mealmaker.babiyo.product.model.ProductDto;
 import com.mealmaker.babiyo.product.service.ProductService;
+import com.mealmaker.babiyo.review.model.ReviewDto;
 import com.mealmaker.babiyo.review.service.ReviewService;
 import com.mealmaker.babiyo.util.Paging;
 import com.mealmaker.babiyo.util.SearchOption;
@@ -72,16 +73,15 @@ public class ProductController {
 		
 		Map<String, Object> productMap = productService.productDetail(memberId, productNo);
 		
-//		Map<String, Object> reviewMap = reviewService.review
-		int reviewDto = reviewService.reviewQuantity(productNo);
-		
 		ProductDto productDto = (ProductDto) productMap.get("productDto");
 		@SuppressWarnings("unchecked")
 		Map<String, Object> productImg = (Map<String, Object>) productMap.get("imgMap");
 		boolean favoriteCheck = (boolean) productMap.get("favoriteCheck");
 		
+		Map<String, Object> reviewMap = reviewService.productReviewInfo(productNo);
+		
 		model.addAttribute("productDto", productDto);
-		model.addAttribute("reviewDto", reviewDto);
+		model.addAttribute("reviewMap", reviewMap);
 		model.addAttribute("productImg", productImg);
 		model.addAttribute("favoriteCheck", favoriteCheck);
 		

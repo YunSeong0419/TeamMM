@@ -21,57 +21,37 @@
 
 #filterAndSearch{
 	width: 900px;
-	height: 50px;
-	margin-left: 80px;
+	height: 35px;
+	margin-left: 75px;
 }
 
 #sortBox{
-	width: 150px;
-	height: 50px;
+	width: 120px;
+	height: 35px;
 	float: left;
 }
 
-#sortBoxName{
-	margin: auto 10px auto 0px;	
-	line-height: 55px;
-	font-size: 18px;
-	font-weight: bold;
-	float: left;
+#sortBoxName, #searchBoxName{
+	margin: auto 0px;	
+	font-size: 16px;
 }
 
-#sort{
-	margin-top: 10px;
-	margin-right: 10px;
+#sort, #searchOption{
+	border: 1px solid #000000;
 	border-radius: 5px;	
 	width: 80px;
 	height: 35px;
 }
 
 #searchBox{
-	width: 420px;
-	height: 50px;
+	width: 390px;
+	height: 35px;
 	float: right;
 }
 
-#searchBoxName{
-	margin: auto 10px auto 0px;	
-	line-height: 55px;
-	font-size: 18px;
-	font-weight: bold;
-	float: left;
-}
-
-#searchOption{
-	margin-top: 10px;
-	margin-right: 10px;
-	border-radius: 5px;	
-	width: 80px;
-	height: 35px;
-	line-height: 35px;
-}
-
 #inputBox{
-	margin-top: 10px;
+	border: 1px solid #000000;
+	border-radius: 5px;
 	width: 200px;
 	height: 35px;
 	line-height: 35px;
@@ -87,12 +67,11 @@
 }
 
 #productListShortbutton{
-	margin-top: 10px;
-	margin-left: 10px;
-	width: 60px;
-	height: 35px;
+	margin-left: 5px;
 	border: 0px;
 	border-radius: 5px;
+	width: 60px;
+	height: 35px;
 	color: #fff;
 	background-color: #FF9436;
 	font-size: 16px;
@@ -113,12 +92,15 @@
 }
 
 #tableDiv{
+	margin-top: 10px;
+	margin-bottom: 80px;
+	height: 380px;
 	float: left;
 }
 
 #productManagementTable{
 	width: 900px;
-	margin-left: 80px;
+	margin-left: 75px;
 	margin-bottom: 5px;
 	border-collapse: collapse;
 }
@@ -224,7 +206,7 @@
 				<div id='filterAndSearch'>
 					<form method='post'>
 						<div id='sortBox'>
-							<p id='sortBoxName'>정렬</p> 
+							<span id='sortBoxName'><strong>정렬</strong></span> 
 							<select name='sort' id="sort">
 								<option value='STOCK DESC'>재고 ↓</option>
 								<option value='STOCK ASC'>재고 ↑</option>
@@ -237,7 +219,7 @@
 							</select>
 						</div>
 						<div id='searchBox'>
-							<p id='searchBoxName'>검색</p> 
+							<span id='searchBoxName'><strong>검색</strong></span> 
 							<select name='searchOption' id='searchOption'>
 								<option value=''>전체</option>
 								<option value='PRODUCT_NAME'>이름</option>
@@ -269,9 +251,9 @@
 								</tr>
 							</c:when>
 							<c:otherwise>
-								<c:forEach var="productDto" items="${productList}"> 
+								<c:forEach var="productDto" varStatus="count" items="${productList}"> 
 									<tr>			
-										<td>${productDto.no}</td>
+										<td>${count.count + (paging.curPage-1) *10}</td>
 										<td>${productDto.categoryName}</td>
 										<td class='productNameBox'>
 											<a href='#' onclick="pageMoveProductAdminDetailFnc(${productDto.no});">
@@ -296,6 +278,7 @@
 							onclick="stockBatchModificationFnc();">
 					</div>
 				</div>
+				
 				<jsp:include page="/WEB-INF/views/Paging.jsp" />
 			</div>
 
@@ -304,7 +287,8 @@
 				<input type="hidden" id='searchVal' name="search" value="${searchOption.search}">
 				<input type="hidden" id='searchOptionVal' name="searchOption" value="${searchOption.searchOption}">
 				<input type="hidden" id='sortValue' name="sort" value="${searchOption.sort}">
-			</form>		
+			</form>	
+				
 			<div id="underPadding"></div>
 			
 		</div> <!--middelMain 끝 -->

@@ -33,6 +33,13 @@ public class ReviewDaoImpl implements ReviewDao{
 		return sqlSession.selectOne(namespace + "reviewQuantity", productNo);
 	}
 	
+	//DB에서 리뷰 목록-리뷰 평점 퍼오기
+	@Override
+	public double reviewEvaluation(int productNo) {
+		
+		return sqlSession.selectOne(namespace + "reviewEvaluation", productNo);
+	}
+	
 	//DB에 있는 리뷰 상세 퍼오기
 	@Override
 	public List<ReviewDto> reviewDetail() {
