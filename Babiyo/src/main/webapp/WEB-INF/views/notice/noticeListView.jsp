@@ -21,7 +21,7 @@ th {
 
 td{
 	height: 35px;
-	border-bottom: 1px solid gray;
+	border-bottom: 2px solid #FF9436;
 	padding: 0px 10px;
 }
 
