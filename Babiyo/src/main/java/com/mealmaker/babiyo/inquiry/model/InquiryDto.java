@@ -18,5 +18,6 @@ public class InquiryDto {
 	private String answer;
 	@DateTimeFormat(pattern = "yyyy년MM월dd일")
 	private Date createDate;
+	private int inquiryNo;
 	
 }

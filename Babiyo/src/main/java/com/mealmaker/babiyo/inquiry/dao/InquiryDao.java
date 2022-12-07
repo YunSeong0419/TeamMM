@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.mealmaker.babiyo.inquiry.model.InquiryDto;
+import com.mealmaker.babiyo.member.model.MemberDto;
 import com.mealmaker.babiyo.util.SearchOption;
 
 public interface InquiryDao {
@@ -40,7 +41,6 @@ public interface InquiryDao {
 
 	public int waitInquiryCount();
 
-
-
+	public int memberInquiryCount(String id);
 
 }

@@ -30,7 +30,8 @@ public interface MemberService {
 	public MemberDto findId(String email);
 	public MemberDto findPwd(String email);
 	public void newPwd(MemberDto memberDto);
-	
+	//회원 문의 건수
+	public Map<String, Integer> memberListCount(String id);
 	
 	
 	

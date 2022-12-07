@@ -12,6 +12,7 @@
 <result column="ANSWER" property="answer"/>
 <result column="CREATE_DATE" property="createDate"/>
 <result column="NAME" property="name"/>
+<result column="R" property="inquiryNo"/>
 </resultMap>
 
 <!-- 카테고리 리스트 -->
@@ -42,7 +43,7 @@ FROM INQUIRY_CATEGORY
 	FROM INQUIRY I INNER JOIN INQUIRY_CATEGORY C
 	ON C.CODE = I.CATEGORY_CODE
 	WHERE I.MEMBER_ID = #{memberId}
-	ORDER BY I.NO DESC))
+	ORDER BY CREATE_DATE DESC))
 	WHERE R BETWEEN ${begin} AND ${end}
 </select>
 
@@ -143,6 +144,13 @@ FROM(SELECT I.NO, C.NAME, I.TITLE, I.CONTENT, I.ANSWER, I.CATEGORY_CODE ,I.CREAT
 	SELECT COUNT(*)
 	FROM INQUIRY
 	WHERE ANSWER IS NULL
+</select>
+
+<!-- 회원 홈에서 문의수 조회 -->
+<select id="inquiryCount" parameterType="String" resultType="int">
+	SELECT COUNT(*)
+	FROM INQUIRY
+	WHERE MEMBER_ID = #{value}
 </select>
 
 </mapper>

@@ -1,17 +1,23 @@
 
 package com.mealmaker.babiyo.member.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.annotation.Resource;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.mealmaker.babiyo.inquiry.dao.InquiryDao;
 import com.mealmaker.babiyo.member.dao.MemberDao;
 import com.mealmaker.babiyo.member.model.InterestDto;
 import com.mealmaker.babiyo.member.model.MemberDto;
+import com.mealmaker.babiyo.order.dao.OrderDao;
+import com.mealmaker.babiyo.review.dao.ReviewDao;
 
 @Service
 public class MemberServiceImpl implements MemberService{
@@ -21,6 +27,15 @@ public class MemberServiceImpl implements MemberService{
 	
 	@Autowired
 	public MemberDao memberDao;
+	
+	@Resource
+	private OrderDao orderDao;
+	
+	@Resource
+	private InquiryDao inquiryDao;
+	
+	@Resource
+	private ReviewDao reviewDao;
 	
 
 	public MemberDto memberExist(String id, String password) {
@@ -144,15 +159,22 @@ public class MemberServiceImpl implements MemberService{
 		memberDao.newPwd(memberDto);
 	}
 
-	
-
-	
-
-	
+	@Override
+	public Map<String, Integer> memberListCount(String id) {
+		// TODO Auto-generated method stub
 		
-
-
-	
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		
+//		int orderCount = orderDao.memberOrderCount(id);
+		int inquiryCount = inquiryDao.memberInquiryCount(id);
+//		int reviewCount = reviewDao.memberReviewCount(id);
+		
+//		map.put("orderCount", orderCount);
+		map.put("inquiryCount", inquiryCount);
+//		map.put("reviewCount", reviewCount);
+		
+		return map;
+	}
 
 	
 

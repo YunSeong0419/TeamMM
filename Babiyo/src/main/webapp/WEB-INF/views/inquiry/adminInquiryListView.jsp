@@ -51,6 +51,7 @@ span{
 #searchId{
 	height: 35px;
 	border-radius: 5px;
+	line-height: 35px;
 	
 }
 

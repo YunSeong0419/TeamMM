@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.mealmaker.babiyo.inquiry.model.InquiryDto;
+import com.mealmaker.babiyo.member.model.MemberDto;
 import com.mealmaker.babiyo.util.SearchOption;
 
 public interface InquiryService {
@@ -29,4 +30,5 @@ public interface InquiryService {
 	public int adminAnswer(InquiryDto inquiryDto);
 	//삭제
 	public int adminInquiryDeleteOne(InquiryDto inquiryDto);
+
 }

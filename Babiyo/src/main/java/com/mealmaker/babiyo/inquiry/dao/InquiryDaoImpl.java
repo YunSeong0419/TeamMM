@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.mealmaker.babiyo.inquiry.model.InquiryDto;
+import com.mealmaker.babiyo.member.model.MemberDto;
 import com.mealmaker.babiyo.util.SearchOption;
 
 @Repository
@@ -133,6 +134,12 @@ public class InquiryDaoImpl implements InquiryDao{
 	public int waitInquiryCount() {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne(namespace + "waitInquiryCount");
+	}
+
+	@Override
+	public int memberInquiryCount(String id) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(namespace + "inquiryCount", id);
 	}
 
 

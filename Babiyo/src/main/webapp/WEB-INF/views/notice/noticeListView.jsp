@@ -47,6 +47,7 @@ span{
 #stateSelect{
 	width: 127px;
 	height: 35px;
+	line-height: 35px;
 	border-radius: 5px;
 	margin: 0px 5px 10px 10px;
 }
@@ -59,7 +60,7 @@ span{
 }
 
 #searchFrom{
-	margin-left: 510px;
+	margin-left: 513px;
 }
 
 .searchCl{

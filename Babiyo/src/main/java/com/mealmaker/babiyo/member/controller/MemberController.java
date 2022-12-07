@@ -1,11 +1,9 @@
 package com.mealmaker.babiyo.member.controller;
 
-import java.io.Console;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
-import javax.websocket.Session;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -305,6 +303,13 @@ public class MemberController {
 	@RequestMapping(value = "/member/memberInfo.do", method = RequestMethod.GET)
 	public String memberInfo(HttpSession session, Model model) {
 		logger.info("Welcome MemberController memberInfo! ");
+		
+		MemberDto memberDto = (MemberDto) session.getAttribute("_memberDto_"); 
+		String id = memberDto.getId();
+		memberService.memberListCount(id);
+		
+		Map<String, Integer> countMap = memberService.memberListCount(id);
+		model.addAttribute("countMap", countMap);
 		
 		return "/member/MemberInfo";
 	}

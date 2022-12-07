@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.mealmaker.babiyo.inquiry.dao.InquiryDao;
 import com.mealmaker.babiyo.inquiry.model.InquiryDto;
+import com.mealmaker.babiyo.member.model.MemberDto;
 import com.mealmaker.babiyo.order.model.OrderDto;
 import com.mealmaker.babiyo.util.Paging;
 import com.mealmaker.babiyo.util.SearchOption;
