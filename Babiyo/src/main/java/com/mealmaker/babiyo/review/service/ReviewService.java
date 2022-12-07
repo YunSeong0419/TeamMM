@@ -6,9 +6,12 @@ import java.util.Map;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.mealmaker.babiyo.review.model.ReviewDto;
+import com.mealmaker.babiyo.util.SearchOption;
 
 public interface ReviewService {
-
+	
+	//리뷰 모음에 리스트 쏴주기
+	List<Map<String, Object>> reviewCollectionList();
 	//목록
 	List<Map<String, Object>> reviewList();
 	//등록
@@ -16,8 +19,8 @@ public interface ReviewService {
 		, MultipartHttpServletRequest multipartHttpServletRequest) throws Exception;
 	//관리자 상세
 	Map<String, Object> reviewAdminDetail(int no);
-	//상세
-	List<Map<String, Object>> detail();
+	//회원 상세
+	List<Map<String, Object>> detail(String memberId, int no);
 	//수정	
 	public int reviewModification(ReviewDto reviewDto
 		, MultipartHttpServletRequest multipartHttpServletRequest
@@ -25,6 +28,6 @@ public interface ReviewService {
 	//삭제
 	public void reviewDelete(int no);
 	//???
-	public int reviewTotalCount(String searchOption, String sortOption, String keyword);
 	public int reviewQuantity(int productNo);
+	List<Map<String, Object>> productReviewList(SearchOption searchOption, int begin, int end);
 }

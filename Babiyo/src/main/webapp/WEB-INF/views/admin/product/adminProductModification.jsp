@@ -103,6 +103,7 @@
 	height: 200px;
 	font-size: 16px;
 	font-family: inherit;
+	resize: none;
 	text-align: left;
 }
 
@@ -134,6 +135,12 @@
 <script type="text/javascript">
 	$(document).ready(function(){
 		$('#categoryCode').val($('#hiddenCategoryCode').val());
+		
+		$('#searchOption').val($('#searchOptionValue').val());
+	
+		if($('#sortValue').val()){
+			$('#sort').val($('#sortValue').val());
+		}
 	});
 	
 	function deleteFileFnc() {
@@ -263,9 +270,9 @@
 			<form id="pagingForm" action="./adminDetail.do" method="get">
 				<input type="hidden" id="no" name="no" value="${productDto.no}">
 				<input type="hidden" id="curPage" name="curPage" value="${paging.curPage}">
-				<input type="hidden" name="search" value="${searchOption.keyword}">
-				<input type="hidden" name="searchOption" value="${searchOption.searchOption}">
-				<input type="hidden" name="sort" value="${searchOption.sort}">
+				<input type="hidden" name="search" value="${searchOption.search}">
+				<input type="hidden" name="searchOptionValue" value="${searchOption.searchOption}">
+				<input type="hidden" name="sortValue" value="${searchOption.sort}">
 			</form>
 			<div id="underPadding"></div>
 			

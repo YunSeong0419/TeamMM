@@ -34,12 +34,11 @@ public class ProductController {
 	@Autowired
 	private ReviewService reviewService;
 	
-	//오븐 15p, 헤더-밀키트 카테고리
+	//헤더-밀키트 카테고리
 	@RequestMapping(value = "/product/category.do", method = RequestMethod.GET)
 	public String productCategory(@RequestParam(defaultValue = "1") int curPage
 			,SearchOption searchOption, Model model) {
-		logger.info("ProductController category! curPage: {}", curPage);
-		logger.info("searchOption: {}", searchOption);
+		logger.info("ProductController category! curPage: {}, searchOption: {}", curPage, searchOption);
 		
 		//카테고리 목록을 불러옴
 		List<Map<String, Object>> productCategory = productService.productCategory();
@@ -53,7 +52,6 @@ public class ProductController {
 		
 		//선택된 카테고리의 상품을 불러옴
 		List<Map<String, Object>> categoryList = productService.categoryList(searchOption, begin, end);
-		//검색
 		
 		model.addAttribute("paging", paging);
 		model.addAttribute("productCategory", productCategory);
@@ -62,7 +60,7 @@ public class ProductController {
 		return "product/category";
 	}
 	
-	//오븐 21p 회원-밀키트 상세
+	//헤더-밀키트 카테고리-밀키트 상세(회원)
 	@RequestMapping(value = "/product/detail.do")
 	public String productDetail(int productNo, HttpSession session, Model model) {
 		logger.info("ProductController productDetail! - {}");
@@ -86,27 +84,9 @@ public class ProductController {
 		model.addAttribute("favoriteCheck", favoriteCheck);
 		
 		return "product/detail";
-	}
+	}	
 	
-	//오븐 58p 관리자-밀키트 관리-밀키트 상세
-	@RequestMapping(value = "/product/adminDetail.do", method = RequestMethod.GET)
-	public String productAdminDetail(int no, Model model) {
-		logger.info("ProductController productAdminDetail! - {}", no);
-		
-		Map<String, Object> map = productService.productAdminDetail(no);
-		
-		ProductDto productDto = (ProductDto) map.get("productDto");
-		
-		@SuppressWarnings("unchecked")
-		Map<String, Object> productImg = (Map<String, Object>) map.get("imgMap");
-		
-		model.addAttribute("productDto", productDto);
-		model.addAttribute("productImg", productImg);
-		
-		return "admin/product/adminProductDetail";
-	}
-	
-	//오븐 56p 관리자-밀키트 관리(목록)
+	//관리자-밀키트 관리(목록)
 	@RequestMapping(value = "/product/adminList.do", method = {RequestMethod.GET, RequestMethod.POST})
 	public String adminProductList(@RequestParam(defaultValue = "1") int curPage
 			,SearchOption searchOption, Model model) {
@@ -124,7 +104,7 @@ public class ProductController {
 		return "admin/product/adminProductList";
 	}
 	
-	//오븐 56p 관리자-밀키트 관리-밀키트 등록으로 가기
+	//관리자-밀키트 관리-밀키트 등록 페이지로 이동
 	@RequestMapping(value = "/product/adminRegistration.do", method = RequestMethod.GET)
 	public String productRegistration(Model model) {
 		logger.info("ProductController productRegistration!");
@@ -132,7 +112,7 @@ public class ProductController {
 		return "admin/product/adminProductRegistration";
 	}
 
-	//오븐 57p 관리자-밀키트 관리-밀키트 등록
+	//관리자-밀키트 관리-밀키트 등록
 	@RequestMapping(value = "/product/adminRegistrationCtr.do", method = RequestMethod.POST)
 	public String productRegistration(ProductDto productDto, 
 		MultipartHttpServletRequest mulRequest, Model model) {
@@ -144,9 +124,27 @@ public class ProductController {
 			e.printStackTrace();
 		}
 		return "redirect:/product/adminList.do";
+	}	
+	
+	//관리자-밀키트 관리-밀키트 상세
+	@RequestMapping(value = "/product/adminDetail.do", method = RequestMethod.GET)
+	public String productAdminDetail(int no, Model model) {
+		logger.info("ProductController productAdminDetail! - {}", no);
+		
+		Map<String, Object> map = productService.productAdminDetail(no);
+		
+		ProductDto productDto = (ProductDto) map.get("productDto");
+		
+		@SuppressWarnings("unchecked")
+		Map<String, Object> productImg = (Map<String, Object>) map.get("imgMap");
+		
+		model.addAttribute("productDto", productDto);
+		model.addAttribute("productImg", productImg);
+		
+		return "admin/product/adminProductDetail";
 	}
 	
-	//오븐 58p 관리자-밀키트 관리-밀키트 상세-밀키트 수정으로 가기
+	//관리자-밀키트 관리-밀키트 상세-밀키트 수정으로 이동
 	@RequestMapping(value = "/product/adminModification.do", method = RequestMethod.GET)
 	public String productModification(int no, Model model) {
 		logger.debug("ProductController productModification!" + no);
@@ -165,7 +163,7 @@ public class ProductController {
 		return "admin/product/adminProductModification";
 	}
 
-	//오븐 58p 관리자-밀키트 관리-밀키트 상세-밀키트 수정
+	//관리자-밀키트 관리-밀키트 상세-밀키트 수정
 	@RequestMapping(value = "/product/adminModificationCtr.do")
 	public String productModificationCtr(HttpSession session, ProductDto productDto
 		, MultipartHttpServletRequest mulRequest, Model model) {
@@ -202,7 +200,7 @@ public class ProductController {
 		return "redirect:/product/adminDetail.do?no=" + productNo;
 	}
 	
-	//오븐 58p 관리자-밀키트 관리-밀키트 상세-밀키트 삭제
+	//관리자-밀키트 관리-밀키트 상세-밀키트 삭제
 	@RequestMapping(value = "/product/deleteCtr.do", method = RequestMethod.GET)
 	public String memberDelete(int no, Model model) {
 		logger.info("ProductController productDelete! " + no);
@@ -211,7 +209,4 @@ public class ProductController {
 		
 		return "redirect:/product/adminList.do";
 	}
-	
-	
-	
 }

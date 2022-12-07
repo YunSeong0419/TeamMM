@@ -26,41 +26,77 @@
 }
 
 #sortBox{
+	width: 150px;
 	height: 50px;
 	float: left;
 }
 
-#searchBox{
-	height: 50px;
-	float: right;
-}
-
-#filterBoxName{
-	margin: auto 20px auto 0px;	
-	line-height: 50px;
+#sortBoxName{
+	margin: auto 10px auto 0px;	
+	line-height: 55px;
 	font-size: 18px;
 	font-weight: bold;
 	float: left;
 }
 
-.filterBoxClassificationForm{
- 	line-height: 50px; 
+#sort{
+	margin-top: 10px;
+	margin-right: 10px;
+	border-radius: 5px;	
+	width: 80px;
+	height: 35px;
+}
+
+#searchBox{
+	width: 420px;
+	height: 50px;
+	float: right;
+}
+
+#searchBoxName{
+	margin: auto 10px auto 0px;	
+	line-height: 55px;
+	font-size: 18px;
+	font-weight: bold;
 	float: left;
 }
 
-.filterBoxClassification{
+#searchOption{
 	margin-top: 10px;
-	margin-right: 10px;	
+	margin-right: 10px;
+	border-radius: 5px;	
 	width: 80px;
-	height: 30px;
-	float: left;
+	height: 35px;
+	line-height: 35px;
 }
 
 #inputBox{
 	margin-top: 10px;
 	width: 200px;
-	height: 30px;
+	height: 35px;
+	line-height: 35px;
+}
+
+#tableLowerButtonDiv{
+	margin-right: 70px;
+	width: 980px;
+	height: 50px;	
+	line-height: 50px;
+	text-align: center;
 	float: left;
+}
+
+#reviewListButton{
+	margin-top: 10px;
+	margin-left: 10px;
+	width: 60px;
+	height: 35px;
+	border: 0px;
+	border-radius: 5px;
+	color: #fff;
+	background-color: #FF9436;
+	font-size: 16px;
+	float: right;
 }
 
 #tableDiv{
@@ -76,20 +112,17 @@
 	border-collapse: collapse;
 }
 
-#reviewManagementTable > th, tr, td{
-	height: 25px;
-	font-size: 14px;
-}
-
 #reviewManagementTable > tr, td{
 	border-bottom: 1px solid black;
-	height: 25px;
+	height: 35px;
 	font-size: 14px;
 }
 
 #tableHeadTr > th{
-	background: #EAEAEA;
-	color: #373737;
+	height: 30px;
+	background: #FF9436;
+	color: #fff;
+	font-size: 16px;
 	font-weight: bold;
 }
 
@@ -116,19 +149,21 @@
 
 <script type="text/javascript">
 	function pageMoveAdminReviewDetailFnc(no) {
-		
 		var pagingFormObj = $('#pagingForm');
+		$('#pagingFormNo').val(no);
 		
-		var htmlStr = pagingFormObj.html();
-		
-		// 상품번호를 input태그에 담음
-		htmlStr += '<input type="hidden" name="no" value="' + no + '">';
-		
-		pagingFormObj.html(htmlStr);
 		pagingFormObj.attr('action', './adminDetail.do');
 		pagingFormObj.submit();
 	}
-
+	$(function(){ //document.ready랑 같음
+		
+		if($('#sortValue').val()){
+			$('#sort').val($('#sortValue').val());
+		}
+	
+		$('#searchOption').val($('#searchOptionValue').val());
+	});
+	
 </script>
 
 </head>
@@ -147,48 +182,31 @@
 			<!--여기서 작성 -->
 			<div id='reviewManagementDiv'>
 				<div id='filterAndSearch'>
-					<div id='sortBox'>
-						<p id='filterBoxName'>정렬</p> 
-						<form action='./adminList.do' method='post' class='filterBoxClassificationForm'>
-							<select name='sortOption' class='filterBoxClassification'>
-								<option value='STOCK ASC'>재고 ↑</option>
-								<option value='STOCK DESC'>재고 ↓</option>
-								<option value='NAME ASC'>이름 ↑</option>
-								<option value='NAME DESC'>이름 ↓</option>
-								<option value='PRICE ASC'>가격 ↑</option>
-								<option value='PRICE DESC'>가격 ↓</option>
-								<option value='REGISTRATION ASC'>등록 ↑</option>
-								<option value='REGISTRATION DESC'>등록 ↓</option>
+					<form method='post'>
+						<div id='sortBox'>
+							<p id='sortBoxName'>정렬</p> 
+							<select name='sort' id="sort">
+								<option value='RATING_AVG DESC'>평점 ↓</option>
+								<option value='RATING_AVG ASC'>평점 ↑</option>
+								<option value='PRODUCT_NAME DESC'>이름 ↓</option>
+								<option value='PRODUCT_NAME ASC'>이름 ↑</option>
+								<option value='REVIEW_COUNT DESC'>리뷰 ↓</option>
+								<option value='REVIEW_COUNT ASC'>리뷰 ↑</option>
 							</select>
-						</form>
-					</div>
-					<div id='searchBox'>
-						<p id='filterBoxName'>검색</p> 
-						<form action='./adminList.do' method='post' class='filterBoxClassificationForm'>
-							<select name='searchOption' class='filterBoxClassification'>
-								<c:choose>
-									<c:when test="${searchMap.searchOption == 'all'}">
-										<option value='all' selected='selected'>전체</option>
-										<option value='name'>이름</option>
-										<option value='${productNo.name}'>분류</option>
-									</c:when>
-									<c:when test="${searchMap.searchOption == 'name'}">
-										<option value='all'>전체</option>
-										<option value='name' selected='selected'>이름</option>
-										<option value='${categoryCode.name}'>분류</option>
-									</c:when>
-									<c:when test="${searchMap.searchOption == 'classification'}">
-										<option value='all'>전체</option>
-										<option value='name'>이름</option>
-										<option value='${categoryCode.name}' selected='selected'>분류</option>
-									</c:when>
-								</c:choose>
+						</div>
+						<div id='searchBox'>
+							<p id='searchBoxName'>검색</p> 
+							<select name='searchOption' id='searchOption'>
+								<option value=''>전체</option>
+								<option value='PRODUCT_NAME'>이름</option>
+								<option value='CATEGORY_NAME'>분류</option>
 							</select>
-							<input type='text' id='inputBox' name='keyword' value="${searchMap.keyword}">
-							<input type='submit' value="검색" id='reviewListbutton'>
-						</form>
-					</div>
+							<input type='text' id='inputBox' name='search' value="${searchOption.search}">
+							<input type='submit' value="검색" id='reviewListButton'>
+						</div>
+					</form>
 				</div>
+			
 				<div id='tableDiv'>
 					<table id='reviewManagementTable'>
 						<tr id='tableHeadTr'>
@@ -211,16 +229,16 @@
 							<c:otherwise>
 								<c:forEach var="review" items="${reviewList}"> 
 									<tr>			
-										<td>${review.reviewDto.no}</td>
-										<td>${review.reviewDto.categoryName}</td>
+										<td>${review.RNUM}</td>
+										<td>${review.CATEGORY_NAME}</td>
 										<td>
-											<a href='#' onclick="pageMoveAdminReviewDetailFnc(${reviewDto.no});">
-												${review.reviewDto.productName}</a>
+											<a href='#' onclick="pageMoveAdminReviewDetailFnc(${review.NO});">
+												${review.PRODUCT_NAME}</a>
 										</td>
 										<td>
-											<fmt:formatNumber value="${review.reviewDto.starRating}" pattern="#.#" />
+											<fmt:formatNumber value="${review.RATING_AVG}" pattern="#.#" />
 										</td>
-										<td>${review.reviewQuantity}</td>
+										<td>${review.REVIEW_COUNT}</td>
 									</tr>
 								</c:forEach>
 							</c:otherwise>
@@ -232,9 +250,10 @@
 
 			<form id="pagingForm" method="get">
 				<input type="hidden" id="curPage" name="curPage" value="${paging.curPage}">
-				<input type="hidden" name="search" value="${searchMap.search}">
-				<input type="hidden" name="searchOption" value="${searchMap.searchOption}">
-				<input type="hidden" name="sort" value="${searchMap.sort}">
+				<input type="hidden" name="search" value="${searchOption.search}">
+				<input type="hidden" id="searchOptionValue" name="searchOption" value="${searchOption.searchOption}">
+				<input type="hidden" id='sortValue' name="sort" value="${searchOption.sort}">
+				<input type="hidden" id="pagingFormNo" name="no">
 			</form>
 			<div id="underPadding"></div>
 			

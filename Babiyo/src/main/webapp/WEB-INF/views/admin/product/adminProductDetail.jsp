@@ -148,6 +148,15 @@
 		location.href = url;
 	}
 	
+	$(function(){ //document.ready랑 같음
+		
+		if($('#sortValue').val()){
+			$('#sort').val($('#sortValue').val());
+		}
+	
+		$('#searchOption').val($('#searchOptionValue').val());
+		
+	});
 
 </script>
 
@@ -208,9 +217,9 @@
 			</div>
 			<form id="pagingForm" action="./adminList.do" method="get">
 				<input type="hidden" id="curPage" name="curPage" value="${paging.curPage}">
-				<input type="hidden" name="keyword" value="${searchMap.keyword}">
-				<input type="hidden" name="searchOption" value="${searchMap.searchOption}">
-				<input type="hidden" name="sortOption" value="${sortMap.sortOption}">
+				<input type="hidden" name="search" value="${searchOption.keyword}">
+				<input type="hidden" name="searchOptionValue" value="${searchOption.searchOption}">
+				<input type="hidden" name="sortValue" value="${searchOption.sort}">
 			</form>
 			<div id="underPadding"></div>
 			

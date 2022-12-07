@@ -67,12 +67,14 @@
 	border-radius: 5px;	
 	width: 80px;
 	height: 35px;
+	line-height: 35px;
 }
 
 #inputBox{
 	margin-top: 10px;
 	width: 200px;
 	height: 35px;
+	line-height: 35px;
 }
 
 #tableLowerButtonDiv{
@@ -121,16 +123,14 @@
 	border-collapse: collapse;
 }
 
-#productManagementTable > th, tr, td{
-	height: 30px;
+#productManagementTable > tr, td{
+	border-bottom: 1px solid black;
+	height: 35px;
 	font-size: 14px;
 }
 
-#productManagementTable > tr, td{
-	border-bottom: 1px solid black;
-}
-
 #tableHeadTr > th{
+	height: 30px;
 	background: #FF9436;
 	color: #fff;
 	font-size: 16px;
@@ -190,8 +190,8 @@
 		if($('#sortValue').val()){
 			$('#sort').val($('#sortValue').val());
 		}
-	
-		$('#searchOption').val($('#searchOptionValue').val());
+		
+		$('#searchOption').val($('#searchOptionVal').val());
 		
 		$('#allCheck').change(function() { // 전체선택 기능
 			var checked = $(this).is(':checked');
@@ -224,22 +224,22 @@
 						<div id='sortBox'>
 							<p id='sortBoxName'>정렬</p> 
 							<select name='sort' id="sort">
-								<option value='STOCK ASC'>재고 ↑</option>
 								<option value='STOCK DESC'>재고 ↓</option>
-								<option value='P.NAME ASC'>이름 ↑</option>
+								<option value='STOCK ASC'>재고 ↑</option>
 								<option value='P.NAME DESC'>이름 ↓</option>
-								<option value='PRICE ASC'>가격 ↑</option>
+								<option value='P.NAME ASC'>이름 ↑</option>
 								<option value='PRICE DESC'>가격 ↓</option>
-								<option value='REGISTRATION_DATE ASC'>등록 ↑</option>
+								<option value='PRICE ASC'>가격 ↑</option>
 								<option value='REGISTRATION_DATE DESC'>등록 ↓</option>
+								<option value='REGISTRATION_DATE ASC'>등록 ↑</option>
 							</select>
 						</div>
 						<div id='searchBox'>
 							<p id='searchBoxName'>검색</p> 
 							<select name='searchOption' id='searchOption'>
 								<option value=''>전체</option>
-								<option value='P.NAME'>이름</option>
-								<option value='C.CODE'>분류</option>
+								<option value='PRODUCT_NAME'>이름</option>
+								<option value='CATEGORY_NAME'>분류</option>
 							</select>
 							<input type='text' id='inputBox' name='search' value="${searchOption.search}">
 							<input type='submit' value="검색" id='productListShortbutton'>
@@ -299,9 +299,9 @@
 
 			<form id="pagingForm" method="get">
 				<input type="hidden" id="curPage" name="curPage" value="${paging.curPage}">
-				<input type="hidden" name="search" value="${searchOption.search}">
-				<input type="hidden" id="searchOptionValue" name="searchOption" value="${searchOption.searchOption}">
-				<input type="hidden" id="sortValue" name="sort" value="${searchOption.sort}">
+				<input type="hidden" id='searchVal' name="search" value="${searchOption.search}">
+				<input type="hidden" id='searchOptionVal' name="searchOption" value="${searchOption.searchOption}">
+				<input type="hidden" id='sortValue' name="sort" value="${searchOption.sort}">
 			</form>		
 			<div id="underPadding"></div>
 			

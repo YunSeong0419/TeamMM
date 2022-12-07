@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.mealmaker.babiyo.review.model.ReviewDto;
+import com.mealmaker.babiyo.util.SearchOption;
 
 public interface ReviewDao {
 	//목록
@@ -17,5 +18,6 @@ public interface ReviewDao {
 	List<Map<String, Object>> fileSelectList(int no);
 	public Map<String, Object> fileSelectStoredFileName(int parentSeq);
 	public int fileDelete(int parentSeq);
+	List<Map<String, Object>> productReviewList(SearchOption searchOption, int begin, int end);
 }
 

@@ -2,7 +2,6 @@ package com.mealmaker.babiyo.review.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -12,15 +11,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.transaction.interceptor.TransactionAspectSupport;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import com.mealmaker.babiyo.product.model.ProductDto;
+import com.mealmaker.babiyo.product.dao.ProductDao;
 import com.mealmaker.babiyo.review.dao.ReviewDao;
 import com.mealmaker.babiyo.review.model.ReviewDto;
 import com.mealmaker.babiyo.util.FileUtils;
+import com.mealmaker.babiyo.util.SearchOption;
 
 @Service
 public class ReviewServiceImpl implements ReviewService{
@@ -34,8 +31,11 @@ public class ReviewServiceImpl implements ReviewService{
 	
 	@Autowired
 	public ReviewDao reviewDao;
+	
+	@Resource
+	private ProductDao productDao;
 
-	//DAO에서 밀키트 목록 꺼내오게 시키기
+	//DAO에서 리뷰 목록 꺼내오게 시키기
 	@Override
 	public List<Map<String, Object>> reviewList() {
 		List<Map<String, Object>> resultList = new ArrayList<>();
@@ -57,7 +57,7 @@ public class ReviewServiceImpl implements ReviewService{
 		return resultList;
 	}
 	
-	//DAO에서 리뷰 수 꺼내오게 시키기
+	//DAO에서 리뷰 수 꺼내오게 시키기(밀키트 상세에 사용)
 	@Override
 	public int reviewQuantity(int productNo) {
 		
@@ -68,7 +68,7 @@ public class ReviewServiceImpl implements ReviewService{
 	
 	//DAO에서 리뷰 상세 꺼내오게 시키기
 	@Override
-	public List<Map<String, Object>> detail() {
+	public List<Map<String, Object>> detail(String memberId, int no) {
 		List<ReviewDto> reviewDetail = reviewDao.reviewDetail();
 		
 		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
@@ -116,9 +116,15 @@ public class ReviewServiceImpl implements ReviewService{
 	}
 
 	@Override
-	public int reviewTotalCount(String searchOption, String sortOption, String keyword) {
+	public List<Map<String, Object>> productReviewList(SearchOption searchOption, int begin, int end) {
+		
+		return reviewDao.productReviewList(searchOption, begin, end);
+	}
+	
+	@Override
+	public List<Map<String, Object>> reviewCollectionList() {
 		// TODO Auto-generated method stub
-		return 0;
+		return null;
 	}
 
 }

@@ -113,6 +113,10 @@
 	color: #FF0000;
 }
 
+#bannerBtn > .curBanner{
+	color: #FF0000;
+}
+
 #emptyEventList{
 	font-size: 32px;
 	font-weight: bold;
@@ -211,6 +215,48 @@
 
 <script type="text/javascript" src="/babiyo/resources/js/jquery-3.6.1.js"></script>
 
+<script type="text/javascript">
+
+
+$(function(){
+	
+	$('#bannerBtn0').attr('class', 'curBanner');
+	
+});
+
+setInterval(function(){
+	
+	let count = $('.eventImg').length;
+	
+	let offset = $('#eventImgDiv').scrollLeft() + 1200;
+	
+	if(offset >= count*1200) {
+		offset = 0;
+	}
+	
+	let no = offset / 1200;
+	
+	$('a[id^="bannerBtn"]').attr('class', '');
+	$('#bannerBtn' + no).attr('class', 'curBanner');
+	
+	$('#eventImgDiv').animate({scrollLeft: offset}, 800);
+	
+}, 5000)
+
+function eventBannerMoveFnc(no){
+	
+	let offset = no * 1200;
+	
+	$('a[id^="bannerBtn"]').attr('class', '');
+	$('#bannerBtn' + no).attr('class', 'curBanner');
+	
+	$('#eventImgDiv').animate({scrollLeft: offset}, 800);
+	
+}
+
+
+</script>
+
 </head>
 
 <body>
@@ -255,18 +301,20 @@
 						</p>
 					</c:when>
 					<c:otherwise>
+					<div style="font-size: 0">
 					<c:forEach items="${eventImgList}" var="img" varStatus="i">
 						<a href="/babiyo/notice/detail.do?no=${img.NOTICE_NO}">
 							<img id="eventImg${i.index}" class="eventImg" alt="이벤트 이미지"
 								 src="/babiyo/img/${img.STORED_NAME}">
 						</a>
 					</c:forEach>
+					</div>
 					</c:otherwise>
 				</c:choose>
 			</div>
 			<div id="bannerBtn">
 				<c:forEach items="${eventImgList}" varStatus="i">
-					<a href="#eventImg${i.index}">●</a>
+					<a href="#this" id="bannerBtn${i.index}" onclick="eventBannerMoveFnc(${i.index});">●</a>
 				</c:forEach>
 			</div>
 		</div>

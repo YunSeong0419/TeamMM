@@ -51,43 +51,41 @@
 	
 	<select id="productCount" resultType="int" parameterType="map">
 		SELECT COUNT(*)
+		FROM(SELECT P.NAME PRODUCT_NAME, C.NAME CATEGORY_NAME
 		FROM PRODUCT P JOIN PRODUCT_CATEGORY C
-		ON P.CATEGORY_CODE = C.CODE
+		ON P.CATEGORY_CODE = C.CODE)
 		<where>
 		<if test="searchOption == ''">
-		P.NAME LIKE '%'||#{search}||'%' OR	C.NAME LIKE '%'||#{search}||'%'
+		PRODUCT_NAME LIKE '%'||#{search}||'%' OR CATEGORY_NAME LIKE '%'||#{search}||'%'
 		</if>
 		<if test="searchOption != ''">
 		${searchOption} LIKE '%'||#{search}||'%'
 		</if>
 		</where>
-		<choose>
-		<when test="sort == ''">ORDER BY STOCK ASC</when>
-		<otherwise>ORDER BY ${sort}</otherwise>
-		</choose>
 	</select>
 	
 	<select id="productList" parameterType="map" resultMap="productResultMap">
-		SELECT NO, CATEGORY_CODE, CATEGORY_NAME, NAME, PRICE, STOCK
+		SELECT NO, CATEGORY_CODE, CATEGORY_NAME, PRODUCT_NAME NAME, PRICE, STOCK
 		FROM (SELECT ROWNUM RNUM, NO, CATEGORY_CODE, CATEGORY_NAME
-	        		, NAME, PRICE, STOCK
+	        		, PRODUCT_NAME, PRICE, STOCK
 	        	FROM (SELECT P.NO, P.CATEGORY_CODE, C.NAME CATEGORY_NAME
-	        							, P.NAME, P.PRICE, P.STOCK
+	        							, P.NAME PRODUCT_NAME, P.PRICE, P.STOCK
 					FROM PRODUCT P JOIN PRODUCT_CATEGORY C
 					ON P.CATEGORY_CODE = C.CODE
-					<where>
-					<if test="searchOption == ''">
-						P.NAME LIKE '%'||#{search}||'%' OR	C.NAME LIKE '%'||#{search}||'%'
-					</if>
-					<if test="searchOption != ''">
-						${searchOption} LIKE '%'||#{search}||'%'
-					</if>
-					</where>
 					<choose>
-					<when test="sort == ''">ORDER BY STOCK ASC</when>
+					<when test="sort == ''">ORDER BY STOCK DESC</when>
 					<otherwise>ORDER BY ${sort}</otherwise>
 					</choose>
-		))
+					)
+		<where>
+		<if test="searchOption == ''">
+			PRODUCT_NAME LIKE '%'||#{search}||'%' OR CATEGORY_NAME LIKE '%'||#{search}||'%'
+		</if>
+		<if test="searchOption != ''">
+			${searchOption} LIKE '%'||#{search}||'%'
+		</if>
+		</where>
+		)
 		WHERE RNUM BETWEEN #{begin} AND #{end}
 	</select>
 	

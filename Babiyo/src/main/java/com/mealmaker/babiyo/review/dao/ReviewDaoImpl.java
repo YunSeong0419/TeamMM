@@ -1,5 +1,6 @@
 package com.mealmaker.babiyo.review.dao;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.mealmaker.babiyo.review.model.ReviewDto;
+import com.mealmaker.babiyo.util.SearchOption;
 
 @Repository
 public class ReviewDaoImpl implements ReviewDao{
@@ -64,5 +66,21 @@ public class ReviewDaoImpl implements ReviewDao{
 	public int fileDelete(int parentSeq) {
 		
 		return sqlSession.delete(namespace + "fileDelete", parentSeq);
+	}
+
+	@Override
+	public List<Map<String, Object>> productReviewList(SearchOption searchOption, int begin, int end) {
+		// TODO Auto-generated method stub
+		
+		Map<String, Object> paraMap = new HashMap<String, Object>();
+		
+		paraMap.put("begin", begin);
+		paraMap.put("end", end);
+		paraMap.put("searchOption", searchOption.getSearchOption());
+		paraMap.put("search", searchOption.getSearch());
+		paraMap.put("sort", searchOption.getSort());
+		
+		return sqlSession.selectList(namespace + "productReviewList", paraMap);
+		
 	}
 }

@@ -30,14 +30,6 @@
 		<result column="CREATE_DATE" property="createDate"/>
 		<result column="MODIFY_DATE" property="modifyDate"/>
 	</resultMap>
-
-	<select id="reviewList" resultMap="reviewResultMap">
-		SELECT R.NO, C.NAME CATEGORY_NAME, P.NAME PRODUCT_NAME, R.STAR_RATING
-		FROM REVIEW R INNER JOIN PRODUCT P
-		ON R.PRODUCT_NO = P.NO
-		LEFT JOIN PRODUCT_CATEGORY C
-		ON P.CATEGORY_CODE = C.CODE
-	</select>
 	
 	<select id="reviewQuantity" resultType="java.lang.Integer" parameterType="map">
 		SELECT COUNT(PRODUCT_NO)
@@ -63,7 +55,29 @@
 		VALUES
 		(#{no}, #{review_no}, #{original_name}, #{stored_name})
 	</insert>
-
+	
+	<select id="productReviewList" parameterType="map" resultType="map">
+	SELECT RNUM, NO, CATEGORY_NAME, PRODUCT_NAME, RATING_AVG, REVIEW_COUNT
+	FROM(SELECT ROWNUM RNUM, NO, CATEGORY_NAME, PRODUCT_NAME, RATING_AVG, REVIEW_COUNT
+	FROM(SELECT P.NO, PC.NAME CATEGORY_NAME, P.NAME PRODUCT_NAME
+	, TRUNC(AVG(STAR_RATING), 1) RATING_AVG, COUNT(*) REVIEW_COUNT
+	FROM REVIEW R JOIN PRODUCT P
+	ON R.PRODUCT_NO = P.NO
+	JOIN PRODUCT_CATEGORY PC
+	ON PC.CODE = P.CATEGORY_CODE
+	GROUP BY P.NAME, PC.NAME, P.NO
+	<if test="sort == ''">ORDER BY RATING_AVG DESC</if>
+	<if test="sort != ''">ORDER BY ${sort}</if>)
+	<where>
+	<if test="searchOption == ''">
+	PRODUCT_NAME LIKE '%'||#{search}||'%' OR CATEGORY_NAME LIKE '%'||#{search}||'%'
+	</if>
+	<if test="searchOption != ''">
+	${searchOption} LIKE '%'||#{search}||'%'
+	</if>
+	</where>)
+	WHERE RNUM BETWEEN ${begin} AND ${end}
+	</select>
 
 	<!-- 상품이미지 DB -->
 	
