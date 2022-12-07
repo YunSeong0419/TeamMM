@@ -124,7 +124,7 @@
 }
 
 #productManagementTable > tr, td{
-	border-bottom: 1px solid black;
+	border-bottom: 2px solid #FF9436;
 	height: 35px;
 	font-size: 14px;
 }
@@ -160,6 +160,8 @@
 
 .productNameBox > a{
 	margin-left: 10px;
+	color: #000000;
+	text-decoration: none;
 }
 
 .productPriceBox{
@@ -184,7 +186,6 @@
 		pagingFormObj.submit();
 	}
 	
-	
 	$(function(){ //document.ready랑 같음
 		
 		if($('#sortValue').val()){
@@ -205,6 +206,7 @@
 </script>
 
 </head>
+
 <body>
 
 <div id="rootDiv">

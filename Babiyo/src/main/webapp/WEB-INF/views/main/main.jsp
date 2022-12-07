@@ -216,19 +216,14 @@
 <script type="text/javascript" src="/babiyo/resources/js/jquery-3.6.1.js"></script>
 
 <script type="text/javascript">
-
-
 $(function(){
-	
 	$('#bannerBtn0').attr('class', 'curBanner');
 	
 });
 
-setInterval(function(){
-	
-	let count = $('.eventImg').length;
-	
-	let offset = $('#eventImgDiv').scrollLeft() + 1200;
+	setInterval(function(){
+		let count = $('.eventImg').length;
+		let offset = $('#eventImgDiv').scrollLeft() + 1200;
 	
 	if(offset >= count*1200) {
 		offset = 0;
@@ -240,8 +235,7 @@ setInterval(function(){
 	$('#bannerBtn' + no).attr('class', 'curBanner');
 	
 	$('#eventImgDiv').animate({scrollLeft: offset}, 800);
-	
-}, 5000)
+	}, 5000);
 
 function eventBannerMoveFnc(no){
 	
@@ -251,10 +245,7 @@ function eventBannerMoveFnc(no){
 	$('#bannerBtn' + no).attr('class', 'curBanner');
 	
 	$('#eventImgDiv').animate({scrollLeft: offset}, 800);
-	
 }
-
-
 </script>
 
 </head>
