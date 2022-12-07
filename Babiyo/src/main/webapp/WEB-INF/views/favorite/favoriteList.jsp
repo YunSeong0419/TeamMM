@@ -18,39 +18,38 @@
 }
 
 #allCheckContainer{
-	width: 950px;
+	width: 900px;
 	margin: auto;
 }
 
 
 #favoriteContainer{
-	width: 950px;
+	width: 900px;
 	height: 460px;
 	border-top: 3px solid #FF9436;
-	border-bottom: 3px solid #FF9436;
 	margin: 10px auto;
 	font-size: 0;
 }
 
 .favorite{
 	display: inline-block;
-	margin: 10px 5px;
+	margin: 20px 5px;
 	font-size: 16px;
 }
 
 .productImgContainer{
-	width: 180px;
-	height: 180px;
+	width: 170px;
+	height: 170px;
 }
 
 .productImg{
-	width: 180px;
-	height: 180px;
+	width: 170px;
+	height: 170px;
 }
 
 .productName{
 	display: inline-block;
-	width: 180px;
+	width: 170px;
 	text-align: center;
 }
 
@@ -60,7 +59,7 @@
 }
 
 #btnContainer{
-	width: 950px;
+	width: 900px;
 	text-align: center;
 	margin: 20px auto 40px auto;
 	clear: both;

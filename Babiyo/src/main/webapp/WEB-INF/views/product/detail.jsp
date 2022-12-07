@@ -147,8 +147,9 @@
 
 #quantitySelect{
 	margin-left: 65px;
-	width: 50px;
+	width: 40px;
 	height: 25px;
+	text-align: right;
 	float: right;
 }
 
@@ -331,6 +332,11 @@
 <script type="text/javascript" src="/babiyo/resources/js/jquery-3.6.1.js"></script>
 <script type="text/javascript">
 
+$(function(){
+	if($('#stockHidVal').val() == 0){
+		$('#purchaseOrder').css('background-color', '#FFBA85');
+	}
+})
 
 function korTrans(price){ // 숫자를 원화시키기 위한 함수
 	return price.toLocaleString('ko-KR') + '  원';
@@ -338,7 +344,6 @@ function korTrans(price){ // 숫자를 원화시키기 위한 함수
 
 
 function totalPriceFnc(obj){
-	
 	var price = Number($('#priceOrigin').val());
 	
 	var totalPrice = price * $(obj).val();
@@ -346,7 +351,6 @@ function totalPriceFnc(obj){
 	var priceKor = korTrans(totalPrice);
 	
 	$('#totalPriceValue').text(priceKor);
-	
 }
 
 function favoriteFnc(){
@@ -388,7 +392,37 @@ function cartAddBtn(){
 	}); // ajax 종료
 }
 
-
+function orderBtn(productNo){
+	
+	event.preventDefault();
+	
+	$.ajax({
+		type: 'post',
+		url: './ajax/quantityView.do',
+		data: {
+			productNo: productNo
+		},
+		success: function(stock){
+			
+			if(stock >= $('#quantitySelect').val()){
+				orderForm.submit();
+			}else if(stock == 0){
+				alert('상품이 품절되었습니다');
+			}else {
+				alert('상품의 양의 부족합니다');
+			}
+			
+			if(stock > 0){
+				var str = stock + ' 개';
+				$('#stockValue').text(str);
+			}else{
+				$('#stockValue').text('품절');
+			}
+			
+		}
+	});
+	
+}
 
 </script>
 
@@ -408,7 +442,7 @@ function cartAddBtn(){
 				<span id='category'>${productDto.categoryName}</span>
 			</div>
 			<div id='productInfoDiv'>
-				<form action="../order/order.do" method="post">
+				<form id="orderForm" action="../order/order.do" method="post">
 					<input type="hidden" id="productNo" name="orderDetailList[0].productNo" value="${productDto.no}">
 					<div id='imageDiv'>
 						<img alt="${productDto.name} 이미지" src="/babiyo/img/${productImg.STORED_NAME}">
@@ -438,18 +472,28 @@ function cartAddBtn(){
 							<div id='price'>
 								<span id='priceName'>가격 </span>
 								<span id='priceValue'>
-									<fmt:formatNumber value="${productDto.price}" pattern="#,###"/>&nbsp;&nbsp;원
+									<fmt:formatNumber value="${productDto.price}" pattern="#,### 원"/>
 								</span>
 								<input type="hidden" id="priceOrigin" name="orderDetailList[0].price" value="${productDto.price}">
 							</div>
 							<div id='stock'>
+								<input id="stockHidVal" type="hidden" value="${productDto.stock}">
 								<span id='stockName'>남은 개수 </span>
-								<span id='stockValue'>${productDto.stock}&nbsp;&nbsp;개</span>
+								<span id='stockValue'>
+								<c:choose>
+								<c:when test="${productDto.stock > 0}">
+								${productDto.stock} 개
+								</c:when>
+								<c:otherwise>
+								품절
+								</c:otherwise>
+								</c:choose>
+								</span>
 							</div>
 							<div id='quantity'>
 								<span id='quantityName'>수량 </span>
 								<select id='quantitySelect' name="orderDetailList[0].quantity" onchange="totalPriceFnc(this);">
-									<c:forEach begin="1" end="${productDto.stock}" var="i">
+									<c:forEach begin="1" end="10" var="i">
 										<option value="${i}">${i}</option>
 									</c:forEach>
 								</select>
@@ -457,7 +501,7 @@ function cartAddBtn(){
 							<div id='totalPrice'>
 								<span id='totalPriceName'>총 결제금액 </span>
 								<span id='totalPriceValue'>
-									<fmt:formatNumber value="${productDto.price}" pattern="#,###"/>&nbsp;&nbsp;원	
+									<fmt:formatNumber value="${productDto.price}" pattern="#,### 원"/>
 								</span>
 							</div>
 						</div>
@@ -468,11 +512,12 @@ function cartAddBtn(){
 						
 						<div id='productInfoButton'>
 							<input type="button" value="장바구니 담기" id='putShoppingCart' onclick="cartAddBtn();">
-							<input type="submit" value="주문하기" id='purchaseOrder'>
+							<input type="submit" value="주문하기" id='purchaseOrder' onclick="orderBtn(${productDto.no});">
 						</div>
 					</div>
 				</form>
 			</div>
+			
 			<div id='productContentDiv'>
 				<div id='contentTitle'>
 					<p>설명</p>

@@ -141,4 +141,10 @@ public class ProductDaoImpl implements ProductDao{
 		
 		return sqlSession.selectList(namespace + "recommendProductList", paramMap);
 	}
+
+	@Override
+	public int quantityView(int productNo) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(namespace + "quantityView", productNo);
+	}
 }

@@ -172,6 +172,10 @@
 		WHERE PRODUCT_NO = #{value}
 	</delete>
 	
-	
+	<select id="quantityView" resultType="int">
+		SELECT STOCK
+		FROM PRODUCT
+		WHERE NO = #{value}
+	</select>
 	
 </mapper>

@@ -292,4 +292,10 @@ public class ProductServiceImpl implements ProductService{
 		
 		return map;
 	}
+
+	@Override
+	public int quantityView(int productNo) {
+		// TODO Auto-generated method stub
+		return productDao.quantityView(productNo);
+	}
 }

@@ -14,7 +14,7 @@
 <style type="text/css">
 
 #cartTableDiv{
-	width: 950px;
+	width: 900px;
 	margin: 0px auto;
 }
 
@@ -39,7 +39,7 @@
 
 
 #nameTh{
-	width: 620px;
+	width: 570px;
 }
 
 .nameText{
@@ -104,10 +104,10 @@
 }
 
 #tableUnder{
-	width: 950px;
+	width: 900px;
 	text-align: right;
 	font-weight: bold;
-	margin: auto;
+	margin: 10px auto;
 }
 
 #totalAmountText{
@@ -247,8 +247,6 @@ function totalTrans(){ // 체크한 주문금액을 반영해주는 함수
 	$('#totalAmount').val(totalAmount); // input에 값 저장
 	$('#totalAmountVal').html(korTrans(totalAmount)); // 화면을 위한 값
 }
-
-
 
 </script>
 

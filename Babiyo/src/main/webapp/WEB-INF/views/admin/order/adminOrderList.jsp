@@ -13,6 +13,11 @@
 
 <style type="text/css">
 
+#searchOptionContainer{
+	width: 900px;
+	margin: auto;
+}
+
 #orderList{
 	margin-top: 10px;
 	min-height: 400px;
@@ -45,7 +50,7 @@
 	width: 150px;
 }
 #productNameTh{
-	width: 320px;
+	width: 270px;
 }
 #totalAmountTh{
 	width: 120px;
@@ -67,11 +72,6 @@
 	text-decoration: none;
 }
 
-#searchOptionContainer{
-	width: 950px;
-	margin: auto;
-}
-
 #periodSelect{
 	margin-left: 20px;
 }
@@ -86,6 +86,16 @@
 
 #search{
 	width: 150px;
+}
+
+#searchBtn{
+    width: 60px;
+    height: 35px;
+    border: 0px;
+    border-radius: 5px;
+    color: #fff;
+    background-color: #FF9436;
+    font-size: 16px;
 }
 
 #beginDate, #endDate{
@@ -202,7 +212,7 @@ function stateSelectFnc(){
 					<span id="searchKeword">
 						<input type="text" name="search" id="search" class="inputBox" value="${searchOption.search}"
 							placeholder="회원아이디 입력">
-						<input type="submit" value="검색">
+						<input id="searchBtn" type="submit" value="검색">
 					</span>
 				</div>
 			</form>

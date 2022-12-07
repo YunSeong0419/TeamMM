@@ -43,6 +43,18 @@ public class OrderServiceImpl implements OrderService{
 	public int order(OrderDto orderDto, OrderDetailDto orderDetailDto) {
 		// TODO Auto-generated method stub
 		
+		List<OrderDetailDto> detailList = orderDetailDto.getOrderDetailList();
+		
+		for (OrderDetailDto detail : detailList) {
+			
+			int stock = productDao.quantityView(detail.getProductNo());
+			
+			if(stock < detail.getQuantity()) {
+				System.out.println("주문오류: 구매하려는 상품수가 재고보다 많습니다");
+				return -1;
+			}
+		}
+		
 		// 금액 차감
 		orderCashUpdate(orderDto);
 		
@@ -67,7 +79,7 @@ public class OrderServiceImpl implements OrderService{
 		List<CartDto> cartList = new ArrayList<CartDto>();
 		
 		// 구매한 물품을 장바구니 db에서 삭제하기 위해서 배열에 저장
-		for (OrderDetailDto detail : orderDetailDto.getOrderDetailList()) {
+		for (OrderDetailDto detail : detailList) {
 			CartDto cart = new CartDto();
 			cart.setProductNo(detail.getProductNo());
 			

@@ -63,7 +63,11 @@ public class OrderController {
 		String memberId = memberDto.getId();
 		orderDto.setMemberId(memberId);
 		
-		orderService.order(orderDto, orderDetailDto);
+		int orderNo = orderService.order(orderDto, orderDetailDto);
+		
+		if(orderNo == -1) {
+			return "redirect:/order/fail.do";
+		}
 		
 		int balance = memberDto.getCash() - orderDto.getTotalAmount();
 		memberDto.setCash(balance);
@@ -82,6 +86,13 @@ public class OrderController {
 		model.addAttribute("orderDto", orderDto);
 		
 		return "order/orderComplete";
+	}
+	
+	@RequestMapping(value = "/order/fail.do", method = RequestMethod.GET)
+	public String orderFail(HttpSession session, Model model) {
+		logger.info("Welcome OrderController orderComplete! ");
+		
+		return "order/orderFail";
 	}
 	
 	

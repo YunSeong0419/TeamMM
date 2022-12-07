@@ -13,6 +13,11 @@
 
 <style type="text/css">
 
+#stateForm{
+	width: 900px;
+	margin: auto;
+}
+
 #orderList{
 	min-height: 400px;
 }
@@ -41,7 +46,7 @@
 	width: 80px;
 }
 #productNameTh{
-	width: 370px;
+	width: 320px;
 }
 #totalAmountTh{
 	width: 120px;

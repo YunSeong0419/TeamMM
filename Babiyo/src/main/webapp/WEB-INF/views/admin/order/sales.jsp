@@ -14,7 +14,7 @@
 <style type="text/css">
 
 #searchOptionForm{
-	width: 950px;	
+	width: 900px;	
 	margin: 0 auto;
 }
 
@@ -39,8 +39,6 @@
 }
 
 #presetPeriod{
-	width: 500px;
-	text-align: center;
 }
 
 #customPeriod{
@@ -54,14 +52,14 @@
 
 .month{
 	display: inline-block;
-	width: 35px;
-	height: 35px;
-	line-height: 35px;
+	width: 30px;
+	height: 30px;
+	line-height: 30px;
 	background-color: #FF9436;
 	border-radius: 5px;
 	font-weight: bold;
 	text-align: center;
-	font-size: 12px;
+	font-size: 11px;
 	color: #fff;
 	cursor: pointer;
 }
@@ -91,7 +89,7 @@
 }
 
 #salesTotalAmountContainer{
-	width: 950px;
+	width: 900px;
 	margin: 20px auto;
 	text-align: center;
 	font-size: 20px;
@@ -128,10 +126,10 @@
 	width: 280px;
 }
 #quantityTh {
-	width: 80px;
+	width: 50px;
 }
 #priceTh {
-	width: 120px;
+	width: 100px;
 }
 #totalAmountTh {
 	width: 120px;
