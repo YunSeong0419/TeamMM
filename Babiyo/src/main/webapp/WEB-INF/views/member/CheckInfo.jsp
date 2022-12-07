@@ -71,18 +71,14 @@
 
 <script type="text/javascript">
 
+
+function moveBackFnc() {
+	location.href ='./memberInfo.do';
+}
 		
 function checkInfoFnc() {
 	var pwd = document.getElementById('chkPwd').value;
 	console.log(chkPwd);
-	
-function moveBackFnc() {
-	location.href ='./memberInfo.do';
-}
-	
-	
-	
-	
 	if (chkPwd == ''){
 		alert("비밀번호를 입력해주세요");
 	}else {

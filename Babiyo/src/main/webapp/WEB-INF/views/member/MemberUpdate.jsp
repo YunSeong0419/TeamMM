@@ -93,7 +93,7 @@ var chk2 = true;
 var chk3 = true;
 var chk4 = true;
 var chk5 = true;
-var chk6 = true;
+var chk6 = false;
 
 $(function(){
 	var pwdObj = document.getElementById('pwd');
@@ -111,6 +111,23 @@ $(function(){
 	var myNick = document.getElementById('myNick');
 	var updateBtn = document.getElementById('update');
 	
+	
+	function allChkColor() {
+		console.log(chk1);
+		console.log(chk2);
+		console.log(chk3);
+		console.log(chk4);
+		console.log(chk5);
+		console.log(chk6);
+		
+		if (chk1 == true && chk2 == true && chk3 == true && chk4 == true
+				&& chk5 == true) {
+			chk6 = true;
+			updateBtn.style.background = 'orange';
+		}else {
+			updateBtn.style.background = 'grey';
+		}
+	};
 
 	
 	//비밀번호 유효성
@@ -295,17 +312,17 @@ $(function(){
 		 target.value = target.value
 		   .replace(/[^0-9]/g, '')
 		  .replace(/^(\d{0,3})(\d{0,4})(\d{0,4})$/g, "$1-$2-$3").replace(/(\-{1,2})$/g, "");
-		}
+		};
 	
-	function allChkColor() {
-		if (chk1 == true && chk2 == true && chk3 == true && chk4 == true
-				&& chk5 == true) {
-			chk6 = true;
-			updateBtn.style.background = 'orange';
-		}else {
-			updateBtn.style.background = 'grey';
-		}
-	};
+// 	FUNCTION ALLCHKCOLOR() {
+// 		IF (CHK1 == TRUE && CHK2 == TRUE && CHK3 == TRUE && CHK4 == TRUE
+// 				&& CHK5 == TRUE) {
+// 			CHK6 = TRUE;
+// 			UPDATEBTN.STYLE.BACKGROUND = 'ORANGE';
+// 		}ELSE {
+// 			UPDATEBTN.STYLE.BACKGROUND = 'GREY';
+// 		}
+// 	};
 	
 </script>
 
