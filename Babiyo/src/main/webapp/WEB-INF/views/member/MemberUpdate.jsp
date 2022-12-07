@@ -87,6 +87,14 @@ select {
 
 <script type="text/javascript">
 
+//유효성 검증 변수
+var chk1 = true;
+var chk2 = true;
+var chk3 = true;
+var chk4 = true;
+var chk5 = true;
+var chk6 = true;
+
 $(function(){
 	var pwdObj = document.getElementById('pwd');
 	var nameObj = document.getElementById('mname');
@@ -98,22 +106,31 @@ $(function(){
 	var emailChk = document.getElementById('emailChk');
 	var phoneChk = document.getElementById('phoneChk');
 	var nickChk = document.getElementById('nickChk');
+	var myEmail = document.getElementById('myEmail');
+	var myPhone = document.getElementById('myPhone');
+	var myNick = document.getElementById('myNick');
+	var updateBtn = document.getElementById('update');
 	
+
 	
+	//비밀번호 유효성
 	pwdObj.addEventListener('keyup', function() {
-		var spObj = /[`~!@#$%^&*|\\\";:\/?]/;
+		var spObj = /[`~!@#$%^&*|\\\";:\/? ]/;
 		var check_eng = /[a-zA-Z]/;
 		if (pwdObj.value == '') {
 			pwdChk.innerHTML = '';
+			chk1 = true;
 		}else if (pwdObj.value.length < 8 || 
 				 !spObj.test(pwdObj.value) || !check_eng.test(pwdObj.value)) {
 			pwdChk.innerHTML = '8~16자 영문 대 소문자, 숫자, 특수문자를 사용하세요.';
+			chk1 = false;
 		}else {
+			chk1 = true;
 			pwdChk.innerHTML = '';
 		}
 		allChkColor();
 	});
-	
+	//이름 유효성
 	nameObj.addEventListener('keyup', function() {
 		var spObj = /[`~!@#$%^&*|\\\";:\/? ]/;
 		var check_lang = /[ㄱ-ㅎ|ㅏ-ㅣ]/;
@@ -123,26 +140,33 @@ $(function(){
 		
 		if(nameObj.value == '') {
 			nameChk.innerHTML = '';
+			chk2 = true;
 		}else if (check_lang.test(nameObj.value) || check_num.test(nameObj.value)
 				|| spObj.test(nameObj.value) || check_mix.test(nameObj.value)
 				|| check_mixTwo.test(nameObj.value)){
 			nameChk.innerHTML = '한글과 영문 대 소문자를 사용하세요. (특수기호, 공백 사용 불가)';
+			chk2 = false;
 		}else {
 			nameChk.innerHTML = '';
-			chk4 = true;
+			chk2 = true;
 		} 
 		allChkColor();
 	});
-	
+	//이메일 유효성
 	emailObj.addEventListener('keyup', function() {
 		let emailRull = RegExp(/^([\w\.\_\-])*[a-zA-Z0-9]+([\w\.\_\-])*([a-zA-Z0-9])+([\w\.\_\-])+@([a-zA-Z0-9]+\.)+[a-zA-Z0-9]{2,8}$/);
 		if (emailObj.value == '') {
 			emailChk.innerHTML = '';
+			chk3 = true;
 		}else if(emailRull.test(emailObj.value)==false){
 			emailChk.innerHTML = '이메일 형식이 올바르지 않습니다';
 			emailChk.style.color = 'orange';
-		}else{
-				var email = $('#email').val(); //id값이 "email"인 입력란의 값을 저장
+			chk3 = false;
+		}else if(emailObj.value == myEmail.value){
+			chk3 = true;
+			emailChk.innerHTML = '';
+		}else{		
+			var email = $('#email').val(); //id값이 "email"인 입력란의 값을 저장
 			
 			$.ajax({
 		        url:'../auth/member/emailCheckCtr.do', //Controller에서 요청 받을 주소
@@ -152,11 +176,11 @@ $(function(){
 		        	if(cnt == 0){ //cnt가 1이 아니면(=0일 경우) -> 사용 가능한 이메일
 		        		emailChk.innerHTML = '사용가능한 이메일 입니다';
 		        		emailChk.style.color = 'green';
-			        	chk5 = true;
+			        	chk3 = true;
 		            } else { // cnt가 1일 경우 -> 이미 가입된 이메일
 		            	emailChk.innerHTML = '이미 가입된 이메일 입니다';
 		            	emailChk.style.color = 'orange';
-		            	chk5 = false;
+		            	chk3 = false;
 		            }
 		        },
 		        error:function(){
@@ -166,6 +190,77 @@ $(function(){
 		}
 		allChkColor();
 		
+	});
+	//핸드폰번호 유효성
+	phoneObj.addEventListener('keyup', function() {
+		var check_num = /^[0-9,-]{4}[0-9,-]{5}[0-9]{4}/;
+		if (phoneObj.value == '') {
+			phoneChk.innerHTML = '';
+			chk4 = true;
+		}else if (!check_num.test(phoneObj.value)){
+			phoneChk.innerHTML = '핸드폰번호 11자리를 입력해주세요';
+			phoneChk.style.color = 'orange';
+			chk4 = false;
+		}else if(phoneObj.value == myPhone.value){
+			phoneChk.innerHTML = '';
+			chk4 = true;
+		}else{
+			var phone = $('#phone').val(); //id값이 "phone"인 입력란의 값을 저장
+			
+			$.ajax({
+		        url:'../auth/member/phoneCheckCtr.do', //Controller에서 요청 받을 주소
+		        type:'post', //POST 방식으로 전달
+		        data:{phone:phone},
+		        success:function(cnt){ //컨트롤러에서 넘어온 cnt값을 받는다 
+		        	if(cnt == 0){ //cnt가 1이 아니면(=0일 경우) -> 사용 가능한 번호
+		        		phoneChk.innerHTML = '사용가능한 번호 입니다';
+		        		phoneChk.style.color = 'green';
+			        	chk4 = true;
+		            } else { // cnt가 1일 경우 -> 이미 가입된 번호
+		            	phoneChk.innerHTML = '이미 가입된 번호 입니다';
+		            	phoneChk.style.color = 'orange';
+		            	chk4 = false;
+		            }
+		        },
+		        error:function(){
+		        	console.log(email);
+		        }
+		    });
+		}
+		allChkColor();
+	});
+	//닉네임 유효성
+	nickObj.addEventListener('keyup', function() {
+		if (nickObj.value == '') {
+			nickChk.innerHTML = '';
+			chk5 = true;
+		}else if(nickObj.value == myNick.value){
+			nickChk.innerHTML = '';
+			chk5 = true;
+		}else{	
+			var nickname = $('#nickname').val(); //id값이 "phone"인 입력란의 값을 저장
+			
+			$.ajax({
+		        url:'../auth/member/nicknameCheckCtr.do', //Controller에서 요청 받을 주소
+		        type:'post', //POST 방식으로 전달
+		        data:{nickname:nickname},
+		        success:function(cnt){ //컨트롤러에서 넘어온 cnt값을 받는다 
+		        	if(cnt == 0){ //cnt가 1이 아니면(=0일 경우) -> 사용 가능한 번호
+		        		nickChk.innerHTML = '사용가능한 닉네임 입니다';
+		        		nickChk.style.color = 'green';
+			        	chk5 = true;
+		            } else { // cnt가 1일 경우 -> 이미 가입된 번호
+		            	nickChk.innerHTML = '이미 가입된 닉네임 입니다';
+		            	nickChk.style.color = 'orange';
+		            	chk5 = false;
+		            }
+		        },
+		        error:function(){
+		        	console.log(nickname);
+		        }
+		    });
+		}
+		allChkColor();
 	});
 	
 	
@@ -180,8 +275,13 @@ $(function(){
 	//전송 중 관심사 유효성 검사
 	function updateFnc() {
 		var form = document.forms;
-		
-		if($('#category1').val() != $('#category2').val()){
+		console.log(chk1);
+		console.log(chk2);
+		console.log(chk3);
+		console.log(chk4);
+		console.log(chk5);
+		console.log(chk6);
+		if($('#category1').val() != $('#category2').val() && chk6 == true){
 			form[0].submit();
 		}
 	};
@@ -189,6 +289,24 @@ $(function(){
 	function moveBackFnc() {
 		location.href = './memberInfo.do';
 	};
+	
+	//핸드폰번호 하이픈
+	const autoHyphen = (target) => {
+		 target.value = target.value
+		   .replace(/[^0-9]/g, '')
+		  .replace(/^(\d{0,3})(\d{0,4})(\d{0,4})$/g, "$1-$2-$3").replace(/(\-{1,2})$/g, "");
+		}
+	
+	function allChkColor() {
+		if (chk1 == true && chk2 == true && chk3 == true && chk4 == true
+				&& chk5 == true) {
+			chk6 = true;
+			updateBtn.style.background = 'orange';
+		}else {
+			updateBtn.style.background = 'grey';
+		}
+	};
+	
 </script>
 
 
@@ -235,7 +353,8 @@ $(function(){
 								</tr>
 								<tr>
 									<td class="option">아이디</td>
-									<td><input class="input_box" type='text' id='id' name='id'
+									<td><input id='myId' type="hidden" value="${_memberDto_.id}">
+									<input class="input_box" type='text' id='id' name='id'
 										readonly="readonly" value="${_memberDto_.id}"></td>
 								</tr>
 								<tr>
@@ -259,7 +378,8 @@ $(function(){
 								</tr>
 								<tr>
 									<td class="option">이메일</td>
-									<td><input class="input_box" type='text' id='email'
+									<td><input id='myEmail' type="hidden" value="${_memberDto_.email}">
+									<input class="input_box" type='text' id='email'
 										name='email' value="${_memberDto_.email}"></td>
 								</tr>
 								<tr>
@@ -267,15 +387,17 @@ $(function(){
 								</tr>
 								<tr>
 									<td class="option">전화번호</td>
-									<td><input type="text" id="phone" class="input_box"
-										name="phone" maxlength="11" value="${_memberDto_.phone}"></td>
+									<td><input id='myPhone' type="hidden" value="${_memberDto_.phone}">
+									<input type="text" id="phone" class="input_box" oninput="autoHyphen(this)"
+										name="phone" maxlength="13" value="${_memberDto_.phone}"></td>
 								</tr>
 								<tr>
 									<td class="option"></td><td id="phoneChk" class="check"></td>
 								</tr>
 								<tr>
 									<td class="option">닉네임</td>
-									<td><input type="text" id="nickname" class="input_box"
+									<td><input id='myNick' type="hidden" value="${_memberDto_.nickname}">
+									<input type="text" id="nickname" class="input_box"
 										name="nickname" value="${_memberDto_.nickname}"></td>
 								</tr>
 								<tr>

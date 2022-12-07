@@ -297,7 +297,7 @@ $(document).ready(function(){
 		});
 		
 		phoneObj.addEventListener('keyup', function() {
-			var check_num = /^[0-9]{3}[0-9]{4}[0-9]{4}/;
+			var check_num = /^[0-9,-]{4}[0-9,-]{5}[0-9]{4}/;
 			if (phoneObj.value == '') {
 				phoneChkObj.innerHTML = '필수정보입니다';
 				phoneChkObj.style.color = 'orange';
@@ -369,12 +369,16 @@ function allChkColor() {
 			&& chk9 == true) {
 		allchk.style.background = 'orange';
 	}else {
-		allchk.style.background = 'gray';
+		allchk.style.background = 'grey';
 	}
 	
 };
 
-
+const autoHyphen = (target) => {
+	 target.value = target.value
+	   .replace(/[^0-9]/g, '')
+	  .replace(/^(\d{0,3})(\d{0,4})(\d{0,4})$/g, "$1-$2-$3").replace(/(\-{1,2})$/g, "");
+	}
 
 </script>
 
@@ -487,8 +491,8 @@ function allChkColor() {
 			</div>
 			<div>
 				<h3>휴대폰번호</h3>
-				<input type="text" id="phone" class="input_box"
-					name="phone" maxlength="11">
+				<input type="text" id="phone" class="input_box" oninput="autoHyphen(this)"
+					name="phone" maxlength="13">
 			</div>
 			<p id='phone_plz' class="chk_plz"></p>
 			<div>
