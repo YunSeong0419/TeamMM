@@ -209,9 +209,9 @@ function writeBtn() {
 								</tr>
 							</c:when>
 							<c:otherwise>
-								<c:forEach var="inquiryDto" items="${memberList}">
+								<c:forEach var="inquiryDto" varStatus="i" items="${memberList}">
 									<tr>
-										<td>${inquiryDto.no}</td>
+										<td>${i.count}</td>
 										<c:choose>
 											<c:when test="${inquiryDto.categoryCode eq 1}">
  												<td class="inquiryCategoryTd">주문</td> 
