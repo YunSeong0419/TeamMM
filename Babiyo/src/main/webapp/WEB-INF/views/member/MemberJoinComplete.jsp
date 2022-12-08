@@ -65,6 +65,7 @@
 			padding-top: 20px;
 			padding-right: 10px;
 			border: none;
+			border-radius: 8px;
 			background: orange;
 			color: white;
 			font-size: 20px;

@@ -19,11 +19,11 @@
 	}
 	
 	#chkWord{
-	width: 20%;
+	width: 25%;
 	height: 40px;
 	text-align: center;
 	margin-bottom: 100px;
-	margin-top: 100px;
+	margin-top: 70px;
 	font-size: 20px;
 	}
 	
@@ -42,10 +42,18 @@
 	color: orange;
 	}
 	
+	#lastCheck{
+	height: 200px;
+	margin-bottom: 22px;
+	}
+	
 	#warn{
 	font-weight: bolder;
 	font-size: 20px;
 	width: 100%;
+	}
+	#btnWrap{
+	
 	}
 	
 	
@@ -105,17 +113,19 @@ function moveBackFnc() {
 						<p>
 							<input id='deleteWord' type="hidden" value="회원탈퇴">
 						</p>
-						<p>
+						<p id='lastCheck'>
 							<input id='chkWord'  type="text" placeholder="회원탈퇴">
 						</p>
 						<form action="./deleteCtr.do" method="post">
 							<input type="hidden" name='id' value="${_memberDto_.id}">
 						
 						</form>
-						<p>
-							<input type="button" class="button" value="탈퇴하기" onclick="deleteInfoFnc();">
-							<input type="button" class="button" value="이전" onclick="moveBackFnc();">
-						</p>
+						<div id='btnWrap'>
+							<p>
+								<input type="button" class="button" value="탈퇴하기" onclick="deleteInfoFnc();">
+								<input type="button" class="button" value="이전" onclick="moveBackFnc();">
+							</p>
+						</div>
 					</div>
 				</div>
 				<div id="underPadding"></div>
