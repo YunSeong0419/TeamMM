@@ -221,4 +221,11 @@ ORDER BY COUNT DESC)
 WHERE <![CDATA[ROWNUM <= 7]]>
 </select>
 
+<select id="memberHomeOrderCount" resultType="int">
+SELECT COUNT(*)
+FROM MEMBER_ORDER
+WHERE MEMBER_ID = #{value}
+AND STATE_CODE ^= 3
+</select>
+
 </mapper>

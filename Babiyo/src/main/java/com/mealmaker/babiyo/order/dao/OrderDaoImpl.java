@@ -158,6 +158,12 @@ public class OrderDaoImpl implements OrderDao {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList(namespace + "productChart");
 	}
+	
+	@Override
+	public int memberOrderCount(String memberId) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(namespace + "memberHomeOrderCount", memberId);
+	}
 
 	
 }

@@ -42,5 +42,7 @@ public interface OrderDao {
 	public Map<String, Object> totalAmountView(int orderNo);
 
 	public List<Map<String, Object>> productChart();
+
+	int memberOrderCount(String memberId);
 	
 }

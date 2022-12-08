@@ -100,7 +100,7 @@ function deleteInfoFnc() {
 							<th>주문횟수</th><th>문의</th><th>내가 쓴 리뷰</th><th>캐쉬</th>
 						</tr>
 						<tr>
-							<td><a href="../member/orderList.do"></a>건</td>
+							<td><a href="../member/orderList.do">${countMap.orderCount}건</a></td>
 							<td><a href="../inquiry/member.do">${countMap.inquiryCount}건</a></td>
 							<td><a href="../review/myReview.do">${countMap.reviewCount}건</a></td>
 							<td><a href="./memberCash.do">${_memberDto_.cash}원</a></td>
