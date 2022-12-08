@@ -31,7 +31,7 @@
 	float: left;
 }
 
-#sortBoxName, #searchBoxName{
+#sortBoxName{
 	margin: auto 0px;	
 	font-size: 16px;
 }
@@ -44,7 +44,7 @@
 }
 
 #searchBox{
-	width: 390px;
+	width: 352px;
 	height: 35px;
 	float: right;
 }
@@ -219,7 +219,6 @@
 							</select>
 						</div>
 						<div id='searchBox'>
-							<span id='searchBoxName'><strong>검색</strong></span> 
 							<select name='searchOption' id='searchOption'>
 								<option value=''>전체</option>
 								<option value='PRODUCT_NAME'>이름</option>

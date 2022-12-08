@@ -31,7 +31,7 @@
 	float: left;
 }
 
-#sortBoxName, #searchBoxName{
+#sortBoxName{
 	margin: auto 0px;	
 	font-size: 16px;
 }
@@ -44,7 +44,7 @@
 }
 
 #searchBox{
-	width: 390px;
+	width: 352px;
 	height: 35px;
 	float: right;
 }
@@ -66,7 +66,7 @@
 	float: left;
 }
 
-#productListShortbutton{
+#reviewListButton{
 	margin-left: 5px;
 	border: 0px;
 	border-radius: 5px;
@@ -80,6 +80,7 @@
 
 #tableDiv{
 	margin-top: 10px;
+	margin-bottom: 80px;
 	height: 380px;
 	float: left;
 }
@@ -87,7 +88,7 @@
 #reviewManagementTable{
 	width: 900px;
 	margin-left: 75px;
-	margin-bottom: 30px;
+	margin-bottom: 5px;
 	border-collapse: collapse;
 }
 
@@ -152,10 +153,10 @@
 	
 		$('#searchOption').val($('#searchOptionValue').val());
 	});
+	
 </script>
 
 </head>
-
 <body>
 
 <div id="rootDiv">
@@ -184,14 +185,13 @@
 							</select>
 						</div>
 						<div id='searchBox'>
-							<span id='searchBoxName'><strong>검색</strong></span> 
 							<select name='searchOption' id='searchOption'>
 								<option value=''>전체</option>
 								<option value='PRODUCT_NAME'>이름</option>
 								<option value='CATEGORY_NAME'>분류</option>
 							</select>
 							<input type='text' id='inputBox' name='search' value="${searchOption.search}">
-							<input type='submit' value="검색" id='productListShortbutton'>
+							<input type='submit' value="검색" id='reviewListButton'>
 						</div>
 					</form>
 				</div>
@@ -209,8 +209,8 @@
 							<c:when test="${empty reviewList}">
 								<tr>
 									<td colspan="5" 
-										style="width: 500px; height: 350px; border: 0px;
- 										font-size:25px; font-weight: bold; text-align: center;">
+										style="width: 500px; height: 350px; 
+ 										font-size:32px; font-weight: bold; text-align: center;">
 										리뷰가 없습니다.
 									</td>
 								</tr>
