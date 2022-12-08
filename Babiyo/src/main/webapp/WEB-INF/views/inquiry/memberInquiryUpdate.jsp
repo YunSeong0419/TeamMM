@@ -29,17 +29,20 @@ span{
 #divisionId{
 	width: 120px;
 	height: 32px;
+	border: 1px solid black;
 }
 
 #titleId{
 	width: 600px;
 	height: 32px;
+	border: 1px solid black;
 }
 
 #contentId{
 	margin-top:10px;
 	width: 900px;
 	height: 180px;
+	border: 1px solid black;
 }
 
 #btnDiv{

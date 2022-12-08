@@ -168,7 +168,7 @@ public class InquiryController {
 		model.addAttribute("paging", paging);
 		model.addAttribute("searchMap", searchMap);
 
-		return "inquiry/adminInquiryListView";
+		return "admin/inquiry/adminInquiryListView";
 	}
 	
 	
@@ -184,7 +184,7 @@ public class InquiryController {
 		model.addAttribute("inquiryDto", inquiryDto); 
 		
 		
-		return "inquiry/adminInquiryAnswer";
+		return "admin/inquiry/adminInquiryAnswer";
 	}
 	// 문의 답변, 수정
 	@RequestMapping(value = "/inquiry/admin/answerCtr.do", method = RequestMethod.POST)

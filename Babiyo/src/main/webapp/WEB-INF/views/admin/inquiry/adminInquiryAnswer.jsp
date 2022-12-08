@@ -33,40 +33,47 @@ span{
 
 #divisionId, #titleId{
 	margin-left: 15px;
+	border: 1px solid;
 }
 
 #memberId{
 	width: 145px;
 	height: 32px;
+	border: 1px solid;
 }
 
 #createDateId{
 	width: 145px;
 	height: 32px;
+	border: 1px solid;	
 }
 
 #divisionId{
 	margin-left: 15px;
 	width: 120px;
 	height: 32px;
+	border: 1px solid;	
 }
 
 
 #titleId{
 	width: 600px;
 	height: 32px;
+	border: 1px solid;	
 }
 
 #contentId{
 	margin-top:10px;
 	width: 900px;
 	height: 180px;
+	border: 1px solid;	
 }
 
 #answerId{
 	margin-top:10px;
 	width: 900px;
 	height: 180px;
+	border: 1px solid;	
 }
 
 #btnDiv{

@@ -188,7 +188,7 @@
 					<div class='insertDataDiv'>
 						<p class='pTagName'>가격</p>
 						<span class='dataSpace'>
-							<fmt:formatNumber value="${productDto.price}" pattern="#,###"/> 원
+							<fmt:formatNumber value="${productDto.price}" pattern="#,### 원"/>
 						</span>
 					</div>
 					<div class='classificationDiv'>
@@ -215,12 +215,14 @@
 				</div>
 				</form>
 			</div>
+			
 			<form id="pagingForm" action="./adminList.do" method="get">
 				<input type="hidden" id="curPage" name="curPage" value="${paging.curPage}">
 				<input type="hidden" name="search" value="${searchOption.search}">
-				<input type="hidden" name="searchOptionValue" value="${searchOption.searchOption}">
-				<input type="hidden" name="sortValue" value="${searchOption.sort}">
+				<input type="hidden" name="searchOption" value="${searchOption.searchOption}">
+				<input type="hidden" name="sort" value="${searchOption.sort}">
 			</form>
+			
 			<div id="underPadding"></div>
 			
 		</div> <!--middelMain 끝 -->

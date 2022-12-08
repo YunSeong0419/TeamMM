@@ -14,7 +14,7 @@
 		<c:when test="${_memberDto_.grade eq 1}">
 			<div id='verticalSideManagerMenuBar'>
 				<div><a id='managerInfo' href="/babiyo/admin/adminHome.do">관리자</a></div>
-				<div><a id='memberManagement' href="#">회원 관리</a></div>
+				<div><a id='memberManagement' href="/babiyo/admin/member/memberList.do">회원 관리</a></div>
 				<div><a id='mealkitManagement' href="/babiyo/product/adminList.do">밀키트 관리</a></div>
 				<div><a id='orderManagement' href="/babiyo/admin/orderList.do">주문 관리</a></div>
 				<div><a id='salesManagement' href="/babiyo/admin/sales.do">매출 관리</a></div>

@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>공지사항</title>
+<title>회원목록</title>
 
 <style type="text/css">
 table {
@@ -93,23 +93,23 @@ span{
 }
 
 #noticeNoTh {
-	width: 50px;
+	width: 100px;
 }
 
 #noticeCategoryNameTh {
-	width: 100px;
-}
-
-#titleTh {
-	width: 500px;
-}
-
-#createTh {
 	width: 150px;
 }
 
+#titleTh {
+	width: 200px;
+}
+
+#createTh {
+	width: 250px;
+}
+
 #hitTh{
-	width: 100px;
+	width: 200px;
 }
 
 .noticeCategoryTd, .hitTd, .createTd{
@@ -156,25 +156,17 @@ span{
 
 $(document).ready(function(){
 	
-	$('#stateSelect').val($('#stateCode').val());
 	$('#searchSelect').val($('#searchOption').val());
 	$('.searchCl').val($('#hiddenSearch').val());
 	
 	});
 
-	function stateSelectFnc() {
-
-		$('#stateForm').submit();
-
-	}
-	function backBtn() {
-
-		location.href = "#"
-	}
+	
+	
 
 	function writeBtn() {
 
-		location.href = "./write.do"
+		location.href = "../adminHome.do";
 	}
 </script>
 </head>
@@ -194,26 +186,19 @@ $(document).ready(function(){
 				<div id="filterDiv">
 						<!--  filterDiv 시작-->
 						<form id="stateForm" method="post">
-							<span>분류</span> 
-								<select id="stateSelect" name="stateCode"
-									onchange="stateSelectFnc();">
-									<option value="0">전체</option>
-									<option value="1">공지</option>
-									<option value="2">진행중인 이벤트</option>
-									<option value="3">끝난 이벤트</option>
-								</select>
+							
 						</form>
 					
-						<form method="post" id="searchFrom">
-						<select name="searchOption" id="searchSelect">
-								<option value="">전체</option>
-								<option value="title">제목</option>
-								<option value="content">내용</option>
-						</select>
-						<input type="hidden" id="hiddenSearch" value="${searchOption.search}">
-						<input class="searchCl" type="text" name="search">
-						<input id="searchBoxBtn" type="submit" value="검색">
-						</form>
+<!-- 						<form method="post" id="searchFrom"> -->
+<!-- 						<select name="searchOption" id="searchSelect"> -->
+<!-- 								<option value="">전체</option> -->
+<!-- 								<option value="title">아이디</option> -->
+<!-- 								<option value="content">이름</option> -->
+<!-- 						</select> -->
+<%-- 						<input type="hidden" id="hiddenSearch" value="${searchOption.search}"> --%>
+<!-- 						<input class="searchCl" type="text" name="search"> -->
+<!-- 						<input id="searchBoxBtn" type="submit" value="검색"> -->
+<!-- 						</form> -->
 				</div>
 				<!-- filterDiv 끝-->
 
@@ -221,38 +206,33 @@ $(document).ready(function(){
 					<!-- table div 시작 -->
 					<table id="noticeListTable">
 						<tr id="firstRow">
-							<th id="noticeNoTh">번호</th>
-							<th id="noticeCategoryNameTh">분류</th>
-							<th id="titleTh">공지제목</th>
-							<th id="createTh">날짜</th>
-							<th id="hitTh">조회수</th>
+							<th id="noticeNoTh">아이디</th>
+							<th id="noticeCategoryNameTh">이름</th>
+							<th id="titleTh">닉네임</th>
+							<th id="createTh">이메일</th>
+							<th id="hitTh">가입일</th>
 						</tr>
 
 						<c:choose>
-							<c:when test="${empty noticeList}">
+							<c:when test="${empty memberList}">
 								<tr>
 									<td colspan="5"
 										style="width: 900px; height: 350px; font-weight: bold; text-align: center;">
-										공지가 존재하지 않습니다</td>
+										회원이 존재하지 않습니다</td>
 								</tr>
 							</c:when>
+							
 							<c:otherwise>
-								<c:forEach var="noticeDto" items="${noticeList}">
+								<c:forEach var="memberDto" items="${memberList}">
 									<tr>
-										<td>${noticeDto.no}</td>
+										<td>${memberDto.id}</td>
 										
-										<c:choose>
-											<c:when test="${noticeDto.categoryCode eq 1}">
- 												<td class="noticeCategoryTd"> 공지</td> 
-											</c:when>
-											<c:otherwise>
-												<td class="noticeCategoryTd">이벤트</td> 
-											</c:otherwise>
-										</c:choose>
-										<td><a href="./detail.do?no=${noticeDto.no}">${noticeDto.title}</a></td>
-										<td class="createTd"><fmt:formatDate pattern="yyyy-MM-dd "
-												value="${noticeDto.createDate}" /></td>
-										<td class="hitTd">${noticeDto.hit}</td>		
+ 												<td class="noticeCategoryTd"> ${memberDto.name}</td> 
+<%-- 										미구현..	<a href="/babiyo/member/memberinfo.do?id=${memberDto.id}"/> --%>
+										<td>${memberDto.nickname}</td>
+										<td class="createTd">${memberDto.email}</td>
+										<td class="hitTd"><fmt:formatDate pattern="yyyy-MM-dd "
+												value="${memberDto.createDate}" /></td>		
 									</tr>
 								</c:forEach>
 							</c:otherwise>
@@ -260,17 +240,14 @@ $(document).ready(function(){
 					</table>
 				</div>
 				<!--table div끝 -->
-				<c:if test="${_memberDto_.grade eq 1}">
 					<div id="inputBtn">
-						<input class="writeBtn" type="button" value="공지작성" onclick="writeBtn()">
+						<input class="writeBtn" type="button" value="뒤로가기" onclick="writeBtn();">
 					</div>
-				</c:if>
 
 				<jsp:include page="/WEB-INF/views/Paging.jsp" />
 				
 			<form id="pagingForm" method="post">
 				<input type="hidden" id="curPage" name="curPage" value="${paging.curPage}">
-				<input type="hidden" id="stateCode" name="stateCode" value="${searchOption.stateCode}">
 				<input type="hidden" id="searchOption" name="searchOption" value="${searchOption.searchOption}">
 				<input type="hidden" name="search" value="${searchOption.search}">
 			</form>

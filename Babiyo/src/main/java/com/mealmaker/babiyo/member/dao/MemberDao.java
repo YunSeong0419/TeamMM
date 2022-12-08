@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.mealmaker.babiyo.member.model.InterestDto;
 import com.mealmaker.babiyo.member.model.MemberDto;
+import com.mealmaker.babiyo.util.SearchOption;
 
 public interface MemberDao {
 
@@ -25,6 +26,8 @@ public interface MemberDao {
 	public MemberDto findId(String email);
 	public MemberDto findPwd(String email);
 	public void newPwd(MemberDto memberDto);
+	public int memberCount(SearchOption searchOption);
+	public List<MemberDto> memberList(int begin, int end, SearchOption searchOption, int curPage);
 	
 	
 	

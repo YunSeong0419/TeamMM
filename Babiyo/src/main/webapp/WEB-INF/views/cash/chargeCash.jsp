@@ -21,6 +21,17 @@
 	width: 10%;
 }
 
+.button{
+	width: 120px;
+	height: 40px;
+	font-size: 17px;
+	font-weight: bold;
+	background-color: #FF9436;
+	color: #fff;
+	border: none;
+	border-radius: 8px;
+}
+
 form {
 	width: 900px;
 	height: 200px;
@@ -112,39 +123,39 @@ function moveBackFnc() {
 							<th>상세설명</th>
 						</tr>
 						<tr>
-							<td class="choice"><input type="radio" name="cash"
+							<td class="choice"><input id='fiveThousand' type="radio" name="cash"
 								value="5000" onclick="choiceCash(event)"></td>
-							<td>5000원</td>
+							<td><label for="fiveThousand">5000원</label></td>
 							<td></td>
 						</tr>
 						<tr>
-							<td class="choice"><input type="radio" name="cash"
+							<td class="choice"><input  id='tenThousand' type="radio" name="cash"
 								value="10000" onclick="choiceCash(event)"></td>
-							<td>10000원</td>
+							<td><label for="tenThousand">10000원</label></td>
 							<td></td>
 						</tr>
 						<tr>
-							<td class="choice"><input type="radio" name="cash"
+							<td class="choice"><input  id='twentyThousand' type="radio" name="cash"
 								value="20000" onclick="choiceCash(event)"></td>
-							<td>20000원</td>
+							<td><label for="twentyThousand">20000원</label></td>
 							<td></td>
 						</tr>
 						<tr>
-							<td class="choice"><input type="radio" name="cash"
+							<td class="choice"><input  id='fifthThousand' type="radio" name="cash"
 								value="50000" onclick="choiceCash(event)"></td>
-							<td>50000원</td>
+							<td><label for="fifthThousand">50000원</label></td>
 							<td></td>
 						</tr>
 						<tr>
-							<td class="choice"><input type="radio" name="cash"
+							<td class="choice"><input  id='hundredThousand' type="radio" name="cash"
 								value="100000" onclick="choiceCash(event)"></td>
-							<td>100000원</td>
+							<td><label for="hundredThousand">100000원</label></td>
 							<td></td>
 						</tr>
 						<tr>
-							<td class="choice"><input type="radio" id="selfInput"
+							<td class="choice"><input id='self' type="radio" id="selfInput"
 								name="cash" value="" onclick="choiceCash(event)"></td>
-							<td>직접입력</td>
+							<td><label for="self">직접입력</label></td>
 							<td><input type="number" id="selfIn" min="1" max="1000000"
 								placeholder="충전금액을 입력해주세요" onkeyup="inputMoney();"></td>
 						</tr>
@@ -155,8 +166,8 @@ function moveBackFnc() {
 						<span id='afterPoint'></span>
 					</div>
 					<div id='btnWrap'>
-						<input type="submit" value="충전하기">
-						 <input type="button" value="뒤로가기" onclick="moveBackFnc();">
+						<input class="button" type="submit" value="충전하기">
+						 <input class="button" type="button" value="뒤로가기" onclick="moveBackFnc();">
 					</div>
 				</form>
 

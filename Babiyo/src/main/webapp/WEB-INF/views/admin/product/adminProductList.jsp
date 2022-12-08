@@ -31,7 +31,7 @@
 	float: left;
 }
 
-#sortBoxName, #searchBoxName{
+#sortBoxName{
 	margin: auto 0px;	
 	font-size: 16px;
 }
@@ -44,7 +44,7 @@
 }
 
 #searchBox{
-	width: 390px;
+	width: 352px;
 	height: 35px;
 	float: right;
 }
@@ -204,7 +204,7 @@
 			<!--여기서 작성 -->
 			<div id='productManagementDiv'>
 				<div id='filterAndSearch'>
-					<form method='post'>
+					<form action='./adminList.do' method='get'>
 						<div id='sortBox'>
 							<span id='sortBoxName'><strong>정렬</strong></span> 
 							<select name='sort' id="sort">
@@ -219,7 +219,6 @@
 							</select>
 						</div>
 						<div id='searchBox'>
-							<span id='searchBoxName'><strong>검색</strong></span> 
 							<select name='searchOption' id='searchOption'>
 								<option value=''>전체</option>
 								<option value='PRODUCT_NAME'>이름</option>
@@ -282,7 +281,7 @@
 				<jsp:include page="/WEB-INF/views/Paging.jsp" />
 			</div>
 
-			<form id="pagingForm" method="get">
+			<form action="./adminList.do" id="pagingForm" method="get">
 				<input type="hidden" id="curPage" name="curPage" value="${paging.curPage}">
 				<input type="hidden" id='searchVal' name="search" value="${searchOption.search}">
 				<input type="hidden" id='searchOptionVal' name="searchOption" value="${searchOption.searchOption}">

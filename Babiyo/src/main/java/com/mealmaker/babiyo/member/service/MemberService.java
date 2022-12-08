@@ -10,6 +10,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.mealmaker.babiyo.member.model.InterestDto;
 import com.mealmaker.babiyo.member.model.MemberDto;
+import com.mealmaker.babiyo.util.SearchOption;
 
 public interface MemberService {
 
@@ -32,6 +33,8 @@ public interface MemberService {
 	public void newPwd(MemberDto memberDto);
 	//회원 문의 건수
 	public Map<String, Integer> memberListCount(String id);
+	//회원 목록
+	public Map<String, Object> memberList(SearchOption searchOption, int curPage);
 	
 	
 	

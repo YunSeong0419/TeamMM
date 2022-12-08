@@ -38,9 +38,9 @@
 }
 
 #noticeTitle{
-	width: 550px;
+	width: 750px;
 	height: 30px;
-	padding-left: 50px;
+	padding-left: 80px;
 	line-height: 30px;
 	font-size: 14px;
 	float: left;
@@ -53,9 +53,9 @@
 }
 
 #noticeDate{
-	width: 150px;
+	width: 200px;
 	height: 30px;
-	padding-left: 30px;
+	padding-left: 80px;
 	line-height: 30px;
 	font-size: 14px;
 	text-align: center;
@@ -81,6 +81,7 @@
 	position: relative;
 }
 
+
 #eventImgDiv{
 	width: 1200px;
 	height: 300px;
@@ -89,6 +90,11 @@
 	line-height: 300px;
  	overflow: hidden;
  	white-space: nowrap;
+}
+
+#eventImgDiv > img{
+	width: 1200px;
+	height: 300px;
 }
 
 .eventImg{
@@ -263,18 +269,18 @@ function eventBannerMoveFnc(no){
 				<span><strong>공지사항</strong></span>
 			</div>
 			<c:choose>
-				<c:when test="${empty noticeDto}">
+				<c:when test="${empty mainLatestNotice}">
 					<p id='emptyMainNotice'>
 						공지가 없습니다.
-					</p>
+					</p>	
 				</c:when>
 				<c:otherwise>
 					<div id='noticeTitle'>
-						<a href="/babiyo/notice/detail.do?no=${noticeDto.no}">
-							${noticeDto.title}</a>
+						<a href="/babiyo/notice/detail.do?no=${mainLatestNotice.no}">
+							${mainLatestNotice.title}</a>
 					</div>
 					<div id='noticeDate'>
-						<fmt:formatDate pattern="yyyy-MM-dd" value="${noticeDto.createDate}" />
+						<fmt:formatDate pattern="yyyy-MM-dd" value="${mainLatestNotice.createDate}" />
 					</div>
 				</c:otherwise>
 			</c:choose>
@@ -287,9 +293,7 @@ function eventBannerMoveFnc(no){
 			<div id='eventImgDiv'>
 				<c:choose>
 					<c:when test="${empty eventImgList}">
-						<p id='emptyEventList'>
-							진행중인 이벤트가 없습니다. 빠른 시일 내로 준비하겠습니다!
-						</p>
+						<img alt="main image" src="/babiyo/resources/img/main.png">
 					</c:when>
 					<c:otherwise>
 					<div style="font-size: 0">

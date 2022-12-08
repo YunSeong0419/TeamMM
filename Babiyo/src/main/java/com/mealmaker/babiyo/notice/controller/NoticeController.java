@@ -50,7 +50,7 @@ public class NoticeController {
 		model.addAttribute("paging", paging);
 		model.addAttribute("searchOption", searchOption);
 
-		return "admin/notice/noticeList";
+		return "admin/notice/adminNoticeList";
 	}
 	
 	
@@ -80,7 +80,7 @@ public class NoticeController {
 	public String noticeWrite(HttpSession session, Model model) {
 		logger.info("Welcome NoticeController write! ");
 		
-		return "admin/notice/noticeWrite";
+		return "admin/notice/adminNoticeWrite";
 	}
 	
 	//공지 게시글 작성
@@ -110,7 +110,7 @@ public class NoticeController {
 		model.addAttribute("noticeDto", noticeDto2);
 		model.addAttribute("noticeImg", noticeImg);
 		 
-		return "admin/notice/noticeDetail";
+		return "admin/notice/adminNoticeDetail";
 	}
 	
 	//공지 상세 
@@ -147,7 +147,7 @@ public class NoticeController {
 		model.addAttribute("noticeDto", noticeDto);
 		model.addAttribute("noticeImg", noticeImg); 
 		
-		return "admin/notice/noticeUpate";
+		return "admin/notice/adminNoticeUpate";
 	}
 	
 	

@@ -27,6 +27,7 @@ span{
 	width: 100px;
 	height: 35px;
 	border-radius: 5px;
+	border: 1px solid black;
 }
 #daySpan{
 	margin-left: 10px;
@@ -36,12 +37,14 @@ span{
 	margin:10px 0px 0px 8px;
 	width: 842px;
 	height: 40px;
+	border: 1px solid black;	
 }
 
 #contentsId{
 	margin-top:10px;
 	width: 900px;
 	height: 350px;
+	border: 1px solid black;	
 }
 
 #eventStartDateId, #eventEndDateId{
@@ -49,6 +52,7 @@ span{
 	width: 100px;
 	height: 35px;
 	border-radius: 5px;
+	border: 1px solid black;
 }
 
 #imageDiv{
@@ -199,7 +203,7 @@ function backBtn(){
 				<span>제목</span><input name="title" id="titleId" type="text">
 			</div>
 			<div id="imageDiv">
-				<span>사진</span> <input name="originalName" class="imageId" type="file">
+				<span>사진</span> <input name="originalName" class="imageId" type="file"><br>
 			</div>
 			<div id="contentsDiv">
 				<span>내용</span><br> 

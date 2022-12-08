@@ -9,23 +9,35 @@
 <title>${_memberDto_.id}님 어서오세요</title>
 <style type="text/css">
 	#infoBox {
-		width: 800px;
+		width: 900px;
 		text-align: center;
 	}
 	#btnWrap{
 	margin: auto;
 	}
+	.charge{
+	width: 120px;
+	height: 40px;
+	font-size: 17px;
+	font-weight: bold;
+	background-color: #FF9436;
+	color: #fff;
+	border: none;
+	border-radius: 8px;
+	}
 	table {
 	text-align: center;
-	margin-left: 300px;
 	border: 1px solid black;
 	border-radius: 12px;
 	padding: 50px;
+	margin: auto;
 }
 	input{
 	width: 10%;
 	}
 	
+	p{
+	}
 
 
 </style>
@@ -73,8 +85,8 @@ function moveBackFnc() {
 					</table>
 					<div id='btnWrap'>	
 						<p>
-						<input type="button" id="charge" value="충전" onclick='moveChargeFnc();'>
-						<input type="button" value="뒤로 가기" onclick="moveBackFnc();">	
+						<input type="button" class="charge" value="충전" onclick='moveChargeFnc();'>
+						<input type="button" class="charge" value="뒤로 가기" onclick="moveBackFnc();">	
 						</p>
 					</div>	
 				</div>

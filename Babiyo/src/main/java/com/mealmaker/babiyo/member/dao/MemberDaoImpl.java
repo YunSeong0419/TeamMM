@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.mealmaker.babiyo.member.model.InterestDto;
 import com.mealmaker.babiyo.member.model.MemberDto;
+import com.mealmaker.babiyo.util.SearchOption;
 
 @Repository
 public class MemberDaoImpl implements MemberDao{
@@ -159,6 +160,29 @@ public class MemberDaoImpl implements MemberDao{
 		System.out.println(memberDto);
 		sqlSession.update(namespace + "newPwd", memberDto);
 	}
+
+	@Override
+	public int memberCount(SearchOption searchOption) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(namespace + "memberCount", searchOption);
+	}
+
+	@Override
+	public List<MemberDto> memberList(int begin, int end, SearchOption searchOption, int curPage) {
+		// TODO Auto-generated method stub
+Map<String, Object> paraMap = new HashMap<String, Object>();
+		
+		paraMap.put("begin", begin);
+		paraMap.put("end", end);
+		paraMap.put("curPage", curPage);
+		paraMap.put("search", searchOption.getSearch());
+		paraMap.put("searchOption", searchOption.getSearchOption());
+		paraMap.put("stateCode", searchOption.getStateCode());
+		
+		return sqlSession.selectList(namespace + "memberList", paraMap);
+	}
+	
+
 
 	
 

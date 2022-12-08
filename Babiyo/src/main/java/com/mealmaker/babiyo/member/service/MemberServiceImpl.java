@@ -16,8 +16,11 @@ import com.mealmaker.babiyo.inquiry.dao.InquiryDao;
 import com.mealmaker.babiyo.member.dao.MemberDao;
 import com.mealmaker.babiyo.member.model.InterestDto;
 import com.mealmaker.babiyo.member.model.MemberDto;
+import com.mealmaker.babiyo.notice.model.NoticeDto;
 import com.mealmaker.babiyo.order.dao.OrderDao;
 import com.mealmaker.babiyo.review.dao.ReviewDao;
+import com.mealmaker.babiyo.util.Paging;
+import com.mealmaker.babiyo.util.SearchOption;
 
 @Service
 public class MemberServiceImpl implements MemberService{
@@ -173,6 +176,26 @@ public class MemberServiceImpl implements MemberService{
 		map.put("inquiryCount", inquiryCount);
 		map.put("reviewCount", reviewCount);
 		
+		return map;
+	}
+
+	@Override
+	public Map<String, Object> memberList(SearchOption searchOption, int curPage) {
+		// TODO Auto-generated method stub
+		Map<String, Object> map = new HashMap<String, Object>();
+
+		int totalCount = memberDao.memberCount(searchOption);
+
+		Paging paging = new Paging(totalCount, curPage);
+
+		int begin = paging.getPageBegin();
+		int end = paging.getPageEnd();
+
+		List<MemberDto> memberList = memberDao.memberList(begin, end, searchOption, curPage);
+
+		map.put("paging", paging);
+		map.put("memberList", memberList);
+
 		return map;
 	}
 

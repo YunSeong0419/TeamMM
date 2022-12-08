@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.mealmaker.babiyo.member.model.InterestDto;
 import com.mealmaker.babiyo.member.model.MemberDto;
 import com.mealmaker.babiyo.member.service.MemberService;
+import com.mealmaker.babiyo.util.Paging;
+import com.mealmaker.babiyo.util.SearchOption;
 
 // 어노테이션 드리븐
 @Controller
@@ -301,11 +303,11 @@ public class MemberController {
 	
 	// 회원정보
 	@RequestMapping(value = "/member/memberInfo.do", method = RequestMethod.GET)
-	public String memberInfo(HttpSession session, Model model) {
+	public String memberInfo(HttpSession session, Model model, String id) {
 		logger.info("Welcome MemberController memberInfo! ");
 		
 		MemberDto memberDto = (MemberDto) session.getAttribute("_memberDto_"); 
-		String id = memberDto.getId();
+		id = memberDto.getId();
 		memberService.memberListCount(id);
 		
 		Map<String, Integer> countMap = memberService.memberListCount(id);
@@ -319,6 +321,26 @@ public class MemberController {
 		logger.info("Welcome MemberController memberCash! ");
 		
 		return "/member/MemberCash";
+	}
+	
+	@RequestMapping(value = "/admin/member/memberList.do")
+	public String adminMemberList(@RequestParam(defaultValue = "1") int curPage
+			, SearchOption searchOption
+			, HttpSession session, Model model) {
+		logger.info("Welcome NoticeController Memberlist! ");
+		
+		Map<String, Object> map = memberService.memberList(searchOption, curPage);
+		
+		// 리스트
+		@SuppressWarnings("unchecked")
+		List<MemberDto> memberList = (List<MemberDto>) map.get("memberList");
+		Paging paging = (Paging) map.get("paging");
+		
+		model.addAttribute("memberList", memberList);
+		model.addAttribute("paging", paging);
+		model.addAttribute("searchOption", searchOption);
+
+		return "/admin/member/memberList";
 	}
 
 
