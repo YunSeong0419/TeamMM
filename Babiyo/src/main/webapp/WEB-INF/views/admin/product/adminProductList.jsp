@@ -281,7 +281,7 @@
 				<jsp:include page="/WEB-INF/views/Paging.jsp" />
 			</div>
 
-			<form id="pagingForm" method="get">
+			<form action="./adminList.do" id="pagingForm" method="get">
 				<input type="hidden" id="curPage" name="curPage" value="${paging.curPage}">
 				<input type="hidden" id='searchVal' name="search" value="${searchOption.search}">
 				<input type="hidden" id='searchOptionVal' name="searchOption" value="${searchOption.searchOption}">
