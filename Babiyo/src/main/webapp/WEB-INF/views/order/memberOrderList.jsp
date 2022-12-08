@@ -19,6 +19,7 @@
 }
 
 #orderList{
+	margin-top: 10px;
 	min-height: 400px;
 }
 
@@ -76,7 +77,7 @@
 }
 
 #searchOption{
-	margin: 5px 50px;
+	margin: 0px 50px;
 }
 
 .inputBox{

@@ -76,12 +76,17 @@
 	margin-left: 20px;
 }
 
-#searchKeword{
-	float: right;
-}
 
 #stateCodeSel{
 	width: 60px;
+}
+
+#stateSelect, #periodSelect, #searchKeword, #search, #searchBtn{
+	display: inline-block;
+}
+
+#searchKeword{
+	float: right;
 }
 
 #search{
@@ -96,6 +101,8 @@
     color: #fff;
     background-color: #FF9436;
     font-size: 16px;
+    float: right;
+    margin-left: 6px;
 }
 
 #beginDate, #endDate{
@@ -191,7 +198,7 @@ function stateSelectFnc(){
 			
 			<form id="searchOption" method="get">
 				<div id="searchOptionContainer">
-					<span>
+					<div id="stateSelect">
 						<strong>상태</strong>
 						<select id="stateCodeSel" class="inputBox" name="stateCode" onchange="stateSelectFnc();">
 							<option value="0">전체</option>
@@ -199,8 +206,8 @@ function stateSelectFnc(){
 							<option value="${state.CODE}">${state.NAME}</option>
 							</c:forEach>
 						</select>
-					</span>
-					<span id="periodSelect">
+					</div>
+					<div id="periodSelect">
 						<strong>기간</strong>
 						<input type="date" name="beginDate" id="beginDate" class="inputBox" onchange="stateSelectFnc();"
 							max="<fmt:formatDate value="${searchOption.endDate}" pattern="yyyy-MM-dd"/>"
@@ -208,12 +215,14 @@ function stateSelectFnc(){
 						 ~ 
 						<input type="date" name="endDate" id="endDate" class="inputBox"	max="${today}"
 							value="<fmt:formatDate value="${searchOption.endDate}" pattern="yyyy-MM-dd"/>">
-					</span>
-					<span id="searchKeword">
+					</div>
+					<div id="searchKeword">
 						<input type="text" name="search" id="search" class="inputBox" value="${searchOption.search}"
 							placeholder="회원아이디 입력">
+							
 						<input id="searchBtn" type="submit" value="검색">
-					</span>
+					</div>
+					
 				</div>
 			</form>
 			

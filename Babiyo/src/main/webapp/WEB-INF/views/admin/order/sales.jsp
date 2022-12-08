@@ -76,6 +76,18 @@
 	width: 100px;
 }
 
+#searchBtn{
+    width: 60px;
+    height: 35px;
+    border: 0px;
+    border-radius: 5px;
+    color: #fff;
+    background-color: #FF9436;
+    font-size: 16px;
+    float: right;
+    margin-left: 6px;
+}
+
 #beginDateContainer, #endDateContainer{
 	display: inline-block;
 	margin-left: 10px;
@@ -408,7 +420,7 @@ function yearSelFnc(){
 						</select>
 						<input type="text" name="search" id="search" class="inputBox"
 							 value="${searchOption.search}" placeholder="검색어 입력">
-						<input type="submit" value="검색">
+						<input id="searchBtn" type="submit" value="검색">
 						
 						<input id="searchOptionVal" type="hidden" value="${searchOption.searchOption}">
 						<input id="sortVal" type="hidden" value="${searchOption.sort}">
