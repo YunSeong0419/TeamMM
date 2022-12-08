@@ -127,7 +127,7 @@ function stateSelectFnc(){
 		
 			<div id="searchOption">
 				<form id="stateForm" method="get">
-					<span>상태</span>
+					<strong>상태</strong>
 					<select id="stateSelect" name="stateCode" class="inputBox" onchange="stateSelectFnc();">
 					<option value="0">전체</option>
 					<c:forEach items="${stateList}" var="state">

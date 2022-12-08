@@ -14,31 +14,25 @@
 
 <style type="text/css">
 #stateContainer{
-	width: 400px;
-	margin: auto;
-	border: 2px solid black;
-	border-radius: 10px;
+	text-align: center;
 }
 
 #orderState, #inquiryState{
+	display: inline-block;
 	width: 200px;
 	height: 80px;
 }
-#orderState{
-	float: left;
-	border-right: 1px solid black;
-}
 
 #inquiryState{
-	margin-left: 198px;
-	border-left: 1px solid black;
+	margin-left: 10px;
 }
 
 .stateTitle{
 	height: 30px;
 	line-height: 30px;
 	text-align: center;
-	border-bottom: 2px solid black;
+	background-color: #FF9436;
+	color: #fff;
 }
 
 .stateContent{
@@ -49,13 +43,42 @@
 
 .stateCount{
 	display: inline-block;
-	width: 120px;
+	margin-right: 10px;
+	text-align: right;
+	width: 80px;
 }
 
-a{
+.stateCount a{
 	text-decoration: none;
 	color: black;
 }
+
+#orderTitle{
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+}
+
+#inquiryTitle{
+	border-top-right-radius: 10px;
+	border-top-left-radius: 10px;
+}
+
+#orderContent{
+	border: 2px solid #FF9436;
+	border-top: 0;
+	border-bottom-left-radius: 10px;
+	border-bottom-right-radius: 10px;
+}
+
+#inquiryContent{
+	border: 2px solid #FF9436;
+	border-top: 0;
+	border-bottom-left-radius: 10px;
+	border-bottom-right-radius: 10px;
+}
+
+
+
 
 </style>
 
@@ -162,19 +185,19 @@ $(function(){
 			
 			<div id="stateContainer">
 				<div id="orderState">
-					<div class="stateTitle">
-						<span><strong>대기 주문</strong></span>
+					<div id="orderTitle" class="stateTitle">
+						<span><strong>대기중인 주문</strong></span>
 					</div>
-					<div class="stateContent">
+					<div id="orderContent" class="stateContent">
 						<span class="stateCount"><a href="./orderList.do">${countMap.orderCount}</a></span>
 						<span>건</span>
 					</div>
 				</div>
 				<div id="inquiryState">
-					<div class="stateTitle">
-						<span><strong>대기 문의</strong></span>
+					<div id="inquiryTitle" class="stateTitle">
+						<span><strong>답변하지 않은문의</strong></span>
 					</div>
-					<div class="stateContent">
+					<div id="inquiryContent" class="stateContent">
 						<span class="stateCount"><a href="../inquiry/admin.do">${countMap.inquiryCount}</a></span>
 						<span>건</span>
 					</div>
@@ -182,10 +205,12 @@ $(function(){
 			</div>
 			
 			
-			
+			<h1 style="text-align: center;">일일 매출</h1>
 			<canvas id="salse" style="width: 800px; height: 200px; margin: 50px auto"></canvas>
+			
+			
+			<h1 style="text-align: center;">제품별 판매량</h1>
 			<canvas id="salseVolume" style="width: 800px; height: 200px; margin: 50px auto"></canvas>
-		
 		
 			<div id="underPadding"></div>
 			
