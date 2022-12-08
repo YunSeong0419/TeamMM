@@ -172,7 +172,7 @@
 			<!--여기서 작성 -->
 			<div id='reviewManagementDiv'>
 				<div id='filterAndSearch'>
-					<form method='post'>
+					<form action='./adminList.do' method='post'>
 						<div id='sortBox'>
 							<span id='sortBoxName'><strong>정렬</strong></span> 
 							<select name='sort' id="sort">

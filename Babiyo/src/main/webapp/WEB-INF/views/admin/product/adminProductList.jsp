@@ -204,7 +204,7 @@
 			<!--여기서 작성 -->
 			<div id='productManagementDiv'>
 				<div id='filterAndSearch'>
-					<form method='post'>
+					<form action='./adminList.do' method='get'>
 						<div id='sortBox'>
 							<span id='sortBoxName'><strong>정렬</strong></span> 
 							<select name='sort' id="sort">
