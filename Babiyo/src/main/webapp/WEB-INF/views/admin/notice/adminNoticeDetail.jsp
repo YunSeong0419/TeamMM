@@ -11,6 +11,7 @@
 <style type="text/css">
 input{
 	border-radius: 5px;
+	border: 1px solid black;
 }
 
 #boxDiv{
@@ -73,10 +74,6 @@ span{
 	height: 350px;
 }
 
-#imageDiv{
-	margin-top: 10px;
-}
-
 #btnDiv{
 	width: 920px;
 	margin-top: 25px;
@@ -107,6 +104,15 @@ span{
 
 .clear{
 	clear: both;
+}
+
+#imgSize{
+	width: 800px;
+}
+
+#imgDiv{
+	width: 900px;
+	border: 1px solid black;
 }
 
 </style>
@@ -174,11 +180,17 @@ function modifytBtn(no) {
 					<input type="text" name="title" id="titleId"
 							 value="${noticeDto.title}" readonly>
 				</div>
+				<c:if test="${!empty noticeImg}">
+				<br>
+					<div id="imgDiv">
+						<img id="imgSize" alt="" src="/babiyo/img/${noticeImg.STORED_NAME}"><br>
+					</div>
+				<br>
+				</c:if>
 				<span>내용</span>	<br> 
-				<input type="text" name="content" id="contentsId"
-						 value="${noticeDto.content}" readonly>
+				
+				<textarea name="content" id="contentsId" readonly>${noticeDto.content}</textarea>
 				<div id="btnDiv">
-				<img alt="" src="/babiyo/img/${noticeImg.STORED_NAME}"><br>
 				<input class="backBtn" type="button" value="뒤로가기" onclick="backBtn()">
 				<c:if test="${_memberDto_.grade eq 1}">
 				<input class="modifytBtn"  type="button" value="수정하기" onclick="modifytBtn(${noticeDto.no})">

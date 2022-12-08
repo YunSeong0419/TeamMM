@@ -11,6 +11,7 @@
 <style type="text/css">
 input{
 	border-radius: 5px;
+	border: 1px solid black;
 }
 
 #boxDiv{
@@ -109,6 +110,15 @@ span{
 	clear: both;
 }
 
+#imgSize{
+	width: 800px;
+}
+
+#imgDiv{
+	width: 900px;
+	border: 1px solid black;
+}
+
 </style>
 
 <link rel="stylesheet" type="text/css" href="/babiyo/resources/css/common.css"/>
@@ -164,13 +174,18 @@ function backBtn(){
 				<input type="text" name="title" id="titleId"
 						 value="${noticeDto.title}" readonly>
 			</div>
+			<br>
+			<c:if test="${!empty noticeImg}">
+			<div id="imgDiv">
+				<img id="imgSize" alt="" src="/babiyo/img/${noticeImg.STORED_NAME}"><br>
+			</div>
+			</c:if>
+			<br>
 			<span>내용</span><br> 
 			
-			<input type="text" name="content" id="contentsId"
-					 value="${noticeDto.content}" readonly>
+			<textarea name="content" id="contentsId" readonly>${noticeDto.content}</textarea>
 					 
 			<div id="btnDiv">
-				<img alt="" src="/babiyo/img/${noticeImg.STORED_NAME}"><br>
 				<input class="backBtn" type="button" value="뒤로가기" onclick="backBtn()">
 			</div>
 		</div>

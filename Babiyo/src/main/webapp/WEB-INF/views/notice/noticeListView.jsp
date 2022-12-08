@@ -32,7 +32,6 @@ a{
 
 span{
 	font-weight: bold;
-	margin-right: 20px;
 }
 
 #filterDiv{
@@ -49,18 +48,17 @@ span{
 	height: 35px;
 	line-height: 35px;
 	border-radius: 5px;
-	margin: 0px 5px 10px 10px;
 }
 
  #searchSelect{
 	width: 100px;
 	height: 35px;
 	border-radius: 5px;
-	margin: 0px 5px 10px 40px;
+	margin: 0px 0px 10px 63px;
 }
 
 #searchFrom{
-	margin-left: 513px;
+	margin-left: 500px;
 }
 
 .searchCl{
@@ -79,7 +77,6 @@ span{
 }
 
 #noticeList{
-	margin-top: 10px;
 	min-height: 400px;
 }
 
@@ -116,7 +113,6 @@ span{
 }
 
 #searchBoxBtn {
-    margin-left: 5px;
     padding-bottom: 3px;
     width: 60px;
     height: 35px;
@@ -207,7 +203,7 @@ $(document).ready(function(){
 							<th id="noticeNoTh">번호</th>
 							<th id="noticeCategoryNameTh">분류</th>
 							<th id="titleTh">공지제목</th>
-							<th id="createTh">날짜</th>
+							<th id="createTh">작성일</th>
 							<th id="hitTh">조회수</th>
 						</tr>
 

@@ -19,10 +19,6 @@ th{
     height: 30px;
 }
 
-tr{
-	border-bottom: 2px solid #FF9436;
-}
-
 td{
 	height: 35px;
 	border-bottom: 2px solid #FF9436;
@@ -36,16 +32,15 @@ a{
 
 span{
 	font-weight: bold;
-	margin-right: 20px;
 }
 
 #filterDiv{
 	margin: auto;
-	width: 912px;
+	width: 900px;
 }
 
-#divisionId{
-	margin-left: 6px;
+#divisionId, #YesNo{
+	line-height: 30px;
 }
 
 .memberCL{
@@ -56,26 +51,20 @@ span{
 	height: 35px;
 	border-radius: 5px;
 	line-height: 35px;
-	
+	border: 1px solid black;
 }
 
 #submitBtn{
-	width: 64px;
+    width: 60px;
     height: 35px;
     border: 0px;
     border-radius: 5px;
     color: #fff;
     background-color: #FF9436;
-	cursor: pointer;
+    font-size: 16px;
+    float: right;
+    margin-left: 6px;
 }
-
-#YesNo{
-	line-height: 35px;
-}
-
-#YesNo, #answerSelect{
- 	float: right;
-} 
 
 #answerSelect{
 	margin-right: 80px;
@@ -83,9 +72,9 @@ span{
 
 #categorySelect, #answerSelect{
 	width: 100px;
-	height: 34px;
+	height: 35px;
 	border-radius: 5px;
-	margin: 0px 5px 10px 10px;
+	margin: 0px 5px 0px 0px;
 }
 
 #memberId{
@@ -93,7 +82,7 @@ span{
 }
 
 #inquiryList{
-	margin-top: 10px;
+	margin-top:10px;	
 	min-height: 400px;
 }
 
@@ -105,24 +94,24 @@ span{
 	background-color: #E0E0E0;
 }
 
-#inquiryNoTh{
+#inquiryNoTh {
 	width: 50px;
 }
 
-#inquiryCategoryTh{
-	width: 70px;
+#inquiryCategoryTh {
+	width: 100px;
 }
 
-#titleTh{
-	width: 543px;
+#titleTh {
+	width: 400px;
 }
 
 #memberTh{
-	width: 67px;
+	width: 150px;
 }
 
-#createTh{
-	width: 120px;
+#createTh {
+	width: 150px;
 }
 
 #answerTh {
@@ -183,6 +172,7 @@ span{
 				<!--여기서 작성 -->
 				<div id="filterDiv">
 					<form id="filterForm" action="./admin.do" method="get">
+					
 						<span id="divisionId">분류</span>
 						<select id="categorySelect" name="categoryCode"
 							onchange="categorySelectFnc();">
@@ -191,17 +181,21 @@ span{
 							<option value="${category.CODE}">${category.NAME}</option>
 						</c:forEach>
 						</select>
+						
+						<span id="YesNo">답변여부</span> 
 						<select id="answerSelect" name="answerState"
 							onchange="answerSelectFnc();">
 							<option value="0">전체</option>
 							<option value="1">완료된 답변</option>
 							<option value="2">대기중 답변</option>
 						</select>
-						<span id="YesNo">답변여부</span> 
-						<span class="memberCL">작성자</span>
-						<input type="hidden" id="hiddenSearch" value="${searchMap.search}">
-						<input id="searchId" type="text" name="search">
-						<input id="submitBtn" type="submit" value="검색">
+						
+						<div style="float: right;">
+							<span class="memberCL">작성자</span>
+							<input type="hidden" id="hiddenSearch" value="${searchMap.search}">
+							<input id="searchId" type="text" name="search">
+							<input id="submitBtn" type="submit" value="검색">
+						</div>
 					</form>
 				</div>
 					<div id="inquiryList">
@@ -219,8 +213,8 @@ span{
 						<c:choose>
 							<c:when test="${empty adminList}">
 								<tr>
-									<td colspan="5"
-										style="width: 900px; height: 400px; font-weight: bold; text-align: center;">
+									<td colspan="6"
+										style="width: 900px; height: 350px; font-weight: bold; text-align: center;">
 										문의가 존재하지 않습니다</td>
 								</tr>
 							</c:when>

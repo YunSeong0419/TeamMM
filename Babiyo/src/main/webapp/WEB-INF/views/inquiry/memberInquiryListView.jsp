@@ -36,7 +36,6 @@ a{
 
 span{
 	font-weight: bold;
-	margin-right: 20px;
 }
 
 #filterDiv{
@@ -64,11 +63,11 @@ span{
 	width: 100px;
 	height: 35px;
 	border-radius: 5px;
-	margin: 0px 5px 10px 10px;
+	margin: 0px 5px 0px 0px;
 }
 
 #inquiryList{
-	margin-top: 5px;
+	margin-top:10px;
 	min-height: 400px;
 }
 

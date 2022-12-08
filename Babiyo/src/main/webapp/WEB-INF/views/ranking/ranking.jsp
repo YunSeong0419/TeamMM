@@ -13,32 +13,47 @@
 <style type="text/css">
 ul{
 	list-style: none;
+	padding: 0;
 }
 
 #boxDiv {
 	margin: auto;
+	text-align: center;
 }
 
-#rankingDiv {
-	margin-top: 10px;
-	float: left;
+.rankingDiv {
+	display: inline-block;
+	width: 450px;
+ 	height: 350px; 
+ 	margin: 0px 20px;
 }
 
-#ulId {
+.ulId {
+    position: relative;
+    box-sizing: border-box;
+    border: 4px solid #FF9436;
+    border-radius: 20px;
 	text-align:center;
-	margin: auto;
-	height: 300px;
-	width: 600px;
+	height: 325px;
+	width: 450px;
 }
 
-#rankIi{
-	font-size: 30px;
+.rankIi{
+	border-top-left-radius:10px;
+	border-top-right-radius:10px;
+	width: 443px;
+	height: 50px;
+	background-color: #FF9436;
+	color: white;
+	font-size: 25px;
 	font-weight: bold;
 }
 
+
+
 ul > .listCl{
-	margin-top: 30px;
-	margin-left: 150px;
+	margin-top: 20px;
+	margin-left: 50px;
 	font-size: 20px;
 	font-weight: bold;
 	text-align: left;
@@ -55,43 +70,43 @@ ul > .listCl{
 	<div id="middleDiv">
 		<div id='centerTitle'></div>
 		<!--여기서 작성 -->
-		     <div id="boxDiv">
-		       	<div id="rankingDiv">
-				<ul id="ulId">
-					<li id="rankIi">오늘 판매량 순위</li>
+		  <div id="boxDiv">
+		     <div class="rankingDiv">
+				<ul class="ulId">
+					<li class="rankIi"><span>오늘 판매량 순위</span></li>
 					<c:forEach items="${toDayList}" var="ranking" varStatus="status">
 						<li class="listCl">${status.count}위&nbsp;&nbsp;&nbsp;${ranking}</li>
 					</c:forEach>
 				</ul>
-		     	 </div>
+		   </div>
 			
-				<div id="rankingDiv">
-				<ul id="ulId">
-					<li id="rankIi">주간 판매량 순위</li>
+		   <div class="rankingDiv">
+				<ul class="ulId">
+					<li class="rankIi">주간 판매량 순위</li>
 					<c:forEach items="${weeklyList}" var="ranking" varStatus="status">
 						<li class="listCl">${status.count}위&nbsp;&nbsp;&nbsp;${ranking}</li>
 					</c:forEach>
 				</ul>
-		     	 </div>
+		    </div>
 
-			<div id="rankingDiv">
-				<ul id="ulId">
-					<li id="rankIi">남성 판매량 순위</li>
+			<div class="rankingDiv">
+				<ul class="ulId">
+					<li class="rankIi">남성 판매량 순위</li>
 					<c:forEach items="${manList}" var="ranking" varStatus="status">
-						<li class="listCl">${status.count}위&nbsp;&nbsp;&nbsp;${ranking}</li>
+					<li class="listCl">${status.count}위&nbsp;&nbsp;&nbsp;${ranking}</li>
 					</c:forEach>
 				</ul>
-		     	 </div>
+		    </div>
 
-			<div id="rankingDiv">
-				<ul id="ulId">
-					<li id="rankIi">여성 판매량 순위</li>
+			<div class="rankingDiv">
+				<ul class="ulId">
+					<li class="rankIi">여성 판매량 순위</li>
 					<c:forEach items="${womanList}" var="ranking" varStatus="status">
-						<li class="listCl">${status.index}위&nbsp;&nbsp;&nbsp;${ranking}</li>
+					<li class="listCl">${status.count}위&nbsp;&nbsp;&nbsp;${ranking}</li>
 					</c:forEach>
 				</ul>
-		     	 </div>
-		      </div>
+		     </div>
+		    </div>
 	
 		<div id="underPadding"></div>
 		

@@ -30,6 +30,7 @@ span{
 	width: 100px;
 	height: 35px;
 	border-radius: 5px;
+	border: 1px solid;
 }
 
 #daySpan{
@@ -40,12 +41,14 @@ span{
 	margin:10px 0px 0px 16px;
 	width: 838px;
 	height: 40px;
+	border: 1px solid;
 }
 
 #contentsId{
 	margin-top:10px;
 	width: 900px;
 	height: 350px;
+	border: 1px solid;
 }
 
 #eventStartDateId, #eventEndDateId{
@@ -53,6 +56,7 @@ span{
 	width: 150px;
 	height: 35px;
 	border-radius: 5px;
+	border: 1px solid;
 }
 
 #SecondDiv{
@@ -63,6 +67,7 @@ span{
 	width: 100px;
 	height: 35px;
 	border-radius: 5px;
+	border: 1px solid;
 }
 
 #lookSpan{
@@ -74,10 +79,18 @@ span{
 	width: 100px;
 	height: 35px;
 	border-radius: 5px;
+	border: 1px solid;
 }
 
-#imageDiv{
+#imgSize{
 	margin-top: 10px;
+	width: 800px;
+	height: 300px;
+}
+
+.imgCl{
+	font-weight: bold;
+	border: none;
 }
 
 #fileContent{
@@ -207,8 +220,8 @@ function deleteFileFnc() {
 	
 	var htmlStr = "";
 	
-	htmlStr += '<span>이미지</span><br>사진 <input name="file" id="imageId" type="file">';
-	htmlStr += '<a href="#this" id="" onclick="deleteFileFnc();">삭제</a>';
+	htmlStr += '<span class="imgCl">사진 </span><br><input name="file" class="imgCl" type="file">';
+	htmlStr += '<a href="#this" class="imgCl" onclick="deleteFileFnc();">삭제</a>';
 	
 	obj.html(htmlStr);
 }
@@ -261,6 +274,7 @@ function pageMoveDeleteFnc(no){
 				
 						</div> 
 					
+					
 					<div id="SecondDiv">
 					<span>작성일</span>
 					<input type="text" id="createDateId"
@@ -272,30 +286,37 @@ function pageMoveDeleteFnc(no){
 					<span>제목</span>
 					<input type="text" name="title" id="titleId" value="${noticeDto.title}">
 					</div>
-					<div>
-						<span>내용</span><br>
-						<input type="text" name="content" id="contentsId" value="${noticeDto.content}">
-					</div>
 					
 					<div>
 						<div id='fileContent'>
-							<span>이미지</span><br>
+							<span class="imgCl">이미지</span><br>
 							<c:choose>		
 							<c:when test="${!empty noticeImg}">
 							<div>
 								<input type="hidden" name="imgNo" value="${noticeImg.NO}">
-								<img alt="image not found" src="/babiyo/img/${noticeImg.STORED_NAME}">
-									${noticeImg.ORIGINAL_NAME}
+								<div style="border: 1px solid black; width: 900px; overflow: auto;">
+									<img id="imgSize" alt="image not found" src="/babiyo/img/${noticeImg.STORED_NAME}">
+								</div>
+								${noticeImg.ORIGINAL_NAME}
 								<a href="#this" id="delete">삭제</a>
 							</div>
 							</c:when>
 							<c:otherwise>
-								사진 <input name="file" id="imageId" type="file">
-								<a href="#this" id="delete">삭제</a>
+								<span class="imageCl">사진</span>
+								<input name="file"  type="file">
+								<a href="#this" class="imgCl" onclick="deleteFileFnc();">삭제</a>
 							</c:otherwise>  
 							</c:choose>
 						</div>	
 					</div>
+					
+					
+					<div>
+						<span>내용</span><br>
+						<textarea name="content" id="contentsId">${noticeDto.content}</textarea>
+					</div>
+					
+					
 					<div id="btnDiv">
 						<input class="backBtn" type="button" value="뒤로가기" onclick="pageMoveBeforeFnc(${noticeDto.no});">
 					<c:if test="${_memberDto_.grade eq 1}">
