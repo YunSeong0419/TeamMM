@@ -28,7 +28,7 @@
 				<div id='verticalSideMemberMenuBar'>
 					<div><a id='memberInfo' href="/babiyo/member/memberInfo.do">내 정보</a></div>
 					<div><a id='memberOrderList' href="/babiyo/member/orderList.do">주문내역</a></div>
-					<div><a id='memberReviewList' href="/babiyo/review/myReview.do">내 리뷰</a></div>
+<!-- 					<div><a id='memberReviewList' href="/babiyo/review/myReview.do">내 리뷰</a></div> -->
 					<div><a id='memberInquiryList' href="/babiyo/inquiry/member.do">내 문의</a></div>
 					<div><a id='memberShoppingCart' href="/babiyo/cart/cartView.do">장바구니</a></div>
 					<div><a id='memberBookmark' href="/babiyo/favorite/favoriteView.do">즐겨찾기</a></div>

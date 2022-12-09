@@ -36,6 +36,21 @@ public class ReviewController {
 	@Resource
 	private ProductService productService;
 	
+	//회원-밀키트 상세-리뷰 등록 페이지로 이동
+	@RequestMapping(value = "/review/write.do", method = RequestMethod.GET)
+	public String writeReview(Model model, HttpSession session) {
+		logger.info("ReviewController writeReview!");
+		
+		MemberDto memberDto = (MemberDto) session.getAttribute("_memberDto_");
+		String memberId = memberDto.getId();
+		
+		List<Map<String, Object>> productList = reviewService.writeReview(memberId);
+		
+		model.addAttribute("productList", productList);
+		
+		return "review/reviewWrite";
+	}
+	
 	//헤더-리뷰 모음
 	@RequestMapping(value = "/review/collection.do", method = RequestMethod.GET)
 	public String reviewCollection(Model model) {
@@ -60,7 +75,7 @@ public class ReviewController {
 
 		model.addAttribute("reviewDetail", reviewDetail);
 			
-		return "review/detail";
+		return "review/reviewDetail";
 	}
 		
 	//관리자-리뷰 관리(목록)
@@ -84,46 +99,44 @@ public class ReviewController {
 		return "admin/review/adminReviewList";
 	}
 	
-	//회원-밀키트 상세-리뷰 등록 페이지로 이동
-	@RequestMapping(value = "/review/write.do", method = RequestMethod.GET)
-	public String writeReview(Model model) {
-		logger.info("ReviewController writeReview!");
-		
-		return "review/write";
-	}
 
 	//회원-밀키트 상세-리뷰 등록(등록 후 리뷰 쓰기 버튼이 있던 회원-밀키트 상세로 돌아감.)
 	@RequestMapping(value = "/review/writeCtr.do", method = RequestMethod.POST)
-	public String reviewRegistration(ProductDto productDto, ReviewDto reviewDto, 
-		MultipartHttpServletRequest multipartHttpServletRequest, Model model) {
+	public String reviewRegistration(ReviewDto reviewDto, 
+		MultipartHttpServletRequest mulRequest, Model model, HttpSession session) {
 		logger.info("ReviewController reviewRegistration 리뷰 등록 완료!" + reviewDto);
 		
-		int productNo = productDto.getNo();
+		MemberDto memberDto = (MemberDto) session.getAttribute("_memberDto_");
+		
+		reviewDto.setMemberId(memberDto.getId());
+		
+		int productNo = reviewDto.getProductNo();
 		
 		try {
-			reviewService.reviewRegistration(reviewDto, multipartHttpServletRequest);
+			reviewService.reviewRegistration(reviewDto, mulRequest);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "redirect:/product/detail.do?no=" + productNo;
+		
+		return "redirect:/product/detail.do?productNo=" + productNo;
 	}
 	
 
-	//회원-내 정보-내가 쓴 리뷰로 가기
-	@RequestMapping(value = "/review/myReview.do", method = RequestMethod.GET)
-	public String myReview(Model model) {
-		logger.info("ReviewController myReview!");
-		
-		return "review/myReview";
-	}
+//	//회원-내 정보-내가 쓴 리뷰로 가기
+//	@RequestMapping(value = "/review/myReview.do", method = RequestMethod.GET)
+//	public String myReview(Model model) {
+//		logger.info("ReviewController myReview!");
+//		
+//		return "review/myReview";
+//	}
 	
-	//관리자-리뷰 관리-상세
-	@RequestMapping(value = "/review/adminDetail.do", method = RequestMethod.GET)
-	public String adminReviewDetail(Model model) {
-		logger.info("ReviewController collection! ");
-		
-		return "admin/review/adminReviewDetail";
-	}	
+//	//관리자-리뷰 관리-상세
+//	@RequestMapping(value = "/review/adminDetail.do", method = RequestMethod.GET)
+//	public String adminReviewDetail(Model model) {
+//		logger.info("ReviewController collection! ");
+//		
+//		return "admin/review/adminReviewDetail";
+//	}	
 	
 	//오븐 39p 회원-리뷰 상세-리뷰 수정 페이지로 이동
 //	@RequestMapping(value = "/review/modification.do", method = RequestMethod.GET)

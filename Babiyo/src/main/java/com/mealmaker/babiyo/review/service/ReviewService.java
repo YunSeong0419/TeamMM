@@ -29,4 +29,5 @@ public interface ReviewService {
 	//???
 	public Map<String, Object> productReviewInfo(int productNo);
 	List<Map<String, Object>> productReviewList(SearchOption searchOption, int begin, int end);
+	List<Map<String, Object>> writeReview(String memberId);
 }

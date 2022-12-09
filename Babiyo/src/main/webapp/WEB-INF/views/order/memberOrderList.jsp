@@ -109,6 +109,12 @@ function stateSelectFnc(){
 	
 }
 
+function reviewWrite(){
+	
+	location.href = '/babiyo/review/write.do';
+	
+}
+
 </script>
 
 </head>
@@ -169,7 +175,7 @@ function stateSelectFnc(){
 							<input type="button" value="취소" onclick="cancelFnc(${order.no});">
 							</c:when>
 							<c:when test="${order.stateCode eq 2}">
-							<input type="button" value="리뷰쓰기">
+							<input type="button" value="리뷰쓰기" onclick="reviewWrite();">
 							</c:when>
 						</c:choose>
 						</td>

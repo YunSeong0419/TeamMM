@@ -125,9 +125,8 @@
 	border-radius: 5px;
 	background-color: #FF9436;
 	color: #fff;
+	cursor: pointer;
 }
-
-
 
 
 </style>
@@ -163,6 +162,12 @@ function acceptFnc(no){
 		$('#orderInfoForm').attr('action','./accept.do');
 		$('#orderInfoForm').submit();
 	}
+}
+
+function reviewWrite(){
+	
+	location.href = '/babiyo/review/write.do';
+	
 }
 
 
@@ -264,7 +269,7 @@ function acceptFnc(no){
 				<c:choose>
 				<c:when test="${orderMap.orderDto.stateName eq '완료'}">
 					<c:if test="${_memberDto_.grade eq 2}">
-						<input id="reviewBtn" class="btn" type="button" value="리뷰쓰기">
+						<input id="reviewBtn" class="btn" type="button" value="리뷰쓰기" onclick="reviewWrite()">
 					</c:if>
 				</c:when>
 				<c:when test="${orderMap.orderDto.stateName eq '대기'}">

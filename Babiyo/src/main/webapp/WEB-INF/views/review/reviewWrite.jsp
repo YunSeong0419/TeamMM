@@ -34,6 +34,11 @@
 	height: 150px;
 }
 
+#productImage > img{
+	width: 150px;
+	height: 150px;
+}
+
 #productSelectBox{
 	height: 50px;
 	line-height: 50px;
@@ -176,7 +181,7 @@
 
 <script type="text/javascript">
 	const drawStar = (target) => {
-		var widthVal = $(target).val() * 10 + '%';
+		var widthVal = $(target).val() * 20 + '%';
 		
 		$('.star span').css({width: widthVal});
 	}
@@ -213,6 +218,16 @@
 			return false;
 		}
 	}
+	
+	function selectProductChangeImg(obj){
+		let productNo = $(obj).val();
+		
+		let src = '/babiyo/img/' + $('#productImg' + productNo).val();
+		
+		$('#productImg').attr('src', src);
+	}
+	
+	
 </script>
 
 </head>
@@ -230,55 +245,61 @@
 			<div id="sideTitle"></div>
 			<!--여기서 작성 -->
 			<div id='writeDiv'>
-				<form action='/babiyo/review/writeCtr.do' method='post' name='frm'
+				<form action='./writeCtr.do' method='post' name='frm'
 					enctype="multipart/form-data" onsubmit="return formSubmit();">
-				<div id='upperInfoDiv'>
-					<div id='productInfoDiv'>
-						<div id='productImage'>
-							<img alt="${productDto.name} 이미지" src="/babiyo/img/${productImg.STORED_NAME}">
+					<div id='upperInfoDiv'>
+						<div id='productInfoDiv'>
+							<div id='productImage'>
+								<img id="productImg" src="/babiyo/img/${productImg.STORED_NAME}"
+									onerror="this.onerror=null; this.src='/babiyo/resources/img/logo.png'">
+							</div>
+							<div id='productSelectBox'>
+								<span>*</span>
+								<select id='selectBox' name="productNo" onchange="selectProductChangeImg(this);">
+									<option disabled selected>밀키트 선택</option>
+									<c:forEach items="${productList}" var="product">
+										<c:if test="${product.COUNT > 0}">
+											<option value="${product.PRODUCT_NO}">${product.PRODUCT_NAME}</option>
+										</c:if>
+									</c:forEach>
+								</select>
+								<c:forEach items="${productList}" var="product">
+									<input id="productImg${product.PRODUCT_NO}" type="hidden" 
+										value="${product.imgMap.STORED_NAME}">
+								</c:forEach>
+							</div>
 						</div>
-						<div id='productSelectBox'>
-							<span>*</span>
-							<select id='selectBox'>
-								<option>봉골레파스타</option>
-								<option>닭갈비</option>
-								<option>떡볶이</option>
-							</select>
+						<div id='guideDiv'>
+							<p id='firstRowGuide'>밀키트에 대한 리뷰를 작성해주세요.</p>
 						</div>
-					</div>
-					<div id='guideDiv'>
-						<p id='firstRowGuide'>밀키트에 대한 리뷰를 작성해주세요.</p>
-						<p id='secondRowGuide'>사진이 포함된 리뷰 1개당 100 원의 밀캐시를 드려요.</p>
-					</div>
-					<div id='evaluationDiv'>
-						<span id='evaluationTitle'>평가</span>
-						<span class='star'>★★★★★
-							<span>★★★★★</span>
-							<input type="range" oninput="drawStar(this)" value='1' step='1' min='0' max='10'>
-						</span>
+						<div id='evaluationDiv'>
+							<span id='evaluationTitle'>평가</span>
+							<span class='star'>★★★★★
+								<span>★★★★★</span>
+								<input type="range" name="starRating" oninput="drawStar(this)" value='1' step='1' min='0' max='5'>
+							</span>
+						</div>
+						
+						<div id='uploadImageDiv'>
+							<input type="file" name="file" id="imageId" 
+							 	accept="image/*" onchange="setThumbnail(event);"/>
+							<div id='userUploadImage'>
+								<div id="imageContainer"></div>
+							</div>
+						</div>
 					</div>
 					
-					<div id='uploadImageDiv'>
-						<input type="file" name="file" id="imageId" 
-						 	accept="image/*" onchange="setThumbnail(event);"/>
-						<div id='userUploadImage'>
-							<div id="imageContainer"></div>
-						</div>
+					<hr class='lowerDivisionLine'/>	
+						
+					<div id='contentDiv'>
+						<textarea name="content" id='contentTextBox'></textarea>
 					</div>
-				</div>
-				
-				<hr class='lowerDivisionLine'/>	
-					
-				<div id='contentDiv'>
-					<textarea name="content" id='contentTextBox'></textarea>
-				</div>
-				<div id='lowerButtonDiv'>
-  					<input type="hidden" id="no" name="no" value="${productDto.no}">
-  					<input type='button' value='이전'  class='lowerButton' 
-  						onclick='pageMoveBeforeFnc(${productDto.no});'>
-					<input type="submit" value='리뷰 등록' class='lowerButton'>
-				</div>
-			</form> 
+					<div id='lowerButtonDiv'>
+	  					<input type='button' value='이전'  class='lowerButton' 
+	  						onclick='pageMoveBeforeFnc(${productDto.no});'>
+						<input type="submit" value='리뷰 등록' class='lowerButton'>
+					</div>
+				</form> 
 			</div>
 		
 			<div id="underPadding"></div>

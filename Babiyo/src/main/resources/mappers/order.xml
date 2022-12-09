@@ -228,4 +228,5 @@ WHERE MEMBER_ID = #{value}
 AND STATE_CODE ^= 3
 </select>
 
+
 </mapper>

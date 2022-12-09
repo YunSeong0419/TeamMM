@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.mealmaker.babiyo.order.model.OrderDetailDto;
 import com.mealmaker.babiyo.order.model.OrderDto;
+import com.mealmaker.babiyo.product.model.ProductDto;
 import com.mealmaker.babiyo.util.SearchOption;
 
 public interface OrderDao {
@@ -44,5 +45,7 @@ public interface OrderDao {
 	public List<Map<String, Object>> productChart();
 
 	int memberOrderCount(String memberId);
+
+	
 	
 }

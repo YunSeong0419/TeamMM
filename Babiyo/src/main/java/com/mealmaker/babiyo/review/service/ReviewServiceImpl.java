@@ -2,6 +2,7 @@ package com.mealmaker.babiyo.review.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -11,9 +12,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.mealmaker.babiyo.order.dao.OrderDao;
 import com.mealmaker.babiyo.product.dao.ProductDao;
+import com.mealmaker.babiyo.product.model.ProductDto;
 import com.mealmaker.babiyo.review.dao.ReviewDao;
 import com.mealmaker.babiyo.review.model.ReviewDto;
 import com.mealmaker.babiyo.util.FileUtils;
@@ -34,6 +38,9 @@ public class ReviewServiceImpl implements ReviewService{
 	
 	@Resource
 	private ProductDao productDao;
+	
+	@Resource
+	private OrderDao orderDao;
 
 	//DAO에서 리뷰 목록 꺼내오게 시키기
 	@Override
@@ -100,6 +107,33 @@ public class ReviewServiceImpl implements ReviewService{
 			throws Exception {
 		// TODO Auto-generated method stub
 		
+		reviewDao.reviewWrite(reviewDto);
+		//파일 넣기
+		
+		Iterator<String> iterator = mulRequest.getFileNames();
+		MultipartFile multipartFile = null;
+		
+		while(iterator.hasNext()) {
+			multipartFile = mulRequest.getFile(iterator.next());
+			
+			if(multipartFile.isEmpty() == false) {
+				logger.debug("-------- file start --------");
+				logger.debug("name : {} ", multipartFile.getName());
+				logger.debug("fileName : {} ", multipartFile.getOriginalFilename());
+				logger.debug("size : {} ", multipartFile.getSize());
+				logger.debug("-------- file end --------\n");
+			}
+		}
+		
+		int reviewNo = reviewDto.getNo();
+		
+		List<Map<String, Object>> list 
+			= fileUtils.parseInsertFileInfo(reviewNo, mulRequest);
+		
+		for (int i = 0; i < list.size(); i++) {
+			reviewDao.insertFile(list.get(i));
+		}
+		
 	}
 
 	@Override
@@ -130,7 +164,43 @@ public class ReviewServiceImpl implements ReviewService{
 	@Override
 	public List<Map<String, Object>> reviewCollectionList() {
 		// TODO Auto-generated method stub
-		return null;
+		
+		List<Map<String, Object>> resultList = new ArrayList<>();
+		List<ReviewDto> reviewList = reviewDao.reviewCollectionList();
+		 
+		for (ReviewDto reviewDto : reviewList) {
+			Map<String, Object> map = new HashMap<String, Object>();
+			
+			System.out.println("작성자" + reviewDto.getMemberId());
+			System.out.println("리뷰번호" + reviewDto.getNo());
+			 
+			String img = reviewDao.fileSelectStoredFileName(reviewDto.getNo());
+			
+			map.put("reviewDto", reviewDto);
+			map.put("img", img);
+			
+			resultList.add(map);
+		}
+		
+		return resultList;
+	}
+
+	@Override
+	public List<Map<String, Object>> writeReview(String memberId) {
+		// TODO Auto-generated method stub
+		
+		List<Map<String, Object>> list = reviewDao.buyProductList(memberId);
+		
+		for (Map<String, Object> map : list) {
+			
+			int productNo = Integer.parseInt(map.get("PRODUCT_NO").toString());
+			
+			Map<String, Object> imgMap = productDao.fileSelectOne(productNo);
+			
+			map.put("imgMap", imgMap);
+		}
+		
+		return list;
 	}
 
 }

@@ -158,51 +158,55 @@
 }
 
 .productDiv{
-	width: 900px;
-	height: 300px;
-	margin: 0px auto 30px 150px;
+	width: 1200px;
 	float: left;
 }
 
 .productTitle{
-	margin-left: 15px;
 	height: 50px;
 	font-size: 18px;
 	font-weight: bold;
+}
 
+.productTitle > span{
+	margin-left: 15px;
+}
+.productTitle > hr{
+	height: 3px;
+	margin: 10px 0 0;
 }
 
 .productContentDiv{
-	width: 900px;
-	height: 250px;
+	width: 1200px;
 	margin: 0px auto 30px auto;
-		float: left;
+	float: left;
 }
 
 .productContent{
-	width: 225px;
-	height: 250px;
+	width: 300px;
+	height: 350px;
 	font-size: 16px;
 	float: left;
 }
 
 .productContentImage > a{
-	width: 225px;
-	height: 200px;
+	width: 300px;
+	height: 300px;
 	text-align: center;
 	line-height: 200px;
 	float: left;
 }
 
 .productContentImage > a > img{
-	width: 200px;
-	height: 200px;
+	width: 280px;
+	height: 280px;
 	text-align: center;
+	border-radius: 10px;
 }
 
 .productContentName{
 	margin-top: 10px;
-	width: 225px;
+	width: 300px;
 	height: 20px;
 	font-size: 14px;
 	font-weight: bold;
@@ -211,7 +215,7 @@
 }
 
 .productContentPrice{
-	width: 225px;
+	width: 300px;
 	height: 20px;
 	font-size: 12px;
 	text-align: center;
@@ -317,6 +321,7 @@ function eventBannerMoveFnc(no){
 		<div class='productDiv'>
 			<div class='productTitle'>
 				<span>추천 밀키트</span>
+				<hr>
 			</div>
 			<div class='productContentDiv'>
 				<c:choose>
@@ -355,6 +360,7 @@ function eventBannerMoveFnc(no){
 		<div class='productDiv'>
 			<div class='productTitle'>
 				<span>신상 밀키트</span>
+				<hr>
 			</div>
 			<c:choose>
 				<c:when test="${empty newProductList}">

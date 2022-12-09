@@ -51,9 +51,9 @@
 	
 	<insert id="insertFile" parameterType="map">
 		INSERT INTO REVIEW_IMAGE
-		(NO, REVIEW_NO, ORIGINAL_NAME, STORED_NAME)
+		(REVIEW_NO, ORIGINAL_NAME, STORED_NAME)
 		VALUES
-		(#{no}, #{review_no}, #{original_name}, #{stored_name})
+		(#{parentSeq}, #{original_file_name}, #{stored_file_name})
 	</insert>
 	
 	<select id="productReviewList" parameterType="map" resultType="map">
@@ -87,10 +87,10 @@
 		WHERE REVIEW_NO = #{value}
 	</select>
 
-	<select id="fileSelectStoredFileName" parameterType="int" resultType="map">
-		SELECT NO, STORED_NAME
+	<select id="fileSelectStoredFileName" parameterType="int" resultType="String">
+		SELECT STORED_NAME
 		FROM REVIEW_IMAGE
-		WHERE NO = #{no}
+		WHERE REVIEW_NO = #{value}
 	</select>
 
 	<delete id="fileDelete" parameterType="int">
@@ -103,6 +103,46 @@
 		SELECT COUNT(*)
 		FROM REVIEW
 		WHERE MEMBER_ID = #{value}
+	</select>
+	
+	<select id="buyProductList" resultType="map">
+	SELECT O.PRODUCT_NO, PRODUCT_NAME, ORDER_COUNT-NVL(REVIEW_COUNT, 0) COUNT
+	FROM(SELECT P.NO PRODUCT_NO, P.NAME PRODUCT_NAME, COUNT(D.NO) ORDER_COUNT
+	FROM MEMBER_ORDER O JOIN ORDER_DETAIL D
+	ON O.NO = D.ORDER_NO
+	JOIN PRODUCT P
+	ON D.PRODUCT_NO = P.NO
+	WHERE STATE_CODE = 2
+	AND O.MEMBER_ID = #{value}
+	GROUP BY P.NO, P.NAME) O 
+	LEFT OUTER JOIN 
+	(SELECT PRODUCT_NO, COUNT(*) REVIEW_COUNT
+	FROM REVIEW
+	WHERE MEMBER_ID = #{value}
+	GROUP BY PRODUCT_NO) R
+	ON O.PRODUCT_NO = R.PRODUCT_NO
+	ORDER BY COUNT DESC
+	</select>
+	
+	<insert id="reviewWrite" parameterType="reviewDto" useGeneratedKeys="true" keyProperty="no">
+	<selectKey keyProperty="no" resultType="int" order="AFTER">
+	SELECT SEQ_REVIEW_NO.CURRVAL
+	FROM DUAL
+	</selectKey>
+	INSERT INTO REVIEW(PRODUCT_NO, MEMBER_ID, STAR_RATING, CONTENT, CREATE_DATE, MODIFY_DATE)
+	VALUES(${productNo}, #{memberId}, ${starRating}, #{content}, SYSDATE, SYSDATE)
+	</insert>
+	
+	<select id="reviewCollectionList" resultType="reviewDto">
+	SELECT *
+	FROM(SELECT ROWNUM RNUM, NO, PRODUCT_NO, PRODUCT_NAME, MEMBER_ID, STAR_RATING, CONTENT
+		, CREATE_DATE, MODIFY_DATE
+	FROM(SELECT R.NO, R.PRODUCT_NO, P.NAME PRODUCT_NAME, R.MEMBER_ID, R.STAR_RATING, R.CONTENT
+		, R.CREATE_DATE, R.MODIFY_DATE
+	FROM REVIEW R JOIN PRODUCT P
+	ON R.PRODUCT_NO = P.NO
+	ORDER BY R.CREATE_DATE DESC))
+	WHERE RNUM BETWEEN 1 AND 4
 	</select>
 		
 </mapper>

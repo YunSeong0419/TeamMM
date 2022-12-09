@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.mealmaker.babiyo.order.model.OrderDetailDto;
 import com.mealmaker.babiyo.order.model.OrderDto;
+import com.mealmaker.babiyo.product.model.ProductDto;
 import com.mealmaker.babiyo.util.SearchOption;
 
 @Repository
@@ -165,5 +166,4 @@ public class OrderDaoImpl implements OrderDao {
 		return sqlSession.selectOne(namespace + "memberHomeOrderCount", memberId);
 	}
 
-	
 }

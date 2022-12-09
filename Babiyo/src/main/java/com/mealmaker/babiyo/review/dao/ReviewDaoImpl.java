@@ -63,7 +63,7 @@ public class ReviewDaoImpl implements ReviewDao{
 
 	//파일 저장된 이름 불러오기??
 	@Override
-	public Map<String, Object> fileSelectStoredFileName(int parentSeq) {
+	public String fileSelectStoredFileName(int parentSeq) {
 
 		return sqlSession.selectOne(namespace + "fileSelectStoredFileName", parentSeq);
 	}
@@ -96,4 +96,27 @@ public class ReviewDaoImpl implements ReviewDao{
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne(namespace + "reviewCount", id);
 	}
+	
+	
+
+	@Override
+	public List<Map<String, Object>> buyProductList(String memberId) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList(namespace + "buyProductList", memberId);
+	}
+
+	
+	@Override
+	public void reviewWrite(ReviewDto reviewDto) {
+		// TODO Auto-generated method stub
+		sqlSession.insert(namespace + "reviewWrite", reviewDto);
+	}
+
+	@Override
+	public List<ReviewDto> reviewCollectionList() {
+		// TODO Auto-generated method stub
+		
+		return sqlSession.selectList(namespace + "reviewCollectionList");
+	}
+
 }

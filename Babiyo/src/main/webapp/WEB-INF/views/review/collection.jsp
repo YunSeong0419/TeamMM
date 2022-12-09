@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -208,262 +209,31 @@
 		
 		<hr class='lowerDivisionLine' />		
 		
+		<c:forEach items="${reviewCollectionList}" var="review">
 		<div class='reviewCollectionList'>
 			<div class='productInfo'>
 				<div class='productImage'>
 					<a href="#"><img alt="밀키트 이미지 " src=""></a>
 				</div>				
-				<div class='productName'>태극전사 레드불</div>
+				<div class='productName'>${review.reviewDto.memberId}</div>
 			</div>
 			<div class='userEvaluation'>
-				<div class='nickname'>조윤성</div>
+				<div class='nickname'>${review.reviewDto.memberId}</div>
 					<div class='starRating'>
-						<span style="width: 80%"></span>
+						<span style="width: 20%}"></span>
 					</div>
-				<div class='reportingDate'></div>
-				<div class='reviewContent'>
-					오늘은팬더차이나에가서사천식소고기볶음밥을먹었다.윤성씨가쏴서먹었는데칠리탕수육도그렇고정말맛있었다.매워서땀이났지만맛있게매워서좋았다.사장님도예쁘시고가게도멀지않고맛도좋으니가끔가야겠다.보답으로에너지가득한New취향탄생태극전사레드불에너지를사드렸다.근데맛이레드불에그냥음료탄맛이다.이걸4천원받고팔다니양심이있는건지모르겠다.음료수라고생각하면나쁘지않기는하다.내일까지이력서랑자소서써야되니까저녁에안잘용도로는괜찮을것같다.
-					오늘은팬더차이나에가서사천식소고기볶음밥을먹었다.윤성씨가쏴서먹었는데칠리탕수육도그렇고정말맛있었다.매워서땀이났지만맛있게매워서좋았다.사장님도예쁘시고가게도멀지않고맛도좋으니가끔가야겠다.보답으로에너지가득한New취향탄생태극전사레드불에너지를사드렸다.근데맛이레드불에그냥음료탄맛이다.이걸4천원받고팔다니양심이있는건지모르겠다.음료수라고생각하면나쁘지않기는하다.내일까지이력서랑자소서써야되니까저녁에안잘용도로는괜찮을것같다.
-				</div>
+				<div class='reportingDate'>${review.reviewDto.createDate}</div>
+				<div class='reviewContent'>${review.reviewDto.content}</div>
 			</div>
 			<div class='userUploadImage'>
-				<a href="#"><img alt="밀키트 이미지 " src=""></a>
-				<a href="#"><img alt="밀키트 이미지 " src=""></a>
-				<a href="#"><img alt="밀키트 이미지 " src=""></a>
+				<a href="#"><img alt="밀키트 이미지 " src="/babiyo/img/${review.img}"></a>
 			</div>
 			<hr class='lowerDivisionLine'/>	
 		</div>
+		</c:forEach>
 		
 		
-				<div class='reviewCollectionList'>
-			<div class='productInfo'>
-				<div class='productImage'>
-					<a href="#"><img alt="밀키트 이미지 " src=""></a>
-				</div>				
-				<div class='productName'>태극전사 레드불</div>
-			</div>
-			<div class='userEvaluation'>
-				<div class='nickname'>조윤성</div>
-					<div class='starRating'>
-						<span style="width: 80%"></span>
-					</div>
-				<div class='reportingDate'></div>
-				<div class='reviewContent'>
-					오늘은팬더차이나에가서사천식소고기볶음밥을먹었다.윤성씨가쏴서먹었는데칠리탕수육도그렇고정말맛있었다.매워서땀이났지만맛있게매워서좋았다.사장님도예쁘시고가게도멀지않고맛도좋으니가끔가야겠다.보답으로에너지가득한New취향탄생태극전사레드불에너지를사드렸다.근데맛이레드불에그냥음료탄맛이다.이걸4천원받고팔다니양심이있는건지모르겠다.음료수라고생각하면나쁘지않기는하다.내일까지이력서랑자소서써야되니까저녁에안잘용도로는괜찮을것같다.
-					오늘은팬더차이나에가서사천식소고기볶음밥을먹었다.윤성씨가쏴서먹었는데칠리탕수육도그렇고정말맛있었다.매워서땀이났지만맛있게매워서좋았다.사장님도예쁘시고가게도멀지않고맛도좋으니가끔가야겠다.보답으로에너지가득한New취향탄생태극전사레드불에너지를사드렸다.근데맛이레드불에그냥음료탄맛이다.이걸4천원받고팔다니양심이있는건지모르겠다.음료수라고생각하면나쁘지않기는하다.내일까지이력서랑자소서써야되니까저녁에안잘용도로는괜찮을것같다.
-				</div>
-			</div>
-			<div class='userUploadImage'>
-				<a href="#"><img alt="밀키트 이미지 " src=""></a>
-				<a href="#"><img alt="밀키트 이미지 " src=""></a>
-				<a href="#"><img alt="밀키트 이미지 " src=""></a>
-			</div>
-			<hr class='lowerDivisionLine'/>	
-		</div>
 		
-				<div class='reviewCollectionList'>
-			<div class='productInfo'>
-				<div class='productImage'>
-					<a href="#"><img alt="밀키트 이미지 " src=""></a>
-				</div>				
-				<div class='productName'>태극전사 레드불</div>
-			</div>
-			<div class='userEvaluation'>
-				<div class='nickname'>조윤성</div>
-					<div class='starRating'>
-						<span style="width: 80%"></span>
-					</div>
-				<div class='reportingDate'></div>
-				<div class='reviewContent'>
-					오늘은팬더차이나에가서사천식소고기볶음밥을먹었다.윤성씨가쏴서먹었는데칠리탕수육도그렇고정말맛있었다.매워서땀이났지만맛있게매워서좋았다.사장님도예쁘시고가게도멀지않고맛도좋으니가끔가야겠다.보답으로에너지가득한New취향탄생태극전사레드불에너지를사드렸다.근데맛이레드불에그냥음료탄맛이다.이걸4천원받고팔다니양심이있는건지모르겠다.음료수라고생각하면나쁘지않기는하다.내일까지이력서랑자소서써야되니까저녁에안잘용도로는괜찮을것같다.
-					오늘은팬더차이나에가서사천식소고기볶음밥을먹었다.윤성씨가쏴서먹었는데칠리탕수육도그렇고정말맛있었다.매워서땀이났지만맛있게매워서좋았다.사장님도예쁘시고가게도멀지않고맛도좋으니가끔가야겠다.보답으로에너지가득한New취향탄생태극전사레드불에너지를사드렸다.근데맛이레드불에그냥음료탄맛이다.이걸4천원받고팔다니양심이있는건지모르겠다.음료수라고생각하면나쁘지않기는하다.내일까지이력서랑자소서써야되니까저녁에안잘용도로는괜찮을것같다.
-				</div>
-			</div>
-			<div class='userUploadImage'>
-				<a href="#"><img alt="밀키트 이미지 " src=""></a>
-				<a href="#"><img alt="밀키트 이미지 " src=""></a>
-				<a href="#"><img alt="밀키트 이미지 " src=""></a>
-			</div>
-			<hr class='lowerDivisionLine'/>	
-		</div>
-		
-				<div class='reviewCollectionList'>
-			<div class='productInfo'>
-				<div class='productImage'>
-					<a href="#"><img alt="밀키트 이미지 " src=""></a>
-				</div>				
-				<div class='productName'>태극전사 레드불</div>
-			</div>
-			<div class='userEvaluation'>
-				<div class='nickname'>조윤성</div>
-					<div class='starRating'>
-						<span style="width: 80%"></span>
-					</div>
-				<div class='reportingDate'></div>
-				<div class='reviewContent'>
-					오늘은팬더차이나에가서사천식소고기볶음밥을먹었다.윤성씨가쏴서먹었는데칠리탕수육도그렇고정말맛있었다.매워서땀이났지만맛있게매워서좋았다.사장님도예쁘시고가게도멀지않고맛도좋으니가끔가야겠다.보답으로에너지가득한New취향탄생태극전사레드불에너지를사드렸다.근데맛이레드불에그냥음료탄맛이다.이걸4천원받고팔다니양심이있는건지모르겠다.음료수라고생각하면나쁘지않기는하다.내일까지이력서랑자소서써야되니까저녁에안잘용도로는괜찮을것같다.
-					오늘은팬더차이나에가서사천식소고기볶음밥을먹었다.윤성씨가쏴서먹었는데칠리탕수육도그렇고정말맛있었다.매워서땀이났지만맛있게매워서좋았다.사장님도예쁘시고가게도멀지않고맛도좋으니가끔가야겠다.보답으로에너지가득한New취향탄생태극전사레드불에너지를사드렸다.근데맛이레드불에그냥음료탄맛이다.이걸4천원받고팔다니양심이있는건지모르겠다.음료수라고생각하면나쁘지않기는하다.내일까지이력서랑자소서써야되니까저녁에안잘용도로는괜찮을것같다.
-				</div>
-			</div>
-			<div class='userUploadImage'>
-				<a href="#"><img alt="밀키트 이미지 " src=""></a>
-				<a href="#"><img alt="밀키트 이미지 " src=""></a>
-				<a href="#"><img alt="밀키트 이미지 " src=""></a>
-			</div>
-			<hr class='lowerDivisionLine'/>	
-		</div>
-		
-				<div class='reviewCollectionList'>
-			<div class='productInfo'>
-				<div class='productImage'>
-					<a href="#"><img alt="밀키트 이미지 " src=""></a>
-				</div>				
-				<div class='productName'>태극전사 레드불</div>
-			</div>
-			<div class='userEvaluation'>
-				<div class='nickname'>조윤성</div>
-					<div class='starRating'>
-						<span style="width: 80%"></span>
-					</div>
-				<div class='reportingDate'></div>
-				<div class='reviewContent'>
-					오늘은팬더차이나에가서사천식소고기볶음밥을먹었다.윤성씨가쏴서먹었는데칠리탕수육도그렇고정말맛있었다.매워서땀이났지만맛있게매워서좋았다.사장님도예쁘시고가게도멀지않고맛도좋으니가끔가야겠다.보답으로에너지가득한New취향탄생태극전사레드불에너지를사드렸다.근데맛이레드불에그냥음료탄맛이다.이걸4천원받고팔다니양심이있는건지모르겠다.음료수라고생각하면나쁘지않기는하다.내일까지이력서랑자소서써야되니까저녁에안잘용도로는괜찮을것같다.
-					오늘은팬더차이나에가서사천식소고기볶음밥을먹었다.윤성씨가쏴서먹었는데칠리탕수육도그렇고정말맛있었다.매워서땀이났지만맛있게매워서좋았다.사장님도예쁘시고가게도멀지않고맛도좋으니가끔가야겠다.보답으로에너지가득한New취향탄생태극전사레드불에너지를사드렸다.근데맛이레드불에그냥음료탄맛이다.이걸4천원받고팔다니양심이있는건지모르겠다.음료수라고생각하면나쁘지않기는하다.내일까지이력서랑자소서써야되니까저녁에안잘용도로는괜찮을것같다.
-				</div>
-			</div>
-			<div class='userUploadImage'>
-				<a href="#"><img alt="밀키트 이미지 " src=""></a>
-				<a href="#"><img alt="밀키트 이미지 " src=""></a>
-				<a href="#"><img alt="밀키트 이미지 " src=""></a>
-			</div>
-			<hr class='lowerDivisionLine'/>	
-		</div>
-
-				<div class='reviewCollectionList'>
-			<div class='productInfo'>
-				<div class='productImage'>
-					<a href="#"><img alt="밀키트 이미지 " src=""></a>
-				</div>				
-				<div class='productName'>태극전사 레드불</div>
-			</div>
-			<div class='userEvaluation'>
-				<div class='nickname'>조윤성</div>
-					<div class='starRating'>
-						<span style="width: 80%"></span>
-					</div>
-				<div class='reportingDate'></div>
-				<div class='reviewContent'>
-					오늘은팬더차이나에가서사천식소고기볶음밥을먹었다.윤성씨가쏴서먹었는데칠리탕수육도그렇고정말맛있었다.매워서땀이났지만맛있게매워서좋았다.사장님도예쁘시고가게도멀지않고맛도좋으니가끔가야겠다.보답으로에너지가득한New취향탄생태극전사레드불에너지를사드렸다.근데맛이레드불에그냥음료탄맛이다.이걸4천원받고팔다니양심이있는건지모르겠다.음료수라고생각하면나쁘지않기는하다.내일까지이력서랑자소서써야되니까저녁에안잘용도로는괜찮을것같다.
-					오늘은팬더차이나에가서사천식소고기볶음밥을먹었다.윤성씨가쏴서먹었는데칠리탕수육도그렇고정말맛있었다.매워서땀이났지만맛있게매워서좋았다.사장님도예쁘시고가게도멀지않고맛도좋으니가끔가야겠다.보답으로에너지가득한New취향탄생태극전사레드불에너지를사드렸다.근데맛이레드불에그냥음료탄맛이다.이걸4천원받고팔다니양심이있는건지모르겠다.음료수라고생각하면나쁘지않기는하다.내일까지이력서랑자소서써야되니까저녁에안잘용도로는괜찮을것같다.
-				</div>
-			</div>
-			<div class='userUploadImage'>
-				<a href="#"><img alt="밀키트 이미지 " src=""></a>
-				<a href="#"><img alt="밀키트 이미지 " src=""></a>
-				<a href="#"><img alt="밀키트 이미지 " src=""></a>
-			</div>
-			<hr class='lowerDivisionLine'/>	
-		</div>
-						<div class='reviewCollectionList'>
-			<div class='productInfo'>
-				<div class='productImage'>
-					<a href="#"><img alt="밀키트 이미지 " src=""></a>
-				</div>				
-				<div class='productName'>태극전사 레드불</div>
-			</div>
-			<div class='userEvaluation'>
-				<div class='nickname'>조윤성</div>
-					<div class='starRating'>
-						<span style="width: 80%"></span>
-					</div>
-				<div class='reportingDate'></div>
-				<div class='reviewContent'>
-					오늘은팬더차이나에가서사천식소고기볶음밥을먹었다.윤성씨가쏴서먹었는데칠리탕수육도그렇고정말맛있었다.매워서땀이났지만맛있게매워서좋았다.사장님도예쁘시고가게도멀지않고맛도좋으니가끔가야겠다.보답으로에너지가득한New취향탄생태극전사레드불에너지를사드렸다.근데맛이레드불에그냥음료탄맛이다.이걸4천원받고팔다니양심이있는건지모르겠다.음료수라고생각하면나쁘지않기는하다.내일까지이력서랑자소서써야되니까저녁에안잘용도로는괜찮을것같다.
-					오늘은팬더차이나에가서사천식소고기볶음밥을먹었다.윤성씨가쏴서먹었는데칠리탕수육도그렇고정말맛있었다.매워서땀이났지만맛있게매워서좋았다.사장님도예쁘시고가게도멀지않고맛도좋으니가끔가야겠다.보답으로에너지가득한New취향탄생태극전사레드불에너지를사드렸다.근데맛이레드불에그냥음료탄맛이다.이걸4천원받고팔다니양심이있는건지모르겠다.음료수라고생각하면나쁘지않기는하다.내일까지이력서랑자소서써야되니까저녁에안잘용도로는괜찮을것같다.
-				</div>
-			</div>
-			<div class='userUploadImage'>
-				<a href="#"><img alt="밀키트 이미지 " src=""></a>
-				<a href="#"><img alt="밀키트 이미지 " src=""></a>
-				<a href="#"><img alt="밀키트 이미지 " src=""></a>
-			</div>
-			<hr class='lowerDivisionLine'/>	
-		</div>
-						<div class='reviewCollectionList'>
-			<div class='productInfo'>
-				<div class='productImage'>
-					<a href="#"><img alt="밀키트 이미지 " src=""></a>
-				</div>				
-				<div class='productName'>태극전사 레드불</div>
-			</div>
-			<div class='userEvaluation'>
-				<div class='nickname'>조윤성</div>
-					<div class='starRating'>
-						<span style="width: 80%"></span>
-					</div>
-				<div class='reportingDate'></div>
-				<div class='reviewContent'>
-					오늘은팬더차이나에가서사천식소고기볶음밥을먹었다.윤성씨가쏴서먹었는데칠리탕수육도그렇고정말맛있었다.매워서땀이났지만맛있게매워서좋았다.사장님도예쁘시고가게도멀지않고맛도좋으니가끔가야겠다.보답으로에너지가득한New취향탄생태극전사레드불에너지를사드렸다.근데맛이레드불에그냥음료탄맛이다.이걸4천원받고팔다니양심이있는건지모르겠다.음료수라고생각하면나쁘지않기는하다.내일까지이력서랑자소서써야되니까저녁에안잘용도로는괜찮을것같다.
-					오늘은팬더차이나에가서사천식소고기볶음밥을먹었다.윤성씨가쏴서먹었는데칠리탕수육도그렇고정말맛있었다.매워서땀이났지만맛있게매워서좋았다.사장님도예쁘시고가게도멀지않고맛도좋으니가끔가야겠다.보답으로에너지가득한New취향탄생태극전사레드불에너지를사드렸다.근데맛이레드불에그냥음료탄맛이다.이걸4천원받고팔다니양심이있는건지모르겠다.음료수라고생각하면나쁘지않기는하다.내일까지이력서랑자소서써야되니까저녁에안잘용도로는괜찮을것같다.
-				</div>
-			</div>
-			<div class='userUploadImage'>
-				<a href="#"><img alt="밀키트 이미지 " src=""></a>
-				<a href="#"><img alt="밀키트 이미지 " src=""></a>
-				<a href="#"><img alt="밀키트 이미지 " src=""></a>
-			</div>
-			<hr class='lowerDivisionLine'/>	
-		</div>
-						<div class='reviewCollectionList'>
-			<div class='productInfo'>
-				<div class='productImage'>
-					<a href="#"><img alt="밀키트 이미지 " src=""></a>
-				</div>				
-				<div class='productName'>태극전사 레드불</div>
-			</div>
-			<div class='userEvaluation'>
-				<div class='nickname'>조윤성</div>
-					<div class='starRating'>
-						<span style="width: 80%"></span>
-					</div>
-				<div class='reportingDate'></div>
-				<div class='reviewContent'>
-					오늘은팬더차이나에가서사천식소고기볶음밥을먹었다.윤성씨가쏴서먹었는데칠리탕수육도그렇고정말맛있었다.매워서땀이났지만맛있게매워서좋았다.사장님도예쁘시고가게도멀지않고맛도좋으니가끔가야겠다.보답으로에너지가득한New취향탄생태극전사레드불에너지를사드렸다.근데맛이레드불에그냥음료탄맛이다.이걸4천원받고팔다니양심이있는건지모르겠다.음료수라고생각하면나쁘지않기는하다.내일까지이력서랑자소서써야되니까저녁에안잘용도로는괜찮을것같다.
-					오늘은팬더차이나에가서사천식소고기볶음밥을먹었다.윤성씨가쏴서먹었는데칠리탕수육도그렇고정말맛있었다.매워서땀이났지만맛있게매워서좋았다.사장님도예쁘시고가게도멀지않고맛도좋으니가끔가야겠다.보답으로에너지가득한New취향탄생태극전사레드불에너지를사드렸다.근데맛이레드불에그냥음료탄맛이다.이걸4천원받고팔다니양심이있는건지모르겠다.음료수라고생각하면나쁘지않기는하다.내일까지이력서랑자소서써야되니까저녁에안잘용도로는괜찮을것같다.
-				</div>
-			</div>
-			<div class='userUploadImage'>
-				<a href="#"><img alt="밀키트 이미지 " src=""></a>
-				<a href="#"><img alt="밀키트 이미지 " src=""></a>
-				<a href="#"><img alt="밀키트 이미지 " src=""></a>
-			</div>
-			<hr class='lowerDivisionLine'/>	
-		</div>
-						<div class='reviewCollectionList'>
-			<div class='productInfo'>
-				<div class='productImage'>
-					<a href="#"><img alt="밀키트 이미지 " src=""></a>
-				</div>				
-				<div class='productName'>태극전사 레드불</div>
-			</div>
-			<div class='userEvaluation'>
-				<div class='nickname'>조윤성</div>
-					<div class='starRating'>
-						<span style="width: 80%"></span>
-					</div>
-				<div class='reportingDate'></div>
-				<div class='reviewContent'>
-					오늘은팬더차이나에가서사천식소고기볶음밥을먹었다.윤성씨가쏴서먹었는데칠리탕수육도그렇고정말맛있었다.매워서땀이났지만맛있게매워서좋았다.사장님도예쁘시고가게도멀지않고맛도좋으니가끔가야겠다.보답으로에너지가득한New취향탄생태극전사레드불에너지를사드렸다.근데맛이레드불에그냥음료탄맛이다.이걸4천원받고팔다니양심이있는건지모르겠다.음료수라고생각하면나쁘지않기는하다.내일까지이력서랑자소서써야되니까저녁에안잘용도로는괜찮을것같다.
-					오늘은팬더차이나에가서사천식소고기볶음밥을먹었다.윤성씨가쏴서먹었는데칠리탕수육도그렇고정말맛있었다.매워서땀이났지만맛있게매워서좋았다.사장님도예쁘시고가게도멀지않고맛도좋으니가끔가야겠다.보답으로에너지가득한New취향탄생태극전사레드불에너지를사드렸다.근데맛이레드불에그냥음료탄맛이다.이걸4천원받고팔다니양심이있는건지모르겠다.음료수라고생각하면나쁘지않기는하다.내일까지이력서랑자소서써야되니까저녁에안잘용도로는괜찮을것같다.
-				</div>
-			</div>
-			<div class='userUploadImage'>
-				<a href="#"><img alt="밀키트 이미지 " src=""></a>
-				<a href="#"><img alt="밀키트 이미지 " src=""></a>
-				<a href="#"><img alt="밀키트 이미지 " src=""></a>
-			</div>
-			<hr class='lowerDivisionLine'/>	
-		</div>		
 		<div id='lowerButtonDiv'>
 			<input type="button" value="더보기" id='lowerButton'>
 		</div>

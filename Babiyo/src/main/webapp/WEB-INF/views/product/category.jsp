@@ -114,6 +114,7 @@
 	width: 200px;
 	height: 200px;
 	text-align: center;
+	border-radius: 10px;
 }
 
 .productContentName{
