@@ -34,6 +34,6 @@ public interface ReviewDao {
 	
 	public void reviewWrite(ReviewDto reviewDto);
 	
-	public List<ReviewDto> reviewCollectionList();
+	public List<Map<String, Object>> reviewCollectionList();
 }
 

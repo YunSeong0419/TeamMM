@@ -133,14 +133,18 @@
 	VALUES(${productNo}, #{memberId}, ${starRating}, #{content}, SYSDATE, SYSDATE)
 	</insert>
 	
-	<select id="reviewCollectionList" resultType="reviewDto">
-	SELECT *
+	<select id="reviewCollectionList" resultType="map">
+	SELECT NO "no", PRODUCT_NO "productNo", PRODUCT_NAME "productName", MEMBER_ID "memberId"
+		, STAR_RATING "starRating", CONTENT "content", CREATE_DATE "createDate", MODIFY_DATE "modifyDate"
+		, NAME "name", NICKNAME "nickname"
 	FROM(SELECT ROWNUM RNUM, NO, PRODUCT_NO, PRODUCT_NAME, MEMBER_ID, STAR_RATING, CONTENT
-		, CREATE_DATE, MODIFY_DATE
+		, CREATE_DATE, MODIFY_DATE, NAME, NICKNAME
 	FROM(SELECT R.NO, R.PRODUCT_NO, P.NAME PRODUCT_NAME, R.MEMBER_ID, R.STAR_RATING, R.CONTENT
-		, R.CREATE_DATE, R.MODIFY_DATE
+		, R.CREATE_DATE, R.MODIFY_DATE, M.NAME, M.NICKNAME
 	FROM REVIEW R JOIN PRODUCT P
 	ON R.PRODUCT_NO = P.NO
+	JOIN MEMBER M
+	ON R.MEMBER_ID = M.ID
 	ORDER BY R.CREATE_DATE DESC))
 	WHERE RNUM BETWEEN 1 AND 4
 	</select>

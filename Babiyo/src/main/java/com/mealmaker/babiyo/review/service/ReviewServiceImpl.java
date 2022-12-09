@@ -165,24 +165,26 @@ public class ReviewServiceImpl implements ReviewService{
 	public List<Map<String, Object>> reviewCollectionList() {
 		// TODO Auto-generated method stub
 		
-		List<Map<String, Object>> resultList = new ArrayList<>();
-		List<ReviewDto> reviewList = reviewDao.reviewCollectionList();
+		List<Map<String, Object>> reviewList = reviewDao.reviewCollectionList();
 		 
-		for (ReviewDto reviewDto : reviewList) {
-			Map<String, Object> map = new HashMap<String, Object>();
-			
-			System.out.println("작성자" + reviewDto.getMemberId());
-			System.out.println("리뷰번호" + reviewDto.getNo());
+		for (Map<String, Object> map : reviewList) {
+			System.out.println("작성자" + map.get("memberId"));
+			System.out.println("리뷰번호" + map.get("no"));
 			 
-			String img = reviewDao.fileSelectStoredFileName(reviewDto.getNo());
+			int reviewNo = Integer.parseInt(map.get("no").toString());
+			int productNo = Integer.parseInt(map.get("productNo").toString());
 			
-			map.put("reviewDto", reviewDto);
-			map.put("img", img);
+			String reviewImg = reviewDao.fileSelectStoredFileName(reviewNo);
+			Map<String, Object> productImgMap = productDao.fileSelectStoredFileName(productNo);
 			
-			resultList.add(map);
+			String productImg = (String) productImgMap.get("STORED_NAME");
+			
+			
+			map.put("reviewImg", reviewImg);
+			map.put("productImg", productImg);
 		}
 		
-		return resultList;
+		return reviewList;
 	}
 
 	@Override

@@ -131,7 +131,7 @@
 
 #emptyProductList{
 	margin: 0px;
-	width: 900px;
+	width: 1200px;
 	height: 250px;
 	font-size: 32px;
 	font-weight: bold;
@@ -140,9 +140,9 @@
 }
 
 #emptyInterestList{
-	margin-top: 50px;
-	width: 900px;
-	height: 250px;
+	margin-top: 100px;
+	width: 1200px;
+	height: 150px;
 	font-size: 32px;
 	font-weight: bold;
 	text-align: center;

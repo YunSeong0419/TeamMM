@@ -192,12 +192,12 @@
 }
 
 #productContentDiv{
-	min-height: 200px;
+	width: 900px;
 	float: left;
 }
 
 #contentTitle, #reviewName{
-	margin: 10px 0px;
+	margin: 10px 30px;
 	height: 30px;
 	font-size: 22px;
 	font-weight: bold;
@@ -209,7 +209,11 @@
 }
 
 #content{
-	margin: 30px 20px;
+	min-height: 300px;
+	margin: 10px;
+	padding: 20px 30px;
+	border: 2px solid #FF9436;
+	border-radius: 5px;
 }
 
 #reviewDiv{
@@ -569,52 +573,50 @@ function load(id, cnt, btn) {
 					<p>설명</p>
 				</div>
 				
-				<hr class='longDivisionLine'/>
-				
 				<div id='content'>
 					${productDto.content}
 				</div>
 			</div>
 			
 			
-			<div id='reviewDiv'>
-				<div id='inlineDiv'>
-					<div id='reviewTitle'>
-						<span id='reviewName'>리뷰(${reviewMap.reviewQuantity})</span>
-					</div>
-					<div class='filter'>
-						<span class='latest'>최신순</span>
-					</div>
+<!-- 			<div id='reviewDiv'> -->
+<!-- 				<div id='inlineDiv'> -->
+<!-- 					<div id='reviewTitle'> -->
+<%-- 						<span id='reviewName'>리뷰(${reviewMap.reviewQuantity})</span> --%>
+<!-- 					</div> -->
+<!-- 					<div class='filter'> -->
+<!-- 						<span class='latest'>최신순</span> -->
+<!-- 					</div> -->
 					
-					<div class='shortVerticalLine'></div>
+<!-- 					<div class='shortVerticalLine'></div> -->
 					
-					<div class='filter'>
-						<span class='highRating'>평점 높은 순</span>
-					</div>
-					<div id='writeReview'>
-						<input type="button" value="리뷰 쓰기" id='writeReviewButton' 
-							onclick="location.href='/babiyo/review/write.do'">
-					</div>
-				</div>
+<!-- 					<div class='filter'> -->
+<!-- 						<span class='highRating'>평점 높은 순</span> -->
+<!-- 					</div> -->
+<!-- 					<div id='writeReview'> -->
+<!-- 						<input type="button" value="리뷰 쓰기" id='writeReviewButton'  -->
+<!-- 							onclick="location.href='/babiyo/review/write.do'"> -->
+<!-- 					</div> -->
+<!-- 				</div> -->
 				
-				<hr class='longDivisionLine'/>
+<!-- 				<hr class='longDivisionLine'/> -->
 		
-				<div class='userEvaluation'>
-					<div class='nickname'>조윤성</div>
-					<div class='wrapStar'>
-						<div class='starRating'>
-						</div>
-					</div>
-					<div class='userUploadImage'>
-						<a href="#"><img alt="밀키트 이미지 " src=""></a>
-					</div>
-					<div class='reviewContent'>
-					</div>
-				</div>
-			</div>
-			<div id='lowerButtonDiv'>
-				<input type="submit" value="리뷰 더 보기" id='lowerButton'>	
-			</div>
+<!-- 				<div class='userEvaluation'> -->
+<!-- 					<div class='nickname'>조윤성</div> -->
+<!-- 					<div class='wrapStar'> -->
+<!-- 						<div class='starRating'> -->
+<!-- 						</div> -->
+<!-- 					</div> -->
+<!-- 					<div class='userUploadImage'> -->
+<!-- 						<a href="#"><img alt="밀키트 이미지 " src=""></a> -->
+<!-- 					</div> -->
+<!-- 					<div class='reviewContent'> -->
+<!-- 					</div> -->
+<!-- 				</div> -->
+<!-- 			</div> -->
+<!-- 			<div id='lowerButtonDiv'> -->
+<!-- 				<input type="submit" value="리뷰 더 보기" id='lowerButton'>	 -->
+<!-- 			</div> -->
 		</div>
 		
 		<div id="underPadding"></div>

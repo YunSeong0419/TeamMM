@@ -262,8 +262,10 @@
 										<td class='productPriceBox'>
 											<fmt:formatNumber value="${productDto.price}" pattern="#,###"/> 원&nbsp;
 										</td>
-										<td><input type="text" value='${productDto.stock}'
-												 class='stockBox'></td>
+										<td>
+										${productDto.stock}
+<%-- 										<input type="text" value='${productDto.stock}' class='stockBox'> --%>
+										</td>
 										<td><input type="checkbox" class='check'></td>
 									</tr>
 								</c:forEach>
@@ -273,8 +275,8 @@
 					<div id='tableLowerButtonDiv'>
 						<input type="button" value="밀키트 등록" class='productListbutton' 
 							onclick="location.href='./adminRegistration.do'">
-						<input type="button" value="재고 수정" class='productListbutton' 
-							onclick="stockBatchModificationFnc();">
+<!-- 						<input type="button" value="재고 수정" class='productListbutton'  -->
+<!-- 							onclick="stockBatchModificationFnc();"> -->
 					</div>
 				</div>
 				

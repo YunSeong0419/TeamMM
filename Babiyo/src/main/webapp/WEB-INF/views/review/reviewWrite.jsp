@@ -185,9 +185,9 @@
 		
 		$('.star span').css({width: widthVal});
 	}
-
-	function pageMoveBeforeFnc(no){
-		var url = '/babiyo/product/detail.do?no=' + no;
+	
+	function pageMoveBeforeFnc(){
+		var url = '/babiyo/member/orderList.do';
 		location.href = url;
 	}
 
@@ -204,6 +204,15 @@
 	}
 	
 	function formSubmit() {	
+		
+		if(!$('#selectBox').val()){
+			alert("밀키트를 선택하세요.");
+			frm.productNo.focus();
+			
+			return false;
+		}
+		
+		
 		if (frm.content.value == "") {
 			alert("내용을 입력하세요.");
 			frm.content.focus();
@@ -226,7 +235,6 @@
 		
 		$('#productImg').attr('src', src);
 	}
-	
 	
 </script>
 
@@ -296,8 +304,8 @@
 					</div>
 					<div id='lowerButtonDiv'>
 	  					<input type='button' value='이전'  class='lowerButton' 
-	  						onclick='pageMoveBeforeFnc(${productDto.no});'>
-						<input type="submit" value='리뷰 등록' class='lowerButton'>
+	  						onclick='pageMoveBeforeFnc();'>
+						<input type="submit" value='리뷰 등록' onclick="submitBtn();" class='lowerButton'>
 					</div>
 				</form> 
 			</div>

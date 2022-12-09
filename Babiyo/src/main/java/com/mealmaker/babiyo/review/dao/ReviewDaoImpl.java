@@ -113,7 +113,7 @@ public class ReviewDaoImpl implements ReviewDao{
 	}
 
 	@Override
-	public List<ReviewDto> reviewCollectionList() {
+	public List<Map<String, Object>> reviewCollectionList() {
 		// TODO Auto-generated method stub
 		
 		return sqlSession.selectList(namespace + "reviewCollectionList");

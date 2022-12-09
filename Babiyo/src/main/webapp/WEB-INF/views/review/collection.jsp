@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -54,6 +55,12 @@
 	text-align: center;
 }
 
+.productImage img{
+	width: 150px;
+	height: 150px;
+	border-radius: 10px;
+}
+
 .productImage > a{
 	margin: auto;
 	width: 100px;
@@ -71,8 +78,9 @@
 
 .userEvaluation{
 	padding-top: 20px;
-	width: 750px;
+	width: 700px;
 	height: 150px;
+	margin-left: 10px;
 	float: left;
 }
 
@@ -86,32 +94,36 @@
 }
 
 .starRating{
+	display: inline-block;
 	margin-top: 4px;
 	margin-left: 30px;
-	width: 120px;
+	width: 100px;
 }
 
 .starRating, .starRating > span{
 	display: inline-block;
-	height: 21px;
-	overflow: hidden;
-	background: url("/babiyo/resources/img/star.png")no-repeat;
-	background-size: 120px 42px;
+	height: 20px;
+/* 	overflow: hidden; */
+/* 	background: url("/babiyo/resources/img/star.png")no-repeat; */
+/* 	background-size: 120px 42px; */
 }
 
 .starRating > span{
-	width: 120px;
-	height: 21px;
-	background-position: left bottom;
-	line-height: 0px;
+	width: 20px;
 	vertical-align: top;
 }
 
+.reportingDate{
+	display: inline-block;
+	width: 200px;
+}
+
 .reviewContent{
+	margin-top: 10px;
 	margin-left: 20px;
 	font-size: 14px;
 	width: 700px;
-	height: 100px;
+	min-height: 100px;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: normal;
@@ -124,8 +136,8 @@
 }
 
 .userUploadImage{
-	padding-left: 20px;
-	width: 750px;
+	margin: 10px 0px 10px 30px;
+	width: 700px;
 	height: 100px;
 	float: left;
 }
@@ -149,6 +161,7 @@
 	text-align: center;
 	float: left;
 }
+
 
 #lowerButton{
 	margin: 0px;
@@ -213,20 +226,20 @@
 		<div class='reviewCollectionList'>
 			<div class='productInfo'>
 				<div class='productImage'>
-					<a href="#"><img alt="밀키트 이미지 " src=""></a>
+					<a href="#"><img alt="밀키트 이미지 " src="/babiyo/img/${review.productImg}"></a>
 				</div>				
-				<div class='productName'>${review.reviewDto.memberId}</div>
+				<div class='productName'>${review.productName}</div>
 			</div>
 			<div class='userEvaluation'>
-				<div class='nickname'>${review.reviewDto.memberId}</div>
-					<div class='starRating'>
-						<span style="width: 20%}"></span>
-					</div>
-				<div class='reportingDate'>${review.reviewDto.createDate}</div>
-				<div class='reviewContent'>${review.reviewDto.content}</div>
+				<div class='nickname'>${review.nickname}</div>
+				<div class='starRating'>평점 <span>${review.starRating}</span> 점</div>
+				<div class='reportingDate'>
+				<fmt:formatDate value="${review.createDate}" pattern="yyyy-MM-dd a hh:mm:ss"/> 
+				</div>
+				<div class='reviewContent'>${review.content}</div>
 			</div>
 			<div class='userUploadImage'>
-				<a href="#"><img alt="밀키트 이미지 " src="/babiyo/img/${review.img}"></a>
+				<a href="#"><img alt="밀키트 이미지 " src="/babiyo/img/${review.reviewImg}"></a>
 			</div>
 			<hr class='lowerDivisionLine'/>	
 		</div>

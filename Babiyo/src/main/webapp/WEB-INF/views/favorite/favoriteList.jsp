@@ -45,6 +45,7 @@
 .productImg{
 	width: 170px;
 	height: 170px;
+	border-radius: 10px;
 }
 
 .productName{
