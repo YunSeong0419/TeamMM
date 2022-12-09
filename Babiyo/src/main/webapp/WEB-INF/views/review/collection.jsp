@@ -239,7 +239,9 @@
 				<div class='reviewContent'>${review.content}</div>
 			</div>
 			<div class='userUploadImage'>
-				<a href="#"><img alt="밀키트 이미지 " src="/babiyo/img/${review.reviewImg}"></a>
+				<c:if test="${!empty review.reviewImg}">
+					<a href="#"><img alt="밀키트 이미지 " src="/babiyo/img/${review.reviewImg}"></a>
+				</c:if>
 			</div>
 			<hr class='lowerDivisionLine'/>	
 		</div>
