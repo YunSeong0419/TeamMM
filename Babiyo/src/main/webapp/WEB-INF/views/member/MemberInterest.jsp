@@ -147,17 +147,12 @@
 					<h3>관심사</h3>
 					<div class="bir_yy">
 						<input type="hidden" name="interestList[1].listNo" value="2">
-						<select id='code2' class='birth' name='interestList[1].categoryCode'>
-							<option value="0" disabled selected>선택해주세요</option>
+						<input type="hidden" id='code2' class='birth' name='interestList[1].categoryCode'>
+							<input type="checkbox" value="0" >선택하지않음
 							<c:forEach items="${categoryCodeList}" var="interest">
-								<option value="${interest.CODE}">${interest.NAME}</option>
-<!-- 							<option value="01">한식</option> -->
-<!-- 							<option value="02">중식</option> -->
-<!-- 							<option value="03">일식</option> -->
-<!-- 							<option value="04">양식</option> -->
-<!-- 							<option value="05">동남아</option> -->
+<%-- 								<option value="${interest.CODE}">${interest.NAME}</option> --%>
+								<input type="checkbox" class="checkBox" value="${interest.CODE}">${interest.NAME}
 							</c:forEach>
-						</select>
 					</div>
 				</div>	
 				<input id='all_chk' type="submit" value='결정' onclick="submitCheck();">
