@@ -154,8 +154,8 @@ function moveBackFnc() {
 						</tr>
 						<tr>
 							<td class="choice"><input  type="radio" id="selfInput"
-								name="cash" value="" onclick="choiceCash(event)"></td>
-							<td><label for="self">직접입력</label></td>
+								name="cash" onclick="choiceCash(event)"></td>
+							<td><label for="selfInput">직접입력</label></td>
 							<td><input type="number" id="selfIn" min="1" max="1000000"
 								placeholder="충전금액을 입력해주세요" onkeyup="inputMoney();"></td>
 						</tr>

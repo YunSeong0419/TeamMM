@@ -107,13 +107,15 @@
 					event.preventDefault();
 					
 					alert('선택한 관심사가 존재하지 않습니다');
-				}
+				};
 				
 				if($('#code1').val() == $('#code2').val()){
 					event.preventDefault();
 					
-					alert('서로 다른 관심사를 선택해주세요');
-				}
+					alert('서로 다른 관심사를 선택해주세요\n\n\n\n\n　　　　　싫어욥');
+				};
+				
+				
 			}
 			
 		</script>
