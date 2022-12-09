@@ -119,12 +119,16 @@
 	font-weight: bold;
 }
 						
-#numberTh, #checkBoxTh{ 
+#numberTh{ 
  	width: 60px; 
 } 
 
-#classificationTh, #priceTh{
+#classificationTh{
 	width: 100px;
+}
+
+#priceTh, #stockTh{
+	width: 145px;
 }
 
 #productNameTh{
@@ -237,12 +241,11 @@
 							<th id='productNameTh'>밀키트 품명</th>
 							<th id='priceTh'>가격</th>
 							<th id='stockTh'>재고</th>
-							<th id='checkBoxTh'><input type="checkbox" id='allCheck'></th>
 						</tr>
 							<c:choose>
 							<c:when test="${empty productList}">
 								<tr>
-									<td colspan="6" 
+									<td colspan="5" 
 										style="width: 500px; height: 350px; border: 0px;
 										font-size: 25px; font-weight: bold; text-align: center;">
 										밀키트를 등록해주세요.
@@ -266,7 +269,6 @@
 										${productDto.stock}
 <%-- 										<input type="text" value='${productDto.stock}' class='stockBox'> --%>
 										</td>
-										<td><input type="checkbox" class='check'></td>
 									</tr>
 								</c:forEach>
 							</c:otherwise>
