@@ -174,13 +174,13 @@ function backBtn(){
 				<input type="text" name="title" id="titleId"
 						 value="${noticeDto.title}" readonly>
 			</div>
-			<br>
 			<c:if test="${!empty noticeImg}">
+			<br>
 			<div id="imgDiv">
 				<img id="imgSize" alt="" src="/babiyo/img/${noticeImg.STORED_NAME}"><br>
 			</div>
-			</c:if>
 			<br>
+			</c:if>
 			<span>내용</span><br> 
 			
 			<textarea name="content" id="contentsId" readonly>${noticeDto.content}</textarea>
