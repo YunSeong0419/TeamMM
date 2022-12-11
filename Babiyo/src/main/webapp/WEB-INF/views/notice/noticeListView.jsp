@@ -35,7 +35,7 @@ span{
 }
 
 #filterDiv{
-	margin: auto;
+	margin: 30px auto;
 	width: 900px;
 }
 
@@ -167,7 +167,6 @@ $(document).ready(function(){
 			<%-- <jsp:include page="/WEB-INF/views/CommonMiddleDiv.jsp" /> --%>
 
 			<!-- <div id="middleMainDiv"> -->
-				<div id="centerTitle"></div>
 				<div id="boxDiv">
 				<!--여기서 작성 -->
 				<div id="filterDiv">

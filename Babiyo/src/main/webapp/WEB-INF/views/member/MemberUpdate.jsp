@@ -50,9 +50,9 @@
 }
 
 .check {
+	padding: 0 0 0 15px;
 	font-size: 10px;
 	color: red;
-
 }
 
 .input_box {
@@ -93,44 +93,30 @@ var chk2 = true;
 var chk3 = true;
 var chk4 = true;
 var chk5 = true;
-var chk6 = false;
+var chk6 = true;
+
+
 
 $(function(){
-	var pwdObj = document.getElementById('pwd');
-	var nameObj = document.getElementById('mname');
-	var emailObj = document.getElementById('email');
-	var phoneObj = document.getElementById('phone');
-	var nickObj = document.getElementById('nickname');
-	var pwdChk = document.getElementById('pwdChk');
-	var nameChk = document.getElementById('nameChk');
-	var emailChk = document.getElementById('emailChk');
-	var phoneChk = document.getElementById('phoneChk');
-	var nickChk = document.getElementById('nickChk');
-	var myEmail = document.getElementById('myEmail');
-	var myPhone = document.getElementById('myPhone');
-	var myNick = document.getElementById('myNick');
-	var updateBtn = document.getElementById('update');
 	
+	$('#gender').val($('#memberGender').val());
 	
-	function allChkColor() {
-		console.log(chk1);
-		console.log(chk2);
-		console.log(chk3);
-		console.log(chk4);
-		console.log(chk5);
-		console.log(chk6);
-		
-		if (chk1 == true && chk2 == true && chk3 == true && chk4 == true
-				&& chk5 == true) {
-			chk6 = true;
-			updateBtn.style.background = 'orange';
-		}else {
-			updateBtn.style.background = 'grey';
-		}
-	};
-
+	pwdObj = document.getElementById('pwd');
+	nameObj = document.getElementById('mname');
+	emailObj = document.getElementById('email');
+	phoneObj = document.getElementById('phone');
+	nickObj = document.getElementById('nickname');
+	pwdChk = document.getElementById('pwdChk');
+	nameChk = document.getElementById('nameChk');
+	emailChk = document.getElementById('emailChk');
+	phoneChk = document.getElementById('phoneChk');
+	nickChk = document.getElementById('nickChk');
+	myEmail = document.getElementById('myEmail');
+	myPhone = document.getElementById('myPhone');
+	myNick = document.getElementById('myNick');
+	updateBtn = document.getElementById('update');
 	
-	//비밀번호 유효성
+// 	비밀번호 유효성
 	pwdObj.addEventListener('keyup', function() {
 		var spObj = /[`~!@#$%^&*|\\\";:\/? ]/;
 		var check_eng = /[a-zA-Z]/;
@@ -147,7 +133,8 @@ $(function(){
 		}
 		allChkColor();
 	});
-	//이름 유효성
+	
+// 	이름 유효성
 	nameObj.addEventListener('keyup', function() {
 		var spObj = /[`~!@#$%^&*|\\\";:\/? ]/;
 		var check_lang = /[ㄱ-ㅎ|ㅏ-ㅣ]/;
@@ -155,27 +142,24 @@ $(function(){
 		var check_mixTwo = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]+[a-zA-Z]/;
 		var check_num = /[0-9]/;
 		
-		if(nameObj.value == '') {
-			nameChk.innerHTML = '';
-			chk2 = true;
-		}else if (check_lang.test(nameObj.value) || check_num.test(nameObj.value)
+		if (check_lang.test(nameObj.value) || check_num.test(nameObj.value)
 				|| spObj.test(nameObj.value) || check_mix.test(nameObj.value)
-				|| check_mixTwo.test(nameObj.value)){
+				|| check_mixTwo.test(nameObj.value) || nameObj.value == ''){
 			nameChk.innerHTML = '한글과 영문 대 소문자를 사용하세요. (특수기호, 공백 사용 불가)';
 			chk2 = false;
 		}else {
 			nameChk.innerHTML = '';
 			chk2 = true;
 		} 
+		
 		allChkColor();
+		
 	});
-	//이메일 유효성
+// 	이메일 유효성
 	emailObj.addEventListener('keyup', function() {
 		let emailRull = RegExp(/^([\w\.\_\-])*[a-zA-Z0-9]+([\w\.\_\-])*([a-zA-Z0-9])+([\w\.\_\-])+@([a-zA-Z0-9]+\.)+[a-zA-Z0-9]{2,8}$/);
-		if (emailObj.value == '') {
-			emailChk.innerHTML = '';
-			chk3 = true;
-		}else if(emailRull.test(emailObj.value)==false){
+		
+		if(emailRull.test(emailObj.value)==false){
 			emailChk.innerHTML = '이메일 형식이 올바르지 않습니다';
 			emailChk.style.color = 'orange';
 			chk3 = false;
@@ -208,13 +192,11 @@ $(function(){
 		allChkColor();
 		
 	});
-	//핸드폰번호 유효성
+// 	핸드폰번호 유효성
 	phoneObj.addEventListener('keyup', function() {
 		var check_num = /^[0-9,-]{4}[0-9,-]{5}[0-9]{4}/;
-		if (phoneObj.value == '') {
-			phoneChk.innerHTML = '';
-			chk4 = true;
-		}else if (!check_num.test(phoneObj.value)){
+		
+		if (!check_num.test(phoneObj.value)){
 			phoneChk.innerHTML = '핸드폰번호 11자리를 입력해주세요';
 			phoneChk.style.color = 'orange';
 			chk4 = false;
@@ -246,11 +228,23 @@ $(function(){
 		}
 		allChkColor();
 	});
-	//닉네임 유효성
+// 	닉네임 유효성
 	nickObj.addEventListener('keyup', function() {
-		if (nickObj.value == '') {
-			nickChk.innerHTML = '';
-			chk5 = true;
+		var spObj = /[`~!@#$%^&*|\\\";:\/? ]/;
+		var check_lang = /[ㄱ-ㅎ|ㅏ-ㅣ]/;
+		var check_mix = /[a-zA-Z]+[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
+		var check_mixTwo = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]+[a-zA-Z]/;
+		var check_num = /[0-9]/;
+		
+		if (check_lang.test(nameObj.value) || check_num.test(nameObj.value)
+				|| spObj.test(nameObj.value) || check_mix.test(nameObj.value)
+				|| check_mixTwo.test(nameObj.value) || nameObj.value == ''){
+			nameChk.innerHTML = '한글과 영문 대 소문자를 사용하세요. (특수기호, 공백 사용 불가)';
+			chk5 = false;
+		}else if(nickObj.value == ''){
+			nickChk.innerHTML = '닉네임이 비어있습니다';
+			nickChk.focus();
+			chk5 = false;
 		}else if(nickObj.value == myNick.value){
 			nickChk.innerHTML = '';
 			chk5 = true;
@@ -277,6 +271,7 @@ $(function(){
 		        }
 		    });
 		}
+		
 		allChkColor();
 	});
 	
@@ -285,44 +280,49 @@ $(function(){
 		var no = $(this).val();
 		var code = $('#interestCode' + no).val();
 		
-		$('#category' + no).val(code);
+		if(code != 0){
+			$('#category' + no).val(code);
+		}
+		
+		$(this).change(function() {
+			if($('catogory1').val() != 0 && $('category2').val() != 0
+					&& $('catogory1').val() == $('category2').val()){
+				chk6 == false;
+			}else{
+				chk6 == true;
+			}
+		});
 	});
 	
 });
-	//전송 중 관심사 유효성 검사
-	function updateFnc() {
-		var form = document.forms;
-		console.log(chk1);
-		console.log(chk2);
-		console.log(chk3);
-		console.log(chk4);
-		console.log(chk5);
-		console.log(chk6);
-		if($('#category1').val() != $('#category2').val() && chk6 == true){
-			form[0].submit();
-		}
-	};
-	//뒤로가기
-	function moveBackFnc() {
-		location.href = './memberInfo.do';
-	};
+
+function allChkColor() {
+	if (chk1 == true && chk2 == true && chk3 == true && chk4 == true
+			&& chk5 == true && chk6 == true) {
+		updateBtn.style.background = '#FF9436';
+	}else {
+		updateBtn.style.background = '#FFBA85';
+	}
+};
+
+// 	전송 중 관심사 유효성 검사
+function updateFnc() {
+	var form = document.forms;
 	
-	//핸드폰번호 하이픈
-	const autoHyphen = (target) => {
-		 target.value = target.value
-		   .replace(/[^0-9]/g, '')
-		  .replace(/^(\d{0,3})(\d{0,4})(\d{0,4})$/g, "$1-$2-$3").replace(/(\-{1,2})$/g, "");
-		};
-	
-// 	FUNCTION ALLCHKCOLOR() {
-// 		IF (CHK1 == TRUE && CHK2 == TRUE && CHK3 == TRUE && CHK4 == TRUE
-// 				&& CHK5 == TRUE) {
-// 			CHK6 = TRUE;
-// 			UPDATEBTN.STYLE.BACKGROUND = 'ORANGE';
-// 		}ELSE {
-// 			UPDATEBTN.STYLE.BACKGROUND = 'GREY';
-// 		}
-// 	};
+	form[0].submit();
+};
+
+//뒤로가기
+function moveBackFnc() {
+	location.href = './memberInfo.do';
+};
+
+//핸드폰번호 하이픈
+const autoHyphen = (target) => {
+	 target.value = target.value
+	   .replace(/[^0-9]/g, '')
+	  .replace(/^(\d{0,3})(\d{0,4})(\d{0,4})$/g, "$1-$2-$3").replace(/(\-{1,2})$/g, "");
+};
 	
 </script>
 
@@ -359,11 +359,13 @@ $(function(){
 								</tr>
 								<tr>
 									<td class="option">성별</td>
-									<td><select id="gender" name="gender">
-											<option disabled="disabled">${_memberDto_.gender}</option>
+									<td>
+										<select id="gender" name="gender">
 											<option value="남">남</option>
 											<option value="여">여</option>
-									</select></td>
+										</select>
+										<input id="memberGender" type="hidden" value="${_memberDto_.gender}">
+									</td>
 								</tr>
 								<tr>
 									<td class="option"></td><td class="check"></td>
@@ -429,7 +431,7 @@ $(function(){
 											<select id='category${i.count}' class='birth'
 												 name='interestList[${i.index}].categoryCode'>
 												 
-												<option value="0" disabled selected>선택</option>
+												<option value="0">없음</option>
 												
 												<c:forEach items="${categoryCodeList}" var="interest">
 													<option value="${interest.CODE}">${interest.NAME}</option>

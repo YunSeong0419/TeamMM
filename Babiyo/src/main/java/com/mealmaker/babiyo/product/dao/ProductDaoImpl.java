@@ -90,7 +90,7 @@ public class ProductDaoImpl implements ProductDao{
 
 	//파일 저장된 이름 불러오기??
 	@Override
-	public Map<String, Object> fileSelectStoredFileName(int parentSeq) {
+	public String fileSelectStoredFileName(int parentSeq) {
 
 		return sqlSession.selectOne(namespace + "fileSelectStoredFileName", parentSeq);
 	}

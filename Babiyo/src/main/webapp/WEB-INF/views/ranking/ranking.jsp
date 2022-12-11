@@ -49,14 +49,17 @@ ul{
 	font-weight: bold;
 }
 
-
-
-ul > .listCl{
+.listCl{
 	margin-top: 20px;
 	margin-left: 50px;
 	font-size: 20px;
 	font-weight: bold;
 	text-align: left;
+}
+
+.listCl > a {
+	text-decoration: none;
+	color: black;
 }
 
 </style>
@@ -68,14 +71,20 @@ ul > .listCl{
 	<jsp:include page="/WEB-INF/views/Header.jsp" />
 
 	<div id="middleDiv">
-		<div id='centerTitle'></div>
 		<!--여기서 작성 -->
 		  <div id="boxDiv">
 		     <div class="rankingDiv">
 				<ul class="ulId">
 					<li class="rankIi"><span>오늘 판매량 순위</span></li>
 					<c:forEach items="${toDayList}" var="ranking" varStatus="status">
-						<li class="listCl">${status.count}위&nbsp;&nbsp;&nbsp;${ranking}</li>
+						<li class="listCl">
+							${status.count}위&nbsp;&nbsp;&nbsp;
+						<c:if test="${ranking.name ne '-'}">
+						<a href="/babiyo/product/detail.do?productNo=${ranking.no}">
+							${ranking.name}
+						</a>
+						</c:if>
+						</li>
 					</c:forEach>
 				</ul>
 		   </div>
@@ -84,7 +93,14 @@ ul > .listCl{
 				<ul class="ulId">
 					<li class="rankIi">주간 판매량 순위</li>
 					<c:forEach items="${weeklyList}" var="ranking" varStatus="status">
-						<li class="listCl">${status.count}위&nbsp;&nbsp;&nbsp;${ranking}</li>
+						<li class="listCl">
+							${status.count}위&nbsp;&nbsp;&nbsp;
+						<c:if test="${ranking.name ne '-'}">
+						<a href="/babiyo/product/detail.do?productNo=${ranking.no}">
+							${ranking.name}
+						</a>
+						</c:if>
+						</li>
 					</c:forEach>
 				</ul>
 		    </div>
@@ -93,7 +109,14 @@ ul > .listCl{
 				<ul class="ulId">
 					<li class="rankIi">남성 판매량 순위</li>
 					<c:forEach items="${manList}" var="ranking" varStatus="status">
-					<li class="listCl">${status.count}위&nbsp;&nbsp;&nbsp;${ranking}</li>
+						<li class="listCl">
+							${status.count}위&nbsp;&nbsp;&nbsp;
+						<c:if test="${ranking.name ne '-'}">
+						<a href="/babiyo/product/detail.do?productNo=${ranking.no}">
+							${ranking.name}
+						</a>
+						</c:if>
+						</li>
 					</c:forEach>
 				</ul>
 		    </div>
@@ -102,7 +125,14 @@ ul > .listCl{
 				<ul class="ulId">
 					<li class="rankIi">여성 판매량 순위</li>
 					<c:forEach items="${womanList}" var="ranking" varStatus="status">
-					<li class="listCl">${status.count}위&nbsp;&nbsp;&nbsp;${ranking}</li>
+						<li class="listCl">
+							${status.count}위&nbsp;&nbsp;&nbsp;
+						<c:if test="${ranking.name ne '-'}">
+						<a href="/babiyo/product/detail.do?productNo=${ranking.no}">
+							${ranking.name}
+						</a>
+						</c:if>
+						</li>
 					</c:forEach>
 				</ul>
 		     </div>

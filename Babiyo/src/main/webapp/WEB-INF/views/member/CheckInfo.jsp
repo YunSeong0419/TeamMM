@@ -105,8 +105,11 @@ function checkInfoFnc() {
 	
 };
 
-
-
+function enterSubmit(e){
+	if(e.keyCode == 13){
+		checkInfoFnc();
+	}
+}
 </script>
 
 
@@ -127,7 +130,7 @@ function checkInfoFnc() {
 				<!--여기서 작성 -->
 				<div id='infoBox'>
 				<h3>개인정보 변경을 하시려면 비밀번호를 입력해주세요</h3>
-				<p><input id='chkPwd'  type="password" placeholder="비밀번호 입력"></p>
+				<p><input id='chkPwd' type="password" placeholder="비밀번호 입력" onkeydown="enterSubmit(event)"></p>
 				<p>
 					<input class='button' type="button" value="입력" onclick="checkInfoFnc();">
 					<input class='button' type="button" value="이전" onclick="moveBackFnc();">

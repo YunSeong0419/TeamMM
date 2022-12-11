@@ -172,10 +172,10 @@
 		WHERE PRODUCT_NO = #{value}
 	</select>
 
-	<select id="fileSelectStoredFileName" parameterType="int" resultType="map">
-		SELECT NO, ORIGINAL_NAME, STORED_NAME, PRODUCT_NO
+	<select id="fileSelectStoredFileName" parameterType="int" resultType="String">
+		SELECT STORED_NAME
 		FROM PRODUCT_IMAGE
-		WHERE NO = #{no}
+		WHERE PRODUCT_NO = #{value}
 	</select>
 
 	<delete id="fileDelete" parameterType="int">

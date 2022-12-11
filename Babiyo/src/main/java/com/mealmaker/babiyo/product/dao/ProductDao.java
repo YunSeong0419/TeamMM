@@ -22,7 +22,7 @@ public interface ProductDao {
 	//이미지 첨삭
 	public void insertFile(Map<String, Object> map);
 	Map<String, Object> fileSelectOne(int no);
-	public Map<String, Object> fileSelectStoredFileName(int parentSeq);
+	public String fileSelectStoredFileName(int parentSeq);
 	public int fileDelete(int parentSeq);
 	//카테고리 정보 가져오기
 	public List<Map<String, Object>> productCategory();

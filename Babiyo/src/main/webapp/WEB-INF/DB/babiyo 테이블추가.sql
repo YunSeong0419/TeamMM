@@ -1,4 +1,4 @@
-
+ 
 /* Drop Triggers */
 
 DROP TRIGGER TRI_cash_history_no;
@@ -607,18 +607,18 @@ insert into member
 (id, password, name, email, birthday, gender, phone, nickname, cash
 , grade_code, create_date, modify_date)
 values('admin', '123', '관리자', 'admin@test.com', TO_DATE('19960325')
-    , '남', '01011112222', 'admin1', 0, 1, sysdate, sysdate);
+    , '남', '010-0000-0000', 'admin1', 0, 1, sysdate, sysdate);
     
 INSERT INTO INTEREST(MEMBER_ID, LIST_NO)
 VALUES('admin', 1);
-INSERT INTO INTEREST(MEMBER_ID, LIST_NO, code)
-VALUES('admin', 2, null);
+INSERT INTO INTEREST(MEMBER_ID, LIST_NO)
+VALUES('admin', 2);
 
 insert into member
 (id, password, name, email, birthday, gender, phone, nickname, cash
 , grade_code, create_date, modify_date)
 values('dong', '123', '이동현', 'dong@test.com', TO_DATE('19960325')
-    , '남', '01055553333', '동현', 100000, 2, sysdate, sysdate);
+    , '남', '010-5555-3333', '김치볶음밥장인', 0, 2, sysdate, sysdate);
     
 INSERT INTO INTEREST(MEMBER_ID, LIST_NO)
 VALUES('dong', 1);

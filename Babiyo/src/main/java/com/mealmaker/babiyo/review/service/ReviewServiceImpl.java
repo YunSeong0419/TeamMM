@@ -175,10 +175,7 @@ public class ReviewServiceImpl implements ReviewService{
 			int productNo = Integer.parseInt(map.get("productNo").toString());
 			
 			String reviewImg = reviewDao.fileSelectStoredFileName(reviewNo);
-			Map<String, Object> productImgMap = productDao.fileSelectStoredFileName(productNo);
-			
-			String productImg = (String) productImgMap.get("STORED_NAME");
-			
+			String productImg = productDao.fileSelectStoredFileName(productNo);
 			
 			map.put("reviewImg", reviewImg);
 			map.put("productImg", productImg);

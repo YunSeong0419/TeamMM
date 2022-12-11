@@ -173,39 +173,9 @@
 	font-size: 16px;
 }
 
-.reviewCollectionList {
-    display: none;
-}
-
-.reviewCollectionList.active {
-    display: block;
-}
 </style>
 
 <script type="text/javascript" src="/babiyo/resources/js/jquery-3.6.1.js"></script>
-<script type="text/javascript" src="js/js-load.js"></script>
-<script type="text/javascript">
-	$(window).on('load', function () {
-		load('.reviewCollectionList', '4');
-	    $('#lowerButton').on('click', function () {
-	        load('.reviewCollectionList', '4', '#lowerButtonDiv');
-	    })
-	});
-	 
-	function load(id, cnt, btn) {
-	    var reviewList = id + ".reviewCollectionList:not(.active)";
-	    var reviewLength = $(reviewList).length;
-	    var reviewTotalCount;
-	    
-	    if (cnt < reviewLength) {
-	    	reviewTotalCount = cnt;
-	    } else {
-	    	reviewTotalCount = reviewLength;
-	        $('#lowerButton').hide();
-	    }
-	    $(reviewList + ":lt(" + reviewTotalCount + ")").addClass("active");
-	}
-</script>
 </head>
 
 <body>
@@ -222,11 +192,19 @@
 		
 		<hr class='lowerDivisionLine' />		
 		
+		<c:if test="${empty reviewCollectionList}">
+			
+			<div>등록된 리뷰가 없습니다</div>
+		
+		</c:if>
+		
 		<c:forEach items="${reviewCollectionList}" var="review">
 		<div class='reviewCollectionList'>
 			<div class='productInfo'>
 				<div class='productImage'>
-					<a href="#"><img alt="밀키트 이미지 " src="/babiyo/img/${review.productImg}"></a>
+					<a href="/babiyo/product/detail.do?productNo=${review.productNo}">
+						<img alt="밀키트 이미지 " src="/babiyo/img/${review.productImg}">
+					</a>
 				</div>				
 				<div class='productName'>${review.productName}</div>
 			</div>
@@ -247,10 +225,9 @@
 		</div>
 		</c:forEach>
 		
-		
-		
+
 		<div id='lowerButtonDiv'>
-			<input type="button" value="더보기" id='lowerButton'>
+<!-- 			<input type="button" value="더보기" id='lowerButton'> -->
 		</div>
 
 		<div id="underPadding"></div>

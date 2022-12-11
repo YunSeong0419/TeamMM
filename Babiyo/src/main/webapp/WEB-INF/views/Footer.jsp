@@ -12,20 +12,11 @@
 	
 <script type="text/javascript">
 $(function(){
-	var side = $('#verticalSideMenuBarArea').text();
-	
-	if(side == ''){
-		var titleObj = document.getElementById('centerTitle');
-	}else{
+	if(document.getElementById('sideTitle')){
+		var side = $('#verticalSideMenuBarArea').text();
 		var titleObj = document.getElementById('sideTitle');
+		titleObj.innerHTML = '<p>' + document.title + '</p>';
 	}
-	
-	titleObj.innerHTML = '<p>' + document.title + '</p>';
 });
 </script>
-	
-	
-	
-	
-	
 	

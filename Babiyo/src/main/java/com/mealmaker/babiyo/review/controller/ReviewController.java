@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.mealmaker.babiyo.member.model.MemberDto;
-import com.mealmaker.babiyo.product.model.ProductDto;
 import com.mealmaker.babiyo.product.service.ProductService;
 import com.mealmaker.babiyo.review.model.ReviewDto;
 import com.mealmaker.babiyo.review.service.ReviewService;
@@ -113,9 +112,13 @@ public class ReviewController {
 		int productNo = reviewDto.getProductNo();
 		
 		try {
+			
 			reviewService.reviewRegistration(reviewDto, mulRequest);
+			
 		} catch (Exception e) {
+			
 			e.printStackTrace();
+			
 		}
 		
 		return "redirect:/product/detail.do?productNo=" + productNo;
