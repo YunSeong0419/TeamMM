@@ -35,10 +35,10 @@
 * AJAX
 
 ## 4. ERD설계
-<pre "backgroundColor: white">
-   <code style="backgroundColor: white">
+<pre id="preId">
+   <code style="background: white">
    ```css
-pre {
+#preId{
  background: white
 }
 ```
