@@ -38,7 +38,7 @@
 * AJAX
 
 ## 4. ERD설계
-<pre>
+<pre style="background-color: #fff">
    <code>
 <img src="./ProjectImg/ERMaster.png" width="750px" height="500px" alt="ERM"></img>   
    </code>
