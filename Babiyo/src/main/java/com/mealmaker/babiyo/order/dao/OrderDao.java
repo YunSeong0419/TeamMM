@@ -5,7 +5,6 @@ import java.util.Map;
 
 import com.mealmaker.babiyo.order.model.OrderDetailDto;
 import com.mealmaker.babiyo.order.model.OrderDto;
-import com.mealmaker.babiyo.product.model.ProductDto;
 import com.mealmaker.babiyo.util.SearchOption;
 
 public interface OrderDao {
@@ -16,10 +15,6 @@ public interface OrderDao {
 
 	public OrderDto lastOrder(String memberId);
 
-	public List<OrderDto> orderList(String memberId, int begin, int end, SearchOption searchOption);
-
-	public int memberOrderCount(String id, SearchOption searchOption);
-
 	public OrderDto orderView(int orderNo);
 
 	List<OrderDetailDto> orderDetailView(int orderNo);
@@ -27,10 +22,6 @@ public interface OrderDao {
 	public void orderCancel(int orderNo);
 
 	public List<Map<String, Object>> orderStateList();
-
-	public int adminOrderCount(SearchOption searchOption);
-
-	public List<OrderDto> adminOrderList(int begin, int end, SearchOption searchOption);
 
 	public void orderAccept(int orderNo);
 
@@ -44,7 +35,11 @@ public interface OrderDao {
 
 	public List<Map<String, Object>> productChart();
 
-	int memberOrderCount(String memberId);
+	public int memberTotalOrder(String memberId);
+
+	public int orderCount(Map<String, Object> paraMap);
+
+	public List<OrderDto> orderList(Map<String, Object> paraMap);
 
 	
 	

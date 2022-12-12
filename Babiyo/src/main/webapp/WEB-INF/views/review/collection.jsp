@@ -194,7 +194,8 @@
 		
 		<c:if test="${empty reviewCollectionList}">
 			
-			<div>등록된 리뷰가 없습니다</div>
+			<div style="width: 400px; font-size: 25px; font-weight: bold; 
+			text-align:center; margin: 100px auto;">등록된 리뷰가 없습니다</div>
 		
 		</c:if>
 		

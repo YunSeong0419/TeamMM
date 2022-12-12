@@ -168,7 +168,7 @@ public class MemberServiceImpl implements MemberService{
 		
 		Map<String, Integer> map = new HashMap<String, Integer>();
 		
-		int orderCount = orderDao.memberOrderCount(id);
+		int orderCount = orderDao.memberTotalOrder(id);
 		int inquiryCount = inquiryDao.memberInquiryCount(id);
 		int reviewCount = reviewDao.memberReviewCount(id);
 		

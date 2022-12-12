@@ -316,9 +316,7 @@ function postFind() {
 						<input type="hidden" class="quantity" name="orderDetailList[${status.index}].quantity" value="${order.quantity}">
 						<input type="hidden" class="price" name="orderDetailList[${status.index}].price" value="${order.price}">
 					</c:forEach>
-					<input type="hidden" id="totalAmount" name="totalAmount" value="">
-					<input type="hidden" name="preview" value="${orderDetailList[0].productName}">
-					<input type="hidden" name="productQuantity" value="${fn:length(orderDetailList)}">
+					<input type="hidden" id="totalAmount" name="totalAmount">
 				</div>
 				
 			</form>

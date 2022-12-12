@@ -35,9 +35,7 @@
 			begin="${paging.blockBegin}" 
 			end="${paging.blockEnd}">
 			<li id='pageButton${num}'>
-				<a href="#" onclick="goPageFnc(${num});">
-					<c:out value="${num}"/>
-				</a>
+				<a href="#" onclick="goPageFnc(${num});">${num}</a>
 			</li>
 		</c:forEach>
 		

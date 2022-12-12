@@ -35,8 +35,12 @@
 
 <select id="lastOrder" resultMap="orderResultMap" parameterType="String">
 SELECT *
-FROM (SELECT NO, RECEIVER_NAME, ADDRESS, ADDRESS_DETAIL, REQUEST, TOTAL_AMOUNT
-		FROM MEMBER_ORDER
+FROM (SELECT O.NO, O.RECEIVER_NAME, O.ADDRESS, O.ADDRESS_DETAIL, O.REQUEST, T.TOTAL_AMOUNT
+		FROM MEMBER_ORDER O JOIN 
+	    (SELECT ORDER_NO, SUM(QUANTITY * PRICE) TOTAL_AMOUNT
+	    FROM ORDER_DETAIL
+	    GROUP BY ORDER_NO) T
+	    ON O.NO = T.ORDER_NO
 		WHERE MEMBER_ID = #{memberId}
 		ORDER BY ORDER_DATE DESC) 
 WHERE <![CDATA[ ROWNUM <= 1 ]]>
@@ -44,9 +48,14 @@ WHERE <![CDATA[ ROWNUM <= 1 ]]>
 
 <select id="orderView" resultMap="orderResultMap" parameterType="int">
 SELECT O.NO, O.ORDER_DATE, O.RECEIVER_NAME, O.RECEIVER_PHONE, O.POST, O.ADDRESS, O.ADDRESS_DETAIL
-	, O.REQUEST, O.TOTAL_AMOUNT, S.NAME STATE_NAME
+	, O.REQUEST, T.TOTAL_AMOUNT, S.NAME STATE_NAME
 FROM MEMBER_ORDER O JOIN ORDER_STATE S
 ON O.STATE_CODE = S.CODE
+JOIN
+(SELECT ORDER_NO, SUM(QUANTITY * PRICE) TOTAL_AMOUNT
+    FROM ORDER_DETAIL
+    GROUP BY ORDER_NO) T
+ON O.NO = T.ORDER_NO
 WHERE NO = ${value}
 </select>
 
@@ -63,11 +72,10 @@ useGeneratedKeys="true" keyProperty="no">
 	SELECT SEQ_MEMBER_ORDER_NO.CURRVAL 
 	FROM DUAL
 </selectKey>
-INSERT INTO MEMBER_ORDER
-(MEMBER_ID,ORDER_DATE,TOTAL_AMOUNT,PREVIEW,PRODUCT_QUANTITY,RECEIVER_NAME,RECEIVER_PHONE
-	,POST,ADDRESS,ADDRESS_DETAIL,REQUEST,STATE_CODE)
-VALUES(#{memberId}, SYSDATE, #{totalAmount}, #{preview}, #{productQuantity}, #{receiverName}
-	, #{receiverPhone}, #{post}, #{address}, #{addressDetail}, #{request}, 1)
+INSERT INTO MEMBER_ORDER(MEMBER_ID,ORDER_DATE,RECEIVER_NAME
+,RECEIVER_PHONE,POST,ADDRESS,ADDRESS_DETAIL,REQUEST,STATE_CODE)
+VALUES(#{memberId}, SYSDATE, #{receiverName}, #{receiverPhone}
+, #{post}, #{address}, #{addressDetail}, #{request}, 1)
 </insert>
 
 <insert id="orderDetail" parameterType="orderDetailDto">
@@ -78,29 +86,47 @@ FROM DUAL
 </foreach>
 </insert>
 
-<select id="orderList" parameterType="map" resultMap="orderResultMap">
-SELECT *
-FROM(SELECT ROWNUM INROW, ORDER_DATE, NO, TOTAL_AMOUNT, PREVIEW, PRODUCT_QUANTITY, STATE_CODE, STATE_NAME
-FROM(SELECT O.ORDER_DATE, O.NO, O.TOTAL_AMOUNT, O.PREVIEW, O.PRODUCT_QUANTITY, S.CODE STATE_CODE, S.NAME STATE_NAME
-	FROM MEMBER_ORDER O JOIN ORDER_STATE S
-	ON O.STATE_CODE = S.CODE
-	<where>
-	O.MEMBER_ID = #{id}
-	<if test="stateCode != 0">AND O.STATE_CODE = ${stateCode}</if>
-	</where>
-	ORDER BY O.ORDER_DATE DESC))
-WHERE INROW BETWEEN ${begin} AND ${end}
-</select>	
-
-<select id="memberOrderCount" parameterType="map" resultType="int">
+<select id="orderCount" parameterType="map" resultType="int">
 SELECT COUNT(*)
 FROM MEMBER_ORDER
 <where>
-MEMBER_ID = #{id}
+<if test="id != null">MEMBER_ID = #{id}</if>
+<if test="search != null and search != ''">AND MEMBER_ID = #{search}</if>
 <if test="stateCode != 0">AND STATE_CODE = ${stateCode}</if>
+<if test="beginDate != null">AND <![CDATA[ORDER_DATE >= #{beginDate} AND ORDER_DATE < #{endDate}+1]]></if>
 </where>
-
 </select>
+
+<select id="orderList" parameterType="map" resultMap="orderResultMap">
+SELECT *
+FROM(SELECT ROWNUM INROW, ORDER_DATE, MEMBER_ID, NO, PREVIEW, PRODUCT_QUANTITY, TOTAL_AMOUNT, STATE_CODE, STATE_NAME
+FROM(SELECT ORDER_DATE, MEMBER_ID, O.NO, P.PREVIEW, P.PRODUCT_QUANTITY, T.TOTAL_AMOUNT, STATE_CODE, STATE_NAME
+FROM(SELECT O.ORDER_DATE, O.MEMBER_ID, O.NO, S.CODE STATE_CODE, S.NAME STATE_NAME
+	FROM MEMBER_ORDER O JOIN ORDER_STATE S
+	ON O.STATE_CODE = S.CODE
+	<where>
+	<if test="id != null">O.MEMBER_ID = #{id}</if>
+	<if test="search != null and search != ''">AND O.MEMBER_ID = #{search}</if>
+	<if test="stateCode != 0">AND O.STATE_CODE = ${stateCode}</if>
+	<if test="beginDate != null">AND <![CDATA[O.ORDER_DATE >= #{beginDate} AND O.ORDER_DATE < #{endDate}+1]]></if>
+	</where>
+	) O
+    LEFT OUTER JOIN 
+    (SELECT O.NO, MIN(P.NAME) PREVIEW, COUNT(*) PRODUCT_QUANTITY
+    FROM MEMBER_ORDER O JOIN ORDER_DETAIL D
+	ON O.NO = D.ORDER_NO
+    JOIN PRODUCT P
+    ON P.NO = D.PRODUCT_NO
+    GROUP BY O.NO) P
+    ON O.NO = P.NO
+    JOIN 
+    (SELECT ORDER_NO, SUM(QUANTITY * PRICE) TOTAL_AMOUNT
+    FROM ORDER_DETAIL
+    GROUP BY ORDER_NO) T
+    ON O.NO = T.ORDER_NO
+    ORDER BY ORDER_DATE DESC))
+WHERE INROW BETWEEN ${begin} AND ${end}
+</select>	
 
 <update id="orderCancel" parameterType="int">
 UPDATE MEMBER_ORDER
@@ -111,33 +137,6 @@ WHERE NO = ${value}
 <select id="orderStateList" resultType="map">
 SELECT CODE, NAME
 FROM ORDER_STATE
-</select>
-
-<select id="adminOrderCount" parameterType="com.mealmaker.babiyo.util.SearchOption"
-resultType="int">
-SELECT COUNT(*)
-FROM MEMBER_ORDER
-<where>
-ORDER_DATE BETWEEN #{beginDate} AND #{endDate}+1
-<if test="stateCode != 0">AND STATE_CODE = ${stateCode}</if>
-<if test="search != ''">AND MEMBER_ID = #{search}</if>
-</where>
-</select>
-
-
-<select id="adminOrderList" parameterType="map" resultMap="orderResultMap">
-SELECT *
-FROM(SELECT ROWNUM INROW, ORDER_DATE, MEMBER_ID, NO, TOTAL_AMOUNT, PREVIEW, PRODUCT_QUANTITY, STATE_CODE, STATE_NAME
-FROM(SELECT O.ORDER_DATE, O.MEMBER_ID, O.NO, O.TOTAL_AMOUNT, O.PREVIEW, O.PRODUCT_QUANTITY, S.CODE STATE_CODE, S.NAME STATE_NAME
-	FROM MEMBER_ORDER O JOIN ORDER_STATE S
-	ON O.STATE_CODE = S.CODE
-	<where>
-	O.ORDER_DATE BETWEEN #{beginDate} AND #{endDate}+1
-	<if test="stateCode != 0">AND O.STATE_CODE = ${stateCode}</if>
-	<if test="search != ''">AND MEMBER_ID = #{search}</if>
-	</where>
-	ORDER BY O.ORDER_DATE DESC))
-WHERE INROW BETWEEN ${begin} AND ${end}
 </select>
 
 <update id="orderAccept" parameterType="int">
@@ -159,7 +158,7 @@ FROM PRODUCT P JOIN ORDER_DETAIL D
 ON P.NO = D.PRODUCT_NO
 JOIN MEMBER_ORDER O
 ON D.ORDER_NO = O.NO
-WHERE O.ORDER_DATE BETWEEN #{beginDate} AND #{endDate}+1
+WHERE <![CDATA[O.ORDER_DATE >= #{beginDate} AND O.ORDER_DATE < #{endDate}+1]]>
 AND STATE_CODE = 2
 <if test="search != ''">
 <choose>
@@ -180,7 +179,11 @@ AND STATE_CODE = 2
 
 <select id="totalAmountView" parameterType="int" resultType="map">
 SELECT TOTAL_AMOUNT, MEMBER_ID
-FROM MEMBER_ORDER
+FROM MEMBER_ORDER O JOIN 
+    (SELECT ORDER_NO, SUM(QUANTITY * PRICE) TOTAL_AMOUNT
+    FROM ORDER_DETAIL
+    GROUP BY ORDER_NO) T
+    ON O.NO = T.ORDER_NO
 WHERE NO = #{value}
 </select>
 
@@ -188,8 +191,12 @@ WHERE NO = #{value}
 SELECT WEEK, NVL(TOTAL_AMOUNT, 0) TOTAL_AMOUNT
 FROM
 (SELECT SUM(TOTAL_AMOUNT) TOTAL_AMOUNT, TO_CHAR(ORDER_DATE,'YYYY-MM-DD') ORDER_DATE
-FROM MEMBER_ORDER
-WHERE ORDER_DATE > TRUNC(SYSDATE) - 6
+FROM MEMBER_ORDER O JOIN 
+    (SELECT ORDER_NO, SUM(QUANTITY * PRICE) TOTAL_AMOUNT
+    FROM ORDER_DETAIL
+    GROUP BY ORDER_NO) T
+    ON O.NO = T.ORDER_NO
+WHERE ORDER_DATE >= TRUNC(SYSDATE) - 6
 AND STATE_CODE = 2
 GROUP BY TO_CHAR(ORDER_DATE,'YYYY-MM-DD')) MEMBER_ORDER
 RIGHT OUTER JOIN 
@@ -208,12 +215,12 @@ ORDER BY WEEK ASC
 
 <select id="productChart" resultType="map">
 SELECT NAME, COUNT
-FROM ( SELECT P.NAME , COUNT(*) COUNT
+FROM ( SELECT P.NAME , SUM(D.QUANTITY) COUNT
 FROM ORDER_DETAIL D JOIN MEMBER_ORDER O
 ON D.ORDER_NO = O.NO
 JOIN PRODUCT P
 ON D.PRODUCT_NO = P.NO
-WHERE O.ORDER_DATE > TRUNC(SYSDATE) - 6
+WHERE O.ORDER_DATE >= TRUNC(SYSDATE) - 6
 AND O.STATE_CODE = 2
 GROUP BY D.PRODUCT_NO, P.NAME
 HAVING COUNT(*) > 0

@@ -113,14 +113,14 @@ public class OrderController {
 		
 		int totalAmount = orderService.orderCancel(orderNo);
 		
-		int balance = memberDto.getCash() + totalAmount;
-		memberDto.setCash(balance);
-		
 		boolean adminCheck = memberDto.getGrade() == 1;
 		
 		if(adminCheck) {
 			return "redirect:/admin/orderList.do?orderNo=";
 		}
+		
+		int balance = memberDto.getCash() + totalAmount;
+		memberDto.setCash(balance);
 		
 		return "redirect:/member/orderList.do?orderNo=";
 	}
@@ -139,7 +139,7 @@ public class OrderController {
 	@RequestMapping(value = "/admin/orderList.do", method = RequestMethod.GET)
 	public String adminOrderList(@RequestParam(defaultValue = "1") int curPage
 			,SearchOption searchOption, HttpSession session, Model model) {
-		logger.info("Welcome OrderController memberOrderList! ");
+		logger.info("관리자 주문목록{}", searchOption);
 		
 		Map<String, Object> map = orderService.adminOrderList(searchOption, curPage);
 		
@@ -165,7 +165,7 @@ public class OrderController {
 			,@RequestParam(defaultValue = "1") int curPage
 			, SearchOption searchOption
 			, HttpSession session, Model model) {
-		logger.info("Welcome OrderController memberOrderList! ");
+		logger.info("회원 주문목록 {}", searchOption);
 		
 		String memberId = memberDto.getId();
 		

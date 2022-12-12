@@ -146,9 +146,12 @@ function reviewWrite(){
 			<div id="orderList">
 				<table id="orderListTable">
 					<tr id="firstRow">
-						<th id="orderDateTh">주문일자</th><th id="orderNoTh">주문번호</th>
-						<th id="productNameTh">상품명</th><th id="totalAmountTh">결제금액</th>
-						<th id="orderStateTh">상태</th><th id="btnTh"></th>
+						<th id="orderDateTh">주문일자</th>
+						<th id="orderNoTh">주문번호</th>
+						<th id="productNameTh">상품명</th>
+						<th id="totalAmountTh">결제금액</th>
+						<th id="orderStateTh">상태</th>
+						<th id="btnTh"></th>
 					</tr>
 					
 					<c:choose>

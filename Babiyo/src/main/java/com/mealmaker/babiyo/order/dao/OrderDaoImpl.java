@@ -1,6 +1,5 @@
 package com.mealmaker.babiyo.order.dao;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -10,7 +9,6 @@ import org.springframework.stereotype.Repository;
 
 import com.mealmaker.babiyo.order.model.OrderDetailDto;
 import com.mealmaker.babiyo.order.model.OrderDto;
-import com.mealmaker.babiyo.product.model.ProductDto;
 import com.mealmaker.babiyo.util.SearchOption;
 
 @Repository
@@ -41,33 +39,21 @@ public class OrderDaoImpl implements OrderDao {
 		return sqlSession.selectOne(namespace + "lastOrder", memberId);
 	}
 
+
 	@Override
-	public List<OrderDto> orderList(String memberId, int begin, int end, SearchOption searchOption) {
+	public int orderCount(Map<String, Object> paraMap) {
 		// TODO Auto-generated method stub
-		Map<String, Object> paraMap = new HashMap<String, Object>();
 		
-		int stateCode = searchOption.getStateCode();
-		
-		paraMap.put("id", memberId);
-		paraMap.put("begin", begin);
-		paraMap.put("end", end);
-		paraMap.put("stateCode", stateCode);
+		return sqlSession.selectOne(namespace + "orderCount", paraMap);
+	}
+	
+	@Override
+	public List<OrderDto> orderList(Map<String, Object> paraMap) {
+		// TODO Auto-generated method stub
 		
 		return sqlSession.selectList(namespace + "orderList", paraMap);
 	}
-
-	@Override
-	public int memberOrderCount(String id, SearchOption searchOption) {
-		// TODO Auto-generated method stub
-		
-		Map<String, Object> paraMap = new HashMap<String, Object>();
-		int stateCode = searchOption.getStateCode();
-		
-		paraMap.put("id", id);
-		paraMap.put("stateCode", stateCode);
-		
-		return sqlSession.selectOne(namespace + "memberOrderCount", paraMap);
-	}
+	
 
 	@Override
 	public OrderDto orderView(int orderNo) {
@@ -95,30 +81,6 @@ public class OrderDaoImpl implements OrderDao {
 		return sqlSession.selectList(namespace + "orderStateList");
 	}
 
-	@Override
-	public int adminOrderCount(SearchOption searchOption) {
-		// TODO Auto-generated method stub
-		
-		return sqlSession.selectOne(namespace + "adminOrderCount", searchOption);
-	}
-
-	@Override
-	public List<OrderDto> adminOrderList(int begin, int end, SearchOption searchOption) {
-		// TODO Auto-generated method stub
-		
-		Map<String, Object> paraMap = new HashMap<String, Object>();
-	
-		paraMap.put("begin", begin);
-		paraMap.put("end", end);
-		paraMap.put("beginDate", searchOption.getBeginDate());
-		paraMap.put("endDate", searchOption.getEndDate());
-		paraMap.put("search", searchOption.getSearch());
-		paraMap.put("stateCode", searchOption.getStateCode());
-		
-		return sqlSession.selectList(namespace + "adminOrderList", paraMap);
-	}
-
-	
 	@Override
 	public void orderAccept(int orderNo) {
 		// TODO Auto-generated method stub
@@ -161,7 +123,7 @@ public class OrderDaoImpl implements OrderDao {
 	}
 	
 	@Override
-	public int memberOrderCount(String memberId) {
+	public int memberTotalOrder(String memberId) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne(namespace + "memberHomeOrderCount", memberId);
 	}

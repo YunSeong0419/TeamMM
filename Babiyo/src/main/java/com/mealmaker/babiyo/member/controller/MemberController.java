@@ -306,12 +306,15 @@ public class MemberController {
 	public String memberInfo(HttpSession session, Model model, String id) {
 		logger.info("Welcome MemberController memberInfo! ");
 		
-		MemberDto memberDto = (MemberDto) session.getAttribute("_memberDto_"); 
+		MemberDto memberDto =
+				memberService.memberInfo((MemberDto) session.getAttribute("_memberDto_"));
 		id = memberDto.getId();
+		
 		memberService.memberListCount(id);
 		
 		Map<String, Integer> countMap = memberService.memberListCount(id);
 		model.addAttribute("countMap", countMap);
+		session.setAttribute("_memberDto_", memberDto);
 		
 		return "/member/MemberInfo";
 	}

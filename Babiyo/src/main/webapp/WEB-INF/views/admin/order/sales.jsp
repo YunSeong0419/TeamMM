@@ -42,7 +42,6 @@
 }
 
 #customPeriod{
-	width: 500px;
 	font-weight: bold;
 }
 

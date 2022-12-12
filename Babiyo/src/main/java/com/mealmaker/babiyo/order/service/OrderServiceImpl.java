@@ -117,17 +117,49 @@ public class OrderServiceImpl implements OrderService{
 		// TODO Auto-generated method stub
 		Map<String, Object> map = new HashMap<>();
 		
-		int totalCount = orderDao.memberOrderCount(memberId, searchOption);
+		Map<String, Object> paraMap = new HashMap<String, Object>();
+		
+		paraMap.put("id", memberId);
+		paraMap.put("stateCode", searchOption.getStateCode());
+		
+		int totalCount = orderDao.orderCount(paraMap);
 		
 		Paging paging = new Paging(totalCount, curPage);
 		
-		int begin = paging.getPageBegin();
-		int end = paging.getPageEnd();
+		paraMap.put("begin", paging.getPageBegin());
+		paraMap.put("end", paging.getPageEnd());
 		
-		List<OrderDto> orderList = orderDao.orderList(memberId, begin, end, searchOption);
+		List<OrderDto> orderList = orderDao.orderList(paraMap);
 		
 		map.put("orderList", orderList);
 		map.put("paging", paging);
+		
+		return map;
+	}
+	
+	@Override
+	public Map<String, Object> adminOrderList(SearchOption searchOption, int curPage) {
+		// TODO Auto-generated method stub
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		Map<String, Object> paraMap = new HashMap<String, Object>();
+		
+		paraMap.put("beginDate", searchOption.getBeginDate());
+		paraMap.put("endDate", searchOption.getEndDate());
+		paraMap.put("search", searchOption.getSearch());
+		paraMap.put("stateCode", searchOption.getStateCode());
+		
+		int totalCount = orderDao.orderCount(paraMap);
+		
+		Paging paging = new Paging(totalCount, curPage);
+		
+		paraMap.put("begin", paging.getPageBegin());
+		paraMap.put("end", paging.getPageEnd());
+		
+		List<OrderDto> orderList = orderDao.orderList(paraMap);
+		
+		map.put("paging", paging);
+		map.put("orderList", orderList);
 		
 		return map;
 	}
@@ -180,27 +212,6 @@ public class OrderServiceImpl implements OrderService{
 		return orderDao.orderStateList();
 	}
 
-
-	@Override
-	public Map<String, Object> adminOrderList(SearchOption searchOption, int curPage) {
-		// TODO Auto-generated method stub
-		
-		Map<String, Object> map = new HashMap<String, Object>();
-		
-		int totalCount = orderDao.adminOrderCount(searchOption);
-		
-		Paging paging = new Paging(totalCount, curPage);
-		
-		int begin = paging.getPageBegin();
-		int end = paging.getPageEnd();
-		
-		List<OrderDto> orderList = orderDao.adminOrderList(begin, end, searchOption);
-		
-		map.put("paging", paging);
-		map.put("orderList", orderList);
-		
-		return map;
-	}
 
 	@Override
 	public void orderAccept(int orderNo) {
