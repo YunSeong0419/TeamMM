@@ -37,11 +37,6 @@
 ## 4. ERD설계
 <pre>
    <code>
-   ```css
-pre {
-    backgeound-clor = "#fff"
-}
-```
 <img src="./ProjectImg/ERMaster.png" width="950px" height="500px" alt="ERM"></img>   
    </code>
 </pre>
