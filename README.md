@@ -37,7 +37,7 @@
 ## 4. ERD설계
 <pre>
    <code>
-<img src="./ProjectImg/ERMaster.png" width="1200px" height="500px" alt="ERM"></img>   
+<img src="./ProjectImg/ERMaster.png" width="1100px" height="500px" alt="ERM"></img>   
    </code>
 </pre>
 ## 5. 완성된 화면
