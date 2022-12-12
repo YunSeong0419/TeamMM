@@ -35,6 +35,7 @@
 * AJAX
 
 ## 4. ERD설계
+![ERM](./ProjectImg/image.png)
 <pre>
    <code>
 <img src="../ProjectImg/ERMster.png" width="500px" height="300px" alt="ERM"></img>   
