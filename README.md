@@ -48,11 +48,11 @@
    <code>
       <details open>
      		<summary>로그인 화면</summary><br>
-         <img src="./ProjectImg/login.png" width="750px" height="500px" alt="login"></img>  
+         <img src="./ProjectImg/login.png" width="350px" height="500px" alt="login"></img>  
      	</details>
      	<details open>
      		<summary>회원가입 화면</summary><br>
-         <img src="./ProjectImg/signUp.png" width="750px"  height="500px" alt="signUp"></img>  
+         <img src="./ProjectImg/signUp.png" width="250px"  height="500px" alt="signUp"></img>  
      	</details>
      	<details open>
      		<summary>메인화면 화면</summary><br>
