@@ -38,7 +38,7 @@
 ![ERM](./ProjectImg/image.png)
 <pre>
    <code>
-<img src="/TeamMM/ProjectImg/ERMster.png" width="500px" height="300px" alt="ERM"></img>   
+<img src="./ProjectImg/ERMaster.png" width="500px" height="300px" alt="ERM"></img>   
    </code>
 </pre>
 ## 5. 완성된 화면
