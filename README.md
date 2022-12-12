@@ -45,63 +45,63 @@
    <code>
       <details open>
      		<summary>로그인 화면</summary><br>
-         <img src="./ProjectImg/login.png" width="550px" height="320px" alt="login"></img>  
+         <img src="./ProjectImg/login.png" height="500px" alt="login"></img>  
      	</details>
      	<details open>
      		<summary>회원가입 화면</summary><br>
-         <img src="./ProjectImg/signUp.png" width="550px" height="320px" alt="signUp"></img>  
+         <img src="./ProjectImg/signUp.png" height="500px" alt="signUp"></img>  
      	</details>
      	<details open>
      		<summary>메인화면 화면</summary><br>
-         <img src="./ProjectImg/main.png" width="550px" height="320px" alt="main"></img>  
+         <img src="./ProjectImg/main.png" height="500px" alt="main"></img>  
      	</details>
      	<details open>
      		<summary>밀키트 화면</summary><br>
-         <img src="./ProjectImg/mealKit.png" width="550px" height="320px" alt="mealKit"></img>  
+         <img src="./ProjectImg/mealKit.png" height="500px" alt="mealKit"></img>  
      	</details>
      	<details open>
      		<summary>밀키트 상세 화면</summary><br>
-         <img src="./ProjectImg/mealKitDetail.png" width="550px" height="320px" alt="login"></img>  
+         <img src="./ProjectImg/mealKitDetail.png" height="500px" alt="login"></img>  
      	</details>
      	<details open>
      		<summary>주문 화면</summary><br>
-         <img src="./ProjectImg/order.png" width="550px" height="320px" alt="order"></img>  
+         <img src="./ProjectImg/order.png" height="500px" alt="order"></img>  
      	</details>
      	<details open>
      		<summary>랭킹 화면</summary><br>
-         <img src="./ProjectImg/ERMaster.png" width="550px" height="320px" alt="login"></img>  
+         <img src="./ProjectImg/Ranking.png" height="500px" alt="login"></img>  
      	</details>
      	<details open>
      		<summary>리뷰 화면</summary><br>
-         <img src="./ProjectImg/ranking.png" width="550px" height="320px" alt="ranking"></img>  
+         <img src="./ProjectImg/ranking.png" height="500px" alt="ranking"></img>  
      	</details>
      	<details open>
      		<summary>공지 화면</summary><br>
-         <img src="./ProjectImg/notice.png" width="550px" height="320px" alt="notice"></img>  
+         <img src="./ProjectImg/notice.png" height="500px" alt="notice"></img>  
      	</details>
      	<details open>
      		<summary>즐겨찾기 화면</summary><br>
-         <img src="./ProjectImg/favorites.png" width="550px" height="320px" alt="favorites"></img>  
+         <img src="./ProjectImg/favorites.png" height="500px" alt="favorites"></img>  
      	</details>
      	<details open>
      		<summary>장바구니 화면</summary><br>
-         <img src="./ProjectImg/shoppingBasket.png" width="550px" height="320px" alt="shoppingBasket"></img>  
+         <img src="./ProjectImg/shoppingBasket.png "height="500px" alt="shoppingBasket"></img>  
      	</details>
      	<details open>
      		<summary>캐시 화면</summary><br>
-         <img src="./ProjectImg/csah.png" width="550px" height="320px" alt="csah"></img>  
+         <img src="./ProjectImg/cash.png" height="500px" alt="csah"></img>  
      	</details> 
         	<details open>
      		<summary>문의 화면</summary><br>
-         <img src="./ProjectImg/notice.png" width="550px" height="320px" alt="notice"></img>  
+         <img src="./ProjectImg/notice.png" height="500px" alt="notice"></img>  
      	</details> 
         	<details open>
      		<summary>관리자 홈 화면</summary><br>
-         <img src="./ProjectImg/adminHome.png" width="550px" height="320px" alt="adminHome"></img>  
+         <img src="./ProjectImg/adminHome.png" height="500px" alt="adminHome"></img>  
      	</details> 
         	<details open>
      		<summary>매출 관리 화면</summary><br>
-         <img src="./ProjectImg/sales.png" width="550px" height="320px" alt="sales"></img>  
+         <img src="./ProjectImg/sales.png" height="500px"" alt="sales"></img>  
      	</details> 
    </code>
 </pre>
