@@ -80,7 +80,7 @@
      	</details>
      	<details open>
      		<summary>공지 화면</summary><br>
-         <img src="./ProjectImg/inquiry.png" width="750px"  height="500px" alt="notice"></img>  
+         <img src="./ProjectImg/notice.png" width="750px"  height="500px" alt="notice"></img>  
      	</details>
      	<details open>
      		<summary>즐겨찾기 화면</summary><br>
@@ -96,7 +96,7 @@
      	</details> 
         	<details open>
      		<summary>문의 화면</summary><br>
-         <img src="./ProjectImg/notice.png" width="750px"  height="500px" alt="notice"></img>  
+         <img src="./ProjectImg/inquiry.png" width="750px"  height="500px" alt="notice"></img>  
      	</details> 
         	<details open>
      		<summary>관리자 홈 화면</summary><br>
